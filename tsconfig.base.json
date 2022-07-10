@@ -1,0 +1,29 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@gwide/api/data-access-db": ["libs/api/data-access-db/src/index.ts"],
+      "@gwide/api/generated/db-types": ["libs/api/generated/db-types/src/index.ts"],
+      "@gwide/client/data-access/graphql-types": [
+        "libs/client/data-access/graphql-types/src/index.ts"
+      ],
+      "@gwide/client/generated/graphql-types": [
+        "libs/client/generated/graphql-types/src/index.ts"
+      ]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
