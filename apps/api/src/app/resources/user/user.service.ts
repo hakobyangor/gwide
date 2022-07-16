@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common'
 import { DbService } from '@gwide/api/data-access-db'
 import {
   CreateOneUserArgs,
-  FindManyUserArgs,
   FindUniqueUserArgs,
   UpdateOneUserArgs,
   UserWhereInput
@@ -56,8 +55,8 @@ export class UserService {
         }
       },
       where: {
-        ...findUserArguments
-        // role: UserRole.GUIDE
+        ...findUserArguments,
+        role: UserRole.GUIDE
       }
     })
   }
