@@ -1,10 +1,11 @@
 import { gql } from 'urql'
 
 const SIGN_UP = gql`
-  mutation SignUp($args: LoginInput!) {
+  mutation SignUp($args: RegisterInput!) {
     signUp(signUpInput: $args) {
       id
-      name
+      firstName
+      lastName
       email
     }
   }
@@ -14,7 +15,8 @@ const LOGIN = gql`
   mutation Login($args: LoginInput!) {
     login(loginInput: $args) {
       id
-      name
+      firstName
+      lastName
       email
     }
   }

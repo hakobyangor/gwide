@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common'
 import { UserService } from '../user/user.service'
-import { LoginInput } from './dto/login.input'
 
 import * as bcrypt from 'bcrypt'
 import { User } from '@gwide/api/generated/db-types'
+import { RegisterInput } from './dto/register.input'
 
 @Injectable()
 export class AuthenticationService {
@@ -23,10 +23,10 @@ export class AuthenticationService {
     return user
   }
 
-  async signUp(signUpInput: LoginInput) {
-    const { email, password: plainPassword } = signUpInput
+  async signUp(signUpInput: RegisterInput) {
+    const { email, password: plainPassword, firstName, lastName, role } = signUpInput
     const password = await bcrypt.hash(plainPassword, 10)
 
-    return this.userService.create({ data: { email, password } })
+    return this.userService.create({ data: { email, password, firstName, lastName, role } })
   }
 }

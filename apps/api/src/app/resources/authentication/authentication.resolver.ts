@@ -5,6 +5,7 @@ import { LoginInput } from './dto/login.input'
 import { SetAuthGuard } from '../../guards/auth-guards/set-auth.guard'
 import { UseGuards } from '@nestjs/common'
 import { IUserContext } from '../../guards/auth-guards/types'
+import { RegisterInput } from './dto/register.input'
 
 @Resolver(() => User)
 export class AuthenticationResolver {
@@ -19,7 +20,7 @@ export class AuthenticationResolver {
   }
 
   @Mutation(() => User)
-  signUp(@Args('signUpInput') signUpInput: LoginInput) {
+  signUp(@Args('signUpInput') signUpInput: RegisterInput) {
     return this.authenticationService.signUp(signUpInput)
   }
 }

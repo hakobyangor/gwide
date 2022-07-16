@@ -2,6 +2,7 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { UserService } from './user.service'
 import {
   CreateOneUserArgs,
+  FindManyUserArgs,
   FindUniqueUserArgs,
   UpdateOneUserArgs,
   User
@@ -41,5 +42,11 @@ export class UserResolver {
   @Mutation(() => User)
   removeUser(@Args() removeUserArguments: FindUniqueUserArgs) {
     return this.userService.remove(removeUserArguments)
+  }
+
+  @UseGuards(CheckAuthGuard)
+  @Query(() => [User])
+  getGuides(@Args() findUserArguments: FindManyUserArgs) {
+    return this.userService.findGuides(findUserArguments.where)
   }
 }

@@ -4,25 +4,26 @@ import { gql } from 'urql';
 import * as Urql from 'urql';
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type SignUpMutationVariables = Types.Exact<{
-  args: Types.LoginInput;
+  args: Types.RegisterInput;
 }>;
 
 
-export type SignUpMutation = { __typename?: 'Mutation', signUp: { __typename?: 'User', id: string, name?: string | null, email: string } };
+export type SignUpMutation = { __typename?: 'Mutation', signUp: { __typename?: 'User', id: string, firstName: string, lastName: string, email: string } };
 
 export type LoginMutationVariables = Types.Exact<{
   args: Types.LoginInput;
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'User', id: string, name?: string | null, email: string } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'User', id: string, firstName: string, lastName: string, email: string } };
 
 
 export const SignUpDocument = gql`
-    mutation SignUp($args: LoginInput!) {
+    mutation SignUp($args: RegisterInput!) {
   signUp(signUpInput: $args) {
     id
-    name
+    firstName
+    lastName
     email
   }
 }
@@ -35,7 +36,8 @@ export const LoginDocument = gql`
     mutation Login($args: LoginInput!) {
   login(loginInput: $args) {
     id
-    name
+    firstName
+    lastName
     email
   }
 }

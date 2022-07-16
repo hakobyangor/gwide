@@ -8,18 +8,19 @@ export type GetUserQueryVariables = Types.Exact<{
 }>;
 
 
-export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'User', name?: string | null, email: string } };
+export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'User', firstName: string, lastName: string, email: string } };
 
 export type GetUsersQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GetUsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: string, name?: string | null, email: string }> };
+export type GetUsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: string, firstName: string, lastName: string, email: string }> };
 
 
 export const GetUserDocument = gql`
     query GetUser($args: UserWhereUniqueInput!) {
   user(where: $args) {
-    name
+    firstName
+    lastName
     email
   }
 }
@@ -32,7 +33,8 @@ export const GetUsersDocument = gql`
     query GetUsers {
   users {
     id
-    name
+    firstName
+    lastName
     email
   }
 }

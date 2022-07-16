@@ -2,9 +2,12 @@ import { Injectable } from '@nestjs/common'
 import { DbService } from '@gwide/api/data-access-db'
 import {
   CreateOneUserArgs,
+  FindManyUserArgs,
   FindUniqueUserArgs,
-  UpdateOneUserArgs
+  UpdateOneUserArgs,
+  UserWhereInput
 } from '@gwide/api/generated/db-types'
+import { UserRole } from '@prisma/client'
 
 @Injectable()
 export class UserService {
@@ -15,7 +18,48 @@ export class UserService {
   }
 
   findAll() {
-    return this.database.user.findMany()
+    return this.database.user.findMany({
+      include: {
+        country: true,
+        _count: {
+          select: {
+            GuideGuideCategory: true
+          }
+        }
+      }
+    })
+  }
+
+  findGuides(findUserArguments: UserWhereInput) {
+    return this.database.user.findMany({
+      include: {
+        country: {},
+        GuideLanguages: {
+          include: {
+            language: {}
+          }
+        },
+        GuideGuideCategory: {
+          include: {
+            guideCategory: true
+          }
+        },
+        GuideCity: {
+          include: {
+            city: true
+          }
+        },
+        _count: {
+          select: {
+            GuideGuideCategory: true
+          }
+        }
+      },
+      where: {
+        ...findUserArguments
+        // role: UserRole.GUIDE
+      }
+    })
   }
 
   create(userCreateArguments: CreateOneUserArgs) {

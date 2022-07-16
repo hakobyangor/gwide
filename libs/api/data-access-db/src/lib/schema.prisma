@@ -8,39 +8,180 @@ datasource db {
 }
 
 generator nestgraphql {
-    provider                = "node node_modules/prisma-nestjs-graphql"
-    output                  = "../../../generated/db-types/src"
-    purgeOutput                   = false
-    combineScalarFilters          = true
-    emitSingle                    = true
-    noAtomicOperations            = true
-    // field validator
-    fields_Validator_input        = true
-    fields_Validator_output       = true
-    fields_Validator_model        = true
-    fields_Validator_from         = "class-validator"
-    // Args where|data nested validator
-    decorate_1_type               = "*Args"
-    decorate_1_field              = "@(data|where)"
-    decorate_1_name               = ValidateNested
-    decorate_1_from               = "class-validator"
-    decorate_1_arguments          = "['{ each: true }']"
+  provider                = "node node_modules/prisma-nestjs-graphql"
+  output                  = "../../../generated/db-types/src"
+  purgeOutput             = false
+  combineScalarFilters    = true
+  emitSingle              = true
+  noAtomicOperations      = true
+  // field validator
+  fields_Validator_input  = true
+  fields_Validator_output = true
+  fields_Validator_model  = true
+  fields_Validator_from   = "class-validator"
+  // Args where|data nested validator
+  decorate_1_type         = "*Args"
+  decorate_1_field        = "@(data|where)"
+  decorate_1_name         = ValidateNested
+  decorate_1_from         = "class-validator"
+  decorate_1_arguments    = "['{ each: true }']"
+}
+
+enum UserRole {
+  USER
+  ADMIN
+  GUIDE
+}
+
+enum Status {
+  ACTIVE
+  PENDING
+  DRAFT
+  INACTIVE
+  BLOCKED
+}
+
+enum YesNo {
+  YES
+  NO
 }
 
 model User {
-    id    Int     @id @default(autoincrement())
+  id Int @id @default(autoincrement())
 
-    /// @Validator.IsEmail()
-    email String  @unique
+  /// @Validator.IsEmail()
+  email String @unique
 
-    /// @Validator.IsString()
-    /// @Validator.MaxLength(100)
-    /// @Validator.MinLength(3)
-    name  String?
+  /// @Validator.IsString()
+  /// @Validator.MaxLength(100)
+  /// @Validator.MinLength(3)
+  firstName String
 
-    /// @Validator.IsString()
-    /// @Validator.MaxLength(100)
-    /// @Validator.MinLength(8)
-    /// @HideField()
-    password String
-  }
+  /// @Validator.IsString()
+  /// @Validator.MaxLength(100)
+  /// @Validator.MinLength(3)
+  lastName String
+
+  /// @Validator.IsString()
+  /// @Validator.MaxLength(100)
+  /// @Validator.MinLength(8)
+  /// @HideField()
+  password String
+
+  /// @Validator.IsString()
+  status Status @default(PENDING)
+
+  /// @Validator.IsString()
+  image String?
+
+  country   Country? @relation(fields: [countryId], references: [id])
+  countryId Int?
+
+  /// @Validator.IsString()
+  role UserRole
+
+  /// @Validator.IsString()
+  bio String?
+
+  /// @Validator.IsString()
+  hash String?
+
+  rating Float? @default(5)
+
+  isVerified YesNo @default(NO)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  GuideGuideCategory GuideGuideCategory[]
+  GuideCity          GuideCity[]
+  GuideLanguages     GuideLanguages[]
+}
+
+model City {
+  id Int @id @default(autoincrement())
+
+  /// @Validator.IsString()
+  name String
+
+  /// @Validator.IsString()
+  status Status @default(ACTIVE)
+
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  GuideCity      GuideCity[]
+  GuideLanguages GuideLanguages[]
+}
+
+model Country {
+  id Int @id @default(autoincrement())
+
+  /// @Validator.IsString()
+  name String
+
+  /// @Validator.IsString()
+  status Status @default(ACTIVE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  User      User[]
+}
+
+model GuideCategory {
+  id Int @id @default(autoincrement())
+
+  /// @Validator.IsString()
+  name   String
+  status Status @default(ACTIVE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  GuideGuideCategory GuideGuideCategory[]
+}
+
+model GuideGuideCategory {
+  status          Status        @default(ACTIVE)
+  user            User          @relation(fields: [userId], references: [id])
+  userId          Int
+  guideCategory   GuideCategory @relation(fields: [guideCategoryId], references: [id])
+  guideCategoryId Int
+
+  @@id([userId, guideCategoryId])
+}
+
+model GuideCity {
+  status Status @default(ACTIVE)
+  user   User   @relation(fields: [userId], references: [id])
+  userId Int
+  city   City   @relation(fields: [cityId], references: [id])
+  cityId Int
+
+  @@id([userId, cityId])
+}
+
+model Languages {
+  id Int @id @default(autoincrement())
+
+  /// @Validator.IsString()
+  name String
+
+  /// @Validator.IsString()
+  status Status @default(ACTIVE)
+
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  GuideLanguages GuideLanguages[]
+}
+
+model GuideLanguages {
+  status     Status    @default(ACTIVE)
+  user       User      @relation(fields: [userId], references: [id])
+  userId     Int
+  language   Languages @relation(fields: [languageId], references: [id])
+  languageId Int
+
+  @@id([userId, languageId])
+  City   City? @relation(fields: [cityId], references: [id])
+  cityId Int?
+}
