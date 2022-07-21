@@ -4,11 +4,12 @@ import {
   CreateOneUserArgs,
   FindManyUserArgs,
   FindUniqueUserArgs,
-  UpdateOneUserArgs,
-  User
+  User,
+  UserWhereUniqueInput
 } from '@gwide/api/generated/db-types'
 import { UseGuards } from '@nestjs/common'
 import { CheckAuthGuard } from '../../guards/auth-guards/check-auth.guard'
+import { UpdateUserInput } from './dto/update-user.input'
 
 @Resolver(() => User)
 export class UserResolver {
@@ -34,8 +35,8 @@ export class UserResolver {
 
   @UseGuards(CheckAuthGuard)
   @Mutation(() => User)
-  updateUser(@Args() userUpdateInput: UpdateOneUserArgs) {
-    return this.userService.update(userUpdateInput)
+  updateUser(@Args('where') where: UserWhereUniqueInput, @Args('data') data: UpdateUserInput) {
+    return this.userService.update({ data, where })
   }
 
   @UseGuards(CheckAuthGuard)

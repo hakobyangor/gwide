@@ -7,6 +7,7 @@ import {
   UserWhereInput
 } from '@gwide/api/generated/db-types'
 import { UserRole } from '@prisma/client'
+import * as bcrypt from 'bcrypt'
 
 @Injectable()
 export class UserService {
@@ -45,12 +46,16 @@ export class UserService {
         },
         GuideCity: {
           include: {
-            city: true
+            city: {
+              include: { country: true }
+            }
           }
         },
         _count: {
           select: {
-            GuideGuideCategory: true
+            GuideGuideCategory: true,
+            GuideCity: true,
+            GuideLanguages: true
           }
         }
       },
@@ -65,7 +70,10 @@ export class UserService {
     return this.database.user.create(userCreateArguments)
   }
 
-  update(userUpdateInput: UpdateOneUserArgs) {
+  async update(userUpdateInput: UpdateOneUserArgs) {
+    if (userUpdateInput.data.password) {
+      userUpdateInput.data.password = await bcrypt.hash(userUpdateInput.data.password, 10)
+    }
     return this.database.user.update(userUpdateInput)
   }
 

@@ -105,6 +105,7 @@ export enum CityScalarFieldEnum {
     id = "id",
     name = "name",
     status = "status",
+    countryId = "countryId",
     createdAt = "createdAt",
     updatedAt = "updatedAt"
 }
@@ -167,18 +168,24 @@ export class CityAggregateArgs {
 export class CityAvgAggregateInput {
     @Field(() => Boolean, {nullable:true})
     id?: true;
+    @Field(() => Boolean, {nullable:true})
+    countryId?: true;
 }
 
 @ObjectType()
 export class CityAvgAggregate {
     @Field(() => Float, {nullable:true})
     id?: number;
+    @Field(() => Float, {nullable:true})
+    countryId?: number;
 }
 
 @InputType()
 export class CityAvgOrderByAggregateInput {
     @Field(() => SortOrder, {nullable:true})
     id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    countryId?: keyof typeof SortOrder;
 }
 
 @InputType()
@@ -189,6 +196,8 @@ export class CityCountAggregateInput {
     name?: true;
     @Field(() => Boolean, {nullable:true})
     status?: true;
+    @Field(() => Boolean, {nullable:true})
+    countryId?: true;
     @Field(() => Boolean, {nullable:true})
     createdAt?: true;
     @Field(() => Boolean, {nullable:true})
@@ -206,6 +215,8 @@ export class CityCountAggregate {
     @Field(() => Int, {nullable:false})
     status!: number;
     @Field(() => Int, {nullable:false})
+    countryId!: number;
+    @Field(() => Int, {nullable:false})
     createdAt!: number;
     @Field(() => Int, {nullable:false})
     updatedAt!: number;
@@ -222,6 +233,8 @@ export class CityCountOrderByAggregateInput {
     @Field(() => SortOrder, {nullable:true})
     status?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
+    countryId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
     createdAt?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     updatedAt?: keyof typeof SortOrder;
@@ -236,7 +249,16 @@ export class CityCount {
 }
 
 @InputType()
-export class CityCreateManyInput {
+export class CityCreateManyCountryInputEnvelope {
+    @Field(() => [CityCreateManyCountryInput], {nullable:false})
+    @Type(() => CityCreateManyCountryInput)
+    data!: Array<CityCreateManyCountryInput>;
+    @Field(() => Boolean, {nullable:true})
+    skipDuplicates?: boolean;
+}
+
+@InputType()
+export class CityCreateManyCountryInput {
     @Field(() => Int, {nullable:true})
     id?: number;
     @Field(() => String, {nullable:false})
@@ -249,6 +271,40 @@ export class CityCreateManyInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+}
+
+@InputType()
+export class CityCreateManyInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    countryId!: number;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class CityCreateNestedManyWithoutCountryInput {
+    @Field(() => [CityCreateWithoutCountryInput], {nullable:true})
+    @Type(() => CityCreateWithoutCountryInput)
+    create?: Array<CityCreateWithoutCountryInput>;
+    @Field(() => [CityCreateOrConnectWithoutCountryInput], {nullable:true})
+    @Type(() => CityCreateOrConnectWithoutCountryInput)
+    connectOrCreate?: Array<CityCreateOrConnectWithoutCountryInput>;
+    @Field(() => CityCreateManyCountryInputEnvelope, {nullable:true})
+    @Type(() => CityCreateManyCountryInputEnvelope)
+    createMany?: InstanceType<typeof CityCreateManyCountryInputEnvelope>;
+    @Field(() => [CityWhereUniqueInput], {nullable:true})
+    @Type(() => CityWhereUniqueInput)
+    connect?: Array<CityWhereUniqueInput>;
 }
 
 @InputType()
@@ -278,6 +334,16 @@ export class CityCreateNestedOneWithoutGuideLanguagesInput {
 }
 
 @InputType()
+export class CityCreateOrConnectWithoutCountryInput {
+    @Field(() => CityWhereUniqueInput, {nullable:false})
+    @Type(() => CityWhereUniqueInput)
+    where!: InstanceType<typeof CityWhereUniqueInput>;
+    @Field(() => CityCreateWithoutCountryInput, {nullable:false})
+    @Type(() => CityCreateWithoutCountryInput)
+    create!: InstanceType<typeof CityCreateWithoutCountryInput>;
+}
+
+@InputType()
 export class CityCreateOrConnectWithoutGuideCityInput {
     @Field(() => CityWhereUniqueInput, {nullable:false})
     @Type(() => CityWhereUniqueInput)
@@ -298,6 +364,24 @@ export class CityCreateOrConnectWithoutGuideLanguagesInput {
 }
 
 @InputType()
+export class CityCreateWithoutCountryInput {
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => GuideCityCreateNestedManyWithoutCityInput, {nullable:true})
+    GuideCity?: InstanceType<typeof GuideCityCreateNestedManyWithoutCityInput>;
+    @Field(() => GuideLanguagesCreateNestedManyWithoutCityInput, {nullable:true})
+    GuideLanguages?: InstanceType<typeof GuideLanguagesCreateNestedManyWithoutCityInput>;
+}
+
+@InputType()
 export class CityCreateWithoutGuideCityInput {
     @Field(() => String, {nullable:false})
     @Validator.IsString()
@@ -305,6 +389,8 @@ export class CityCreateWithoutGuideCityInput {
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof Status;
+    @Field(() => CountryCreateNestedOneWithoutCityInput, {nullable:false})
+    country!: InstanceType<typeof CountryCreateNestedOneWithoutCityInput>;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -321,6 +407,8 @@ export class CityCreateWithoutGuideLanguagesInput {
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof Status;
+    @Field(() => CountryCreateNestedOneWithoutCityInput, {nullable:false})
+    country!: InstanceType<typeof CountryCreateNestedOneWithoutCityInput>;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -337,6 +425,8 @@ export class CityCreateInput {
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof Status;
+    @Field(() => CountryCreateNestedOneWithoutCityInput, {nullable:false})
+    country!: InstanceType<typeof CountryCreateNestedOneWithoutCityInput>;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -385,6 +475,8 @@ export class CityGroupBy {
     @Field(() => Status, {nullable:false})
     @Validator.IsString()
     status!: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    countryId!: number;
     @Field(() => Date, {nullable:false})
     createdAt!: Date | string;
     @Field(() => Date, {nullable:false})
@@ -402,6 +494,16 @@ export class CityGroupBy {
 }
 
 @InputType()
+export class CityListRelationFilter {
+    @Field(() => CityWhereInput, {nullable:true})
+    every?: InstanceType<typeof CityWhereInput>;
+    @Field(() => CityWhereInput, {nullable:true})
+    some?: InstanceType<typeof CityWhereInput>;
+    @Field(() => CityWhereInput, {nullable:true})
+    none?: InstanceType<typeof CityWhereInput>;
+}
+
+@InputType()
 export class CityMaxAggregateInput {
     @Field(() => Boolean, {nullable:true})
     id?: true;
@@ -409,6 +511,8 @@ export class CityMaxAggregateInput {
     name?: true;
     @Field(() => Boolean, {nullable:true})
     status?: true;
+    @Field(() => Boolean, {nullable:true})
+    countryId?: true;
     @Field(() => Boolean, {nullable:true})
     createdAt?: true;
     @Field(() => Boolean, {nullable:true})
@@ -425,6 +529,8 @@ export class CityMaxAggregate {
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    countryId?: number;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -440,6 +546,8 @@ export class CityMaxOrderByAggregateInput {
     @Field(() => SortOrder, {nullable:true})
     status?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
+    countryId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
     createdAt?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     updatedAt?: keyof typeof SortOrder;
@@ -453,6 +561,8 @@ export class CityMinAggregateInput {
     name?: true;
     @Field(() => Boolean, {nullable:true})
     status?: true;
+    @Field(() => Boolean, {nullable:true})
+    countryId?: true;
     @Field(() => Boolean, {nullable:true})
     createdAt?: true;
     @Field(() => Boolean, {nullable:true})
@@ -469,6 +579,8 @@ export class CityMinAggregate {
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    countryId?: number;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -484,9 +596,17 @@ export class CityMinOrderByAggregateInput {
     @Field(() => SortOrder, {nullable:true})
     status?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
+    countryId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
     createdAt?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     updatedAt?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class CityOrderByRelationAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    _count?: keyof typeof SortOrder;
 }
 
 @InputType()
@@ -497,6 +617,8 @@ export class CityOrderByWithAggregationInput {
     name?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    countryId?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     createdAt?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
@@ -521,6 +643,10 @@ export class CityOrderByWithRelationInput {
     name?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     status?: keyof typeof SortOrder;
+    @Field(() => CountryOrderByWithRelationInput, {nullable:true})
+    country?: InstanceType<typeof CountryOrderByWithRelationInput>;
+    @Field(() => SortOrder, {nullable:true})
+    countryId?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     createdAt?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
@@ -553,6 +679,8 @@ export class CityScalarWhereWithAggregatesInput {
     name?: InstanceType<typeof StringWithAggregatesFilter>;
     @Field(() => EnumStatusWithAggregatesFilter, {nullable:true})
     status?: InstanceType<typeof EnumStatusWithAggregatesFilter>;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    countryId?: InstanceType<typeof IntWithAggregatesFilter>;
     @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeWithAggregatesFilter>;
     @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
@@ -560,21 +688,85 @@ export class CityScalarWhereWithAggregatesInput {
 }
 
 @InputType()
+export class CityScalarWhereInput {
+    @Field(() => [CityScalarWhereInput], {nullable:true})
+    AND?: Array<CityScalarWhereInput>;
+    @Field(() => [CityScalarWhereInput], {nullable:true})
+    OR?: Array<CityScalarWhereInput>;
+    @Field(() => [CityScalarWhereInput], {nullable:true})
+    NOT?: Array<CityScalarWhereInput>;
+    @Field(() => IntFilter, {nullable:true})
+    id?: InstanceType<typeof IntFilter>;
+    @Field(() => StringFilter, {nullable:true})
+    name?: InstanceType<typeof StringFilter>;
+    @Field(() => EnumStatusFilter, {nullable:true})
+    status?: InstanceType<typeof EnumStatusFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    countryId?: InstanceType<typeof IntFilter>;
+    @Field(() => DateTimeFilter, {nullable:true})
+    createdAt?: InstanceType<typeof DateTimeFilter>;
+    @Field(() => DateTimeFilter, {nullable:true})
+    updatedAt?: InstanceType<typeof DateTimeFilter>;
+}
+
+@InputType()
 export class CitySumAggregateInput {
     @Field(() => Boolean, {nullable:true})
     id?: true;
+    @Field(() => Boolean, {nullable:true})
+    countryId?: true;
 }
 
 @ObjectType()
 export class CitySumAggregate {
     @Field(() => Int, {nullable:true})
     id?: number;
+    @Field(() => Int, {nullable:true})
+    countryId?: number;
 }
 
 @InputType()
 export class CitySumOrderByAggregateInput {
     @Field(() => SortOrder, {nullable:true})
     id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    countryId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class CityUncheckedCreateNestedManyWithoutCountryInput {
+    @Field(() => [CityCreateWithoutCountryInput], {nullable:true})
+    @Type(() => CityCreateWithoutCountryInput)
+    create?: Array<CityCreateWithoutCountryInput>;
+    @Field(() => [CityCreateOrConnectWithoutCountryInput], {nullable:true})
+    @Type(() => CityCreateOrConnectWithoutCountryInput)
+    connectOrCreate?: Array<CityCreateOrConnectWithoutCountryInput>;
+    @Field(() => CityCreateManyCountryInputEnvelope, {nullable:true})
+    @Type(() => CityCreateManyCountryInputEnvelope)
+    createMany?: InstanceType<typeof CityCreateManyCountryInputEnvelope>;
+    @Field(() => [CityWhereUniqueInput], {nullable:true})
+    @Type(() => CityWhereUniqueInput)
+    connect?: Array<CityWhereUniqueInput>;
+}
+
+@InputType()
+export class CityUncheckedCreateWithoutCountryInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => GuideCityUncheckedCreateNestedManyWithoutCityInput, {nullable:true})
+    GuideCity?: InstanceType<typeof GuideCityUncheckedCreateNestedManyWithoutCityInput>;
+    @Field(() => GuideLanguagesUncheckedCreateNestedManyWithoutCityInput, {nullable:true})
+    GuideLanguages?: InstanceType<typeof GuideLanguagesUncheckedCreateNestedManyWithoutCityInput>;
 }
 
 @InputType()
@@ -587,6 +779,8 @@ export class CityUncheckedCreateWithoutGuideCityInput {
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    countryId!: number;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -605,6 +799,8 @@ export class CityUncheckedCreateWithoutGuideLanguagesInput {
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    countryId!: number;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -623,6 +819,8 @@ export class CityUncheckedCreateInput {
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    countryId!: number;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -631,6 +829,59 @@ export class CityUncheckedCreateInput {
     GuideCity?: InstanceType<typeof GuideCityUncheckedCreateNestedManyWithoutCityInput>;
     @Field(() => GuideLanguagesUncheckedCreateNestedManyWithoutCityInput, {nullable:true})
     GuideLanguages?: InstanceType<typeof GuideLanguagesUncheckedCreateNestedManyWithoutCityInput>;
+}
+
+@InputType()
+export class CityUncheckedUpdateManyWithoutCityInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class CityUncheckedUpdateManyWithoutCountryInput {
+    @Field(() => [CityCreateWithoutCountryInput], {nullable:true})
+    @Type(() => CityCreateWithoutCountryInput)
+    create?: Array<CityCreateWithoutCountryInput>;
+    @Field(() => [CityCreateOrConnectWithoutCountryInput], {nullable:true})
+    @Type(() => CityCreateOrConnectWithoutCountryInput)
+    connectOrCreate?: Array<CityCreateOrConnectWithoutCountryInput>;
+    @Field(() => [CityUpsertWithWhereUniqueWithoutCountryInput], {nullable:true})
+    @Type(() => CityUpsertWithWhereUniqueWithoutCountryInput)
+    upsert?: Array<CityUpsertWithWhereUniqueWithoutCountryInput>;
+    @Field(() => CityCreateManyCountryInputEnvelope, {nullable:true})
+    @Type(() => CityCreateManyCountryInputEnvelope)
+    createMany?: InstanceType<typeof CityCreateManyCountryInputEnvelope>;
+    @Field(() => [CityWhereUniqueInput], {nullable:true})
+    @Type(() => CityWhereUniqueInput)
+    set?: Array<CityWhereUniqueInput>;
+    @Field(() => [CityWhereUniqueInput], {nullable:true})
+    @Type(() => CityWhereUniqueInput)
+    disconnect?: Array<CityWhereUniqueInput>;
+    @Field(() => [CityWhereUniqueInput], {nullable:true})
+    @Type(() => CityWhereUniqueInput)
+    delete?: Array<CityWhereUniqueInput>;
+    @Field(() => [CityWhereUniqueInput], {nullable:true})
+    @Type(() => CityWhereUniqueInput)
+    connect?: Array<CityWhereUniqueInput>;
+    @Field(() => [CityUpdateWithWhereUniqueWithoutCountryInput], {nullable:true})
+    @Type(() => CityUpdateWithWhereUniqueWithoutCountryInput)
+    update?: Array<CityUpdateWithWhereUniqueWithoutCountryInput>;
+    @Field(() => [CityUpdateManyWithWhereWithoutCountryInput], {nullable:true})
+    @Type(() => CityUpdateManyWithWhereWithoutCountryInput)
+    updateMany?: Array<CityUpdateManyWithWhereWithoutCountryInput>;
+    @Field(() => [CityScalarWhereInput], {nullable:true})
+    @Type(() => CityScalarWhereInput)
+    deleteMany?: Array<CityScalarWhereInput>;
 }
 
 @InputType()
@@ -643,10 +894,32 @@ export class CityUncheckedUpdateManyInput {
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    countryId?: number;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+}
+
+@InputType()
+export class CityUncheckedUpdateWithoutCountryInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => GuideCityUncheckedUpdateManyWithoutCityInput, {nullable:true})
+    GuideCity?: InstanceType<typeof GuideCityUncheckedUpdateManyWithoutCityInput>;
+    @Field(() => GuideLanguagesUncheckedUpdateManyWithoutCityInput, {nullable:true})
+    GuideLanguages?: InstanceType<typeof GuideLanguagesUncheckedUpdateManyWithoutCityInput>;
 }
 
 @InputType()
@@ -659,6 +932,8 @@ export class CityUncheckedUpdateWithoutGuideCityInput {
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    countryId?: number;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -677,6 +952,8 @@ export class CityUncheckedUpdateWithoutGuideLanguagesInput {
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    countryId?: number;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -695,6 +972,8 @@ export class CityUncheckedUpdateInput {
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    countryId?: number;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -717,6 +996,53 @@ export class CityUpdateManyMutationInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+}
+
+@InputType()
+export class CityUpdateManyWithWhereWithoutCountryInput {
+    @Field(() => CityScalarWhereInput, {nullable:false})
+    @Type(() => CityScalarWhereInput)
+    where!: InstanceType<typeof CityScalarWhereInput>;
+    @Field(() => CityUpdateManyMutationInput, {nullable:false})
+    @Type(() => CityUpdateManyMutationInput)
+    data!: InstanceType<typeof CityUpdateManyMutationInput>;
+}
+
+@InputType()
+export class CityUpdateManyWithoutCountryInput {
+    @Field(() => [CityCreateWithoutCountryInput], {nullable:true})
+    @Type(() => CityCreateWithoutCountryInput)
+    create?: Array<CityCreateWithoutCountryInput>;
+    @Field(() => [CityCreateOrConnectWithoutCountryInput], {nullable:true})
+    @Type(() => CityCreateOrConnectWithoutCountryInput)
+    connectOrCreate?: Array<CityCreateOrConnectWithoutCountryInput>;
+    @Field(() => [CityUpsertWithWhereUniqueWithoutCountryInput], {nullable:true})
+    @Type(() => CityUpsertWithWhereUniqueWithoutCountryInput)
+    upsert?: Array<CityUpsertWithWhereUniqueWithoutCountryInput>;
+    @Field(() => CityCreateManyCountryInputEnvelope, {nullable:true})
+    @Type(() => CityCreateManyCountryInputEnvelope)
+    createMany?: InstanceType<typeof CityCreateManyCountryInputEnvelope>;
+    @Field(() => [CityWhereUniqueInput], {nullable:true})
+    @Type(() => CityWhereUniqueInput)
+    set?: Array<CityWhereUniqueInput>;
+    @Field(() => [CityWhereUniqueInput], {nullable:true})
+    @Type(() => CityWhereUniqueInput)
+    disconnect?: Array<CityWhereUniqueInput>;
+    @Field(() => [CityWhereUniqueInput], {nullable:true})
+    @Type(() => CityWhereUniqueInput)
+    delete?: Array<CityWhereUniqueInput>;
+    @Field(() => [CityWhereUniqueInput], {nullable:true})
+    @Type(() => CityWhereUniqueInput)
+    connect?: Array<CityWhereUniqueInput>;
+    @Field(() => [CityUpdateWithWhereUniqueWithoutCountryInput], {nullable:true})
+    @Type(() => CityUpdateWithWhereUniqueWithoutCountryInput)
+    update?: Array<CityUpdateWithWhereUniqueWithoutCountryInput>;
+    @Field(() => [CityUpdateManyWithWhereWithoutCountryInput], {nullable:true})
+    @Type(() => CityUpdateManyWithWhereWithoutCountryInput)
+    updateMany?: Array<CityUpdateManyWithWhereWithoutCountryInput>;
+    @Field(() => [CityScalarWhereInput], {nullable:true})
+    @Type(() => CityScalarWhereInput)
+    deleteMany?: Array<CityScalarWhereInput>;
 }
 
 @InputType()
@@ -762,6 +1088,34 @@ export class CityUpdateOneWithoutGuideLanguagesInput {
 }
 
 @InputType()
+export class CityUpdateWithWhereUniqueWithoutCountryInput {
+    @Field(() => CityWhereUniqueInput, {nullable:false})
+    @Type(() => CityWhereUniqueInput)
+    where!: InstanceType<typeof CityWhereUniqueInput>;
+    @Field(() => CityUpdateWithoutCountryInput, {nullable:false})
+    @Type(() => CityUpdateWithoutCountryInput)
+    data!: InstanceType<typeof CityUpdateWithoutCountryInput>;
+}
+
+@InputType()
+export class CityUpdateWithoutCountryInput {
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => GuideCityUpdateManyWithoutCityInput, {nullable:true})
+    GuideCity?: InstanceType<typeof GuideCityUpdateManyWithoutCityInput>;
+    @Field(() => GuideLanguagesUpdateManyWithoutCityInput, {nullable:true})
+    GuideLanguages?: InstanceType<typeof GuideLanguagesUpdateManyWithoutCityInput>;
+}
+
+@InputType()
 export class CityUpdateWithoutGuideCityInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
@@ -769,6 +1123,8 @@ export class CityUpdateWithoutGuideCityInput {
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof Status;
+    @Field(() => CountryUpdateOneRequiredWithoutCityInput, {nullable:true})
+    country?: InstanceType<typeof CountryUpdateOneRequiredWithoutCityInput>;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -785,6 +1141,8 @@ export class CityUpdateWithoutGuideLanguagesInput {
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof Status;
+    @Field(() => CountryUpdateOneRequiredWithoutCityInput, {nullable:true})
+    country?: InstanceType<typeof CountryUpdateOneRequiredWithoutCityInput>;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -801,6 +1159,8 @@ export class CityUpdateInput {
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof Status;
+    @Field(() => CountryUpdateOneRequiredWithoutCityInput, {nullable:true})
+    country?: InstanceType<typeof CountryUpdateOneRequiredWithoutCityInput>;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -809,6 +1169,19 @@ export class CityUpdateInput {
     GuideCity?: InstanceType<typeof GuideCityUpdateManyWithoutCityInput>;
     @Field(() => GuideLanguagesUpdateManyWithoutCityInput, {nullable:true})
     GuideLanguages?: InstanceType<typeof GuideLanguagesUpdateManyWithoutCityInput>;
+}
+
+@InputType()
+export class CityUpsertWithWhereUniqueWithoutCountryInput {
+    @Field(() => CityWhereUniqueInput, {nullable:false})
+    @Type(() => CityWhereUniqueInput)
+    where!: InstanceType<typeof CityWhereUniqueInput>;
+    @Field(() => CityUpdateWithoutCountryInput, {nullable:false})
+    @Type(() => CityUpdateWithoutCountryInput)
+    update!: InstanceType<typeof CityUpdateWithoutCountryInput>;
+    @Field(() => CityCreateWithoutCountryInput, {nullable:false})
+    @Type(() => CityCreateWithoutCountryInput)
+    create!: InstanceType<typeof CityCreateWithoutCountryInput>;
 }
 
 @InputType()
@@ -851,6 +1224,10 @@ export class CityWhereInput {
     name?: InstanceType<typeof StringFilter>;
     @Field(() => EnumStatusFilter, {nullable:true})
     status?: InstanceType<typeof EnumStatusFilter>;
+    @Field(() => CountryRelationFilter, {nullable:true})
+    country?: InstanceType<typeof CountryRelationFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    countryId?: InstanceType<typeof IntFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
@@ -869,6 +1246,10 @@ export class City {
     name!: string;
     @Field(() => Status, {nullable:false,defaultValue:'ACTIVE'})
     status!: keyof typeof Status;
+    @Field(() => Country, {nullable:false})
+    country?: InstanceType<typeof Country>;
+    @Field(() => Int, {nullable:false})
+    countryId!: number;
     @Field(() => Date, {nullable:false})
     createdAt!: Date;
     @Field(() => Date, {nullable:false})
@@ -1105,6 +1486,8 @@ export class CountryCountOrderByAggregateInput {
 export class CountryCount {
     @Field(() => Int, {nullable:false})
     User?: number;
+    @Field(() => Int, {nullable:false})
+    City?: number;
 }
 
 @InputType()
@@ -1124,6 +1507,19 @@ export class CountryCreateManyInput {
 }
 
 @InputType()
+export class CountryCreateNestedOneWithoutCityInput {
+    @Field(() => CountryCreateWithoutCityInput, {nullable:true})
+    @Type(() => CountryCreateWithoutCityInput)
+    create?: InstanceType<typeof CountryCreateWithoutCityInput>;
+    @Field(() => CountryCreateOrConnectWithoutCityInput, {nullable:true})
+    @Type(() => CountryCreateOrConnectWithoutCityInput)
+    connectOrCreate?: InstanceType<typeof CountryCreateOrConnectWithoutCityInput>;
+    @Field(() => CountryWhereUniqueInput, {nullable:true})
+    @Type(() => CountryWhereUniqueInput)
+    connect?: InstanceType<typeof CountryWhereUniqueInput>;
+}
+
+@InputType()
 export class CountryCreateNestedOneWithoutUserInput {
     @Field(() => CountryCreateWithoutUserInput, {nullable:true})
     @Type(() => CountryCreateWithoutUserInput)
@@ -1137,6 +1533,16 @@ export class CountryCreateNestedOneWithoutUserInput {
 }
 
 @InputType()
+export class CountryCreateOrConnectWithoutCityInput {
+    @Field(() => CountryWhereUniqueInput, {nullable:false})
+    @Type(() => CountryWhereUniqueInput)
+    where!: InstanceType<typeof CountryWhereUniqueInput>;
+    @Field(() => CountryCreateWithoutCityInput, {nullable:false})
+    @Type(() => CountryCreateWithoutCityInput)
+    create!: InstanceType<typeof CountryCreateWithoutCityInput>;
+}
+
+@InputType()
 export class CountryCreateOrConnectWithoutUserInput {
     @Field(() => CountryWhereUniqueInput, {nullable:false})
     @Type(() => CountryWhereUniqueInput)
@@ -1144,6 +1550,22 @@ export class CountryCreateOrConnectWithoutUserInput {
     @Field(() => CountryCreateWithoutUserInput, {nullable:false})
     @Type(() => CountryCreateWithoutUserInput)
     create!: InstanceType<typeof CountryCreateWithoutUserInput>;
+}
+
+@InputType()
+export class CountryCreateWithoutCityInput {
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => UserCreateNestedManyWithoutCountryInput, {nullable:true})
+    User?: InstanceType<typeof UserCreateNestedManyWithoutCountryInput>;
 }
 
 @InputType()
@@ -1158,6 +1580,8 @@ export class CountryCreateWithoutUserInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+    @Field(() => CityCreateNestedManyWithoutCountryInput, {nullable:true})
+    City?: InstanceType<typeof CityCreateNestedManyWithoutCountryInput>;
 }
 
 @InputType()
@@ -1174,6 +1598,8 @@ export class CountryCreateInput {
     updatedAt?: Date | string;
     @Field(() => UserCreateNestedManyWithoutCountryInput, {nullable:true})
     User?: InstanceType<typeof UserCreateNestedManyWithoutCountryInput>;
+    @Field(() => CityCreateNestedManyWithoutCountryInput, {nullable:true})
+    City?: InstanceType<typeof CityCreateNestedManyWithoutCountryInput>;
 }
 
 @ArgsType()
@@ -1356,6 +1782,8 @@ export class CountryOrderByWithRelationInput {
     updatedAt?: keyof typeof SortOrder;
     @Field(() => UserOrderByRelationAggregateInput, {nullable:true})
     User?: InstanceType<typeof UserOrderByRelationAggregateInput>;
+    @Field(() => CityOrderByRelationAggregateInput, {nullable:true})
+    City?: InstanceType<typeof CityOrderByRelationAggregateInput>;
 }
 
 @InputType()
@@ -1405,6 +1833,24 @@ export class CountrySumOrderByAggregateInput {
 }
 
 @InputType()
+export class CountryUncheckedCreateWithoutCityInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => UserUncheckedCreateNestedManyWithoutCountryInput, {nullable:true})
+    User?: InstanceType<typeof UserUncheckedCreateNestedManyWithoutCountryInput>;
+}
+
+@InputType()
 export class CountryUncheckedCreateWithoutUserInput {
     @Field(() => Int, {nullable:true})
     id?: number;
@@ -1418,6 +1864,8 @@ export class CountryUncheckedCreateWithoutUserInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+    @Field(() => CityUncheckedCreateNestedManyWithoutCountryInput, {nullable:true})
+    City?: InstanceType<typeof CityUncheckedCreateNestedManyWithoutCountryInput>;
 }
 
 @InputType()
@@ -1436,6 +1884,8 @@ export class CountryUncheckedCreateInput {
     updatedAt?: Date | string;
     @Field(() => UserUncheckedCreateNestedManyWithoutCountryInput, {nullable:true})
     User?: InstanceType<typeof UserUncheckedCreateNestedManyWithoutCountryInput>;
+    @Field(() => CityUncheckedCreateNestedManyWithoutCountryInput, {nullable:true})
+    City?: InstanceType<typeof CityUncheckedCreateNestedManyWithoutCountryInput>;
 }
 
 @InputType()
@@ -1455,6 +1905,24 @@ export class CountryUncheckedUpdateManyInput {
 }
 
 @InputType()
+export class CountryUncheckedUpdateWithoutCityInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => UserUncheckedUpdateManyWithoutCountryInput, {nullable:true})
+    User?: InstanceType<typeof UserUncheckedUpdateManyWithoutCountryInput>;
+}
+
+@InputType()
 export class CountryUncheckedUpdateWithoutUserInput {
     @Field(() => Int, {nullable:true})
     id?: number;
@@ -1468,6 +1936,8 @@ export class CountryUncheckedUpdateWithoutUserInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+    @Field(() => CityUncheckedUpdateManyWithoutCountryInput, {nullable:true})
+    City?: InstanceType<typeof CityUncheckedUpdateManyWithoutCountryInput>;
 }
 
 @InputType()
@@ -1486,6 +1956,8 @@ export class CountryUncheckedUpdateInput {
     updatedAt?: Date | string;
     @Field(() => UserUncheckedUpdateManyWithoutCountryInput, {nullable:true})
     User?: InstanceType<typeof UserUncheckedUpdateManyWithoutCountryInput>;
+    @Field(() => CityUncheckedUpdateManyWithoutCountryInput, {nullable:true})
+    City?: InstanceType<typeof CityUncheckedUpdateManyWithoutCountryInput>;
 }
 
 @InputType()
@@ -1500,6 +1972,25 @@ export class CountryUpdateManyMutationInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+}
+
+@InputType()
+export class CountryUpdateOneRequiredWithoutCityInput {
+    @Field(() => CountryCreateWithoutCityInput, {nullable:true})
+    @Type(() => CountryCreateWithoutCityInput)
+    create?: InstanceType<typeof CountryCreateWithoutCityInput>;
+    @Field(() => CountryCreateOrConnectWithoutCityInput, {nullable:true})
+    @Type(() => CountryCreateOrConnectWithoutCityInput)
+    connectOrCreate?: InstanceType<typeof CountryCreateOrConnectWithoutCityInput>;
+    @Field(() => CountryUpsertWithoutCityInput, {nullable:true})
+    @Type(() => CountryUpsertWithoutCityInput)
+    upsert?: InstanceType<typeof CountryUpsertWithoutCityInput>;
+    @Field(() => CountryWhereUniqueInput, {nullable:true})
+    @Type(() => CountryWhereUniqueInput)
+    connect?: InstanceType<typeof CountryWhereUniqueInput>;
+    @Field(() => CountryUpdateWithoutCityInput, {nullable:true})
+    @Type(() => CountryUpdateWithoutCityInput)
+    update?: InstanceType<typeof CountryUpdateWithoutCityInput>;
 }
 
 @InputType()
@@ -1526,6 +2017,22 @@ export class CountryUpdateOneWithoutUserInput {
 }
 
 @InputType()
+export class CountryUpdateWithoutCityInput {
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => UserUpdateManyWithoutCountryInput, {nullable:true})
+    User?: InstanceType<typeof UserUpdateManyWithoutCountryInput>;
+}
+
+@InputType()
 export class CountryUpdateWithoutUserInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
@@ -1537,6 +2044,8 @@ export class CountryUpdateWithoutUserInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+    @Field(() => CityUpdateManyWithoutCountryInput, {nullable:true})
+    City?: InstanceType<typeof CityUpdateManyWithoutCountryInput>;
 }
 
 @InputType()
@@ -1553,6 +2062,18 @@ export class CountryUpdateInput {
     updatedAt?: Date | string;
     @Field(() => UserUpdateManyWithoutCountryInput, {nullable:true})
     User?: InstanceType<typeof UserUpdateManyWithoutCountryInput>;
+    @Field(() => CityUpdateManyWithoutCountryInput, {nullable:true})
+    City?: InstanceType<typeof CityUpdateManyWithoutCountryInput>;
+}
+
+@InputType()
+export class CountryUpsertWithoutCityInput {
+    @Field(() => CountryUpdateWithoutCityInput, {nullable:false})
+    @Type(() => CountryUpdateWithoutCityInput)
+    update!: InstanceType<typeof CountryUpdateWithoutCityInput>;
+    @Field(() => CountryCreateWithoutCityInput, {nullable:false})
+    @Type(() => CountryCreateWithoutCityInput)
+    create!: InstanceType<typeof CountryCreateWithoutCityInput>;
 }
 
 @InputType()
@@ -1591,6 +2112,8 @@ export class CountryWhereInput {
     updatedAt?: InstanceType<typeof DateTimeFilter>;
     @Field(() => UserListRelationFilter, {nullable:true})
     User?: InstanceType<typeof UserListRelationFilter>;
+    @Field(() => CityListRelationFilter, {nullable:true})
+    City?: InstanceType<typeof CityListRelationFilter>;
 }
 
 @ObjectType()
@@ -1607,6 +2130,8 @@ export class Country {
     updatedAt!: Date;
     @Field(() => [User], {nullable:true})
     User?: Array<User>;
+    @Field(() => [City], {nullable:true})
+    City?: Array<City>;
     @Field(() => CountryCount, {nullable:false})
     _count?: InstanceType<typeof CountryCount>;
 }

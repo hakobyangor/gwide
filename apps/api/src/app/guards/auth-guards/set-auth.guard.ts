@@ -3,6 +3,7 @@ import { ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/com
 import { AuthGuard } from '@nestjs/passport'
 import { JwtService } from '@nestjs/jwt'
 import { GqlExecutionContext } from '@nestjs/graphql'
+import { isEmail, isEmpty } from 'class-validator'
 
 const domain = process.env.WEB_APP_HOST
 const jwtExpiresSecond = process.env.JWT_EXPIRES_SECONDS
@@ -30,11 +31,28 @@ export class SetAuthGuard extends AuthGuard('local') {
     const request = context_.getContext()
     // should be the same name as args
     request.body = context_.getArgs().loginInput
+
+    if (isEmpty(request.body.email)) {
+      throw new Error('E-mail is empty')
+    }
+
+    if (isEmpty(request.body.password)) {
+      throw new Error('Password is empty')
+    }
+
+    if (!isEmail(request.body.email)) {
+      throw new Error('E-mail format is incorrect')
+    }
+
     return request
   }
 
   handleRequest(error, user, info, context) {
-    if (error || !user || info) throw error || new UnauthorizedException()
+    if (error || !user || info)
+      throw (
+        error ||
+        new UnauthorizedException('The entered e-mail or password are incorrect, please try again')
+      )
 
     const authContext = GqlExecutionContext.create(context)
     const { reply } = authContext.getContext()

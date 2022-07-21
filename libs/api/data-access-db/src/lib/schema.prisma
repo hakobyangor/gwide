@@ -107,6 +107,8 @@ model City {
   /// @Validator.IsString()
   status Status @default(ACTIVE)
 
+  country        Country          @relation(fields: [countryId], references: [id])
+  countryId      Int
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
   GuideCity      GuideCity[]
@@ -125,6 +127,7 @@ model Country {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   User      User[]
+  City      City[]
 }
 
 model GuideCategory {
@@ -181,7 +184,8 @@ model GuideLanguages {
   language   Languages @relation(fields: [languageId], references: [id])
   languageId Int
 
-  @@id([userId, languageId])
   City   City? @relation(fields: [cityId], references: [id])
   cityId Int?
+
+  @@id([userId, languageId])
 }
