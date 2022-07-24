@@ -10,6 +10,7 @@ import {
 import { UseGuards } from '@nestjs/common'
 import { CheckAuthGuard } from '../../guards/auth-guards/check-auth.guard'
 import { UpdateUserInput } from './dto/update-user.input'
+import * as bcrypt from 'bcrypt'
 
 @Resolver(() => User)
 export class UserResolver {
@@ -35,7 +36,13 @@ export class UserResolver {
 
   @UseGuards(CheckAuthGuard)
   @Mutation(() => User)
-  updateUser(@Args('where') where: UserWhereUniqueInput, @Args('data') data: UpdateUserInput) {
+  async updateUser(
+    @Args('where') where: UserWhereUniqueInput,
+    @Args('data') data: UpdateUserInput
+  ) {
+    if (data.password) {
+      data.password = await bcrypt.hash(data.password, 10)
+    }
     return this.userService.update({ data, where })
   }
 

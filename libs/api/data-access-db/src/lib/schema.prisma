@@ -86,6 +86,8 @@ model User {
   /// @Validator.IsString()
   hash String?
 
+  hashExpiredAt DateTime?
+
   rating Float? @default(5)
 
   isVerified YesNo @default(NO)

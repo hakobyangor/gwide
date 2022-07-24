@@ -1333,6 +1333,7 @@ export type Mutation = {
   createUser: User;
   login: User;
   removeUser: User;
+  resetPassword: User;
   signUp: User;
   updateUser: User;
 };
@@ -1353,6 +1354,11 @@ export type MutationRemoveUserArgs = {
 };
 
 
+export type MutationResetPasswordArgs = {
+  resetPassword: ResetPassword;
+};
+
+
 export type MutationSignUpArgs = {
   signUpInput: RegisterInput;
 };
@@ -1366,6 +1372,7 @@ export type MutationUpdateUserArgs = {
 export type Query = {
   __typename?: 'Query';
   getGuides: Array<User>;
+  resetPasswordEmail: User;
   user: User;
   users: Array<User>;
 };
@@ -1378,6 +1385,11 @@ export type QueryGetGuidesArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   take?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<UserWhereInput>;
+};
+
+
+export type QueryResetPasswordEmailArgs = {
+  where: UserWhereUniqueInput;
 };
 
 
@@ -1444,6 +1456,7 @@ export type User = {
   email: Scalars['String'];
   firstName: Scalars['String'];
   hash?: Maybe<Scalars['String']>;
+  hashExpiredAt?: Maybe<Scalars['DateTime']>;
   id: Scalars['ID'];
   image?: Maybe<Scalars['String']>;
   isVerified: YesNo;
@@ -1477,6 +1490,7 @@ export type UserCountAggregate = {
   email: Scalars['Int'];
   firstName: Scalars['Int'];
   hash: Scalars['Int'];
+  hashExpiredAt: Scalars['Int'];
   id: Scalars['Int'];
   image: Scalars['Int'];
   isVerified: Scalars['Int'];
@@ -1497,6 +1511,7 @@ export type UserCreateInput = {
   email: Scalars['String'];
   firstName: Scalars['String'];
   hash?: InputMaybe<Scalars['String']>;
+  hashExpiredAt?: InputMaybe<Scalars['DateTime']>;
   image?: InputMaybe<Scalars['String']>;
   isVerified?: InputMaybe<YesNo>;
   lastName: Scalars['String'];
@@ -1513,6 +1528,7 @@ export type UserCreateManyCountryInput = {
   email: Scalars['String'];
   firstName: Scalars['String'];
   hash?: InputMaybe<Scalars['String']>;
+  hashExpiredAt?: InputMaybe<Scalars['DateTime']>;
   id?: InputMaybe<Scalars['Int']>;
   image?: InputMaybe<Scalars['String']>;
   isVerified?: InputMaybe<YesNo>;
@@ -1572,6 +1588,7 @@ export type UserCreateWithoutCountryInput = {
   email: Scalars['String'];
   firstName: Scalars['String'];
   hash?: InputMaybe<Scalars['String']>;
+  hashExpiredAt?: InputMaybe<Scalars['DateTime']>;
   image?: InputMaybe<Scalars['String']>;
   isVerified?: InputMaybe<YesNo>;
   lastName: Scalars['String'];
@@ -1591,6 +1608,7 @@ export type UserCreateWithoutGuideCityInput = {
   email: Scalars['String'];
   firstName: Scalars['String'];
   hash?: InputMaybe<Scalars['String']>;
+  hashExpiredAt?: InputMaybe<Scalars['DateTime']>;
   image?: InputMaybe<Scalars['String']>;
   isVerified?: InputMaybe<YesNo>;
   lastName: Scalars['String'];
@@ -1610,6 +1628,7 @@ export type UserCreateWithoutGuideLanguagesInput = {
   email: Scalars['String'];
   firstName: Scalars['String'];
   hash?: InputMaybe<Scalars['String']>;
+  hashExpiredAt?: InputMaybe<Scalars['DateTime']>;
   image?: InputMaybe<Scalars['String']>;
   isVerified?: InputMaybe<YesNo>;
   lastName: Scalars['String'];
@@ -1634,6 +1653,7 @@ export type UserMaxAggregate = {
   email?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   hash?: Maybe<Scalars['String']>;
+  hashExpiredAt?: Maybe<Scalars['DateTime']>;
   id?: Maybe<Scalars['Int']>;
   image?: Maybe<Scalars['String']>;
   isVerified?: Maybe<YesNo>;
@@ -1652,6 +1672,7 @@ export type UserMinAggregate = {
   email?: Maybe<Scalars['String']>;
   firstName?: Maybe<Scalars['String']>;
   hash?: Maybe<Scalars['String']>;
+  hashExpiredAt?: Maybe<Scalars['DateTime']>;
   id?: Maybe<Scalars['Int']>;
   image?: Maybe<Scalars['String']>;
   isVerified?: Maybe<YesNo>;
@@ -1677,6 +1698,7 @@ export type UserOrderByWithRelationInput = {
   email?: InputMaybe<SortOrder>;
   firstName?: InputMaybe<SortOrder>;
   hash?: InputMaybe<SortOrder>;
+  hashExpiredAt?: InputMaybe<SortOrder>;
   id?: InputMaybe<SortOrder>;
   image?: InputMaybe<SortOrder>;
   isVerified?: InputMaybe<SortOrder>;
@@ -1706,6 +1728,7 @@ export enum UserScalarFieldEnum {
   Email = 'email',
   FirstName = 'firstName',
   Hash = 'hash',
+  HashExpiredAt = 'hashExpiredAt',
   Id = 'id',
   Image = 'image',
   IsVerified = 'isVerified',
@@ -1727,6 +1750,7 @@ export type UserScalarWhereInput = {
   email?: InputMaybe<StringFilter>;
   firstName?: InputMaybe<StringFilter>;
   hash?: InputMaybe<StringFilter>;
+  hashExpiredAt?: InputMaybe<DateTimeFilter>;
   id?: InputMaybe<IntFilter>;
   image?: InputMaybe<StringFilter>;
   isVerified?: InputMaybe<EnumYesNoFilter>;
@@ -1751,6 +1775,7 @@ export type UserUpdateManyMutationInput = {
   email?: InputMaybe<Scalars['String']>;
   firstName?: InputMaybe<Scalars['String']>;
   hash?: InputMaybe<Scalars['String']>;
+  hashExpiredAt?: InputMaybe<Scalars['DateTime']>;
   image?: InputMaybe<Scalars['String']>;
   isVerified?: InputMaybe<YesNo>;
   lastName?: InputMaybe<Scalars['String']>;
@@ -1810,6 +1835,7 @@ export type UserUpdateWithoutCountryInput = {
   email?: InputMaybe<Scalars['String']>;
   firstName?: InputMaybe<Scalars['String']>;
   hash?: InputMaybe<Scalars['String']>;
+  hashExpiredAt?: InputMaybe<Scalars['DateTime']>;
   image?: InputMaybe<Scalars['String']>;
   isVerified?: InputMaybe<YesNo>;
   lastName?: InputMaybe<Scalars['String']>;
@@ -1829,6 +1855,7 @@ export type UserUpdateWithoutGuideCityInput = {
   email?: InputMaybe<Scalars['String']>;
   firstName?: InputMaybe<Scalars['String']>;
   hash?: InputMaybe<Scalars['String']>;
+  hashExpiredAt?: InputMaybe<Scalars['DateTime']>;
   image?: InputMaybe<Scalars['String']>;
   isVerified?: InputMaybe<YesNo>;
   lastName?: InputMaybe<Scalars['String']>;
@@ -1848,6 +1875,7 @@ export type UserUpdateWithoutGuideLanguagesInput = {
   email?: InputMaybe<Scalars['String']>;
   firstName?: InputMaybe<Scalars['String']>;
   hash?: InputMaybe<Scalars['String']>;
+  hashExpiredAt?: InputMaybe<Scalars['DateTime']>;
   image?: InputMaybe<Scalars['String']>;
   isVerified?: InputMaybe<YesNo>;
   lastName?: InputMaybe<Scalars['String']>;
@@ -1888,6 +1916,7 @@ export type UserWhereInput = {
   email?: InputMaybe<StringFilter>;
   firstName?: InputMaybe<StringFilter>;
   hash?: InputMaybe<StringFilter>;
+  hashExpiredAt?: InputMaybe<DateTimeFilter>;
   id?: InputMaybe<IntFilter>;
   image?: InputMaybe<StringFilter>;
   isVerified?: InputMaybe<EnumYesNoFilter>;
@@ -1908,3 +1937,8 @@ export enum YesNo {
   No = 'NO',
   Yes = 'YES'
 }
+
+export type ResetPassword = {
+  hash: Scalars['String'];
+  password: Scalars['String'];
+};

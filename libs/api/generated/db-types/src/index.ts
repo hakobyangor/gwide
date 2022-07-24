@@ -23,6 +23,7 @@ export enum UserScalarFieldEnum {
     role = "role",
     bio = "bio",
     hash = "hash",
+    hashExpiredAt = "hashExpiredAt",
     rating = "rating",
     isVerified = "isVerified",
     createdAt = "createdAt",
@@ -7331,6 +7332,8 @@ export class UserCountAggregateInput {
     @Field(() => Boolean, {nullable:true})
     hash?: true;
     @Field(() => Boolean, {nullable:true})
+    hashExpiredAt?: true;
+    @Field(() => Boolean, {nullable:true})
     rating?: true;
     @Field(() => Boolean, {nullable:true})
     isVerified?: true;
@@ -7367,6 +7370,8 @@ export class UserCountAggregate {
     @Field(() => Int, {nullable:false})
     hash!: number;
     @Field(() => Int, {nullable:false})
+    hashExpiredAt!: number;
+    @Field(() => Int, {nullable:false})
     rating!: number;
     @Field(() => Int, {nullable:false})
     isVerified!: number;
@@ -7402,6 +7407,8 @@ export class UserCountOrderByAggregateInput {
     bio?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     hash?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    hashExpiredAt?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     rating?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
@@ -7468,6 +7475,8 @@ export class UserCreateManyCountryInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:true})
@@ -7517,6 +7526,8 @@ export class UserCreateManyInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:true})
@@ -7657,6 +7668,8 @@ export class UserCreateWithoutCountryInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:true})
@@ -7710,6 +7723,8 @@ export class UserCreateWithoutGuideCityInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:true})
@@ -7761,6 +7776,8 @@ export class UserCreateWithoutGuideGuideCategoryInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:true})
@@ -7812,6 +7829,8 @@ export class UserCreateWithoutGuideLanguagesInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:true})
@@ -7863,6 +7882,8 @@ export class UserCreateInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:true})
@@ -7943,6 +7964,8 @@ export class UserGroupBy {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:false})
@@ -7998,6 +8021,8 @@ export class UserMaxAggregateInput {
     @Field(() => Boolean, {nullable:true})
     hash?: true;
     @Field(() => Boolean, {nullable:true})
+    hashExpiredAt?: true;
+    @Field(() => Boolean, {nullable:true})
     rating?: true;
     @Field(() => Boolean, {nullable:true})
     isVerified?: true;
@@ -8043,6 +8068,8 @@ export class UserMaxAggregate {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:true})
@@ -8078,6 +8105,8 @@ export class UserMaxOrderByAggregateInput {
     @Field(() => SortOrder, {nullable:true})
     hash?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
+    hashExpiredAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
     rating?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     isVerified?: keyof typeof SortOrder;
@@ -8111,6 +8140,8 @@ export class UserMinAggregateInput {
     bio?: true;
     @Field(() => Boolean, {nullable:true})
     hash?: true;
+    @Field(() => Boolean, {nullable:true})
+    hashExpiredAt?: true;
     @Field(() => Boolean, {nullable:true})
     rating?: true;
     @Field(() => Boolean, {nullable:true})
@@ -8157,6 +8188,8 @@ export class UserMinAggregate {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:true})
@@ -8191,6 +8224,8 @@ export class UserMinOrderByAggregateInput {
     bio?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     hash?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    hashExpiredAt?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     rating?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
@@ -8231,6 +8266,8 @@ export class UserOrderByWithAggregationInput {
     bio?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     hash?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    hashExpiredAt?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     rating?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
@@ -8277,6 +8314,8 @@ export class UserOrderByWithRelationInput {
     bio?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     hash?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    hashExpiredAt?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     rating?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
@@ -8331,6 +8370,8 @@ export class UserScalarWhereWithAggregatesInput {
     bio?: InstanceType<typeof StringWithAggregatesFilter>;
     @Field(() => StringWithAggregatesFilter, {nullable:true})
     hash?: InstanceType<typeof StringWithAggregatesFilter>;
+    @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
+    hashExpiredAt?: InstanceType<typeof DateTimeWithAggregatesFilter>;
     @Field(() => FloatWithAggregatesFilter, {nullable:true})
     rating?: InstanceType<typeof FloatWithAggregatesFilter>;
     @Field(() => EnumYesNoWithAggregatesFilter, {nullable:true})
@@ -8371,6 +8412,8 @@ export class UserScalarWhereInput {
     bio?: InstanceType<typeof StringFilter>;
     @Field(() => StringFilter, {nullable:true})
     hash?: InstanceType<typeof StringFilter>;
+    @Field(() => DateTimeFilter, {nullable:true})
+    hashExpiredAt?: InstanceType<typeof DateTimeFilter>;
     @Field(() => FloatFilter, {nullable:true})
     rating?: InstanceType<typeof FloatFilter>;
     @Field(() => EnumYesNoFilter, {nullable:true})
@@ -8464,6 +8507,8 @@ export class UserUncheckedCreateWithoutCountryInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:true})
@@ -8519,6 +8564,8 @@ export class UserUncheckedCreateWithoutGuideCityInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:true})
@@ -8572,6 +8619,8 @@ export class UserUncheckedCreateWithoutGuideGuideCategoryInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:true})
@@ -8625,6 +8674,8 @@ export class UserUncheckedCreateWithoutGuideLanguagesInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:true})
@@ -8678,6 +8729,8 @@ export class UserUncheckedCreateInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:true})
@@ -8768,6 +8821,8 @@ export class UserUncheckedUpdateManyWithoutUserInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:true})
@@ -8817,6 +8872,8 @@ export class UserUncheckedUpdateManyInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:true})
@@ -8864,6 +8921,8 @@ export class UserUncheckedUpdateWithoutCountryInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:true})
@@ -8919,6 +8978,8 @@ export class UserUncheckedUpdateWithoutGuideCityInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:true})
@@ -8972,6 +9033,8 @@ export class UserUncheckedUpdateWithoutGuideGuideCategoryInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:true})
@@ -9025,6 +9088,8 @@ export class UserUncheckedUpdateWithoutGuideLanguagesInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:true})
@@ -9078,6 +9143,8 @@ export class UserUncheckedUpdateInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:true})
@@ -9129,6 +9196,8 @@ export class UserUpdateManyMutationInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:true})
@@ -9288,6 +9357,8 @@ export class UserUpdateWithoutCountryInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:true})
@@ -9341,6 +9412,8 @@ export class UserUpdateWithoutGuideCityInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:true})
@@ -9392,6 +9465,8 @@ export class UserUpdateWithoutGuideGuideCategoryInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:true})
@@ -9443,6 +9518,8 @@ export class UserUpdateWithoutGuideLanguagesInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:true})
@@ -9494,6 +9571,8 @@ export class UserUpdateInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
     @Field(() => Float, {nullable:true})
     rating?: number;
     @Field(() => YesNo, {nullable:true})
@@ -9594,6 +9673,8 @@ export class UserWhereInput {
     bio?: InstanceType<typeof StringFilter>;
     @Field(() => StringFilter, {nullable:true})
     hash?: InstanceType<typeof StringFilter>;
+    @Field(() => DateTimeFilter, {nullable:true})
+    hashExpiredAt?: InstanceType<typeof DateTimeFilter>;
     @Field(() => FloatFilter, {nullable:true})
     rating?: InstanceType<typeof FloatFilter>;
     @Field(() => EnumYesNoFilter, {nullable:true})
@@ -9636,6 +9717,8 @@ export class User {
     bio!: string | null;
     @Field(() => String, {nullable:true})
     hash!: string | null;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt!: Date | null;
     @Field(() => Float, {nullable:true,defaultValue:5})
     rating!: number | null;
     @Field(() => YesNo, {nullable:false,defaultValue:'NO'})

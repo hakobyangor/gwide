@@ -7,7 +7,7 @@ import {
   UserWhereInput
 } from '@gwide/api/generated/db-types'
 import { UserRole } from '@prisma/client'
-import * as bcrypt from 'bcrypt'
+import moment = require('moment')
 
 @Injectable()
 export class UserService {
@@ -71,13 +71,16 @@ export class UserService {
   }
 
   async update(userUpdateInput: UpdateOneUserArgs) {
-    if (userUpdateInput.data.password) {
-      userUpdateInput.data.password = await bcrypt.hash(userUpdateInput.data.password, 10)
-    }
     return this.database.user.update(userUpdateInput)
   }
 
   remove(removeUserArguments: FindUniqueUserArgs) {
     return this.database.user.delete(removeUserArguments)
+  }
+
+  findByHash(hash: string) {
+    return this.database.user.findFirst({
+      where: { hash, hashExpiredAt: { gte: moment().toDate() } }
+    })
   }
 }

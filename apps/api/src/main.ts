@@ -36,6 +36,13 @@ async function bootstrap() {
       //whitelist: true,
       transform: true,
       transformOptions: { enableImplicitConversion: true }
+      // exceptionFactory: (validationErrors: ValidationError[] = []) => {
+      //   let errorMessage = ''
+      //   validationErrors.map((item) => {
+      //     errorMessage += `${Object.values(item.constraints)}. `
+      //   })
+      //   return new BadRequestException(errorMessage)
+      // }
     })
   )
   await app.listen(port)
