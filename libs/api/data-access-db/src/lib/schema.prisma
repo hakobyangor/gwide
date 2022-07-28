@@ -65,6 +65,7 @@ model User {
   /// @Validator.IsString()
   /// @Validator.MaxLength(100)
   /// @Validator.MinLength(8)
+  /// @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
   /// @HideField()
   password String
 

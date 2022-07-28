@@ -7,10 +7,14 @@ import { RegisterInput } from './dto/register.input'
 import { randomBytes } from 'node:crypto'
 import moment = require('moment')
 import { resetPassword } from './dto/reset-password.input'
+import { SendgridService } from '../sendgrid/sendgrid.service'
 
 @Injectable()
 export class AuthenticationService {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private sendgridService: SendgridService
+  ) {}
 
   async validateUser(email: string, password: string): Promise<User | null> {
     const user = await this.userService.findOne({ where: { email } })
@@ -38,6 +42,16 @@ export class AuthenticationService {
 
     if (user) {
       const hash = await bcrypt.hash(randomBytes(16), 10)
+      const mail = {
+        to: user.email,
+        subject: 'Reset Password',
+        from: process.env.SEND_GRID_MAIL_FROM_NO_REPLY,
+        text: 'Reset Password',
+        html: `<h1>Reset Password</h1> for reset password use this <a href="${process.env.FRONT_URL}reset-password/${hash}"> link </a>`
+      }
+
+      await this.sendgridService.send(mail)
+
       this.userService.update({
         data: { hash, hashExpiredAt: moment().add(1, 'hour').toDate() },
         where: { email: user.email }

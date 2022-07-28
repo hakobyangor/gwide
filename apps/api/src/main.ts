@@ -1,9 +1,10 @@
-import { Logger, ValidationPipe } from '@nestjs/common'
+import { BadRequestException, Logger, ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app/app.module'
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify'
 import helmet from 'helmet'
 import fastifyCookie from '@fastify/cookie'
+import { ValidationError } from 'class-validator'
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter())
@@ -35,14 +36,14 @@ async function bootstrap() {
       skipMissingProperties: true,
       //whitelist: true,
       transform: true,
-      transformOptions: { enableImplicitConversion: true }
-      // exceptionFactory: (validationErrors: ValidationError[] = []) => {
-      //   let errorMessage = ''
-      //   validationErrors.map((item) => {
-      //     errorMessage += `${Object.values(item.constraints)}. `
-      //   })
-      //   return new BadRequestException(errorMessage)
-      // }
+      transformOptions: { enableImplicitConversion: true },
+      exceptionFactory: (validationErrors: ValidationError[] = []) => {
+        let errorMessage = ''
+        validationErrors.map((item) => {
+          errorMessage += `${Object.values(item.constraints)}. `
+        })
+        return new BadRequestException(errorMessage)
+      }
     })
   )
   await app.listen(port)

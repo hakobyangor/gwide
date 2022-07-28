@@ -5,6 +5,8 @@ import { UserModule } from '../user/user.module'
 import { LocalStrategy } from '../../guards/auth-guards/strategy/local.strategy'
 import { JwtModule } from '@nestjs/jwt'
 import { JwtStrategy } from '../../guards/auth-guards/strategy/jwt.strategy'
+import { SendgridService } from '../sendgrid/sendgrid.service'
+import { ConfigService } from '@nestjs/config'
 
 @Module({
   imports: [
@@ -14,6 +16,13 @@ import { JwtStrategy } from '../../guards/auth-guards/strategy/jwt.strategy'
       signOptions: { expiresIn: Number(process.env.JWT_EXPIRES_SECONDS) }
     })
   ],
-  providers: [AuthenticationResolver, AuthenticationService, LocalStrategy, JwtStrategy]
+  providers: [
+    AuthenticationResolver,
+    AuthenticationService,
+    LocalStrategy,
+    JwtStrategy,
+    SendgridService,
+    ConfigService
+  ]
 })
 export class AuthenticationModule {}

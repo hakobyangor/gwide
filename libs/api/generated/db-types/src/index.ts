@@ -7459,6 +7459,7 @@ export class UserCreateManyCountryInput {
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
     password!: string;
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
@@ -7508,6 +7509,7 @@ export class UserCreateManyInput {
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
     password!: string;
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
@@ -7652,6 +7654,7 @@ export class UserCreateWithoutCountryInput {
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
     password!: string;
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
@@ -7705,6 +7708,7 @@ export class UserCreateWithoutGuideCityInput {
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
     password!: string;
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
@@ -7758,6 +7762,7 @@ export class UserCreateWithoutGuideGuideCategoryInput {
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
     password!: string;
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
@@ -7811,6 +7816,7 @@ export class UserCreateWithoutGuideLanguagesInput {
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
     password!: string;
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
@@ -7864,6 +7870,7 @@ export class UserCreateInput {
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
     password!: string;
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
@@ -8491,6 +8498,7 @@ export class UserUncheckedCreateWithoutCountryInput {
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
     password!: string;
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
@@ -8546,6 +8554,7 @@ export class UserUncheckedCreateWithoutGuideCityInput {
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
     password!: string;
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
@@ -8601,6 +8610,7 @@ export class UserUncheckedCreateWithoutGuideGuideCategoryInput {
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
     password!: string;
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
@@ -8656,6 +8666,7 @@ export class UserUncheckedCreateWithoutGuideLanguagesInput {
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
     password!: string;
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
@@ -8711,6 +8722,7 @@ export class UserUncheckedCreateInput {
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
     password!: string;
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
@@ -8805,6 +8817,7 @@ export class UserUncheckedUpdateManyWithoutUserInput {
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
     password?: string;
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
@@ -8854,6 +8867,7 @@ export class UserUncheckedUpdateManyInput {
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
     password?: string;
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
@@ -8905,6 +8919,7 @@ export class UserUncheckedUpdateWithoutCountryInput {
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
     password?: string;
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
@@ -8960,6 +8975,7 @@ export class UserUncheckedUpdateWithoutGuideCityInput {
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
     password?: string;
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
@@ -9015,6 +9031,7 @@ export class UserUncheckedUpdateWithoutGuideGuideCategoryInput {
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
     password?: string;
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
@@ -9070,6 +9087,7 @@ export class UserUncheckedUpdateWithoutGuideLanguagesInput {
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
     password?: string;
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
@@ -9125,6 +9143,7 @@ export class UserUncheckedUpdateInput {
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
     password?: string;
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
@@ -9180,6 +9199,7 @@ export class UserUpdateManyMutationInput {
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
     password?: string;
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
@@ -9341,6 +9361,7 @@ export class UserUpdateWithoutCountryInput {
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
     password?: string;
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
@@ -9394,6 +9415,7 @@ export class UserUpdateWithoutGuideCityInput {
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
     password?: string;
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
@@ -9447,6 +9469,7 @@ export class UserUpdateWithoutGuideGuideCategoryInput {
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
     password?: string;
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
@@ -9500,6 +9523,7 @@ export class UserUpdateWithoutGuideLanguagesInput {
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
     password?: string;
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
@@ -9553,6 +9577,7 @@ export class UserUpdateInput {
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
     password?: string;
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
