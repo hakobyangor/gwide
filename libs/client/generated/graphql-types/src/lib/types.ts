@@ -366,6 +366,119 @@ export type CountryWhereUniqueInput = {
   id?: InputMaybe<Scalars['Int']>;
 };
 
+export type Currency = {
+  __typename?: 'Currency';
+  Tour?: Maybe<Array<Tour>>;
+  _count: CurrencyCount;
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  status: Status;
+  updatedAt: Scalars['DateTime'];
+};
+
+export type CurrencyAvgAggregate = {
+  __typename?: 'CurrencyAvgAggregate';
+  id?: Maybe<Scalars['Float']>;
+};
+
+export type CurrencyCount = {
+  __typename?: 'CurrencyCount';
+  Tour: Scalars['Int'];
+};
+
+export type CurrencyCountAggregate = {
+  __typename?: 'CurrencyCountAggregate';
+  _all: Scalars['Int'];
+  createdAt: Scalars['Int'];
+  id: Scalars['Int'];
+  name: Scalars['Int'];
+  status: Scalars['Int'];
+  updatedAt: Scalars['Int'];
+};
+
+export type CurrencyCreateNestedOneWithoutTourInput = {
+  connect?: InputMaybe<CurrencyWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<CurrencyCreateOrConnectWithoutTourInput>;
+  create?: InputMaybe<CurrencyCreateWithoutTourInput>;
+};
+
+export type CurrencyCreateOrConnectWithoutTourInput = {
+  create: CurrencyCreateWithoutTourInput;
+  where: CurrencyWhereUniqueInput;
+};
+
+export type CurrencyCreateWithoutTourInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  name: Scalars['String'];
+  status?: InputMaybe<Status>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type CurrencyMaxAggregate = {
+  __typename?: 'CurrencyMaxAggregate';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  id?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  status?: Maybe<Status>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type CurrencyMinAggregate = {
+  __typename?: 'CurrencyMinAggregate';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  id?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  status?: Maybe<Status>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type CurrencyRelationFilter = {
+  is?: InputMaybe<CurrencyWhereInput>;
+  isNot?: InputMaybe<CurrencyWhereInput>;
+};
+
+export type CurrencySumAggregate = {
+  __typename?: 'CurrencySumAggregate';
+  id?: Maybe<Scalars['Int']>;
+};
+
+export type CurrencyUpdateOneRequiredWithoutTourInput = {
+  connect?: InputMaybe<CurrencyWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<CurrencyCreateOrConnectWithoutTourInput>;
+  create?: InputMaybe<CurrencyCreateWithoutTourInput>;
+  update?: InputMaybe<CurrencyUpdateWithoutTourInput>;
+  upsert?: InputMaybe<CurrencyUpsertWithoutTourInput>;
+};
+
+export type CurrencyUpdateWithoutTourInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  name?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Status>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type CurrencyUpsertWithoutTourInput = {
+  create: CurrencyCreateWithoutTourInput;
+  update: CurrencyUpdateWithoutTourInput;
+};
+
+export type CurrencyWhereInput = {
+  AND?: InputMaybe<Array<CurrencyWhereInput>>;
+  NOT?: InputMaybe<Array<CurrencyWhereInput>>;
+  OR?: InputMaybe<Array<CurrencyWhereInput>>;
+  Tour?: InputMaybe<TourListRelationFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<IntFilter>;
+  name?: InputMaybe<StringFilter>;
+  status?: InputMaybe<EnumStatusFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+};
+
+export type CurrencyWhereUniqueInput = {
+  id?: InputMaybe<Scalars['Int']>;
+};
+
 export type DateTimeFilter = {
   equals?: InputMaybe<Scalars['DateTime']>;
   gt?: InputMaybe<Scalars['DateTime']>;
@@ -650,18 +763,25 @@ export type Tour = {
   TourTourCategory?: Maybe<Array<TourTourCategory>>;
   _count: TourCount;
   createdAt: Scalars['DateTime'];
+  currency: Currency;
+  currencyId: Scalars['Int'];
   guide: User;
   guideId: Scalars['Int'];
   id: Scalars['ID'];
+  maxCapacity: Scalars['Int'];
   name: Scalars['String'];
+  price: Scalars['Float'];
   status: Status;
   updatedAt: Scalars['DateTime'];
 };
 
 export type TourAvgAggregate = {
   __typename?: 'TourAvgAggregate';
+  currencyId?: Maybe<Scalars['Float']>;
   guideId?: Maybe<Scalars['Float']>;
   id?: Maybe<Scalars['Float']>;
+  maxCapacity?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
 };
 
 export type TourCategory = {
@@ -959,17 +1079,23 @@ export type TourCountAggregate = {
   __typename?: 'TourCountAggregate';
   _all: Scalars['Int'];
   createdAt: Scalars['Int'];
+  currencyId: Scalars['Int'];
   guideId: Scalars['Int'];
   id: Scalars['Int'];
+  maxCapacity: Scalars['Int'];
   name: Scalars['Int'];
+  price: Scalars['Int'];
   status: Scalars['Int'];
   updatedAt: Scalars['Int'];
 };
 
 export type TourCreateManyGuideInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  currencyId?: InputMaybe<Scalars['Int']>;
   id?: InputMaybe<Scalars['Int']>;
+  maxCapacity?: InputMaybe<Scalars['Int']>;
   name: Scalars['String'];
+  price?: InputMaybe<Scalars['Float']>;
   status?: InputMaybe<Status>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
@@ -1007,7 +1133,10 @@ export type TourCreateWithoutGuideInput = {
   TourLanguages?: InputMaybe<TourLanguagesCreateNestedManyWithoutTourInput>;
   TourTourCategory?: InputMaybe<TourTourCategoryCreateNestedManyWithoutTourInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  currency?: InputMaybe<CurrencyCreateNestedOneWithoutTourInput>;
+  maxCapacity?: InputMaybe<Scalars['Int']>;
   name: Scalars['String'];
+  price?: InputMaybe<Scalars['Float']>;
   status?: InputMaybe<Status>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
@@ -1016,8 +1145,11 @@ export type TourCreateWithoutTourCityInput = {
   TourLanguages?: InputMaybe<TourLanguagesCreateNestedManyWithoutTourInput>;
   TourTourCategory?: InputMaybe<TourTourCategoryCreateNestedManyWithoutTourInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  currency?: InputMaybe<CurrencyCreateNestedOneWithoutTourInput>;
   guide: UserCreateNestedOneWithoutTourInput;
+  maxCapacity?: InputMaybe<Scalars['Int']>;
   name: Scalars['String'];
+  price?: InputMaybe<Scalars['Float']>;
   status?: InputMaybe<Status>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
@@ -1175,9 +1307,12 @@ export type TourListRelationFilter = {
 export type TourMaxAggregate = {
   __typename?: 'TourMaxAggregate';
   createdAt?: Maybe<Scalars['DateTime']>;
+  currencyId?: Maybe<Scalars['Int']>;
   guideId?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
+  maxCapacity?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Float']>;
   status?: Maybe<Status>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -1185,9 +1320,12 @@ export type TourMaxAggregate = {
 export type TourMinAggregate = {
   __typename?: 'TourMinAggregate';
   createdAt?: Maybe<Scalars['DateTime']>;
+  currencyId?: Maybe<Scalars['Int']>;
   guideId?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
+  maxCapacity?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Float']>;
   status?: Maybe<Status>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -1203,8 +1341,11 @@ export type TourRelationFilter = {
 
 export type TourSumAggregate = {
   __typename?: 'TourSumAggregate';
+  currencyId?: Maybe<Scalars['Int']>;
   guideId?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
+  maxCapacity?: Maybe<Scalars['Int']>;
+  price?: Maybe<Scalars['Float']>;
 };
 
 export type TourTourCategory = {
@@ -1365,8 +1506,11 @@ export type TourUpdateWithoutTourCityInput = {
   TourLanguages?: InputMaybe<TourLanguagesUpdateManyWithoutTourInput>;
   TourTourCategory?: InputMaybe<TourTourCategoryUpdateManyWithoutTourInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  currency?: InputMaybe<CurrencyUpdateOneRequiredWithoutTourInput>;
   guide?: InputMaybe<UserUpdateOneRequiredWithoutTourInput>;
+  maxCapacity?: InputMaybe<Scalars['Int']>;
   name?: InputMaybe<Scalars['String']>;
+  price?: InputMaybe<Scalars['Float']>;
   status?: InputMaybe<Status>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
@@ -1384,10 +1528,14 @@ export type TourWhereInput = {
   TourLanguages?: InputMaybe<TourLanguagesListRelationFilter>;
   TourTourCategory?: InputMaybe<TourTourCategoryListRelationFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
+  currency?: InputMaybe<CurrencyRelationFilter>;
+  currencyId?: InputMaybe<IntFilter>;
   guide?: InputMaybe<UserRelationFilter>;
   guideId?: InputMaybe<IntFilter>;
   id?: InputMaybe<IntFilter>;
+  maxCapacity?: InputMaybe<IntFilter>;
   name?: InputMaybe<StringFilter>;
+  price?: InputMaybe<FloatFilter>;
   status?: InputMaybe<EnumStatusFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
 };

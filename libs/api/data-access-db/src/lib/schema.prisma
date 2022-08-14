@@ -113,6 +113,10 @@ model Tour {
 
   guide            User               @relation(fields: [guideId], references: [id])
   guideId          Int
+  currency         Currency           @relation(fields: [currencyId], references: [id])
+  currencyId       Int                @default(1)
+  maxCapacity      Int                @default(2)
+  price            Float              @default(2)
   TourTourCategory TourTourCategory[]
   TourCity         TourCity[]
   TourLanguages    TourLanguages[]
@@ -135,6 +139,20 @@ model City {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   TourCity  TourCity[]
+}
+
+model Currency {
+  id Int @id @default(autoincrement())
+
+  /// @Validator.IsString()
+  name String
+
+  /// @Validator.IsString()
+  status Status @default(ACTIVE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Tour      Tour[]
 }
 
 model Country {

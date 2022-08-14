@@ -61,6 +61,9 @@ export enum TourScalarFieldEnum {
     name = "name",
     status = "status",
     guideId = "guideId",
+    currencyId = "currencyId",
+    maxCapacity = "maxCapacity",
+    price = "price",
     createdAt = "createdAt",
     updatedAt = "updatedAt"
 }
@@ -102,6 +105,14 @@ export enum LanguagesScalarFieldEnum {
     updatedAt = "updatedAt"
 }
 
+export enum CurrencyScalarFieldEnum {
+    id = "id",
+    name = "name",
+    status = "status",
+    createdAt = "createdAt",
+    updatedAt = "updatedAt"
+}
+
 export enum CountryScalarFieldEnum {
     id = "id",
     name = "name",
@@ -121,6 +132,7 @@ export enum CityScalarFieldEnum {
 
 registerEnumType(CityScalarFieldEnum, { name: 'CityScalarFieldEnum', description: undefined })
 registerEnumType(CountryScalarFieldEnum, { name: 'CountryScalarFieldEnum', description: undefined })
+registerEnumType(CurrencyScalarFieldEnum, { name: 'CurrencyScalarFieldEnum', description: undefined })
 registerEnumType(LanguagesScalarFieldEnum, { name: 'LanguagesScalarFieldEnum', description: undefined })
 registerEnumType(QueryMode, { name: 'QueryMode', description: undefined })
 registerEnumType(SortOrder, { name: 'SortOrder', description: undefined })
@@ -2099,6 +2111,732 @@ export class UpsertOneCountryArgs {
 }
 
 @ObjectType()
+export class AggregateCurrency {
+    @Field(() => CurrencyCountAggregate, {nullable:true})
+    _count?: InstanceType<typeof CurrencyCountAggregate>;
+    @Field(() => CurrencyAvgAggregate, {nullable:true})
+    _avg?: InstanceType<typeof CurrencyAvgAggregate>;
+    @Field(() => CurrencySumAggregate, {nullable:true})
+    _sum?: InstanceType<typeof CurrencySumAggregate>;
+    @Field(() => CurrencyMinAggregate, {nullable:true})
+    _min?: InstanceType<typeof CurrencyMinAggregate>;
+    @Field(() => CurrencyMaxAggregate, {nullable:true})
+    _max?: InstanceType<typeof CurrencyMaxAggregate>;
+}
+
+@ArgsType()
+export class CreateManyCurrencyArgs {
+    @Field(() => [CurrencyCreateManyInput], {nullable:false})
+    @Type(() => CurrencyCreateManyInput)
+    @ValidateNested({ each: true })
+    data!: Array<CurrencyCreateManyInput>;
+    @Field(() => Boolean, {nullable:true})
+    skipDuplicates?: boolean;
+}
+
+@ArgsType()
+export class CreateOneCurrencyArgs {
+    @Field(() => CurrencyCreateInput, {nullable:false})
+    @Type(() => CurrencyCreateInput)
+    @ValidateNested({ each: true })
+    data!: InstanceType<typeof CurrencyCreateInput>;
+}
+
+@ArgsType()
+export class CurrencyAggregateArgs {
+    @Field(() => CurrencyWhereInput, {nullable:true})
+    @Type(() => CurrencyWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof CurrencyWhereInput>;
+    @Field(() => [CurrencyOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<CurrencyOrderByWithRelationInput>;
+    @Field(() => CurrencyWhereUniqueInput, {nullable:true})
+    cursor?: InstanceType<typeof CurrencyWhereUniqueInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => CurrencyCountAggregateInput, {nullable:true})
+    _count?: InstanceType<typeof CurrencyCountAggregateInput>;
+    @Field(() => CurrencyAvgAggregateInput, {nullable:true})
+    _avg?: InstanceType<typeof CurrencyAvgAggregateInput>;
+    @Field(() => CurrencySumAggregateInput, {nullable:true})
+    _sum?: InstanceType<typeof CurrencySumAggregateInput>;
+    @Field(() => CurrencyMinAggregateInput, {nullable:true})
+    _min?: InstanceType<typeof CurrencyMinAggregateInput>;
+    @Field(() => CurrencyMaxAggregateInput, {nullable:true})
+    _max?: InstanceType<typeof CurrencyMaxAggregateInput>;
+}
+
+@InputType()
+export class CurrencyAvgAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+}
+
+@ObjectType()
+export class CurrencyAvgAggregate {
+    @Field(() => Float, {nullable:true})
+    id?: number;
+}
+
+@InputType()
+export class CurrencyAvgOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class CurrencyCountAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+    @Field(() => Boolean, {nullable:true})
+    name?: true;
+    @Field(() => Boolean, {nullable:true})
+    status?: true;
+    @Field(() => Boolean, {nullable:true})
+    createdAt?: true;
+    @Field(() => Boolean, {nullable:true})
+    updatedAt?: true;
+    @Field(() => Boolean, {nullable:true})
+    _all?: true;
+}
+
+@ObjectType()
+export class CurrencyCountAggregate {
+    @Field(() => Int, {nullable:false})
+    id!: number;
+    @Field(() => Int, {nullable:false})
+    name!: number;
+    @Field(() => Int, {nullable:false})
+    status!: number;
+    @Field(() => Int, {nullable:false})
+    createdAt!: number;
+    @Field(() => Int, {nullable:false})
+    updatedAt!: number;
+    @Field(() => Int, {nullable:false})
+    _all!: number;
+}
+
+@InputType()
+export class CurrencyCountOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    name?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
+}
+
+@ObjectType()
+export class CurrencyCount {
+    @Field(() => Int, {nullable:false})
+    Tour?: number;
+}
+
+@InputType()
+export class CurrencyCreateManyInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class CurrencyCreateNestedOneWithoutTourInput {
+    @Field(() => CurrencyCreateWithoutTourInput, {nullable:true})
+    @Type(() => CurrencyCreateWithoutTourInput)
+    create?: InstanceType<typeof CurrencyCreateWithoutTourInput>;
+    @Field(() => CurrencyCreateOrConnectWithoutTourInput, {nullable:true})
+    @Type(() => CurrencyCreateOrConnectWithoutTourInput)
+    connectOrCreate?: InstanceType<typeof CurrencyCreateOrConnectWithoutTourInput>;
+    @Field(() => CurrencyWhereUniqueInput, {nullable:true})
+    @Type(() => CurrencyWhereUniqueInput)
+    connect?: InstanceType<typeof CurrencyWhereUniqueInput>;
+}
+
+@InputType()
+export class CurrencyCreateOrConnectWithoutTourInput {
+    @Field(() => CurrencyWhereUniqueInput, {nullable:false})
+    @Type(() => CurrencyWhereUniqueInput)
+    where!: InstanceType<typeof CurrencyWhereUniqueInput>;
+    @Field(() => CurrencyCreateWithoutTourInput, {nullable:false})
+    @Type(() => CurrencyCreateWithoutTourInput)
+    create!: InstanceType<typeof CurrencyCreateWithoutTourInput>;
+}
+
+@InputType()
+export class CurrencyCreateWithoutTourInput {
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class CurrencyCreateInput {
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => TourCreateNestedManyWithoutCurrencyInput, {nullable:true})
+    Tour?: InstanceType<typeof TourCreateNestedManyWithoutCurrencyInput>;
+}
+
+@ArgsType()
+export class CurrencyGroupByArgs {
+    @Field(() => CurrencyWhereInput, {nullable:true})
+    @Type(() => CurrencyWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof CurrencyWhereInput>;
+    @Field(() => [CurrencyOrderByWithAggregationInput], {nullable:true})
+    orderBy?: Array<CurrencyOrderByWithAggregationInput>;
+    @Field(() => [CurrencyScalarFieldEnum], {nullable:false})
+    by!: Array<keyof typeof CurrencyScalarFieldEnum>;
+    @Field(() => CurrencyScalarWhereWithAggregatesInput, {nullable:true})
+    having?: InstanceType<typeof CurrencyScalarWhereWithAggregatesInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => CurrencyCountAggregateInput, {nullable:true})
+    _count?: InstanceType<typeof CurrencyCountAggregateInput>;
+    @Field(() => CurrencyAvgAggregateInput, {nullable:true})
+    _avg?: InstanceType<typeof CurrencyAvgAggregateInput>;
+    @Field(() => CurrencySumAggregateInput, {nullable:true})
+    _sum?: InstanceType<typeof CurrencySumAggregateInput>;
+    @Field(() => CurrencyMinAggregateInput, {nullable:true})
+    _min?: InstanceType<typeof CurrencyMinAggregateInput>;
+    @Field(() => CurrencyMaxAggregateInput, {nullable:true})
+    _max?: InstanceType<typeof CurrencyMaxAggregateInput>;
+}
+
+@ObjectType()
+export class CurrencyGroupBy {
+    @Field(() => Int, {nullable:false})
+    id!: number;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:false})
+    @Validator.IsString()
+    status!: keyof typeof Status;
+    @Field(() => Date, {nullable:false})
+    createdAt!: Date | string;
+    @Field(() => Date, {nullable:false})
+    updatedAt!: Date | string;
+    @Field(() => CurrencyCountAggregate, {nullable:true})
+    _count?: InstanceType<typeof CurrencyCountAggregate>;
+    @Field(() => CurrencyAvgAggregate, {nullable:true})
+    _avg?: InstanceType<typeof CurrencyAvgAggregate>;
+    @Field(() => CurrencySumAggregate, {nullable:true})
+    _sum?: InstanceType<typeof CurrencySumAggregate>;
+    @Field(() => CurrencyMinAggregate, {nullable:true})
+    _min?: InstanceType<typeof CurrencyMinAggregate>;
+    @Field(() => CurrencyMaxAggregate, {nullable:true})
+    _max?: InstanceType<typeof CurrencyMaxAggregate>;
+}
+
+@InputType()
+export class CurrencyMaxAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+    @Field(() => Boolean, {nullable:true})
+    name?: true;
+    @Field(() => Boolean, {nullable:true})
+    status?: true;
+    @Field(() => Boolean, {nullable:true})
+    createdAt?: true;
+    @Field(() => Boolean, {nullable:true})
+    updatedAt?: true;
+}
+
+@ObjectType()
+export class CurrencyMaxAggregate {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class CurrencyMaxOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    name?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class CurrencyMinAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+    @Field(() => Boolean, {nullable:true})
+    name?: true;
+    @Field(() => Boolean, {nullable:true})
+    status?: true;
+    @Field(() => Boolean, {nullable:true})
+    createdAt?: true;
+    @Field(() => Boolean, {nullable:true})
+    updatedAt?: true;
+}
+
+@ObjectType()
+export class CurrencyMinAggregate {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class CurrencyMinOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    name?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class CurrencyOrderByWithAggregationInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    name?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
+    @Field(() => CurrencyCountOrderByAggregateInput, {nullable:true})
+    _count?: InstanceType<typeof CurrencyCountOrderByAggregateInput>;
+    @Field(() => CurrencyAvgOrderByAggregateInput, {nullable:true})
+    _avg?: InstanceType<typeof CurrencyAvgOrderByAggregateInput>;
+    @Field(() => CurrencyMaxOrderByAggregateInput, {nullable:true})
+    _max?: InstanceType<typeof CurrencyMaxOrderByAggregateInput>;
+    @Field(() => CurrencyMinOrderByAggregateInput, {nullable:true})
+    _min?: InstanceType<typeof CurrencyMinOrderByAggregateInput>;
+    @Field(() => CurrencySumOrderByAggregateInput, {nullable:true})
+    _sum?: InstanceType<typeof CurrencySumOrderByAggregateInput>;
+}
+
+@InputType()
+export class CurrencyOrderByWithRelationInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    name?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
+    @Field(() => TourOrderByRelationAggregateInput, {nullable:true})
+    Tour?: InstanceType<typeof TourOrderByRelationAggregateInput>;
+}
+
+@InputType()
+export class CurrencyRelationFilter {
+    @Field(() => CurrencyWhereInput, {nullable:true})
+    is?: InstanceType<typeof CurrencyWhereInput>;
+    @Field(() => CurrencyWhereInput, {nullable:true})
+    isNot?: InstanceType<typeof CurrencyWhereInput>;
+}
+
+@InputType()
+export class CurrencyScalarWhereWithAggregatesInput {
+    @Field(() => [CurrencyScalarWhereWithAggregatesInput], {nullable:true})
+    AND?: Array<CurrencyScalarWhereWithAggregatesInput>;
+    @Field(() => [CurrencyScalarWhereWithAggregatesInput], {nullable:true})
+    OR?: Array<CurrencyScalarWhereWithAggregatesInput>;
+    @Field(() => [CurrencyScalarWhereWithAggregatesInput], {nullable:true})
+    NOT?: Array<CurrencyScalarWhereWithAggregatesInput>;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    id?: InstanceType<typeof IntWithAggregatesFilter>;
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    name?: InstanceType<typeof StringWithAggregatesFilter>;
+    @Field(() => EnumStatusWithAggregatesFilter, {nullable:true})
+    status?: InstanceType<typeof EnumStatusWithAggregatesFilter>;
+    @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
+    createdAt?: InstanceType<typeof DateTimeWithAggregatesFilter>;
+    @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
+    updatedAt?: InstanceType<typeof DateTimeWithAggregatesFilter>;
+}
+
+@InputType()
+export class CurrencySumAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+}
+
+@ObjectType()
+export class CurrencySumAggregate {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+}
+
+@InputType()
+export class CurrencySumOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class CurrencyUncheckedCreateWithoutTourInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class CurrencyUncheckedCreateInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => TourUncheckedCreateNestedManyWithoutCurrencyInput, {nullable:true})
+    Tour?: InstanceType<typeof TourUncheckedCreateNestedManyWithoutCurrencyInput>;
+}
+
+@InputType()
+export class CurrencyUncheckedUpdateManyInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class CurrencyUncheckedUpdateWithoutTourInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class CurrencyUncheckedUpdateInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => TourUncheckedUpdateManyWithoutCurrencyInput, {nullable:true})
+    Tour?: InstanceType<typeof TourUncheckedUpdateManyWithoutCurrencyInput>;
+}
+
+@InputType()
+export class CurrencyUpdateManyMutationInput {
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class CurrencyUpdateOneRequiredWithoutTourInput {
+    @Field(() => CurrencyCreateWithoutTourInput, {nullable:true})
+    @Type(() => CurrencyCreateWithoutTourInput)
+    create?: InstanceType<typeof CurrencyCreateWithoutTourInput>;
+    @Field(() => CurrencyCreateOrConnectWithoutTourInput, {nullable:true})
+    @Type(() => CurrencyCreateOrConnectWithoutTourInput)
+    connectOrCreate?: InstanceType<typeof CurrencyCreateOrConnectWithoutTourInput>;
+    @Field(() => CurrencyUpsertWithoutTourInput, {nullable:true})
+    @Type(() => CurrencyUpsertWithoutTourInput)
+    upsert?: InstanceType<typeof CurrencyUpsertWithoutTourInput>;
+    @Field(() => CurrencyWhereUniqueInput, {nullable:true})
+    @Type(() => CurrencyWhereUniqueInput)
+    connect?: InstanceType<typeof CurrencyWhereUniqueInput>;
+    @Field(() => CurrencyUpdateWithoutTourInput, {nullable:true})
+    @Type(() => CurrencyUpdateWithoutTourInput)
+    update?: InstanceType<typeof CurrencyUpdateWithoutTourInput>;
+}
+
+@InputType()
+export class CurrencyUpdateWithoutTourInput {
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class CurrencyUpdateInput {
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => TourUpdateManyWithoutCurrencyInput, {nullable:true})
+    Tour?: InstanceType<typeof TourUpdateManyWithoutCurrencyInput>;
+}
+
+@InputType()
+export class CurrencyUpsertWithoutTourInput {
+    @Field(() => CurrencyUpdateWithoutTourInput, {nullable:false})
+    @Type(() => CurrencyUpdateWithoutTourInput)
+    update!: InstanceType<typeof CurrencyUpdateWithoutTourInput>;
+    @Field(() => CurrencyCreateWithoutTourInput, {nullable:false})
+    @Type(() => CurrencyCreateWithoutTourInput)
+    create!: InstanceType<typeof CurrencyCreateWithoutTourInput>;
+}
+
+@InputType()
+export class CurrencyWhereUniqueInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+}
+
+@InputType()
+export class CurrencyWhereInput {
+    @Field(() => [CurrencyWhereInput], {nullable:true})
+    AND?: Array<CurrencyWhereInput>;
+    @Field(() => [CurrencyWhereInput], {nullable:true})
+    OR?: Array<CurrencyWhereInput>;
+    @Field(() => [CurrencyWhereInput], {nullable:true})
+    NOT?: Array<CurrencyWhereInput>;
+    @Field(() => IntFilter, {nullable:true})
+    id?: InstanceType<typeof IntFilter>;
+    @Field(() => StringFilter, {nullable:true})
+    name?: InstanceType<typeof StringFilter>;
+    @Field(() => EnumStatusFilter, {nullable:true})
+    status?: InstanceType<typeof EnumStatusFilter>;
+    @Field(() => DateTimeFilter, {nullable:true})
+    createdAt?: InstanceType<typeof DateTimeFilter>;
+    @Field(() => DateTimeFilter, {nullable:true})
+    updatedAt?: InstanceType<typeof DateTimeFilter>;
+    @Field(() => TourListRelationFilter, {nullable:true})
+    Tour?: InstanceType<typeof TourListRelationFilter>;
+}
+
+@ObjectType()
+export class Currency {
+    @Field(() => ID, {nullable:false})
+    id!: number;
+    @Field(() => String, {nullable:false})
+    name!: string;
+    @Field(() => Status, {nullable:false,defaultValue:'ACTIVE'})
+    status!: keyof typeof Status;
+    @Field(() => Date, {nullable:false})
+    createdAt!: Date;
+    @Field(() => Date, {nullable:false})
+    updatedAt!: Date;
+    @Field(() => [Tour], {nullable:true})
+    Tour?: Array<Tour>;
+    @Field(() => CurrencyCount, {nullable:false})
+    _count?: InstanceType<typeof CurrencyCount>;
+}
+
+@ArgsType()
+export class DeleteManyCurrencyArgs {
+    @Field(() => CurrencyWhereInput, {nullable:true})
+    @Type(() => CurrencyWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof CurrencyWhereInput>;
+}
+
+@ArgsType()
+export class DeleteOneCurrencyArgs {
+    @Field(() => CurrencyWhereUniqueInput, {nullable:false})
+    @Type(() => CurrencyWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof CurrencyWhereUniqueInput>;
+}
+
+@ArgsType()
+export class FindFirstCurrencyArgs {
+    @Field(() => CurrencyWhereInput, {nullable:true})
+    @Type(() => CurrencyWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof CurrencyWhereInput>;
+    @Field(() => [CurrencyOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<CurrencyOrderByWithRelationInput>;
+    @Field(() => CurrencyWhereUniqueInput, {nullable:true})
+    cursor?: InstanceType<typeof CurrencyWhereUniqueInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => [CurrencyScalarFieldEnum], {nullable:true})
+    distinct?: Array<keyof typeof CurrencyScalarFieldEnum>;
+}
+
+@ArgsType()
+export class FindManyCurrencyArgs {
+    @Field(() => CurrencyWhereInput, {nullable:true})
+    @Type(() => CurrencyWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof CurrencyWhereInput>;
+    @Field(() => [CurrencyOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<CurrencyOrderByWithRelationInput>;
+    @Field(() => CurrencyWhereUniqueInput, {nullable:true})
+    cursor?: InstanceType<typeof CurrencyWhereUniqueInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => [CurrencyScalarFieldEnum], {nullable:true})
+    distinct?: Array<keyof typeof CurrencyScalarFieldEnum>;
+}
+
+@ArgsType()
+export class FindUniqueCurrencyArgs {
+    @Field(() => CurrencyWhereUniqueInput, {nullable:false})
+    @Type(() => CurrencyWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof CurrencyWhereUniqueInput>;
+}
+
+@ArgsType()
+export class UpdateManyCurrencyArgs {
+    @Field(() => CurrencyUpdateManyMutationInput, {nullable:false})
+    @Type(() => CurrencyUpdateManyMutationInput)
+    @ValidateNested({ each: true })
+    data!: InstanceType<typeof CurrencyUpdateManyMutationInput>;
+    @Field(() => CurrencyWhereInput, {nullable:true})
+    @Type(() => CurrencyWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof CurrencyWhereInput>;
+}
+
+@ArgsType()
+export class UpdateOneCurrencyArgs {
+    @Field(() => CurrencyUpdateInput, {nullable:false})
+    @Type(() => CurrencyUpdateInput)
+    @ValidateNested({ each: true })
+    data!: InstanceType<typeof CurrencyUpdateInput>;
+    @Field(() => CurrencyWhereUniqueInput, {nullable:false})
+    @Type(() => CurrencyWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof CurrencyWhereUniqueInput>;
+}
+
+@ArgsType()
+export class UpsertOneCurrencyArgs {
+    @Field(() => CurrencyWhereUniqueInput, {nullable:false})
+    @Type(() => CurrencyWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof CurrencyWhereUniqueInput>;
+    @Field(() => CurrencyCreateInput, {nullable:false})
+    @Type(() => CurrencyCreateInput)
+    create!: InstanceType<typeof CurrencyCreateInput>;
+    @Field(() => CurrencyUpdateInput, {nullable:false})
+    @Type(() => CurrencyUpdateInput)
+    update!: InstanceType<typeof CurrencyUpdateInput>;
+}
+
+@ObjectType()
 export class AggregateLanguages {
     @Field(() => LanguagesCountAggregate, {nullable:true})
     _count?: InstanceType<typeof LanguagesCountAggregate>;
@@ -3248,6 +3986,12 @@ export class TourAvgAggregateInput {
     id?: true;
     @Field(() => Boolean, {nullable:true})
     guideId?: true;
+    @Field(() => Boolean, {nullable:true})
+    currencyId?: true;
+    @Field(() => Boolean, {nullable:true})
+    maxCapacity?: true;
+    @Field(() => Boolean, {nullable:true})
+    price?: true;
 }
 
 @ObjectType()
@@ -3256,6 +4000,12 @@ export class TourAvgAggregate {
     id?: number;
     @Field(() => Float, {nullable:true})
     guideId?: number;
+    @Field(() => Float, {nullable:true})
+    currencyId?: number;
+    @Field(() => Float, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
 }
 
 @InputType()
@@ -3264,6 +4014,12 @@ export class TourAvgOrderByAggregateInput {
     id?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     guideId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    currencyId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    maxCapacity?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    price?: keyof typeof SortOrder;
 }
 
 @ObjectType()
@@ -3283,6 +4039,12 @@ export class TourCountAggregateInput {
     @Field(() => Boolean, {nullable:true})
     guideId?: true;
     @Field(() => Boolean, {nullable:true})
+    currencyId?: true;
+    @Field(() => Boolean, {nullable:true})
+    maxCapacity?: true;
+    @Field(() => Boolean, {nullable:true})
+    price?: true;
+    @Field(() => Boolean, {nullable:true})
     createdAt?: true;
     @Field(() => Boolean, {nullable:true})
     updatedAt?: true;
@@ -3300,6 +4062,12 @@ export class TourCountAggregate {
     status!: number;
     @Field(() => Int, {nullable:false})
     guideId!: number;
+    @Field(() => Int, {nullable:false})
+    currencyId!: number;
+    @Field(() => Int, {nullable:false})
+    maxCapacity!: number;
+    @Field(() => Int, {nullable:false})
+    price!: number;
     @Field(() => Int, {nullable:false})
     createdAt!: number;
     @Field(() => Int, {nullable:false})
@@ -3319,6 +4087,12 @@ export class TourCountOrderByAggregateInput {
     @Field(() => SortOrder, {nullable:true})
     guideId?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
+    currencyId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    maxCapacity?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    price?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
     createdAt?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     updatedAt?: keyof typeof SortOrder;
@@ -3332,6 +4106,37 @@ export class TourCount {
     TourCity?: number;
     @Field(() => Int, {nullable:false})
     TourLanguages?: number;
+}
+
+@InputType()
+export class TourCreateManyCurrencyInputEnvelope {
+    @Field(() => [TourCreateManyCurrencyInput], {nullable:false})
+    @Type(() => TourCreateManyCurrencyInput)
+    data!: Array<TourCreateManyCurrencyInput>;
+    @Field(() => Boolean, {nullable:true})
+    skipDuplicates?: boolean;
+}
+
+@InputType()
+export class TourCreateManyCurrencyInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    guideId!: number;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
 }
 
 @InputType()
@@ -3353,6 +4158,12 @@ export class TourCreateManyGuideInput {
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    currencyId?: number;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -3371,10 +4182,32 @@ export class TourCreateManyInput {
     status?: keyof typeof Status;
     @Field(() => Int, {nullable:false})
     guideId!: number;
+    @Field(() => Int, {nullable:true})
+    currencyId?: number;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourCreateNestedManyWithoutCurrencyInput {
+    @Field(() => [TourCreateWithoutCurrencyInput], {nullable:true})
+    @Type(() => TourCreateWithoutCurrencyInput)
+    create?: Array<TourCreateWithoutCurrencyInput>;
+    @Field(() => [TourCreateOrConnectWithoutCurrencyInput], {nullable:true})
+    @Type(() => TourCreateOrConnectWithoutCurrencyInput)
+    connectOrCreate?: Array<TourCreateOrConnectWithoutCurrencyInput>;
+    @Field(() => TourCreateManyCurrencyInputEnvelope, {nullable:true})
+    @Type(() => TourCreateManyCurrencyInputEnvelope)
+    createMany?: InstanceType<typeof TourCreateManyCurrencyInputEnvelope>;
+    @Field(() => [TourWhereUniqueInput], {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    connect?: Array<TourWhereUniqueInput>;
 }
 
 @InputType()
@@ -3433,6 +4266,16 @@ export class TourCreateNestedOneWithoutTourTourCategoryInput {
 }
 
 @InputType()
+export class TourCreateOrConnectWithoutCurrencyInput {
+    @Field(() => TourWhereUniqueInput, {nullable:false})
+    @Type(() => TourWhereUniqueInput)
+    where!: InstanceType<typeof TourWhereUniqueInput>;
+    @Field(() => TourCreateWithoutCurrencyInput, {nullable:false})
+    @Type(() => TourCreateWithoutCurrencyInput)
+    create!: InstanceType<typeof TourCreateWithoutCurrencyInput>;
+}
+
+@InputType()
 export class TourCreateOrConnectWithoutGuideInput {
     @Field(() => TourWhereUniqueInput, {nullable:false})
     @Type(() => TourWhereUniqueInput)
@@ -3473,6 +4316,32 @@ export class TourCreateOrConnectWithoutTourTourCategoryInput {
 }
 
 @InputType()
+export class TourCreateWithoutCurrencyInput {
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => UserCreateNestedOneWithoutTourInput, {nullable:false})
+    guide!: InstanceType<typeof UserCreateNestedOneWithoutTourInput>;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
+    @Field(() => TourTourCategoryCreateNestedManyWithoutTourInput, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryCreateNestedManyWithoutTourInput>;
+    @Field(() => TourCityCreateNestedManyWithoutTourInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityCreateNestedManyWithoutTourInput>;
+    @Field(() => TourLanguagesCreateNestedManyWithoutTourInput, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesCreateNestedManyWithoutTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
 export class TourCreateWithoutGuideInput {
     @Field(() => String, {nullable:false})
     @Validator.IsString()
@@ -3480,6 +4349,12 @@ export class TourCreateWithoutGuideInput {
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof Status;
+    @Field(() => CurrencyCreateNestedOneWithoutTourInput, {nullable:true})
+    currency?: InstanceType<typeof CurrencyCreateNestedOneWithoutTourInput>;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
     @Field(() => TourTourCategoryCreateNestedManyWithoutTourInput, {nullable:true})
     TourTourCategory?: InstanceType<typeof TourTourCategoryCreateNestedManyWithoutTourInput>;
     @Field(() => TourCityCreateNestedManyWithoutTourInput, {nullable:true})
@@ -3502,6 +4377,12 @@ export class TourCreateWithoutTourCityInput {
     status?: keyof typeof Status;
     @Field(() => UserCreateNestedOneWithoutTourInput, {nullable:false})
     guide!: InstanceType<typeof UserCreateNestedOneWithoutTourInput>;
+    @Field(() => CurrencyCreateNestedOneWithoutTourInput, {nullable:true})
+    currency?: InstanceType<typeof CurrencyCreateNestedOneWithoutTourInput>;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
     @Field(() => TourTourCategoryCreateNestedManyWithoutTourInput, {nullable:true})
     TourTourCategory?: InstanceType<typeof TourTourCategoryCreateNestedManyWithoutTourInput>;
     @Field(() => TourLanguagesCreateNestedManyWithoutTourInput, {nullable:true})
@@ -3522,6 +4403,12 @@ export class TourCreateWithoutTourLanguagesInput {
     status?: keyof typeof Status;
     @Field(() => UserCreateNestedOneWithoutTourInput, {nullable:false})
     guide!: InstanceType<typeof UserCreateNestedOneWithoutTourInput>;
+    @Field(() => CurrencyCreateNestedOneWithoutTourInput, {nullable:true})
+    currency?: InstanceType<typeof CurrencyCreateNestedOneWithoutTourInput>;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
     @Field(() => TourTourCategoryCreateNestedManyWithoutTourInput, {nullable:true})
     TourTourCategory?: InstanceType<typeof TourTourCategoryCreateNestedManyWithoutTourInput>;
     @Field(() => TourCityCreateNestedManyWithoutTourInput, {nullable:true})
@@ -3542,6 +4429,12 @@ export class TourCreateWithoutTourTourCategoryInput {
     status?: keyof typeof Status;
     @Field(() => UserCreateNestedOneWithoutTourInput, {nullable:false})
     guide!: InstanceType<typeof UserCreateNestedOneWithoutTourInput>;
+    @Field(() => CurrencyCreateNestedOneWithoutTourInput, {nullable:true})
+    currency?: InstanceType<typeof CurrencyCreateNestedOneWithoutTourInput>;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
     @Field(() => TourCityCreateNestedManyWithoutTourInput, {nullable:true})
     TourCity?: InstanceType<typeof TourCityCreateNestedManyWithoutTourInput>;
     @Field(() => TourLanguagesCreateNestedManyWithoutTourInput, {nullable:true})
@@ -3562,6 +4455,12 @@ export class TourCreateInput {
     status?: keyof typeof Status;
     @Field(() => UserCreateNestedOneWithoutTourInput, {nullable:false})
     guide!: InstanceType<typeof UserCreateNestedOneWithoutTourInput>;
+    @Field(() => CurrencyCreateNestedOneWithoutTourInput, {nullable:true})
+    currency?: InstanceType<typeof CurrencyCreateNestedOneWithoutTourInput>;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
     @Field(() => TourTourCategoryCreateNestedManyWithoutTourInput, {nullable:true})
     TourTourCategory?: InstanceType<typeof TourTourCategoryCreateNestedManyWithoutTourInput>;
     @Field(() => TourCityCreateNestedManyWithoutTourInput, {nullable:true})
@@ -3614,6 +4513,12 @@ export class TourGroupBy {
     status!: keyof typeof Status;
     @Field(() => Int, {nullable:false})
     guideId!: number;
+    @Field(() => Int, {nullable:false})
+    currencyId!: number;
+    @Field(() => Int, {nullable:false})
+    maxCapacity!: number;
+    @Field(() => Float, {nullable:false})
+    price!: number;
     @Field(() => Date, {nullable:false})
     createdAt!: Date | string;
     @Field(() => Date, {nullable:false})
@@ -3651,6 +4556,12 @@ export class TourMaxAggregateInput {
     @Field(() => Boolean, {nullable:true})
     guideId?: true;
     @Field(() => Boolean, {nullable:true})
+    currencyId?: true;
+    @Field(() => Boolean, {nullable:true})
+    maxCapacity?: true;
+    @Field(() => Boolean, {nullable:true})
+    price?: true;
+    @Field(() => Boolean, {nullable:true})
     createdAt?: true;
     @Field(() => Boolean, {nullable:true})
     updatedAt?: true;
@@ -3668,6 +4579,12 @@ export class TourMaxAggregate {
     status?: keyof typeof Status;
     @Field(() => Int, {nullable:true})
     guideId?: number;
+    @Field(() => Int, {nullable:true})
+    currencyId?: number;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -3685,6 +4602,12 @@ export class TourMaxOrderByAggregateInput {
     @Field(() => SortOrder, {nullable:true})
     guideId?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
+    currencyId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    maxCapacity?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    price?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
     createdAt?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     updatedAt?: keyof typeof SortOrder;
@@ -3700,6 +4623,12 @@ export class TourMinAggregateInput {
     status?: true;
     @Field(() => Boolean, {nullable:true})
     guideId?: true;
+    @Field(() => Boolean, {nullable:true})
+    currencyId?: true;
+    @Field(() => Boolean, {nullable:true})
+    maxCapacity?: true;
+    @Field(() => Boolean, {nullable:true})
+    price?: true;
     @Field(() => Boolean, {nullable:true})
     createdAt?: true;
     @Field(() => Boolean, {nullable:true})
@@ -3718,6 +4647,12 @@ export class TourMinAggregate {
     status?: keyof typeof Status;
     @Field(() => Int, {nullable:true})
     guideId?: number;
+    @Field(() => Int, {nullable:true})
+    currencyId?: number;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -3734,6 +4669,12 @@ export class TourMinOrderByAggregateInput {
     status?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     guideId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    currencyId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    maxCapacity?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    price?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     createdAt?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
@@ -3756,6 +4697,12 @@ export class TourOrderByWithAggregationInput {
     status?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     guideId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    currencyId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    maxCapacity?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    price?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     createdAt?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
@@ -3784,6 +4731,14 @@ export class TourOrderByWithRelationInput {
     guide?: InstanceType<typeof UserOrderByWithRelationInput>;
     @Field(() => SortOrder, {nullable:true})
     guideId?: keyof typeof SortOrder;
+    @Field(() => CurrencyOrderByWithRelationInput, {nullable:true})
+    currency?: InstanceType<typeof CurrencyOrderByWithRelationInput>;
+    @Field(() => SortOrder, {nullable:true})
+    currencyId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    maxCapacity?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    price?: keyof typeof SortOrder;
     @Field(() => TourTourCategoryOrderByRelationAggregateInput, {nullable:true})
     TourTourCategory?: InstanceType<typeof TourTourCategoryOrderByRelationAggregateInput>;
     @Field(() => TourCityOrderByRelationAggregateInput, {nullable:true})
@@ -3820,6 +4775,12 @@ export class TourScalarWhereWithAggregatesInput {
     status?: InstanceType<typeof EnumStatusWithAggregatesFilter>;
     @Field(() => IntWithAggregatesFilter, {nullable:true})
     guideId?: InstanceType<typeof IntWithAggregatesFilter>;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    currencyId?: InstanceType<typeof IntWithAggregatesFilter>;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    maxCapacity?: InstanceType<typeof IntWithAggregatesFilter>;
+    @Field(() => FloatWithAggregatesFilter, {nullable:true})
+    price?: InstanceType<typeof FloatWithAggregatesFilter>;
     @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeWithAggregatesFilter>;
     @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
@@ -3842,6 +4803,12 @@ export class TourScalarWhereInput {
     status?: InstanceType<typeof EnumStatusFilter>;
     @Field(() => IntFilter, {nullable:true})
     guideId?: InstanceType<typeof IntFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    currencyId?: InstanceType<typeof IntFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    maxCapacity?: InstanceType<typeof IntFilter>;
+    @Field(() => FloatFilter, {nullable:true})
+    price?: InstanceType<typeof FloatFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
     createdAt?: InstanceType<typeof DateTimeFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
@@ -3854,6 +4821,12 @@ export class TourSumAggregateInput {
     id?: true;
     @Field(() => Boolean, {nullable:true})
     guideId?: true;
+    @Field(() => Boolean, {nullable:true})
+    currencyId?: true;
+    @Field(() => Boolean, {nullable:true})
+    maxCapacity?: true;
+    @Field(() => Boolean, {nullable:true})
+    price?: true;
 }
 
 @ObjectType()
@@ -3862,6 +4835,12 @@ export class TourSumAggregate {
     id?: number;
     @Field(() => Int, {nullable:true})
     guideId?: number;
+    @Field(() => Int, {nullable:true})
+    currencyId?: number;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
 }
 
 @InputType()
@@ -3870,6 +4849,28 @@ export class TourSumOrderByAggregateInput {
     id?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     guideId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    currencyId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    maxCapacity?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    price?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourUncheckedCreateNestedManyWithoutCurrencyInput {
+    @Field(() => [TourCreateWithoutCurrencyInput], {nullable:true})
+    @Type(() => TourCreateWithoutCurrencyInput)
+    create?: Array<TourCreateWithoutCurrencyInput>;
+    @Field(() => [TourCreateOrConnectWithoutCurrencyInput], {nullable:true})
+    @Type(() => TourCreateOrConnectWithoutCurrencyInput)
+    connectOrCreate?: Array<TourCreateOrConnectWithoutCurrencyInput>;
+    @Field(() => TourCreateManyCurrencyInputEnvelope, {nullable:true})
+    @Type(() => TourCreateManyCurrencyInputEnvelope)
+    createMany?: InstanceType<typeof TourCreateManyCurrencyInputEnvelope>;
+    @Field(() => [TourWhereUniqueInput], {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    connect?: Array<TourWhereUniqueInput>;
 }
 
 @InputType()
@@ -3889,6 +4890,34 @@ export class TourUncheckedCreateNestedManyWithoutGuideInput {
 }
 
 @InputType()
+export class TourUncheckedCreateWithoutCurrencyInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    guideId!: number;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
+    @Field(() => TourTourCategoryUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryUncheckedCreateNestedManyWithoutTourInput>;
+    @Field(() => TourCityUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityUncheckedCreateNestedManyWithoutTourInput>;
+    @Field(() => TourLanguagesUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesUncheckedCreateNestedManyWithoutTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
 export class TourUncheckedCreateWithoutGuideInput {
     @Field(() => Int, {nullable:true})
     id?: number;
@@ -3898,6 +4927,12 @@ export class TourUncheckedCreateWithoutGuideInput {
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    currencyId?: number;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
     @Field(() => TourTourCategoryUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
     TourTourCategory?: InstanceType<typeof TourTourCategoryUncheckedCreateNestedManyWithoutTourInput>;
     @Field(() => TourCityUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
@@ -3922,6 +4957,12 @@ export class TourUncheckedCreateWithoutTourCityInput {
     status?: keyof typeof Status;
     @Field(() => Int, {nullable:false})
     guideId!: number;
+    @Field(() => Int, {nullable:true})
+    currencyId?: number;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
     @Field(() => TourTourCategoryUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
     TourTourCategory?: InstanceType<typeof TourTourCategoryUncheckedCreateNestedManyWithoutTourInput>;
     @Field(() => TourLanguagesUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
@@ -3944,6 +4985,12 @@ export class TourUncheckedCreateWithoutTourLanguagesInput {
     status?: keyof typeof Status;
     @Field(() => Int, {nullable:false})
     guideId!: number;
+    @Field(() => Int, {nullable:true})
+    currencyId?: number;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
     @Field(() => TourTourCategoryUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
     TourTourCategory?: InstanceType<typeof TourTourCategoryUncheckedCreateNestedManyWithoutTourInput>;
     @Field(() => TourCityUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
@@ -3966,6 +5013,12 @@ export class TourUncheckedCreateWithoutTourTourCategoryInput {
     status?: keyof typeof Status;
     @Field(() => Int, {nullable:false})
     guideId!: number;
+    @Field(() => Int, {nullable:true})
+    currencyId?: number;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
     @Field(() => TourCityUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
     TourCity?: InstanceType<typeof TourCityUncheckedCreateNestedManyWithoutTourInput>;
     @Field(() => TourLanguagesUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
@@ -3988,6 +5041,12 @@ export class TourUncheckedCreateInput {
     status?: keyof typeof Status;
     @Field(() => Int, {nullable:false})
     guideId!: number;
+    @Field(() => Int, {nullable:true})
+    currencyId?: number;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
     @Field(() => TourTourCategoryUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
     TourTourCategory?: InstanceType<typeof TourTourCategoryUncheckedCreateNestedManyWithoutTourInput>;
     @Field(() => TourCityUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
@@ -3998,6 +5057,43 @@ export class TourUncheckedCreateInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourUncheckedUpdateManyWithoutCurrencyInput {
+    @Field(() => [TourCreateWithoutCurrencyInput], {nullable:true})
+    @Type(() => TourCreateWithoutCurrencyInput)
+    create?: Array<TourCreateWithoutCurrencyInput>;
+    @Field(() => [TourCreateOrConnectWithoutCurrencyInput], {nullable:true})
+    @Type(() => TourCreateOrConnectWithoutCurrencyInput)
+    connectOrCreate?: Array<TourCreateOrConnectWithoutCurrencyInput>;
+    @Field(() => [TourUpsertWithWhereUniqueWithoutCurrencyInput], {nullable:true})
+    @Type(() => TourUpsertWithWhereUniqueWithoutCurrencyInput)
+    upsert?: Array<TourUpsertWithWhereUniqueWithoutCurrencyInput>;
+    @Field(() => TourCreateManyCurrencyInputEnvelope, {nullable:true})
+    @Type(() => TourCreateManyCurrencyInputEnvelope)
+    createMany?: InstanceType<typeof TourCreateManyCurrencyInputEnvelope>;
+    @Field(() => [TourWhereUniqueInput], {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    set?: Array<TourWhereUniqueInput>;
+    @Field(() => [TourWhereUniqueInput], {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    disconnect?: Array<TourWhereUniqueInput>;
+    @Field(() => [TourWhereUniqueInput], {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    delete?: Array<TourWhereUniqueInput>;
+    @Field(() => [TourWhereUniqueInput], {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    connect?: Array<TourWhereUniqueInput>;
+    @Field(() => [TourUpdateWithWhereUniqueWithoutCurrencyInput], {nullable:true})
+    @Type(() => TourUpdateWithWhereUniqueWithoutCurrencyInput)
+    update?: Array<TourUpdateWithWhereUniqueWithoutCurrencyInput>;
+    @Field(() => [TourUpdateManyWithWhereWithoutCurrencyInput], {nullable:true})
+    @Type(() => TourUpdateManyWithWhereWithoutCurrencyInput)
+    updateMany?: Array<TourUpdateManyWithWhereWithoutCurrencyInput>;
+    @Field(() => [TourScalarWhereInput], {nullable:true})
+    @Type(() => TourScalarWhereInput)
+    deleteMany?: Array<TourScalarWhereInput>;
 }
 
 @InputType()
@@ -4047,6 +5143,12 @@ export class TourUncheckedUpdateManyWithoutTourInput {
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    currencyId?: number;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -4065,6 +5167,40 @@ export class TourUncheckedUpdateManyInput {
     status?: keyof typeof Status;
     @Field(() => Int, {nullable:true})
     guideId?: number;
+    @Field(() => Int, {nullable:true})
+    currencyId?: number;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourUncheckedUpdateWithoutCurrencyInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    guideId?: number;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
+    @Field(() => TourTourCategoryUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryUncheckedUpdateManyWithoutTourInput>;
+    @Field(() => TourCityUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityUncheckedUpdateManyWithoutTourInput>;
+    @Field(() => TourLanguagesUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesUncheckedUpdateManyWithoutTourInput>;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -4081,6 +5217,12 @@ export class TourUncheckedUpdateWithoutGuideInput {
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    currencyId?: number;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
     @Field(() => TourTourCategoryUncheckedUpdateManyWithoutTourInput, {nullable:true})
     TourTourCategory?: InstanceType<typeof TourTourCategoryUncheckedUpdateManyWithoutTourInput>;
     @Field(() => TourCityUncheckedUpdateManyWithoutTourInput, {nullable:true})
@@ -4105,6 +5247,12 @@ export class TourUncheckedUpdateWithoutTourCityInput {
     status?: keyof typeof Status;
     @Field(() => Int, {nullable:true})
     guideId?: number;
+    @Field(() => Int, {nullable:true})
+    currencyId?: number;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
     @Field(() => TourTourCategoryUncheckedUpdateManyWithoutTourInput, {nullable:true})
     TourTourCategory?: InstanceType<typeof TourTourCategoryUncheckedUpdateManyWithoutTourInput>;
     @Field(() => TourLanguagesUncheckedUpdateManyWithoutTourInput, {nullable:true})
@@ -4127,6 +5275,12 @@ export class TourUncheckedUpdateWithoutTourLanguagesInput {
     status?: keyof typeof Status;
     @Field(() => Int, {nullable:true})
     guideId?: number;
+    @Field(() => Int, {nullable:true})
+    currencyId?: number;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
     @Field(() => TourTourCategoryUncheckedUpdateManyWithoutTourInput, {nullable:true})
     TourTourCategory?: InstanceType<typeof TourTourCategoryUncheckedUpdateManyWithoutTourInput>;
     @Field(() => TourCityUncheckedUpdateManyWithoutTourInput, {nullable:true})
@@ -4149,6 +5303,12 @@ export class TourUncheckedUpdateWithoutTourTourCategoryInput {
     status?: keyof typeof Status;
     @Field(() => Int, {nullable:true})
     guideId?: number;
+    @Field(() => Int, {nullable:true})
+    currencyId?: number;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
     @Field(() => TourCityUncheckedUpdateManyWithoutTourInput, {nullable:true})
     TourCity?: InstanceType<typeof TourCityUncheckedUpdateManyWithoutTourInput>;
     @Field(() => TourLanguagesUncheckedUpdateManyWithoutTourInput, {nullable:true})
@@ -4171,6 +5331,12 @@ export class TourUncheckedUpdateInput {
     status?: keyof typeof Status;
     @Field(() => Int, {nullable:true})
     guideId?: number;
+    @Field(() => Int, {nullable:true})
+    currencyId?: number;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
     @Field(() => TourTourCategoryUncheckedUpdateManyWithoutTourInput, {nullable:true})
     TourTourCategory?: InstanceType<typeof TourTourCategoryUncheckedUpdateManyWithoutTourInput>;
     @Field(() => TourCityUncheckedUpdateManyWithoutTourInput, {nullable:true})
@@ -4191,10 +5357,24 @@ export class TourUpdateManyMutationInput {
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourUpdateManyWithWhereWithoutCurrencyInput {
+    @Field(() => TourScalarWhereInput, {nullable:false})
+    @Type(() => TourScalarWhereInput)
+    where!: InstanceType<typeof TourScalarWhereInput>;
+    @Field(() => TourUpdateManyMutationInput, {nullable:false})
+    @Type(() => TourUpdateManyMutationInput)
+    data!: InstanceType<typeof TourUpdateManyMutationInput>;
 }
 
 @InputType()
@@ -4205,6 +5385,43 @@ export class TourUpdateManyWithWhereWithoutGuideInput {
     @Field(() => TourUpdateManyMutationInput, {nullable:false})
     @Type(() => TourUpdateManyMutationInput)
     data!: InstanceType<typeof TourUpdateManyMutationInput>;
+}
+
+@InputType()
+export class TourUpdateManyWithoutCurrencyInput {
+    @Field(() => [TourCreateWithoutCurrencyInput], {nullable:true})
+    @Type(() => TourCreateWithoutCurrencyInput)
+    create?: Array<TourCreateWithoutCurrencyInput>;
+    @Field(() => [TourCreateOrConnectWithoutCurrencyInput], {nullable:true})
+    @Type(() => TourCreateOrConnectWithoutCurrencyInput)
+    connectOrCreate?: Array<TourCreateOrConnectWithoutCurrencyInput>;
+    @Field(() => [TourUpsertWithWhereUniqueWithoutCurrencyInput], {nullable:true})
+    @Type(() => TourUpsertWithWhereUniqueWithoutCurrencyInput)
+    upsert?: Array<TourUpsertWithWhereUniqueWithoutCurrencyInput>;
+    @Field(() => TourCreateManyCurrencyInputEnvelope, {nullable:true})
+    @Type(() => TourCreateManyCurrencyInputEnvelope)
+    createMany?: InstanceType<typeof TourCreateManyCurrencyInputEnvelope>;
+    @Field(() => [TourWhereUniqueInput], {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    set?: Array<TourWhereUniqueInput>;
+    @Field(() => [TourWhereUniqueInput], {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    disconnect?: Array<TourWhereUniqueInput>;
+    @Field(() => [TourWhereUniqueInput], {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    delete?: Array<TourWhereUniqueInput>;
+    @Field(() => [TourWhereUniqueInput], {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    connect?: Array<TourWhereUniqueInput>;
+    @Field(() => [TourUpdateWithWhereUniqueWithoutCurrencyInput], {nullable:true})
+    @Type(() => TourUpdateWithWhereUniqueWithoutCurrencyInput)
+    update?: Array<TourUpdateWithWhereUniqueWithoutCurrencyInput>;
+    @Field(() => [TourUpdateManyWithWhereWithoutCurrencyInput], {nullable:true})
+    @Type(() => TourUpdateManyWithWhereWithoutCurrencyInput)
+    updateMany?: Array<TourUpdateManyWithWhereWithoutCurrencyInput>;
+    @Field(() => [TourScalarWhereInput], {nullable:true})
+    @Type(() => TourScalarWhereInput)
+    deleteMany?: Array<TourScalarWhereInput>;
 }
 
 @InputType()
@@ -4314,6 +5531,16 @@ export class TourUpdateOneWithoutTourTourCategoryInput {
 }
 
 @InputType()
+export class TourUpdateWithWhereUniqueWithoutCurrencyInput {
+    @Field(() => TourWhereUniqueInput, {nullable:false})
+    @Type(() => TourWhereUniqueInput)
+    where!: InstanceType<typeof TourWhereUniqueInput>;
+    @Field(() => TourUpdateWithoutCurrencyInput, {nullable:false})
+    @Type(() => TourUpdateWithoutCurrencyInput)
+    data!: InstanceType<typeof TourUpdateWithoutCurrencyInput>;
+}
+
+@InputType()
 export class TourUpdateWithWhereUniqueWithoutGuideInput {
     @Field(() => TourWhereUniqueInput, {nullable:false})
     @Type(() => TourWhereUniqueInput)
@@ -4324,6 +5551,32 @@ export class TourUpdateWithWhereUniqueWithoutGuideInput {
 }
 
 @InputType()
+export class TourUpdateWithoutCurrencyInput {
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => UserUpdateOneRequiredWithoutTourInput, {nullable:true})
+    guide?: InstanceType<typeof UserUpdateOneRequiredWithoutTourInput>;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
+    @Field(() => TourTourCategoryUpdateManyWithoutTourInput, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryUpdateManyWithoutTourInput>;
+    @Field(() => TourCityUpdateManyWithoutTourInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityUpdateManyWithoutTourInput>;
+    @Field(() => TourLanguagesUpdateManyWithoutTourInput, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesUpdateManyWithoutTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
 export class TourUpdateWithoutGuideInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
@@ -4331,6 +5584,12 @@ export class TourUpdateWithoutGuideInput {
     @Field(() => Status, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof Status;
+    @Field(() => CurrencyUpdateOneRequiredWithoutTourInput, {nullable:true})
+    currency?: InstanceType<typeof CurrencyUpdateOneRequiredWithoutTourInput>;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
     @Field(() => TourTourCategoryUpdateManyWithoutTourInput, {nullable:true})
     TourTourCategory?: InstanceType<typeof TourTourCategoryUpdateManyWithoutTourInput>;
     @Field(() => TourCityUpdateManyWithoutTourInput, {nullable:true})
@@ -4353,6 +5612,12 @@ export class TourUpdateWithoutTourCityInput {
     status?: keyof typeof Status;
     @Field(() => UserUpdateOneRequiredWithoutTourInput, {nullable:true})
     guide?: InstanceType<typeof UserUpdateOneRequiredWithoutTourInput>;
+    @Field(() => CurrencyUpdateOneRequiredWithoutTourInput, {nullable:true})
+    currency?: InstanceType<typeof CurrencyUpdateOneRequiredWithoutTourInput>;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
     @Field(() => TourTourCategoryUpdateManyWithoutTourInput, {nullable:true})
     TourTourCategory?: InstanceType<typeof TourTourCategoryUpdateManyWithoutTourInput>;
     @Field(() => TourLanguagesUpdateManyWithoutTourInput, {nullable:true})
@@ -4373,6 +5638,12 @@ export class TourUpdateWithoutTourLanguagesInput {
     status?: keyof typeof Status;
     @Field(() => UserUpdateOneRequiredWithoutTourInput, {nullable:true})
     guide?: InstanceType<typeof UserUpdateOneRequiredWithoutTourInput>;
+    @Field(() => CurrencyUpdateOneRequiredWithoutTourInput, {nullable:true})
+    currency?: InstanceType<typeof CurrencyUpdateOneRequiredWithoutTourInput>;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
     @Field(() => TourTourCategoryUpdateManyWithoutTourInput, {nullable:true})
     TourTourCategory?: InstanceType<typeof TourTourCategoryUpdateManyWithoutTourInput>;
     @Field(() => TourCityUpdateManyWithoutTourInput, {nullable:true})
@@ -4393,6 +5664,12 @@ export class TourUpdateWithoutTourTourCategoryInput {
     status?: keyof typeof Status;
     @Field(() => UserUpdateOneRequiredWithoutTourInput, {nullable:true})
     guide?: InstanceType<typeof UserUpdateOneRequiredWithoutTourInput>;
+    @Field(() => CurrencyUpdateOneRequiredWithoutTourInput, {nullable:true})
+    currency?: InstanceType<typeof CurrencyUpdateOneRequiredWithoutTourInput>;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
     @Field(() => TourCityUpdateManyWithoutTourInput, {nullable:true})
     TourCity?: InstanceType<typeof TourCityUpdateManyWithoutTourInput>;
     @Field(() => TourLanguagesUpdateManyWithoutTourInput, {nullable:true})
@@ -4413,6 +5690,12 @@ export class TourUpdateInput {
     status?: keyof typeof Status;
     @Field(() => UserUpdateOneRequiredWithoutTourInput, {nullable:true})
     guide?: InstanceType<typeof UserUpdateOneRequiredWithoutTourInput>;
+    @Field(() => CurrencyUpdateOneRequiredWithoutTourInput, {nullable:true})
+    currency?: InstanceType<typeof CurrencyUpdateOneRequiredWithoutTourInput>;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
     @Field(() => TourTourCategoryUpdateManyWithoutTourInput, {nullable:true})
     TourTourCategory?: InstanceType<typeof TourTourCategoryUpdateManyWithoutTourInput>;
     @Field(() => TourCityUpdateManyWithoutTourInput, {nullable:true})
@@ -4423,6 +5706,19 @@ export class TourUpdateInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourUpsertWithWhereUniqueWithoutCurrencyInput {
+    @Field(() => TourWhereUniqueInput, {nullable:false})
+    @Type(() => TourWhereUniqueInput)
+    where!: InstanceType<typeof TourWhereUniqueInput>;
+    @Field(() => TourUpdateWithoutCurrencyInput, {nullable:false})
+    @Type(() => TourUpdateWithoutCurrencyInput)
+    update!: InstanceType<typeof TourUpdateWithoutCurrencyInput>;
+    @Field(() => TourCreateWithoutCurrencyInput, {nullable:false})
+    @Type(() => TourCreateWithoutCurrencyInput)
+    create!: InstanceType<typeof TourCreateWithoutCurrencyInput>;
 }
 
 @InputType()
@@ -4492,6 +5788,14 @@ export class TourWhereInput {
     guide?: InstanceType<typeof UserRelationFilter>;
     @Field(() => IntFilter, {nullable:true})
     guideId?: InstanceType<typeof IntFilter>;
+    @Field(() => CurrencyRelationFilter, {nullable:true})
+    currency?: InstanceType<typeof CurrencyRelationFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    currencyId?: InstanceType<typeof IntFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    maxCapacity?: InstanceType<typeof IntFilter>;
+    @Field(() => FloatFilter, {nullable:true})
+    price?: InstanceType<typeof FloatFilter>;
     @Field(() => TourTourCategoryListRelationFilter, {nullable:true})
     TourTourCategory?: InstanceType<typeof TourTourCategoryListRelationFilter>;
     @Field(() => TourCityListRelationFilter, {nullable:true})
@@ -4516,6 +5820,14 @@ export class Tour {
     guide?: InstanceType<typeof User>;
     @Field(() => Int, {nullable:false})
     guideId!: number;
+    @Field(() => Currency, {nullable:false})
+    currency?: InstanceType<typeof Currency>;
+    @Field(() => Int, {nullable:false,defaultValue:1})
+    currencyId!: number;
+    @Field(() => Int, {nullable:false,defaultValue:2})
+    maxCapacity!: number;
+    @Field(() => Float, {nullable:false,defaultValue:2})
+    price!: number;
     @Field(() => [TourTourCategory], {nullable:true})
     TourTourCategory?: Array<TourTourCategory>;
     @Field(() => [TourCity], {nullable:true})
