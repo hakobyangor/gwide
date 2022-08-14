@@ -20,12 +20,7 @@ export class UserService {
   findAll() {
     return this.database.user.findMany({
       include: {
-        country: true,
-        _count: {
-          select: {
-            GuideGuideCategory: true
-          }
-        }
+        country: true
       }
     })
   }
@@ -33,31 +28,7 @@ export class UserService {
   findGuides(findUserArguments: UserWhereInput) {
     return this.database.user.findMany({
       include: {
-        country: {},
-        GuideLanguages: {
-          include: {
-            language: {}
-          }
-        },
-        GuideGuideCategory: {
-          include: {
-            guideCategory: true
-          }
-        },
-        GuideCity: {
-          include: {
-            city: {
-              include: { country: true }
-            }
-          }
-        },
-        _count: {
-          select: {
-            GuideGuideCategory: true,
-            GuideCity: true,
-            GuideLanguages: true
-          }
-        }
+        country: {}
       },
       where: {
         ...findUserArguments,
@@ -71,6 +42,8 @@ export class UserService {
   }
 
   async update(userUpdateInput: UpdateOneUserArgs) {
+    const userId = userUpdateInput.where.id
+
     return this.database.user.update(userUpdateInput)
   }
 

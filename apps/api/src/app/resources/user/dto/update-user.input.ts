@@ -10,5 +10,4 @@ export class UpdateUserInput extends PickType(UserUpdateInput, [
   'country',
   'email',
   'password'
-  // 'GuideCity'
 ]) {}

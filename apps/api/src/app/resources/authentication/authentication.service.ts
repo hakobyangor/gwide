@@ -34,6 +34,11 @@ export class AuthenticationService {
     const { email, password: plainPassword, firstName, lastName, role } = signUpInput
     const password = await bcrypt.hash(plainPassword, 10)
 
+    const userCheck = await this.userService.findOne({ where: { email: email } })
+
+    if (userCheck) {
+      throw new Error('User Exist with provided email')
+    }
     return this.userService.create({ data: { email, password, firstName, lastName, role } })
   }
 

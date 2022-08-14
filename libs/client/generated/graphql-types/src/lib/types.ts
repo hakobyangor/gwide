@@ -16,8 +16,7 @@ export type Scalars = {
 
 export type City = {
   __typename?: 'City';
-  GuideCity?: Maybe<Array<GuideCity>>;
-  GuideLanguages?: Maybe<Array<GuideLanguages>>;
+  TourCity?: Maybe<Array<TourCity>>;
   _count: CityCount;
   country: Country;
   countryId: Scalars['Int'];
@@ -36,8 +35,7 @@ export type CityAvgAggregate = {
 
 export type CityCount = {
   __typename?: 'CityCount';
-  GuideCity: Scalars['Int'];
-  GuideLanguages: Scalars['Int'];
+  TourCity: Scalars['Int'];
 };
 
 export type CityCountAggregate = {
@@ -71,16 +69,10 @@ export type CityCreateNestedManyWithoutCountryInput = {
   createMany?: InputMaybe<CityCreateManyCountryInputEnvelope>;
 };
 
-export type CityCreateNestedOneWithoutGuideCityInput = {
+export type CityCreateNestedOneWithoutTourCityInput = {
   connect?: InputMaybe<CityWhereUniqueInput>;
-  connectOrCreate?: InputMaybe<CityCreateOrConnectWithoutGuideCityInput>;
-  create?: InputMaybe<CityCreateWithoutGuideCityInput>;
-};
-
-export type CityCreateNestedOneWithoutGuideLanguagesInput = {
-  connect?: InputMaybe<CityWhereUniqueInput>;
-  connectOrCreate?: InputMaybe<CityCreateOrConnectWithoutGuideLanguagesInput>;
-  create?: InputMaybe<CityCreateWithoutGuideLanguagesInput>;
+  connectOrCreate?: InputMaybe<CityCreateOrConnectWithoutTourCityInput>;
+  create?: InputMaybe<CityCreateWithoutTourCityInput>;
 };
 
 export type CityCreateOrConnectWithoutCountryInput = {
@@ -88,36 +80,20 @@ export type CityCreateOrConnectWithoutCountryInput = {
   where: CityWhereUniqueInput;
 };
 
-export type CityCreateOrConnectWithoutGuideCityInput = {
-  create: CityCreateWithoutGuideCityInput;
-  where: CityWhereUniqueInput;
-};
-
-export type CityCreateOrConnectWithoutGuideLanguagesInput = {
-  create: CityCreateWithoutGuideLanguagesInput;
+export type CityCreateOrConnectWithoutTourCityInput = {
+  create: CityCreateWithoutTourCityInput;
   where: CityWhereUniqueInput;
 };
 
 export type CityCreateWithoutCountryInput = {
-  GuideCity?: InputMaybe<GuideCityCreateNestedManyWithoutCityInput>;
-  GuideLanguages?: InputMaybe<GuideLanguagesCreateNestedManyWithoutCityInput>;
+  TourCity?: InputMaybe<TourCityCreateNestedManyWithoutCityInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   name: Scalars['String'];
   status?: InputMaybe<Status>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
-export type CityCreateWithoutGuideCityInput = {
-  GuideLanguages?: InputMaybe<GuideLanguagesCreateNestedManyWithoutCityInput>;
-  country: CountryCreateNestedOneWithoutCityInput;
-  createdAt?: InputMaybe<Scalars['DateTime']>;
-  name: Scalars['String'];
-  status?: InputMaybe<Status>;
-  updatedAt?: InputMaybe<Scalars['DateTime']>;
-};
-
-export type CityCreateWithoutGuideLanguagesInput = {
-  GuideCity?: InputMaybe<GuideCityCreateNestedManyWithoutCityInput>;
+export type CityCreateWithoutTourCityInput = {
   country: CountryCreateNestedOneWithoutCityInput;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   name: Scalars['String'];
@@ -204,50 +180,13 @@ export type CityUpdateManyWithoutCountryInput = {
   upsert?: InputMaybe<Array<CityUpsertWithWhereUniqueWithoutCountryInput>>;
 };
 
-export type CityUpdateOneRequiredWithoutGuideCityInput = {
-  connect?: InputMaybe<CityWhereUniqueInput>;
-  connectOrCreate?: InputMaybe<CityCreateOrConnectWithoutGuideCityInput>;
-  create?: InputMaybe<CityCreateWithoutGuideCityInput>;
-  update?: InputMaybe<CityUpdateWithoutGuideCityInput>;
-  upsert?: InputMaybe<CityUpsertWithoutGuideCityInput>;
-};
-
-export type CityUpdateOneWithoutGuideLanguagesInput = {
-  connect?: InputMaybe<CityWhereUniqueInput>;
-  connectOrCreate?: InputMaybe<CityCreateOrConnectWithoutGuideLanguagesInput>;
-  create?: InputMaybe<CityCreateWithoutGuideLanguagesInput>;
-  delete?: InputMaybe<Scalars['Boolean']>;
-  disconnect?: InputMaybe<Scalars['Boolean']>;
-  update?: InputMaybe<CityUpdateWithoutGuideLanguagesInput>;
-  upsert?: InputMaybe<CityUpsertWithoutGuideLanguagesInput>;
-};
-
 export type CityUpdateWithWhereUniqueWithoutCountryInput = {
   data: CityUpdateWithoutCountryInput;
   where: CityWhereUniqueInput;
 };
 
 export type CityUpdateWithoutCountryInput = {
-  GuideCity?: InputMaybe<GuideCityUpdateManyWithoutCityInput>;
-  GuideLanguages?: InputMaybe<GuideLanguagesUpdateManyWithoutCityInput>;
-  createdAt?: InputMaybe<Scalars['DateTime']>;
-  name?: InputMaybe<Scalars['String']>;
-  status?: InputMaybe<Status>;
-  updatedAt?: InputMaybe<Scalars['DateTime']>;
-};
-
-export type CityUpdateWithoutGuideCityInput = {
-  GuideLanguages?: InputMaybe<GuideLanguagesUpdateManyWithoutCityInput>;
-  country?: InputMaybe<CountryUpdateOneRequiredWithoutCityInput>;
-  createdAt?: InputMaybe<Scalars['DateTime']>;
-  name?: InputMaybe<Scalars['String']>;
-  status?: InputMaybe<Status>;
-  updatedAt?: InputMaybe<Scalars['DateTime']>;
-};
-
-export type CityUpdateWithoutGuideLanguagesInput = {
-  GuideCity?: InputMaybe<GuideCityUpdateManyWithoutCityInput>;
-  country?: InputMaybe<CountryUpdateOneRequiredWithoutCityInput>;
+  TourCity?: InputMaybe<TourCityUpdateManyWithoutCityInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   name?: InputMaybe<Scalars['String']>;
   status?: InputMaybe<Status>;
@@ -260,22 +199,11 @@ export type CityUpsertWithWhereUniqueWithoutCountryInput = {
   where: CityWhereUniqueInput;
 };
 
-export type CityUpsertWithoutGuideCityInput = {
-  create: CityCreateWithoutGuideCityInput;
-  update: CityUpdateWithoutGuideCityInput;
-};
-
-export type CityUpsertWithoutGuideLanguagesInput = {
-  create: CityCreateWithoutGuideLanguagesInput;
-  update: CityUpdateWithoutGuideLanguagesInput;
-};
-
 export type CityWhereInput = {
   AND?: InputMaybe<Array<CityWhereInput>>;
-  GuideCity?: InputMaybe<GuideCityListRelationFilter>;
-  GuideLanguages?: InputMaybe<GuideLanguagesListRelationFilter>;
   NOT?: InputMaybe<Array<CityWhereInput>>;
   OR?: InputMaybe<Array<CityWhereInput>>;
+  TourCity?: InputMaybe<TourCityListRelationFilter>;
   country?: InputMaybe<CountryRelationFilter>;
   countryId?: InputMaybe<IntFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
@@ -398,14 +326,6 @@ export type CountrySumAggregate = {
   id?: Maybe<Scalars['Int']>;
 };
 
-export type CountryUpdateOneRequiredWithoutCityInput = {
-  connect?: InputMaybe<CountryWhereUniqueInput>;
-  connectOrCreate?: InputMaybe<CountryCreateOrConnectWithoutCityInput>;
-  create?: InputMaybe<CountryCreateWithoutCityInput>;
-  update?: InputMaybe<CountryUpdateWithoutCityInput>;
-  upsert?: InputMaybe<CountryUpsertWithoutCityInput>;
-};
-
 export type CountryUpdateOneWithoutUserInput = {
   connect?: InputMaybe<CountryWhereUniqueInput>;
   connectOrCreate?: InputMaybe<CountryCreateOrConnectWithoutUserInput>;
@@ -416,25 +336,12 @@ export type CountryUpdateOneWithoutUserInput = {
   upsert?: InputMaybe<CountryUpsertWithoutUserInput>;
 };
 
-export type CountryUpdateWithoutCityInput = {
-  User?: InputMaybe<UserUpdateManyWithoutCountryInput>;
-  createdAt?: InputMaybe<Scalars['DateTime']>;
-  name?: InputMaybe<Scalars['String']>;
-  status?: InputMaybe<Status>;
-  updatedAt?: InputMaybe<Scalars['DateTime']>;
-};
-
 export type CountryUpdateWithoutUserInput = {
   City?: InputMaybe<CityUpdateManyWithoutCountryInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   name?: InputMaybe<Scalars['String']>;
   status?: InputMaybe<Status>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
-};
-
-export type CountryUpsertWithoutCityInput = {
-  create: CountryCreateWithoutCityInput;
-  update: CountryUpdateWithoutCityInput;
 };
 
 export type CountryUpsertWithoutUserInput = {
@@ -502,703 +409,6 @@ export type FloatFilter = {
   notIn?: InputMaybe<Array<Scalars['Float']>>;
 };
 
-export type GuideCategory = {
-  __typename?: 'GuideCategory';
-  GuideGuideCategory?: Maybe<Array<GuideGuideCategory>>;
-  _count: GuideCategoryCount;
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  status: Status;
-  updatedAt: Scalars['DateTime'];
-};
-
-export type GuideCategoryAvgAggregate = {
-  __typename?: 'GuideCategoryAvgAggregate';
-  id?: Maybe<Scalars['Float']>;
-};
-
-export type GuideCategoryCount = {
-  __typename?: 'GuideCategoryCount';
-  GuideGuideCategory: Scalars['Int'];
-};
-
-export type GuideCategoryCountAggregate = {
-  __typename?: 'GuideCategoryCountAggregate';
-  _all: Scalars['Int'];
-  createdAt: Scalars['Int'];
-  id: Scalars['Int'];
-  name: Scalars['Int'];
-  status: Scalars['Int'];
-  updatedAt: Scalars['Int'];
-};
-
-export type GuideCategoryCreateNestedOneWithoutGuideGuideCategoryInput = {
-  connect?: InputMaybe<GuideCategoryWhereUniqueInput>;
-  connectOrCreate?: InputMaybe<GuideCategoryCreateOrConnectWithoutGuideGuideCategoryInput>;
-  create?: InputMaybe<GuideCategoryCreateWithoutGuideGuideCategoryInput>;
-};
-
-export type GuideCategoryCreateOrConnectWithoutGuideGuideCategoryInput = {
-  create: GuideCategoryCreateWithoutGuideGuideCategoryInput;
-  where: GuideCategoryWhereUniqueInput;
-};
-
-export type GuideCategoryCreateWithoutGuideGuideCategoryInput = {
-  createdAt?: InputMaybe<Scalars['DateTime']>;
-  name: Scalars['String'];
-  status?: InputMaybe<Status>;
-  updatedAt?: InputMaybe<Scalars['DateTime']>;
-};
-
-export type GuideCategoryMaxAggregate = {
-  __typename?: 'GuideCategoryMaxAggregate';
-  createdAt?: Maybe<Scalars['DateTime']>;
-  id?: Maybe<Scalars['Int']>;
-  name?: Maybe<Scalars['String']>;
-  status?: Maybe<Status>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-};
-
-export type GuideCategoryMinAggregate = {
-  __typename?: 'GuideCategoryMinAggregate';
-  createdAt?: Maybe<Scalars['DateTime']>;
-  id?: Maybe<Scalars['Int']>;
-  name?: Maybe<Scalars['String']>;
-  status?: Maybe<Status>;
-  updatedAt?: Maybe<Scalars['DateTime']>;
-};
-
-export type GuideCategoryRelationFilter = {
-  is?: InputMaybe<GuideCategoryWhereInput>;
-  isNot?: InputMaybe<GuideCategoryWhereInput>;
-};
-
-export type GuideCategorySumAggregate = {
-  __typename?: 'GuideCategorySumAggregate';
-  id?: Maybe<Scalars['Int']>;
-};
-
-export type GuideCategoryUpdateOneRequiredWithoutGuideGuideCategoryInput = {
-  connect?: InputMaybe<GuideCategoryWhereUniqueInput>;
-  connectOrCreate?: InputMaybe<GuideCategoryCreateOrConnectWithoutGuideGuideCategoryInput>;
-  create?: InputMaybe<GuideCategoryCreateWithoutGuideGuideCategoryInput>;
-  update?: InputMaybe<GuideCategoryUpdateWithoutGuideGuideCategoryInput>;
-  upsert?: InputMaybe<GuideCategoryUpsertWithoutGuideGuideCategoryInput>;
-};
-
-export type GuideCategoryUpdateWithoutGuideGuideCategoryInput = {
-  createdAt?: InputMaybe<Scalars['DateTime']>;
-  name?: InputMaybe<Scalars['String']>;
-  status?: InputMaybe<Status>;
-  updatedAt?: InputMaybe<Scalars['DateTime']>;
-};
-
-export type GuideCategoryUpsertWithoutGuideGuideCategoryInput = {
-  create: GuideCategoryCreateWithoutGuideGuideCategoryInput;
-  update: GuideCategoryUpdateWithoutGuideGuideCategoryInput;
-};
-
-export type GuideCategoryWhereInput = {
-  AND?: InputMaybe<Array<GuideCategoryWhereInput>>;
-  GuideGuideCategory?: InputMaybe<GuideGuideCategoryListRelationFilter>;
-  NOT?: InputMaybe<Array<GuideCategoryWhereInput>>;
-  OR?: InputMaybe<Array<GuideCategoryWhereInput>>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  id?: InputMaybe<IntFilter>;
-  name?: InputMaybe<StringFilter>;
-  status?: InputMaybe<EnumStatusFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-};
-
-export type GuideCategoryWhereUniqueInput = {
-  id?: InputMaybe<Scalars['Int']>;
-};
-
-export type GuideCity = {
-  __typename?: 'GuideCity';
-  city: City;
-  cityId: Scalars['Int'];
-  status: Status;
-  user: User;
-  userId: Scalars['Int'];
-};
-
-export type GuideCityAvgAggregate = {
-  __typename?: 'GuideCityAvgAggregate';
-  cityId?: Maybe<Scalars['Float']>;
-  userId?: Maybe<Scalars['Float']>;
-};
-
-export type GuideCityCountAggregate = {
-  __typename?: 'GuideCityCountAggregate';
-  _all: Scalars['Int'];
-  cityId: Scalars['Int'];
-  status: Scalars['Int'];
-  userId: Scalars['Int'];
-};
-
-export type GuideCityCreateManyCityInput = {
-  status?: InputMaybe<Status>;
-  userId: Scalars['Int'];
-};
-
-export type GuideCityCreateManyCityInputEnvelope = {
-  data: Array<GuideCityCreateManyCityInput>;
-  skipDuplicates?: InputMaybe<Scalars['Boolean']>;
-};
-
-export type GuideCityCreateManyUserInput = {
-  cityId: Scalars['Int'];
-  status?: InputMaybe<Status>;
-};
-
-export type GuideCityCreateManyUserInputEnvelope = {
-  data: Array<GuideCityCreateManyUserInput>;
-  skipDuplicates?: InputMaybe<Scalars['Boolean']>;
-};
-
-export type GuideCityCreateNestedManyWithoutCityInput = {
-  connect?: InputMaybe<Array<GuideCityWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<GuideCityCreateOrConnectWithoutCityInput>>;
-  create?: InputMaybe<Array<GuideCityCreateWithoutCityInput>>;
-  createMany?: InputMaybe<GuideCityCreateManyCityInputEnvelope>;
-};
-
-export type GuideCityCreateNestedManyWithoutUserInput = {
-  connect?: InputMaybe<Array<GuideCityWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<GuideCityCreateOrConnectWithoutUserInput>>;
-  create?: InputMaybe<Array<GuideCityCreateWithoutUserInput>>;
-  createMany?: InputMaybe<GuideCityCreateManyUserInputEnvelope>;
-};
-
-export type GuideCityCreateOrConnectWithoutCityInput = {
-  create: GuideCityCreateWithoutCityInput;
-  where: GuideCityWhereUniqueInput;
-};
-
-export type GuideCityCreateOrConnectWithoutUserInput = {
-  create: GuideCityCreateWithoutUserInput;
-  where: GuideCityWhereUniqueInput;
-};
-
-export type GuideCityCreateWithoutCityInput = {
-  status?: InputMaybe<Status>;
-  user: UserCreateNestedOneWithoutGuideCityInput;
-};
-
-export type GuideCityCreateWithoutUserInput = {
-  city: CityCreateNestedOneWithoutGuideCityInput;
-  status?: InputMaybe<Status>;
-};
-
-export type GuideCityListRelationFilter = {
-  every?: InputMaybe<GuideCityWhereInput>;
-  none?: InputMaybe<GuideCityWhereInput>;
-  some?: InputMaybe<GuideCityWhereInput>;
-};
-
-export type GuideCityMaxAggregate = {
-  __typename?: 'GuideCityMaxAggregate';
-  cityId?: Maybe<Scalars['Int']>;
-  status?: Maybe<Status>;
-  userId?: Maybe<Scalars['Int']>;
-};
-
-export type GuideCityMinAggregate = {
-  __typename?: 'GuideCityMinAggregate';
-  cityId?: Maybe<Scalars['Int']>;
-  status?: Maybe<Status>;
-  userId?: Maybe<Scalars['Int']>;
-};
-
-export type GuideCityOrderByRelationAggregateInput = {
-  _count?: InputMaybe<SortOrder>;
-};
-
-export type GuideCityScalarWhereInput = {
-  AND?: InputMaybe<Array<GuideCityScalarWhereInput>>;
-  NOT?: InputMaybe<Array<GuideCityScalarWhereInput>>;
-  OR?: InputMaybe<Array<GuideCityScalarWhereInput>>;
-  cityId?: InputMaybe<IntFilter>;
-  status?: InputMaybe<EnumStatusFilter>;
-  userId?: InputMaybe<IntFilter>;
-};
-
-export type GuideCitySumAggregate = {
-  __typename?: 'GuideCitySumAggregate';
-  cityId?: Maybe<Scalars['Int']>;
-  userId?: Maybe<Scalars['Int']>;
-};
-
-export type GuideCityUpdateManyMutationInput = {
-  status?: InputMaybe<Status>;
-};
-
-export type GuideCityUpdateManyWithWhereWithoutCityInput = {
-  data: GuideCityUpdateManyMutationInput;
-  where: GuideCityScalarWhereInput;
-};
-
-export type GuideCityUpdateManyWithWhereWithoutUserInput = {
-  data: GuideCityUpdateManyMutationInput;
-  where: GuideCityScalarWhereInput;
-};
-
-export type GuideCityUpdateManyWithoutCityInput = {
-  connect?: InputMaybe<Array<GuideCityWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<GuideCityCreateOrConnectWithoutCityInput>>;
-  create?: InputMaybe<Array<GuideCityCreateWithoutCityInput>>;
-  createMany?: InputMaybe<GuideCityCreateManyCityInputEnvelope>;
-  delete?: InputMaybe<Array<GuideCityWhereUniqueInput>>;
-  deleteMany?: InputMaybe<Array<GuideCityScalarWhereInput>>;
-  disconnect?: InputMaybe<Array<GuideCityWhereUniqueInput>>;
-  set?: InputMaybe<Array<GuideCityWhereUniqueInput>>;
-  update?: InputMaybe<Array<GuideCityUpdateWithWhereUniqueWithoutCityInput>>;
-  updateMany?: InputMaybe<Array<GuideCityUpdateManyWithWhereWithoutCityInput>>;
-  upsert?: InputMaybe<Array<GuideCityUpsertWithWhereUniqueWithoutCityInput>>;
-};
-
-export type GuideCityUpdateManyWithoutUserInput = {
-  connect?: InputMaybe<Array<GuideCityWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<GuideCityCreateOrConnectWithoutUserInput>>;
-  create?: InputMaybe<Array<GuideCityCreateWithoutUserInput>>;
-  createMany?: InputMaybe<GuideCityCreateManyUserInputEnvelope>;
-  delete?: InputMaybe<Array<GuideCityWhereUniqueInput>>;
-  deleteMany?: InputMaybe<Array<GuideCityScalarWhereInput>>;
-  disconnect?: InputMaybe<Array<GuideCityWhereUniqueInput>>;
-  set?: InputMaybe<Array<GuideCityWhereUniqueInput>>;
-  update?: InputMaybe<Array<GuideCityUpdateWithWhereUniqueWithoutUserInput>>;
-  updateMany?: InputMaybe<Array<GuideCityUpdateManyWithWhereWithoutUserInput>>;
-  upsert?: InputMaybe<Array<GuideCityUpsertWithWhereUniqueWithoutUserInput>>;
-};
-
-export type GuideCityUpdateWithWhereUniqueWithoutCityInput = {
-  data: GuideCityUpdateWithoutCityInput;
-  where: GuideCityWhereUniqueInput;
-};
-
-export type GuideCityUpdateWithWhereUniqueWithoutUserInput = {
-  data: GuideCityUpdateWithoutUserInput;
-  where: GuideCityWhereUniqueInput;
-};
-
-export type GuideCityUpdateWithoutCityInput = {
-  status?: InputMaybe<Status>;
-  user?: InputMaybe<UserUpdateOneRequiredWithoutGuideCityInput>;
-};
-
-export type GuideCityUpdateWithoutUserInput = {
-  city?: InputMaybe<CityUpdateOneRequiredWithoutGuideCityInput>;
-  status?: InputMaybe<Status>;
-};
-
-export type GuideCityUpsertWithWhereUniqueWithoutCityInput = {
-  create: GuideCityCreateWithoutCityInput;
-  update: GuideCityUpdateWithoutCityInput;
-  where: GuideCityWhereUniqueInput;
-};
-
-export type GuideCityUpsertWithWhereUniqueWithoutUserInput = {
-  create: GuideCityCreateWithoutUserInput;
-  update: GuideCityUpdateWithoutUserInput;
-  where: GuideCityWhereUniqueInput;
-};
-
-export type GuideCityUserIdCityIdCompoundUniqueInput = {
-  cityId: Scalars['Int'];
-  userId: Scalars['Int'];
-};
-
-export type GuideCityWhereInput = {
-  AND?: InputMaybe<Array<GuideCityWhereInput>>;
-  NOT?: InputMaybe<Array<GuideCityWhereInput>>;
-  OR?: InputMaybe<Array<GuideCityWhereInput>>;
-  city?: InputMaybe<CityRelationFilter>;
-  cityId?: InputMaybe<IntFilter>;
-  status?: InputMaybe<EnumStatusFilter>;
-  user?: InputMaybe<UserRelationFilter>;
-  userId?: InputMaybe<IntFilter>;
-};
-
-export type GuideCityWhereUniqueInput = {
-  userId_cityId?: InputMaybe<GuideCityUserIdCityIdCompoundUniqueInput>;
-};
-
-export type GuideGuideCategory = {
-  __typename?: 'GuideGuideCategory';
-  guideCategory: GuideCategory;
-  guideCategoryId: Scalars['Int'];
-  status: Status;
-  user: User;
-  userId: Scalars['Int'];
-};
-
-export type GuideGuideCategoryAvgAggregate = {
-  __typename?: 'GuideGuideCategoryAvgAggregate';
-  guideCategoryId?: Maybe<Scalars['Float']>;
-  userId?: Maybe<Scalars['Float']>;
-};
-
-export type GuideGuideCategoryCountAggregate = {
-  __typename?: 'GuideGuideCategoryCountAggregate';
-  _all: Scalars['Int'];
-  guideCategoryId: Scalars['Int'];
-  status: Scalars['Int'];
-  userId: Scalars['Int'];
-};
-
-export type GuideGuideCategoryCreateManyUserInput = {
-  guideCategoryId: Scalars['Int'];
-  status?: InputMaybe<Status>;
-};
-
-export type GuideGuideCategoryCreateManyUserInputEnvelope = {
-  data: Array<GuideGuideCategoryCreateManyUserInput>;
-  skipDuplicates?: InputMaybe<Scalars['Boolean']>;
-};
-
-export type GuideGuideCategoryCreateNestedManyWithoutUserInput = {
-  connect?: InputMaybe<Array<GuideGuideCategoryWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<GuideGuideCategoryCreateOrConnectWithoutUserInput>>;
-  create?: InputMaybe<Array<GuideGuideCategoryCreateWithoutUserInput>>;
-  createMany?: InputMaybe<GuideGuideCategoryCreateManyUserInputEnvelope>;
-};
-
-export type GuideGuideCategoryCreateOrConnectWithoutUserInput = {
-  create: GuideGuideCategoryCreateWithoutUserInput;
-  where: GuideGuideCategoryWhereUniqueInput;
-};
-
-export type GuideGuideCategoryCreateWithoutUserInput = {
-  guideCategory: GuideCategoryCreateNestedOneWithoutGuideGuideCategoryInput;
-  status?: InputMaybe<Status>;
-};
-
-export type GuideGuideCategoryListRelationFilter = {
-  every?: InputMaybe<GuideGuideCategoryWhereInput>;
-  none?: InputMaybe<GuideGuideCategoryWhereInput>;
-  some?: InputMaybe<GuideGuideCategoryWhereInput>;
-};
-
-export type GuideGuideCategoryMaxAggregate = {
-  __typename?: 'GuideGuideCategoryMaxAggregate';
-  guideCategoryId?: Maybe<Scalars['Int']>;
-  status?: Maybe<Status>;
-  userId?: Maybe<Scalars['Int']>;
-};
-
-export type GuideGuideCategoryMinAggregate = {
-  __typename?: 'GuideGuideCategoryMinAggregate';
-  guideCategoryId?: Maybe<Scalars['Int']>;
-  status?: Maybe<Status>;
-  userId?: Maybe<Scalars['Int']>;
-};
-
-export type GuideGuideCategoryOrderByRelationAggregateInput = {
-  _count?: InputMaybe<SortOrder>;
-};
-
-export type GuideGuideCategoryScalarWhereInput = {
-  AND?: InputMaybe<Array<GuideGuideCategoryScalarWhereInput>>;
-  NOT?: InputMaybe<Array<GuideGuideCategoryScalarWhereInput>>;
-  OR?: InputMaybe<Array<GuideGuideCategoryScalarWhereInput>>;
-  guideCategoryId?: InputMaybe<IntFilter>;
-  status?: InputMaybe<EnumStatusFilter>;
-  userId?: InputMaybe<IntFilter>;
-};
-
-export type GuideGuideCategorySumAggregate = {
-  __typename?: 'GuideGuideCategorySumAggregate';
-  guideCategoryId?: Maybe<Scalars['Int']>;
-  userId?: Maybe<Scalars['Int']>;
-};
-
-export type GuideGuideCategoryUpdateManyMutationInput = {
-  status?: InputMaybe<Status>;
-};
-
-export type GuideGuideCategoryUpdateManyWithWhereWithoutUserInput = {
-  data: GuideGuideCategoryUpdateManyMutationInput;
-  where: GuideGuideCategoryScalarWhereInput;
-};
-
-export type GuideGuideCategoryUpdateManyWithoutUserInput = {
-  connect?: InputMaybe<Array<GuideGuideCategoryWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<GuideGuideCategoryCreateOrConnectWithoutUserInput>>;
-  create?: InputMaybe<Array<GuideGuideCategoryCreateWithoutUserInput>>;
-  createMany?: InputMaybe<GuideGuideCategoryCreateManyUserInputEnvelope>;
-  delete?: InputMaybe<Array<GuideGuideCategoryWhereUniqueInput>>;
-  deleteMany?: InputMaybe<Array<GuideGuideCategoryScalarWhereInput>>;
-  disconnect?: InputMaybe<Array<GuideGuideCategoryWhereUniqueInput>>;
-  set?: InputMaybe<Array<GuideGuideCategoryWhereUniqueInput>>;
-  update?: InputMaybe<Array<GuideGuideCategoryUpdateWithWhereUniqueWithoutUserInput>>;
-  updateMany?: InputMaybe<Array<GuideGuideCategoryUpdateManyWithWhereWithoutUserInput>>;
-  upsert?: InputMaybe<Array<GuideGuideCategoryUpsertWithWhereUniqueWithoutUserInput>>;
-};
-
-export type GuideGuideCategoryUpdateWithWhereUniqueWithoutUserInput = {
-  data: GuideGuideCategoryUpdateWithoutUserInput;
-  where: GuideGuideCategoryWhereUniqueInput;
-};
-
-export type GuideGuideCategoryUpdateWithoutUserInput = {
-  guideCategory?: InputMaybe<GuideCategoryUpdateOneRequiredWithoutGuideGuideCategoryInput>;
-  status?: InputMaybe<Status>;
-};
-
-export type GuideGuideCategoryUpsertWithWhereUniqueWithoutUserInput = {
-  create: GuideGuideCategoryCreateWithoutUserInput;
-  update: GuideGuideCategoryUpdateWithoutUserInput;
-  where: GuideGuideCategoryWhereUniqueInput;
-};
-
-export type GuideGuideCategoryUserIdGuideCategoryIdCompoundUniqueInput = {
-  guideCategoryId: Scalars['Int'];
-  userId: Scalars['Int'];
-};
-
-export type GuideGuideCategoryWhereInput = {
-  AND?: InputMaybe<Array<GuideGuideCategoryWhereInput>>;
-  NOT?: InputMaybe<Array<GuideGuideCategoryWhereInput>>;
-  OR?: InputMaybe<Array<GuideGuideCategoryWhereInput>>;
-  guideCategory?: InputMaybe<GuideCategoryRelationFilter>;
-  guideCategoryId?: InputMaybe<IntFilter>;
-  status?: InputMaybe<EnumStatusFilter>;
-  user?: InputMaybe<UserRelationFilter>;
-  userId?: InputMaybe<IntFilter>;
-};
-
-export type GuideGuideCategoryWhereUniqueInput = {
-  userId_guideCategoryId?: InputMaybe<GuideGuideCategoryUserIdGuideCategoryIdCompoundUniqueInput>;
-};
-
-export type GuideLanguages = {
-  __typename?: 'GuideLanguages';
-  City?: Maybe<City>;
-  cityId?: Maybe<Scalars['Int']>;
-  language: Languages;
-  languageId: Scalars['Int'];
-  status: Status;
-  user: User;
-  userId: Scalars['Int'];
-};
-
-export type GuideLanguagesAvgAggregate = {
-  __typename?: 'GuideLanguagesAvgAggregate';
-  cityId?: Maybe<Scalars['Float']>;
-  languageId?: Maybe<Scalars['Float']>;
-  userId?: Maybe<Scalars['Float']>;
-};
-
-export type GuideLanguagesCountAggregate = {
-  __typename?: 'GuideLanguagesCountAggregate';
-  _all: Scalars['Int'];
-  cityId: Scalars['Int'];
-  languageId: Scalars['Int'];
-  status: Scalars['Int'];
-  userId: Scalars['Int'];
-};
-
-export type GuideLanguagesCreateManyCityInput = {
-  languageId: Scalars['Int'];
-  status?: InputMaybe<Status>;
-  userId: Scalars['Int'];
-};
-
-export type GuideLanguagesCreateManyCityInputEnvelope = {
-  data: Array<GuideLanguagesCreateManyCityInput>;
-  skipDuplicates?: InputMaybe<Scalars['Boolean']>;
-};
-
-export type GuideLanguagesCreateManyUserInput = {
-  cityId?: InputMaybe<Scalars['Int']>;
-  languageId: Scalars['Int'];
-  status?: InputMaybe<Status>;
-};
-
-export type GuideLanguagesCreateManyUserInputEnvelope = {
-  data: Array<GuideLanguagesCreateManyUserInput>;
-  skipDuplicates?: InputMaybe<Scalars['Boolean']>;
-};
-
-export type GuideLanguagesCreateNestedManyWithoutCityInput = {
-  connect?: InputMaybe<Array<GuideLanguagesWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<GuideLanguagesCreateOrConnectWithoutCityInput>>;
-  create?: InputMaybe<Array<GuideLanguagesCreateWithoutCityInput>>;
-  createMany?: InputMaybe<GuideLanguagesCreateManyCityInputEnvelope>;
-};
-
-export type GuideLanguagesCreateNestedManyWithoutUserInput = {
-  connect?: InputMaybe<Array<GuideLanguagesWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<GuideLanguagesCreateOrConnectWithoutUserInput>>;
-  create?: InputMaybe<Array<GuideLanguagesCreateWithoutUserInput>>;
-  createMany?: InputMaybe<GuideLanguagesCreateManyUserInputEnvelope>;
-};
-
-export type GuideLanguagesCreateOrConnectWithoutCityInput = {
-  create: GuideLanguagesCreateWithoutCityInput;
-  where: GuideLanguagesWhereUniqueInput;
-};
-
-export type GuideLanguagesCreateOrConnectWithoutUserInput = {
-  create: GuideLanguagesCreateWithoutUserInput;
-  where: GuideLanguagesWhereUniqueInput;
-};
-
-export type GuideLanguagesCreateWithoutCityInput = {
-  language: LanguagesCreateNestedOneWithoutGuideLanguagesInput;
-  status?: InputMaybe<Status>;
-  user: UserCreateNestedOneWithoutGuideLanguagesInput;
-};
-
-export type GuideLanguagesCreateWithoutUserInput = {
-  City?: InputMaybe<CityCreateNestedOneWithoutGuideLanguagesInput>;
-  language: LanguagesCreateNestedOneWithoutGuideLanguagesInput;
-  status?: InputMaybe<Status>;
-};
-
-export type GuideLanguagesListRelationFilter = {
-  every?: InputMaybe<GuideLanguagesWhereInput>;
-  none?: InputMaybe<GuideLanguagesWhereInput>;
-  some?: InputMaybe<GuideLanguagesWhereInput>;
-};
-
-export type GuideLanguagesMaxAggregate = {
-  __typename?: 'GuideLanguagesMaxAggregate';
-  cityId?: Maybe<Scalars['Int']>;
-  languageId?: Maybe<Scalars['Int']>;
-  status?: Maybe<Status>;
-  userId?: Maybe<Scalars['Int']>;
-};
-
-export type GuideLanguagesMinAggregate = {
-  __typename?: 'GuideLanguagesMinAggregate';
-  cityId?: Maybe<Scalars['Int']>;
-  languageId?: Maybe<Scalars['Int']>;
-  status?: Maybe<Status>;
-  userId?: Maybe<Scalars['Int']>;
-};
-
-export type GuideLanguagesOrderByRelationAggregateInput = {
-  _count?: InputMaybe<SortOrder>;
-};
-
-export type GuideLanguagesScalarWhereInput = {
-  AND?: InputMaybe<Array<GuideLanguagesScalarWhereInput>>;
-  NOT?: InputMaybe<Array<GuideLanguagesScalarWhereInput>>;
-  OR?: InputMaybe<Array<GuideLanguagesScalarWhereInput>>;
-  cityId?: InputMaybe<IntFilter>;
-  languageId?: InputMaybe<IntFilter>;
-  status?: InputMaybe<EnumStatusFilter>;
-  userId?: InputMaybe<IntFilter>;
-};
-
-export type GuideLanguagesSumAggregate = {
-  __typename?: 'GuideLanguagesSumAggregate';
-  cityId?: Maybe<Scalars['Int']>;
-  languageId?: Maybe<Scalars['Int']>;
-  userId?: Maybe<Scalars['Int']>;
-};
-
-export type GuideLanguagesUpdateManyMutationInput = {
-  status?: InputMaybe<Status>;
-};
-
-export type GuideLanguagesUpdateManyWithWhereWithoutCityInput = {
-  data: GuideLanguagesUpdateManyMutationInput;
-  where: GuideLanguagesScalarWhereInput;
-};
-
-export type GuideLanguagesUpdateManyWithWhereWithoutUserInput = {
-  data: GuideLanguagesUpdateManyMutationInput;
-  where: GuideLanguagesScalarWhereInput;
-};
-
-export type GuideLanguagesUpdateManyWithoutCityInput = {
-  connect?: InputMaybe<Array<GuideLanguagesWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<GuideLanguagesCreateOrConnectWithoutCityInput>>;
-  create?: InputMaybe<Array<GuideLanguagesCreateWithoutCityInput>>;
-  createMany?: InputMaybe<GuideLanguagesCreateManyCityInputEnvelope>;
-  delete?: InputMaybe<Array<GuideLanguagesWhereUniqueInput>>;
-  deleteMany?: InputMaybe<Array<GuideLanguagesScalarWhereInput>>;
-  disconnect?: InputMaybe<Array<GuideLanguagesWhereUniqueInput>>;
-  set?: InputMaybe<Array<GuideLanguagesWhereUniqueInput>>;
-  update?: InputMaybe<Array<GuideLanguagesUpdateWithWhereUniqueWithoutCityInput>>;
-  updateMany?: InputMaybe<Array<GuideLanguagesUpdateManyWithWhereWithoutCityInput>>;
-  upsert?: InputMaybe<Array<GuideLanguagesUpsertWithWhereUniqueWithoutCityInput>>;
-};
-
-export type GuideLanguagesUpdateManyWithoutUserInput = {
-  connect?: InputMaybe<Array<GuideLanguagesWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<GuideLanguagesCreateOrConnectWithoutUserInput>>;
-  create?: InputMaybe<Array<GuideLanguagesCreateWithoutUserInput>>;
-  createMany?: InputMaybe<GuideLanguagesCreateManyUserInputEnvelope>;
-  delete?: InputMaybe<Array<GuideLanguagesWhereUniqueInput>>;
-  deleteMany?: InputMaybe<Array<GuideLanguagesScalarWhereInput>>;
-  disconnect?: InputMaybe<Array<GuideLanguagesWhereUniqueInput>>;
-  set?: InputMaybe<Array<GuideLanguagesWhereUniqueInput>>;
-  update?: InputMaybe<Array<GuideLanguagesUpdateWithWhereUniqueWithoutUserInput>>;
-  updateMany?: InputMaybe<Array<GuideLanguagesUpdateManyWithWhereWithoutUserInput>>;
-  upsert?: InputMaybe<Array<GuideLanguagesUpsertWithWhereUniqueWithoutUserInput>>;
-};
-
-export type GuideLanguagesUpdateWithWhereUniqueWithoutCityInput = {
-  data: GuideLanguagesUpdateWithoutCityInput;
-  where: GuideLanguagesWhereUniqueInput;
-};
-
-export type GuideLanguagesUpdateWithWhereUniqueWithoutUserInput = {
-  data: GuideLanguagesUpdateWithoutUserInput;
-  where: GuideLanguagesWhereUniqueInput;
-};
-
-export type GuideLanguagesUpdateWithoutCityInput = {
-  language?: InputMaybe<LanguagesUpdateOneRequiredWithoutGuideLanguagesInput>;
-  status?: InputMaybe<Status>;
-  user?: InputMaybe<UserUpdateOneRequiredWithoutGuideLanguagesInput>;
-};
-
-export type GuideLanguagesUpdateWithoutUserInput = {
-  City?: InputMaybe<CityUpdateOneWithoutGuideLanguagesInput>;
-  language?: InputMaybe<LanguagesUpdateOneRequiredWithoutGuideLanguagesInput>;
-  status?: InputMaybe<Status>;
-};
-
-export type GuideLanguagesUpsertWithWhereUniqueWithoutCityInput = {
-  create: GuideLanguagesCreateWithoutCityInput;
-  update: GuideLanguagesUpdateWithoutCityInput;
-  where: GuideLanguagesWhereUniqueInput;
-};
-
-export type GuideLanguagesUpsertWithWhereUniqueWithoutUserInput = {
-  create: GuideLanguagesCreateWithoutUserInput;
-  update: GuideLanguagesUpdateWithoutUserInput;
-  where: GuideLanguagesWhereUniqueInput;
-};
-
-export type GuideLanguagesUserIdLanguageIdCompoundUniqueInput = {
-  languageId: Scalars['Int'];
-  userId: Scalars['Int'];
-};
-
-export type GuideLanguagesWhereInput = {
-  AND?: InputMaybe<Array<GuideLanguagesWhereInput>>;
-  City?: InputMaybe<CityRelationFilter>;
-  NOT?: InputMaybe<Array<GuideLanguagesWhereInput>>;
-  OR?: InputMaybe<Array<GuideLanguagesWhereInput>>;
-  cityId?: InputMaybe<IntFilter>;
-  language?: InputMaybe<LanguagesRelationFilter>;
-  languageId?: InputMaybe<IntFilter>;
-  status?: InputMaybe<EnumStatusFilter>;
-  user?: InputMaybe<UserRelationFilter>;
-  userId?: InputMaybe<IntFilter>;
-};
-
-export type GuideLanguagesWhereUniqueInput = {
-  userId_languageId?: InputMaybe<GuideLanguagesUserIdLanguageIdCompoundUniqueInput>;
-};
-
 export type IntFilter = {
   equals?: InputMaybe<Scalars['Int']>;
   gt?: InputMaybe<Scalars['Int']>;
@@ -1212,7 +422,7 @@ export type IntFilter = {
 
 export type Languages = {
   __typename?: 'Languages';
-  GuideLanguages?: Maybe<Array<GuideLanguages>>;
+  TourLanguages?: Maybe<Array<TourLanguages>>;
   _count: LanguagesCount;
   createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
@@ -1228,7 +438,7 @@ export type LanguagesAvgAggregate = {
 
 export type LanguagesCount = {
   __typename?: 'LanguagesCount';
-  GuideLanguages: Scalars['Int'];
+  TourLanguages: Scalars['Int'];
 };
 
 export type LanguagesCountAggregate = {
@@ -1241,18 +451,18 @@ export type LanguagesCountAggregate = {
   updatedAt: Scalars['Int'];
 };
 
-export type LanguagesCreateNestedOneWithoutGuideLanguagesInput = {
+export type LanguagesCreateNestedOneWithoutTourLanguagesInput = {
   connect?: InputMaybe<LanguagesWhereUniqueInput>;
-  connectOrCreate?: InputMaybe<LanguagesCreateOrConnectWithoutGuideLanguagesInput>;
-  create?: InputMaybe<LanguagesCreateWithoutGuideLanguagesInput>;
+  connectOrCreate?: InputMaybe<LanguagesCreateOrConnectWithoutTourLanguagesInput>;
+  create?: InputMaybe<LanguagesCreateWithoutTourLanguagesInput>;
 };
 
-export type LanguagesCreateOrConnectWithoutGuideLanguagesInput = {
-  create: LanguagesCreateWithoutGuideLanguagesInput;
+export type LanguagesCreateOrConnectWithoutTourLanguagesInput = {
+  create: LanguagesCreateWithoutTourLanguagesInput;
   where: LanguagesWhereUniqueInput;
 };
 
-export type LanguagesCreateWithoutGuideLanguagesInput = {
+export type LanguagesCreateWithoutTourLanguagesInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   name: Scalars['String'];
   status?: InputMaybe<Status>;
@@ -1287,31 +497,31 @@ export type LanguagesSumAggregate = {
   id?: Maybe<Scalars['Int']>;
 };
 
-export type LanguagesUpdateOneRequiredWithoutGuideLanguagesInput = {
+export type LanguagesUpdateOneRequiredWithoutTourLanguagesInput = {
   connect?: InputMaybe<LanguagesWhereUniqueInput>;
-  connectOrCreate?: InputMaybe<LanguagesCreateOrConnectWithoutGuideLanguagesInput>;
-  create?: InputMaybe<LanguagesCreateWithoutGuideLanguagesInput>;
-  update?: InputMaybe<LanguagesUpdateWithoutGuideLanguagesInput>;
-  upsert?: InputMaybe<LanguagesUpsertWithoutGuideLanguagesInput>;
+  connectOrCreate?: InputMaybe<LanguagesCreateOrConnectWithoutTourLanguagesInput>;
+  create?: InputMaybe<LanguagesCreateWithoutTourLanguagesInput>;
+  update?: InputMaybe<LanguagesUpdateWithoutTourLanguagesInput>;
+  upsert?: InputMaybe<LanguagesUpsertWithoutTourLanguagesInput>;
 };
 
-export type LanguagesUpdateWithoutGuideLanguagesInput = {
+export type LanguagesUpdateWithoutTourLanguagesInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   name?: InputMaybe<Scalars['String']>;
   status?: InputMaybe<Status>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
-export type LanguagesUpsertWithoutGuideLanguagesInput = {
-  create: LanguagesCreateWithoutGuideLanguagesInput;
-  update: LanguagesUpdateWithoutGuideLanguagesInput;
+export type LanguagesUpsertWithoutTourLanguagesInput = {
+  create: LanguagesCreateWithoutTourLanguagesInput;
+  update: LanguagesUpdateWithoutTourLanguagesInput;
 };
 
 export type LanguagesWhereInput = {
   AND?: InputMaybe<Array<LanguagesWhereInput>>;
-  GuideLanguages?: InputMaybe<GuideLanguagesListRelationFilter>;
   NOT?: InputMaybe<Array<LanguagesWhereInput>>;
   OR?: InputMaybe<Array<LanguagesWhereInput>>;
+  TourLanguages?: InputMaybe<TourLanguagesListRelationFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   id?: InputMaybe<IntFilter>;
   name?: InputMaybe<StringFilter>;
@@ -1433,6 +643,759 @@ export type StringFilter = {
   startsWith?: InputMaybe<Scalars['String']>;
 };
 
+export type Tour = {
+  __typename?: 'Tour';
+  TourCity?: Maybe<Array<TourCity>>;
+  TourLanguages?: Maybe<Array<TourLanguages>>;
+  TourTourCategory?: Maybe<Array<TourTourCategory>>;
+  _count: TourCount;
+  createdAt: Scalars['DateTime'];
+  guide: User;
+  guideId: Scalars['Int'];
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  status: Status;
+  updatedAt: Scalars['DateTime'];
+};
+
+export type TourAvgAggregate = {
+  __typename?: 'TourAvgAggregate';
+  guideId?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']>;
+};
+
+export type TourCategory = {
+  __typename?: 'TourCategory';
+  TourTourCategory?: Maybe<Array<TourTourCategory>>;
+  _count: TourCategoryCount;
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  status: Status;
+  updatedAt: Scalars['DateTime'];
+};
+
+export type TourCategoryAvgAggregate = {
+  __typename?: 'TourCategoryAvgAggregate';
+  id?: Maybe<Scalars['Float']>;
+};
+
+export type TourCategoryCount = {
+  __typename?: 'TourCategoryCount';
+  TourTourCategory: Scalars['Int'];
+};
+
+export type TourCategoryCountAggregate = {
+  __typename?: 'TourCategoryCountAggregate';
+  _all: Scalars['Int'];
+  createdAt: Scalars['Int'];
+  id: Scalars['Int'];
+  name: Scalars['Int'];
+  status: Scalars['Int'];
+  updatedAt: Scalars['Int'];
+};
+
+export type TourCategoryCreateNestedOneWithoutTourTourCategoryInput = {
+  connect?: InputMaybe<TourCategoryWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<TourCategoryCreateOrConnectWithoutTourTourCategoryInput>;
+  create?: InputMaybe<TourCategoryCreateWithoutTourTourCategoryInput>;
+};
+
+export type TourCategoryCreateOrConnectWithoutTourTourCategoryInput = {
+  create: TourCategoryCreateWithoutTourTourCategoryInput;
+  where: TourCategoryWhereUniqueInput;
+};
+
+export type TourCategoryCreateWithoutTourTourCategoryInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  name: Scalars['String'];
+  status?: InputMaybe<Status>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type TourCategoryMaxAggregate = {
+  __typename?: 'TourCategoryMaxAggregate';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  id?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  status?: Maybe<Status>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type TourCategoryMinAggregate = {
+  __typename?: 'TourCategoryMinAggregate';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  id?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  status?: Maybe<Status>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type TourCategoryRelationFilter = {
+  is?: InputMaybe<TourCategoryWhereInput>;
+  isNot?: InputMaybe<TourCategoryWhereInput>;
+};
+
+export type TourCategorySumAggregate = {
+  __typename?: 'TourCategorySumAggregate';
+  id?: Maybe<Scalars['Int']>;
+};
+
+export type TourCategoryUpdateOneRequiredWithoutTourTourCategoryInput = {
+  connect?: InputMaybe<TourCategoryWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<TourCategoryCreateOrConnectWithoutTourTourCategoryInput>;
+  create?: InputMaybe<TourCategoryCreateWithoutTourTourCategoryInput>;
+  update?: InputMaybe<TourCategoryUpdateWithoutTourTourCategoryInput>;
+  upsert?: InputMaybe<TourCategoryUpsertWithoutTourTourCategoryInput>;
+};
+
+export type TourCategoryUpdateWithoutTourTourCategoryInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  name?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Status>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type TourCategoryUpsertWithoutTourTourCategoryInput = {
+  create: TourCategoryCreateWithoutTourTourCategoryInput;
+  update: TourCategoryUpdateWithoutTourTourCategoryInput;
+};
+
+export type TourCategoryWhereInput = {
+  AND?: InputMaybe<Array<TourCategoryWhereInput>>;
+  NOT?: InputMaybe<Array<TourCategoryWhereInput>>;
+  OR?: InputMaybe<Array<TourCategoryWhereInput>>;
+  TourTourCategory?: InputMaybe<TourTourCategoryListRelationFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<IntFilter>;
+  name?: InputMaybe<StringFilter>;
+  status?: InputMaybe<EnumStatusFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+};
+
+export type TourCategoryWhereUniqueInput = {
+  id?: InputMaybe<Scalars['Int']>;
+};
+
+export type TourCity = {
+  __typename?: 'TourCity';
+  city: City;
+  cityId: Scalars['Int'];
+  status: Status;
+  tour?: Maybe<Tour>;
+  tourId: Scalars['Int'];
+};
+
+export type TourCityAvgAggregate = {
+  __typename?: 'TourCityAvgAggregate';
+  cityId?: Maybe<Scalars['Float']>;
+  tourId?: Maybe<Scalars['Float']>;
+};
+
+export type TourCityCountAggregate = {
+  __typename?: 'TourCityCountAggregate';
+  _all: Scalars['Int'];
+  cityId: Scalars['Int'];
+  status: Scalars['Int'];
+  tourId: Scalars['Int'];
+};
+
+export type TourCityCreateManyCityInput = {
+  status?: InputMaybe<Status>;
+  tourId: Scalars['Int'];
+};
+
+export type TourCityCreateManyCityInputEnvelope = {
+  data: Array<TourCityCreateManyCityInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type TourCityCreateManyTourInput = {
+  cityId: Scalars['Int'];
+  status?: InputMaybe<Status>;
+};
+
+export type TourCityCreateManyTourInputEnvelope = {
+  data: Array<TourCityCreateManyTourInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type TourCityCreateNestedManyWithoutCityInput = {
+  connect?: InputMaybe<Array<TourCityWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<TourCityCreateOrConnectWithoutCityInput>>;
+  create?: InputMaybe<Array<TourCityCreateWithoutCityInput>>;
+  createMany?: InputMaybe<TourCityCreateManyCityInputEnvelope>;
+};
+
+export type TourCityCreateNestedManyWithoutTourInput = {
+  connect?: InputMaybe<Array<TourCityWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<TourCityCreateOrConnectWithoutTourInput>>;
+  create?: InputMaybe<Array<TourCityCreateWithoutTourInput>>;
+  createMany?: InputMaybe<TourCityCreateManyTourInputEnvelope>;
+};
+
+export type TourCityCreateOrConnectWithoutCityInput = {
+  create: TourCityCreateWithoutCityInput;
+  where: TourCityWhereUniqueInput;
+};
+
+export type TourCityCreateOrConnectWithoutTourInput = {
+  create: TourCityCreateWithoutTourInput;
+  where: TourCityWhereUniqueInput;
+};
+
+export type TourCityCreateWithoutCityInput = {
+  status?: InputMaybe<Status>;
+  tour?: InputMaybe<TourCreateNestedOneWithoutTourCityInput>;
+};
+
+export type TourCityCreateWithoutTourInput = {
+  city: CityCreateNestedOneWithoutTourCityInput;
+  status?: InputMaybe<Status>;
+};
+
+export type TourCityListRelationFilter = {
+  every?: InputMaybe<TourCityWhereInput>;
+  none?: InputMaybe<TourCityWhereInput>;
+  some?: InputMaybe<TourCityWhereInput>;
+};
+
+export type TourCityMaxAggregate = {
+  __typename?: 'TourCityMaxAggregate';
+  cityId?: Maybe<Scalars['Int']>;
+  status?: Maybe<Status>;
+  tourId?: Maybe<Scalars['Int']>;
+};
+
+export type TourCityMinAggregate = {
+  __typename?: 'TourCityMinAggregate';
+  cityId?: Maybe<Scalars['Int']>;
+  status?: Maybe<Status>;
+  tourId?: Maybe<Scalars['Int']>;
+};
+
+export type TourCityScalarWhereInput = {
+  AND?: InputMaybe<Array<TourCityScalarWhereInput>>;
+  NOT?: InputMaybe<Array<TourCityScalarWhereInput>>;
+  OR?: InputMaybe<Array<TourCityScalarWhereInput>>;
+  cityId?: InputMaybe<IntFilter>;
+  status?: InputMaybe<EnumStatusFilter>;
+  tourId?: InputMaybe<IntFilter>;
+};
+
+export type TourCitySumAggregate = {
+  __typename?: 'TourCitySumAggregate';
+  cityId?: Maybe<Scalars['Int']>;
+  tourId?: Maybe<Scalars['Int']>;
+};
+
+export type TourCityTourIdCityIdCompoundUniqueInput = {
+  cityId: Scalars['Int'];
+  tourId: Scalars['Int'];
+};
+
+export type TourCityUpdateManyMutationInput = {
+  status?: InputMaybe<Status>;
+};
+
+export type TourCityUpdateManyWithWhereWithoutCityInput = {
+  data: TourCityUpdateManyMutationInput;
+  where: TourCityScalarWhereInput;
+};
+
+export type TourCityUpdateManyWithoutCityInput = {
+  connect?: InputMaybe<Array<TourCityWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<TourCityCreateOrConnectWithoutCityInput>>;
+  create?: InputMaybe<Array<TourCityCreateWithoutCityInput>>;
+  createMany?: InputMaybe<TourCityCreateManyCityInputEnvelope>;
+  delete?: InputMaybe<Array<TourCityWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<TourCityScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<TourCityWhereUniqueInput>>;
+  set?: InputMaybe<Array<TourCityWhereUniqueInput>>;
+  update?: InputMaybe<Array<TourCityUpdateWithWhereUniqueWithoutCityInput>>;
+  updateMany?: InputMaybe<Array<TourCityUpdateManyWithWhereWithoutCityInput>>;
+  upsert?: InputMaybe<Array<TourCityUpsertWithWhereUniqueWithoutCityInput>>;
+};
+
+export type TourCityUpdateWithWhereUniqueWithoutCityInput = {
+  data: TourCityUpdateWithoutCityInput;
+  where: TourCityWhereUniqueInput;
+};
+
+export type TourCityUpdateWithoutCityInput = {
+  status?: InputMaybe<Status>;
+  tour?: InputMaybe<TourUpdateOneWithoutTourCityInput>;
+};
+
+export type TourCityUpsertWithWhereUniqueWithoutCityInput = {
+  create: TourCityCreateWithoutCityInput;
+  update: TourCityUpdateWithoutCityInput;
+  where: TourCityWhereUniqueInput;
+};
+
+export type TourCityWhereInput = {
+  AND?: InputMaybe<Array<TourCityWhereInput>>;
+  NOT?: InputMaybe<Array<TourCityWhereInput>>;
+  OR?: InputMaybe<Array<TourCityWhereInput>>;
+  city?: InputMaybe<CityRelationFilter>;
+  cityId?: InputMaybe<IntFilter>;
+  status?: InputMaybe<EnumStatusFilter>;
+  tour?: InputMaybe<TourRelationFilter>;
+  tourId?: InputMaybe<IntFilter>;
+};
+
+export type TourCityWhereUniqueInput = {
+  tourId_cityId?: InputMaybe<TourCityTourIdCityIdCompoundUniqueInput>;
+};
+
+export type TourCount = {
+  __typename?: 'TourCount';
+  TourCity: Scalars['Int'];
+  TourLanguages: Scalars['Int'];
+  TourTourCategory: Scalars['Int'];
+};
+
+export type TourCountAggregate = {
+  __typename?: 'TourCountAggregate';
+  _all: Scalars['Int'];
+  createdAt: Scalars['Int'];
+  guideId: Scalars['Int'];
+  id: Scalars['Int'];
+  name: Scalars['Int'];
+  status: Scalars['Int'];
+  updatedAt: Scalars['Int'];
+};
+
+export type TourCreateManyGuideInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  id?: InputMaybe<Scalars['Int']>;
+  name: Scalars['String'];
+  status?: InputMaybe<Status>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type TourCreateManyGuideInputEnvelope = {
+  data: Array<TourCreateManyGuideInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type TourCreateNestedManyWithoutGuideInput = {
+  connect?: InputMaybe<Array<TourWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<TourCreateOrConnectWithoutGuideInput>>;
+  create?: InputMaybe<Array<TourCreateWithoutGuideInput>>;
+  createMany?: InputMaybe<TourCreateManyGuideInputEnvelope>;
+};
+
+export type TourCreateNestedOneWithoutTourCityInput = {
+  connect?: InputMaybe<TourWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<TourCreateOrConnectWithoutTourCityInput>;
+  create?: InputMaybe<TourCreateWithoutTourCityInput>;
+};
+
+export type TourCreateOrConnectWithoutGuideInput = {
+  create: TourCreateWithoutGuideInput;
+  where: TourWhereUniqueInput;
+};
+
+export type TourCreateOrConnectWithoutTourCityInput = {
+  create: TourCreateWithoutTourCityInput;
+  where: TourWhereUniqueInput;
+};
+
+export type TourCreateWithoutGuideInput = {
+  TourCity?: InputMaybe<TourCityCreateNestedManyWithoutTourInput>;
+  TourLanguages?: InputMaybe<TourLanguagesCreateNestedManyWithoutTourInput>;
+  TourTourCategory?: InputMaybe<TourTourCategoryCreateNestedManyWithoutTourInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  name: Scalars['String'];
+  status?: InputMaybe<Status>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type TourCreateWithoutTourCityInput = {
+  TourLanguages?: InputMaybe<TourLanguagesCreateNestedManyWithoutTourInput>;
+  TourTourCategory?: InputMaybe<TourTourCategoryCreateNestedManyWithoutTourInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  guide: UserCreateNestedOneWithoutTourInput;
+  name: Scalars['String'];
+  status?: InputMaybe<Status>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type TourLanguages = {
+  __typename?: 'TourLanguages';
+  language: Languages;
+  languageId: Scalars['Int'];
+  status: Status;
+  tour?: Maybe<Tour>;
+  tourId: Scalars['Int'];
+};
+
+export type TourLanguagesAvgAggregate = {
+  __typename?: 'TourLanguagesAvgAggregate';
+  languageId?: Maybe<Scalars['Float']>;
+  tourId?: Maybe<Scalars['Float']>;
+};
+
+export type TourLanguagesCountAggregate = {
+  __typename?: 'TourLanguagesCountAggregate';
+  _all: Scalars['Int'];
+  languageId: Scalars['Int'];
+  status: Scalars['Int'];
+  tourId: Scalars['Int'];
+};
+
+export type TourLanguagesCreateManyTourInput = {
+  languageId: Scalars['Int'];
+  status?: InputMaybe<Status>;
+};
+
+export type TourLanguagesCreateManyTourInputEnvelope = {
+  data: Array<TourLanguagesCreateManyTourInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type TourLanguagesCreateNestedManyWithoutTourInput = {
+  connect?: InputMaybe<Array<TourLanguagesWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<TourLanguagesCreateOrConnectWithoutTourInput>>;
+  create?: InputMaybe<Array<TourLanguagesCreateWithoutTourInput>>;
+  createMany?: InputMaybe<TourLanguagesCreateManyTourInputEnvelope>;
+};
+
+export type TourLanguagesCreateOrConnectWithoutTourInput = {
+  create: TourLanguagesCreateWithoutTourInput;
+  where: TourLanguagesWhereUniqueInput;
+};
+
+export type TourLanguagesCreateWithoutTourInput = {
+  language: LanguagesCreateNestedOneWithoutTourLanguagesInput;
+  status?: InputMaybe<Status>;
+};
+
+export type TourLanguagesListRelationFilter = {
+  every?: InputMaybe<TourLanguagesWhereInput>;
+  none?: InputMaybe<TourLanguagesWhereInput>;
+  some?: InputMaybe<TourLanguagesWhereInput>;
+};
+
+export type TourLanguagesMaxAggregate = {
+  __typename?: 'TourLanguagesMaxAggregate';
+  languageId?: Maybe<Scalars['Int']>;
+  status?: Maybe<Status>;
+  tourId?: Maybe<Scalars['Int']>;
+};
+
+export type TourLanguagesMinAggregate = {
+  __typename?: 'TourLanguagesMinAggregate';
+  languageId?: Maybe<Scalars['Int']>;
+  status?: Maybe<Status>;
+  tourId?: Maybe<Scalars['Int']>;
+};
+
+export type TourLanguagesScalarWhereInput = {
+  AND?: InputMaybe<Array<TourLanguagesScalarWhereInput>>;
+  NOT?: InputMaybe<Array<TourLanguagesScalarWhereInput>>;
+  OR?: InputMaybe<Array<TourLanguagesScalarWhereInput>>;
+  languageId?: InputMaybe<IntFilter>;
+  status?: InputMaybe<EnumStatusFilter>;
+  tourId?: InputMaybe<IntFilter>;
+};
+
+export type TourLanguagesSumAggregate = {
+  __typename?: 'TourLanguagesSumAggregate';
+  languageId?: Maybe<Scalars['Int']>;
+  tourId?: Maybe<Scalars['Int']>;
+};
+
+export type TourLanguagesTourIdLanguageIdCompoundUniqueInput = {
+  languageId: Scalars['Int'];
+  tourId: Scalars['Int'];
+};
+
+export type TourLanguagesUpdateManyMutationInput = {
+  status?: InputMaybe<Status>;
+};
+
+export type TourLanguagesUpdateManyWithWhereWithoutTourInput = {
+  data: TourLanguagesUpdateManyMutationInput;
+  where: TourLanguagesScalarWhereInput;
+};
+
+export type TourLanguagesUpdateManyWithoutTourInput = {
+  connect?: InputMaybe<Array<TourLanguagesWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<TourLanguagesCreateOrConnectWithoutTourInput>>;
+  create?: InputMaybe<Array<TourLanguagesCreateWithoutTourInput>>;
+  createMany?: InputMaybe<TourLanguagesCreateManyTourInputEnvelope>;
+  delete?: InputMaybe<Array<TourLanguagesWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<TourLanguagesScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<TourLanguagesWhereUniqueInput>>;
+  set?: InputMaybe<Array<TourLanguagesWhereUniqueInput>>;
+  update?: InputMaybe<Array<TourLanguagesUpdateWithWhereUniqueWithoutTourInput>>;
+  updateMany?: InputMaybe<Array<TourLanguagesUpdateManyWithWhereWithoutTourInput>>;
+  upsert?: InputMaybe<Array<TourLanguagesUpsertWithWhereUniqueWithoutTourInput>>;
+};
+
+export type TourLanguagesUpdateWithWhereUniqueWithoutTourInput = {
+  data: TourLanguagesUpdateWithoutTourInput;
+  where: TourLanguagesWhereUniqueInput;
+};
+
+export type TourLanguagesUpdateWithoutTourInput = {
+  language?: InputMaybe<LanguagesUpdateOneRequiredWithoutTourLanguagesInput>;
+  status?: InputMaybe<Status>;
+};
+
+export type TourLanguagesUpsertWithWhereUniqueWithoutTourInput = {
+  create: TourLanguagesCreateWithoutTourInput;
+  update: TourLanguagesUpdateWithoutTourInput;
+  where: TourLanguagesWhereUniqueInput;
+};
+
+export type TourLanguagesWhereInput = {
+  AND?: InputMaybe<Array<TourLanguagesWhereInput>>;
+  NOT?: InputMaybe<Array<TourLanguagesWhereInput>>;
+  OR?: InputMaybe<Array<TourLanguagesWhereInput>>;
+  language?: InputMaybe<LanguagesRelationFilter>;
+  languageId?: InputMaybe<IntFilter>;
+  status?: InputMaybe<EnumStatusFilter>;
+  tour?: InputMaybe<TourRelationFilter>;
+  tourId?: InputMaybe<IntFilter>;
+};
+
+export type TourLanguagesWhereUniqueInput = {
+  tourId_languageId?: InputMaybe<TourLanguagesTourIdLanguageIdCompoundUniqueInput>;
+};
+
+export type TourListRelationFilter = {
+  every?: InputMaybe<TourWhereInput>;
+  none?: InputMaybe<TourWhereInput>;
+  some?: InputMaybe<TourWhereInput>;
+};
+
+export type TourMaxAggregate = {
+  __typename?: 'TourMaxAggregate';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  guideId?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  status?: Maybe<Status>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type TourMinAggregate = {
+  __typename?: 'TourMinAggregate';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  guideId?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  status?: Maybe<Status>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type TourOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export type TourRelationFilter = {
+  is?: InputMaybe<TourWhereInput>;
+  isNot?: InputMaybe<TourWhereInput>;
+};
+
+export type TourSumAggregate = {
+  __typename?: 'TourSumAggregate';
+  guideId?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['Int']>;
+};
+
+export type TourTourCategory = {
+  __typename?: 'TourTourCategory';
+  status: Status;
+  tour?: Maybe<Tour>;
+  tourCategory: TourCategory;
+  tourCategoryId: Scalars['Int'];
+  tourId: Scalars['Int'];
+};
+
+export type TourTourCategoryAvgAggregate = {
+  __typename?: 'TourTourCategoryAvgAggregate';
+  tourCategoryId?: Maybe<Scalars['Float']>;
+  tourId?: Maybe<Scalars['Float']>;
+};
+
+export type TourTourCategoryCountAggregate = {
+  __typename?: 'TourTourCategoryCountAggregate';
+  _all: Scalars['Int'];
+  status: Scalars['Int'];
+  tourCategoryId: Scalars['Int'];
+  tourId: Scalars['Int'];
+};
+
+export type TourTourCategoryCreateManyTourInput = {
+  status?: InputMaybe<Status>;
+  tourCategoryId: Scalars['Int'];
+};
+
+export type TourTourCategoryCreateManyTourInputEnvelope = {
+  data: Array<TourTourCategoryCreateManyTourInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type TourTourCategoryCreateNestedManyWithoutTourInput = {
+  connect?: InputMaybe<Array<TourTourCategoryWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<TourTourCategoryCreateOrConnectWithoutTourInput>>;
+  create?: InputMaybe<Array<TourTourCategoryCreateWithoutTourInput>>;
+  createMany?: InputMaybe<TourTourCategoryCreateManyTourInputEnvelope>;
+};
+
+export type TourTourCategoryCreateOrConnectWithoutTourInput = {
+  create: TourTourCategoryCreateWithoutTourInput;
+  where: TourTourCategoryWhereUniqueInput;
+};
+
+export type TourTourCategoryCreateWithoutTourInput = {
+  status?: InputMaybe<Status>;
+  tourCategory: TourCategoryCreateNestedOneWithoutTourTourCategoryInput;
+};
+
+export type TourTourCategoryListRelationFilter = {
+  every?: InputMaybe<TourTourCategoryWhereInput>;
+  none?: InputMaybe<TourTourCategoryWhereInput>;
+  some?: InputMaybe<TourTourCategoryWhereInput>;
+};
+
+export type TourTourCategoryMaxAggregate = {
+  __typename?: 'TourTourCategoryMaxAggregate';
+  status?: Maybe<Status>;
+  tourCategoryId?: Maybe<Scalars['Int']>;
+  tourId?: Maybe<Scalars['Int']>;
+};
+
+export type TourTourCategoryMinAggregate = {
+  __typename?: 'TourTourCategoryMinAggregate';
+  status?: Maybe<Status>;
+  tourCategoryId?: Maybe<Scalars['Int']>;
+  tourId?: Maybe<Scalars['Int']>;
+};
+
+export type TourTourCategoryScalarWhereInput = {
+  AND?: InputMaybe<Array<TourTourCategoryScalarWhereInput>>;
+  NOT?: InputMaybe<Array<TourTourCategoryScalarWhereInput>>;
+  OR?: InputMaybe<Array<TourTourCategoryScalarWhereInput>>;
+  status?: InputMaybe<EnumStatusFilter>;
+  tourCategoryId?: InputMaybe<IntFilter>;
+  tourId?: InputMaybe<IntFilter>;
+};
+
+export type TourTourCategorySumAggregate = {
+  __typename?: 'TourTourCategorySumAggregate';
+  tourCategoryId?: Maybe<Scalars['Int']>;
+  tourId?: Maybe<Scalars['Int']>;
+};
+
+export type TourTourCategoryTourIdTourCategoryIdCompoundUniqueInput = {
+  tourCategoryId: Scalars['Int'];
+  tourId: Scalars['Int'];
+};
+
+export type TourTourCategoryUpdateManyMutationInput = {
+  status?: InputMaybe<Status>;
+};
+
+export type TourTourCategoryUpdateManyWithWhereWithoutTourInput = {
+  data: TourTourCategoryUpdateManyMutationInput;
+  where: TourTourCategoryScalarWhereInput;
+};
+
+export type TourTourCategoryUpdateManyWithoutTourInput = {
+  connect?: InputMaybe<Array<TourTourCategoryWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<TourTourCategoryCreateOrConnectWithoutTourInput>>;
+  create?: InputMaybe<Array<TourTourCategoryCreateWithoutTourInput>>;
+  createMany?: InputMaybe<TourTourCategoryCreateManyTourInputEnvelope>;
+  delete?: InputMaybe<Array<TourTourCategoryWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<TourTourCategoryScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<TourTourCategoryWhereUniqueInput>>;
+  set?: InputMaybe<Array<TourTourCategoryWhereUniqueInput>>;
+  update?: InputMaybe<Array<TourTourCategoryUpdateWithWhereUniqueWithoutTourInput>>;
+  updateMany?: InputMaybe<Array<TourTourCategoryUpdateManyWithWhereWithoutTourInput>>;
+  upsert?: InputMaybe<Array<TourTourCategoryUpsertWithWhereUniqueWithoutTourInput>>;
+};
+
+export type TourTourCategoryUpdateWithWhereUniqueWithoutTourInput = {
+  data: TourTourCategoryUpdateWithoutTourInput;
+  where: TourTourCategoryWhereUniqueInput;
+};
+
+export type TourTourCategoryUpdateWithoutTourInput = {
+  status?: InputMaybe<Status>;
+  tourCategory?: InputMaybe<TourCategoryUpdateOneRequiredWithoutTourTourCategoryInput>;
+};
+
+export type TourTourCategoryUpsertWithWhereUniqueWithoutTourInput = {
+  create: TourTourCategoryCreateWithoutTourInput;
+  update: TourTourCategoryUpdateWithoutTourInput;
+  where: TourTourCategoryWhereUniqueInput;
+};
+
+export type TourTourCategoryWhereInput = {
+  AND?: InputMaybe<Array<TourTourCategoryWhereInput>>;
+  NOT?: InputMaybe<Array<TourTourCategoryWhereInput>>;
+  OR?: InputMaybe<Array<TourTourCategoryWhereInput>>;
+  status?: InputMaybe<EnumStatusFilter>;
+  tour?: InputMaybe<TourRelationFilter>;
+  tourCategory?: InputMaybe<TourCategoryRelationFilter>;
+  tourCategoryId?: InputMaybe<IntFilter>;
+  tourId?: InputMaybe<IntFilter>;
+};
+
+export type TourTourCategoryWhereUniqueInput = {
+  tourId_tourCategoryId?: InputMaybe<TourTourCategoryTourIdTourCategoryIdCompoundUniqueInput>;
+};
+
+export type TourUpdateOneWithoutTourCityInput = {
+  connect?: InputMaybe<TourWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<TourCreateOrConnectWithoutTourCityInput>;
+  create?: InputMaybe<TourCreateWithoutTourCityInput>;
+  delete?: InputMaybe<Scalars['Boolean']>;
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  update?: InputMaybe<TourUpdateWithoutTourCityInput>;
+  upsert?: InputMaybe<TourUpsertWithoutTourCityInput>;
+};
+
+export type TourUpdateWithoutTourCityInput = {
+  TourLanguages?: InputMaybe<TourLanguagesUpdateManyWithoutTourInput>;
+  TourTourCategory?: InputMaybe<TourTourCategoryUpdateManyWithoutTourInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  guide?: InputMaybe<UserUpdateOneRequiredWithoutTourInput>;
+  name?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Status>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type TourUpsertWithoutTourCityInput = {
+  create: TourCreateWithoutTourCityInput;
+  update: TourUpdateWithoutTourCityInput;
+};
+
+export type TourWhereInput = {
+  AND?: InputMaybe<Array<TourWhereInput>>;
+  NOT?: InputMaybe<Array<TourWhereInput>>;
+  OR?: InputMaybe<Array<TourWhereInput>>;
+  TourCity?: InputMaybe<TourCityListRelationFilter>;
+  TourLanguages?: InputMaybe<TourLanguagesListRelationFilter>;
+  TourTourCategory?: InputMaybe<TourTourCategoryListRelationFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  guide?: InputMaybe<UserRelationFilter>;
+  guideId?: InputMaybe<IntFilter>;
+  id?: InputMaybe<IntFilter>;
+  name?: InputMaybe<StringFilter>;
+  status?: InputMaybe<EnumStatusFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+};
+
+export type TourWhereUniqueInput = {
+  id?: InputMaybe<Scalars['Int']>;
+};
+
 export type UpdateUserInput = {
   bio?: InputMaybe<Scalars['String']>;
   country?: InputMaybe<CountryUpdateOneWithoutUserInput>;
@@ -1445,9 +1408,7 @@ export type UpdateUserInput = {
 
 export type User = {
   __typename?: 'User';
-  GuideCity?: Maybe<Array<GuideCity>>;
-  GuideGuideCategory?: Maybe<Array<GuideGuideCategory>>;
-  GuideLanguages?: Maybe<Array<GuideLanguages>>;
+  Tour?: Maybe<Array<Tour>>;
   _count: UserCount;
   bio?: Maybe<Scalars['String']>;
   country?: Maybe<Country>;
@@ -1476,9 +1437,7 @@ export type UserAvgAggregate = {
 
 export type UserCount = {
   __typename?: 'UserCount';
-  GuideCity: Scalars['Int'];
-  GuideGuideCategory: Scalars['Int'];
-  GuideLanguages: Scalars['Int'];
+  Tour: Scalars['Int'];
 };
 
 export type UserCountAggregate = {
@@ -1502,9 +1461,7 @@ export type UserCountAggregate = {
 };
 
 export type UserCreateInput = {
-  GuideCity?: InputMaybe<GuideCityCreateNestedManyWithoutUserInput>;
-  GuideGuideCategory?: InputMaybe<GuideGuideCategoryCreateNestedManyWithoutUserInput>;
-  GuideLanguages?: InputMaybe<GuideLanguagesCreateNestedManyWithoutUserInput>;
+  Tour?: InputMaybe<TourCreateNestedManyWithoutGuideInput>;
   bio?: InputMaybe<Scalars['String']>;
   country?: InputMaybe<CountryCreateNestedOneWithoutUserInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
@@ -1552,16 +1509,10 @@ export type UserCreateNestedManyWithoutCountryInput = {
   createMany?: InputMaybe<UserCreateManyCountryInputEnvelope>;
 };
 
-export type UserCreateNestedOneWithoutGuideCityInput = {
+export type UserCreateNestedOneWithoutTourInput = {
   connect?: InputMaybe<UserWhereUniqueInput>;
-  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutGuideCityInput>;
-  create?: InputMaybe<UserCreateWithoutGuideCityInput>;
-};
-
-export type UserCreateNestedOneWithoutGuideLanguagesInput = {
-  connect?: InputMaybe<UserWhereUniqueInput>;
-  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutGuideLanguagesInput>;
-  create?: InputMaybe<UserCreateWithoutGuideLanguagesInput>;
+  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutTourInput>;
+  create?: InputMaybe<UserCreateWithoutTourInput>;
 };
 
 export type UserCreateOrConnectWithoutCountryInput = {
@@ -1569,20 +1520,13 @@ export type UserCreateOrConnectWithoutCountryInput = {
   where: UserWhereUniqueInput;
 };
 
-export type UserCreateOrConnectWithoutGuideCityInput = {
-  create: UserCreateWithoutGuideCityInput;
-  where: UserWhereUniqueInput;
-};
-
-export type UserCreateOrConnectWithoutGuideLanguagesInput = {
-  create: UserCreateWithoutGuideLanguagesInput;
+export type UserCreateOrConnectWithoutTourInput = {
+  create: UserCreateWithoutTourInput;
   where: UserWhereUniqueInput;
 };
 
 export type UserCreateWithoutCountryInput = {
-  GuideCity?: InputMaybe<GuideCityCreateNestedManyWithoutUserInput>;
-  GuideGuideCategory?: InputMaybe<GuideGuideCategoryCreateNestedManyWithoutUserInput>;
-  GuideLanguages?: InputMaybe<GuideLanguagesCreateNestedManyWithoutUserInput>;
+  Tour?: InputMaybe<TourCreateNestedManyWithoutGuideInput>;
   bio?: InputMaybe<Scalars['String']>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   email: Scalars['String'];
@@ -1599,29 +1543,7 @@ export type UserCreateWithoutCountryInput = {
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
-export type UserCreateWithoutGuideCityInput = {
-  GuideGuideCategory?: InputMaybe<GuideGuideCategoryCreateNestedManyWithoutUserInput>;
-  GuideLanguages?: InputMaybe<GuideLanguagesCreateNestedManyWithoutUserInput>;
-  bio?: InputMaybe<Scalars['String']>;
-  country?: InputMaybe<CountryCreateNestedOneWithoutUserInput>;
-  createdAt?: InputMaybe<Scalars['DateTime']>;
-  email: Scalars['String'];
-  firstName: Scalars['String'];
-  hash?: InputMaybe<Scalars['String']>;
-  hashExpiredAt?: InputMaybe<Scalars['DateTime']>;
-  image?: InputMaybe<Scalars['String']>;
-  isVerified?: InputMaybe<YesNo>;
-  lastName: Scalars['String'];
-  password: Scalars['String'];
-  rating?: InputMaybe<Scalars['Float']>;
-  role: UserRole;
-  status?: InputMaybe<Status>;
-  updatedAt?: InputMaybe<Scalars['DateTime']>;
-};
-
-export type UserCreateWithoutGuideLanguagesInput = {
-  GuideCity?: InputMaybe<GuideCityCreateNestedManyWithoutUserInput>;
-  GuideGuideCategory?: InputMaybe<GuideGuideCategoryCreateNestedManyWithoutUserInput>;
+export type UserCreateWithoutTourInput = {
   bio?: InputMaybe<Scalars['String']>;
   country?: InputMaybe<CountryCreateNestedOneWithoutUserInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
@@ -1688,9 +1610,7 @@ export type UserOrderByRelationAggregateInput = {
 };
 
 export type UserOrderByWithRelationInput = {
-  GuideCity?: InputMaybe<GuideCityOrderByRelationAggregateInput>;
-  GuideGuideCategory?: InputMaybe<GuideGuideCategoryOrderByRelationAggregateInput>;
-  GuideLanguages?: InputMaybe<GuideLanguagesOrderByRelationAggregateInput>;
+  Tour?: InputMaybe<TourOrderByRelationAggregateInput>;
   bio?: InputMaybe<SortOrder>;
   country?: InputMaybe<CountryOrderByWithRelationInput>;
   countryId?: InputMaybe<SortOrder>;
@@ -1740,28 +1660,6 @@ export enum UserScalarFieldEnum {
   UpdatedAt = 'updatedAt'
 }
 
-export type UserScalarWhereInput = {
-  AND?: InputMaybe<Array<UserScalarWhereInput>>;
-  NOT?: InputMaybe<Array<UserScalarWhereInput>>;
-  OR?: InputMaybe<Array<UserScalarWhereInput>>;
-  bio?: InputMaybe<StringFilter>;
-  countryId?: InputMaybe<IntFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  email?: InputMaybe<StringFilter>;
-  firstName?: InputMaybe<StringFilter>;
-  hash?: InputMaybe<StringFilter>;
-  hashExpiredAt?: InputMaybe<DateTimeFilter>;
-  id?: InputMaybe<IntFilter>;
-  image?: InputMaybe<StringFilter>;
-  isVerified?: InputMaybe<EnumYesNoFilter>;
-  lastName?: InputMaybe<StringFilter>;
-  password?: InputMaybe<StringFilter>;
-  rating?: InputMaybe<FloatFilter>;
-  role?: InputMaybe<EnumUserRoleFilter>;
-  status?: InputMaybe<EnumStatusFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-};
-
 export type UserSumAggregate = {
   __typename?: 'UserSumAggregate';
   countryId?: Maybe<Scalars['Int']>;
@@ -1769,86 +1667,15 @@ export type UserSumAggregate = {
   rating?: Maybe<Scalars['Float']>;
 };
 
-export type UserUpdateManyMutationInput = {
-  bio?: InputMaybe<Scalars['String']>;
-  createdAt?: InputMaybe<Scalars['DateTime']>;
-  email?: InputMaybe<Scalars['String']>;
-  firstName?: InputMaybe<Scalars['String']>;
-  hash?: InputMaybe<Scalars['String']>;
-  hashExpiredAt?: InputMaybe<Scalars['DateTime']>;
-  image?: InputMaybe<Scalars['String']>;
-  isVerified?: InputMaybe<YesNo>;
-  lastName?: InputMaybe<Scalars['String']>;
-  password?: InputMaybe<Scalars['String']>;
-  rating?: InputMaybe<Scalars['Float']>;
-  role?: InputMaybe<UserRole>;
-  status?: InputMaybe<Status>;
-  updatedAt?: InputMaybe<Scalars['DateTime']>;
-};
-
-export type UserUpdateManyWithWhereWithoutCountryInput = {
-  data: UserUpdateManyMutationInput;
-  where: UserScalarWhereInput;
-};
-
-export type UserUpdateManyWithoutCountryInput = {
-  connect?: InputMaybe<Array<UserWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<UserCreateOrConnectWithoutCountryInput>>;
-  create?: InputMaybe<Array<UserCreateWithoutCountryInput>>;
-  createMany?: InputMaybe<UserCreateManyCountryInputEnvelope>;
-  delete?: InputMaybe<Array<UserWhereUniqueInput>>;
-  deleteMany?: InputMaybe<Array<UserScalarWhereInput>>;
-  disconnect?: InputMaybe<Array<UserWhereUniqueInput>>;
-  set?: InputMaybe<Array<UserWhereUniqueInput>>;
-  update?: InputMaybe<Array<UserUpdateWithWhereUniqueWithoutCountryInput>>;
-  updateMany?: InputMaybe<Array<UserUpdateManyWithWhereWithoutCountryInput>>;
-  upsert?: InputMaybe<Array<UserUpsertWithWhereUniqueWithoutCountryInput>>;
-};
-
-export type UserUpdateOneRequiredWithoutGuideCityInput = {
+export type UserUpdateOneRequiredWithoutTourInput = {
   connect?: InputMaybe<UserWhereUniqueInput>;
-  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutGuideCityInput>;
-  create?: InputMaybe<UserCreateWithoutGuideCityInput>;
-  update?: InputMaybe<UserUpdateWithoutGuideCityInput>;
-  upsert?: InputMaybe<UserUpsertWithoutGuideCityInput>;
+  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutTourInput>;
+  create?: InputMaybe<UserCreateWithoutTourInput>;
+  update?: InputMaybe<UserUpdateWithoutTourInput>;
+  upsert?: InputMaybe<UserUpsertWithoutTourInput>;
 };
 
-export type UserUpdateOneRequiredWithoutGuideLanguagesInput = {
-  connect?: InputMaybe<UserWhereUniqueInput>;
-  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutGuideLanguagesInput>;
-  create?: InputMaybe<UserCreateWithoutGuideLanguagesInput>;
-  update?: InputMaybe<UserUpdateWithoutGuideLanguagesInput>;
-  upsert?: InputMaybe<UserUpsertWithoutGuideLanguagesInput>;
-};
-
-export type UserUpdateWithWhereUniqueWithoutCountryInput = {
-  data: UserUpdateWithoutCountryInput;
-  where: UserWhereUniqueInput;
-};
-
-export type UserUpdateWithoutCountryInput = {
-  GuideCity?: InputMaybe<GuideCityUpdateManyWithoutUserInput>;
-  GuideGuideCategory?: InputMaybe<GuideGuideCategoryUpdateManyWithoutUserInput>;
-  GuideLanguages?: InputMaybe<GuideLanguagesUpdateManyWithoutUserInput>;
-  bio?: InputMaybe<Scalars['String']>;
-  createdAt?: InputMaybe<Scalars['DateTime']>;
-  email?: InputMaybe<Scalars['String']>;
-  firstName?: InputMaybe<Scalars['String']>;
-  hash?: InputMaybe<Scalars['String']>;
-  hashExpiredAt?: InputMaybe<Scalars['DateTime']>;
-  image?: InputMaybe<Scalars['String']>;
-  isVerified?: InputMaybe<YesNo>;
-  lastName?: InputMaybe<Scalars['String']>;
-  password?: InputMaybe<Scalars['String']>;
-  rating?: InputMaybe<Scalars['Float']>;
-  role?: InputMaybe<UserRole>;
-  status?: InputMaybe<Status>;
-  updatedAt?: InputMaybe<Scalars['DateTime']>;
-};
-
-export type UserUpdateWithoutGuideCityInput = {
-  GuideGuideCategory?: InputMaybe<GuideGuideCategoryUpdateManyWithoutUserInput>;
-  GuideLanguages?: InputMaybe<GuideLanguagesUpdateManyWithoutUserInput>;
+export type UserUpdateWithoutTourInput = {
   bio?: InputMaybe<Scalars['String']>;
   country?: InputMaybe<CountryUpdateOneWithoutUserInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
@@ -1866,49 +1693,16 @@ export type UserUpdateWithoutGuideCityInput = {
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
-export type UserUpdateWithoutGuideLanguagesInput = {
-  GuideCity?: InputMaybe<GuideCityUpdateManyWithoutUserInput>;
-  GuideGuideCategory?: InputMaybe<GuideGuideCategoryUpdateManyWithoutUserInput>;
-  bio?: InputMaybe<Scalars['String']>;
-  country?: InputMaybe<CountryUpdateOneWithoutUserInput>;
-  createdAt?: InputMaybe<Scalars['DateTime']>;
-  email?: InputMaybe<Scalars['String']>;
-  firstName?: InputMaybe<Scalars['String']>;
-  hash?: InputMaybe<Scalars['String']>;
-  hashExpiredAt?: InputMaybe<Scalars['DateTime']>;
-  image?: InputMaybe<Scalars['String']>;
-  isVerified?: InputMaybe<YesNo>;
-  lastName?: InputMaybe<Scalars['String']>;
-  password?: InputMaybe<Scalars['String']>;
-  rating?: InputMaybe<Scalars['Float']>;
-  role?: InputMaybe<UserRole>;
-  status?: InputMaybe<Status>;
-  updatedAt?: InputMaybe<Scalars['DateTime']>;
-};
-
-export type UserUpsertWithWhereUniqueWithoutCountryInput = {
-  create: UserCreateWithoutCountryInput;
-  update: UserUpdateWithoutCountryInput;
-  where: UserWhereUniqueInput;
-};
-
-export type UserUpsertWithoutGuideCityInput = {
-  create: UserCreateWithoutGuideCityInput;
-  update: UserUpdateWithoutGuideCityInput;
-};
-
-export type UserUpsertWithoutGuideLanguagesInput = {
-  create: UserCreateWithoutGuideLanguagesInput;
-  update: UserUpdateWithoutGuideLanguagesInput;
+export type UserUpsertWithoutTourInput = {
+  create: UserCreateWithoutTourInput;
+  update: UserUpdateWithoutTourInput;
 };
 
 export type UserWhereInput = {
   AND?: InputMaybe<Array<UserWhereInput>>;
-  GuideCity?: InputMaybe<GuideCityListRelationFilter>;
-  GuideGuideCategory?: InputMaybe<GuideGuideCategoryListRelationFilter>;
-  GuideLanguages?: InputMaybe<GuideLanguagesListRelationFilter>;
   NOT?: InputMaybe<Array<UserWhereInput>>;
   OR?: InputMaybe<Array<UserWhereInput>>;
+  Tour?: InputMaybe<TourListRelationFilter>;
   bio?: InputMaybe<StringFilter>;
   country?: InputMaybe<CountryRelationFilter>;
   countryId?: InputMaybe<IntFilter>;

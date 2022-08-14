@@ -30,6 +30,41 @@ export enum UserScalarFieldEnum {
     updatedAt = "updatedAt"
 }
 
+export enum TourTourCategoryScalarFieldEnum {
+    status = "status",
+    tourId = "tourId",
+    tourCategoryId = "tourCategoryId"
+}
+
+export enum TourLanguagesScalarFieldEnum {
+    status = "status",
+    tourId = "tourId",
+    languageId = "languageId"
+}
+
+export enum TourCityScalarFieldEnum {
+    status = "status",
+    tourId = "tourId",
+    cityId = "cityId"
+}
+
+export enum TourCategoryScalarFieldEnum {
+    id = "id",
+    name = "name",
+    status = "status",
+    createdAt = "createdAt",
+    updatedAt = "updatedAt"
+}
+
+export enum TourScalarFieldEnum {
+    id = "id",
+    name = "name",
+    status = "status",
+    guideId = "guideId",
+    createdAt = "createdAt",
+    updatedAt = "updatedAt"
+}
+
 export enum YesNo {
     YES = "YES",
     NO = "NO"
@@ -67,33 +102,6 @@ export enum LanguagesScalarFieldEnum {
     updatedAt = "updatedAt"
 }
 
-export enum GuideLanguagesScalarFieldEnum {
-    status = "status",
-    userId = "userId",
-    languageId = "languageId",
-    cityId = "cityId"
-}
-
-export enum GuideGuideCategoryScalarFieldEnum {
-    status = "status",
-    userId = "userId",
-    guideCategoryId = "guideCategoryId"
-}
-
-export enum GuideCityScalarFieldEnum {
-    status = "status",
-    userId = "userId",
-    cityId = "cityId"
-}
-
-export enum GuideCategoryScalarFieldEnum {
-    id = "id",
-    name = "name",
-    status = "status",
-    createdAt = "createdAt",
-    updatedAt = "updatedAt"
-}
-
 export enum CountryScalarFieldEnum {
     id = "id",
     name = "name",
@@ -113,16 +121,17 @@ export enum CityScalarFieldEnum {
 
 registerEnumType(CityScalarFieldEnum, { name: 'CityScalarFieldEnum', description: undefined })
 registerEnumType(CountryScalarFieldEnum, { name: 'CountryScalarFieldEnum', description: undefined })
-registerEnumType(GuideCategoryScalarFieldEnum, { name: 'GuideCategoryScalarFieldEnum', description: undefined })
-registerEnumType(GuideCityScalarFieldEnum, { name: 'GuideCityScalarFieldEnum', description: undefined })
-registerEnumType(GuideGuideCategoryScalarFieldEnum, { name: 'GuideGuideCategoryScalarFieldEnum', description: undefined })
-registerEnumType(GuideLanguagesScalarFieldEnum, { name: 'GuideLanguagesScalarFieldEnum', description: undefined })
 registerEnumType(LanguagesScalarFieldEnum, { name: 'LanguagesScalarFieldEnum', description: undefined })
 registerEnumType(QueryMode, { name: 'QueryMode', description: undefined })
 registerEnumType(SortOrder, { name: 'SortOrder', description: undefined })
 registerEnumType(Status, { name: 'Status', description: undefined })
 registerEnumType(UserRole, { name: 'UserRole', description: undefined })
 registerEnumType(YesNo, { name: 'YesNo', description: undefined })
+registerEnumType(TourScalarFieldEnum, { name: 'TourScalarFieldEnum', description: undefined })
+registerEnumType(TourCategoryScalarFieldEnum, { name: 'TourCategoryScalarFieldEnum', description: undefined })
+registerEnumType(TourCityScalarFieldEnum, { name: 'TourCityScalarFieldEnum', description: undefined })
+registerEnumType(TourLanguagesScalarFieldEnum, { name: 'TourLanguagesScalarFieldEnum', description: undefined })
+registerEnumType(TourTourCategoryScalarFieldEnum, { name: 'TourTourCategoryScalarFieldEnum', description: undefined })
 registerEnumType(UserScalarFieldEnum, { name: 'UserScalarFieldEnum', description: undefined })
 
 @ObjectType()
@@ -244,9 +253,7 @@ export class CityCountOrderByAggregateInput {
 @ObjectType()
 export class CityCount {
     @Field(() => Int, {nullable:false})
-    GuideCity?: number;
-    @Field(() => Int, {nullable:false})
-    GuideLanguages?: number;
+    TourCity?: number;
 }
 
 @InputType()
@@ -309,26 +316,13 @@ export class CityCreateNestedManyWithoutCountryInput {
 }
 
 @InputType()
-export class CityCreateNestedOneWithoutGuideCityInput {
-    @Field(() => CityCreateWithoutGuideCityInput, {nullable:true})
-    @Type(() => CityCreateWithoutGuideCityInput)
-    create?: InstanceType<typeof CityCreateWithoutGuideCityInput>;
-    @Field(() => CityCreateOrConnectWithoutGuideCityInput, {nullable:true})
-    @Type(() => CityCreateOrConnectWithoutGuideCityInput)
-    connectOrCreate?: InstanceType<typeof CityCreateOrConnectWithoutGuideCityInput>;
-    @Field(() => CityWhereUniqueInput, {nullable:true})
-    @Type(() => CityWhereUniqueInput)
-    connect?: InstanceType<typeof CityWhereUniqueInput>;
-}
-
-@InputType()
-export class CityCreateNestedOneWithoutGuideLanguagesInput {
-    @Field(() => CityCreateWithoutGuideLanguagesInput, {nullable:true})
-    @Type(() => CityCreateWithoutGuideLanguagesInput)
-    create?: InstanceType<typeof CityCreateWithoutGuideLanguagesInput>;
-    @Field(() => CityCreateOrConnectWithoutGuideLanguagesInput, {nullable:true})
-    @Type(() => CityCreateOrConnectWithoutGuideLanguagesInput)
-    connectOrCreate?: InstanceType<typeof CityCreateOrConnectWithoutGuideLanguagesInput>;
+export class CityCreateNestedOneWithoutTourCityInput {
+    @Field(() => CityCreateWithoutTourCityInput, {nullable:true})
+    @Type(() => CityCreateWithoutTourCityInput)
+    create?: InstanceType<typeof CityCreateWithoutTourCityInput>;
+    @Field(() => CityCreateOrConnectWithoutTourCityInput, {nullable:true})
+    @Type(() => CityCreateOrConnectWithoutTourCityInput)
+    connectOrCreate?: InstanceType<typeof CityCreateOrConnectWithoutTourCityInput>;
     @Field(() => CityWhereUniqueInput, {nullable:true})
     @Type(() => CityWhereUniqueInput)
     connect?: InstanceType<typeof CityWhereUniqueInput>;
@@ -345,23 +339,13 @@ export class CityCreateOrConnectWithoutCountryInput {
 }
 
 @InputType()
-export class CityCreateOrConnectWithoutGuideCityInput {
+export class CityCreateOrConnectWithoutTourCityInput {
     @Field(() => CityWhereUniqueInput, {nullable:false})
     @Type(() => CityWhereUniqueInput)
     where!: InstanceType<typeof CityWhereUniqueInput>;
-    @Field(() => CityCreateWithoutGuideCityInput, {nullable:false})
-    @Type(() => CityCreateWithoutGuideCityInput)
-    create!: InstanceType<typeof CityCreateWithoutGuideCityInput>;
-}
-
-@InputType()
-export class CityCreateOrConnectWithoutGuideLanguagesInput {
-    @Field(() => CityWhereUniqueInput, {nullable:false})
-    @Type(() => CityWhereUniqueInput)
-    where!: InstanceType<typeof CityWhereUniqueInput>;
-    @Field(() => CityCreateWithoutGuideLanguagesInput, {nullable:false})
-    @Type(() => CityCreateWithoutGuideLanguagesInput)
-    create!: InstanceType<typeof CityCreateWithoutGuideLanguagesInput>;
+    @Field(() => CityCreateWithoutTourCityInput, {nullable:false})
+    @Type(() => CityCreateWithoutTourCityInput)
+    create!: InstanceType<typeof CityCreateWithoutTourCityInput>;
 }
 
 @InputType()
@@ -376,14 +360,12 @@ export class CityCreateWithoutCountryInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideCityCreateNestedManyWithoutCityInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityCreateNestedManyWithoutCityInput>;
-    @Field(() => GuideLanguagesCreateNestedManyWithoutCityInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesCreateNestedManyWithoutCityInput>;
+    @Field(() => TourCityCreateNestedManyWithoutCityInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityCreateNestedManyWithoutCityInput>;
 }
 
 @InputType()
-export class CityCreateWithoutGuideCityInput {
+export class CityCreateWithoutTourCityInput {
     @Field(() => String, {nullable:false})
     @Validator.IsString()
     name!: string;
@@ -396,26 +378,6 @@ export class CityCreateWithoutGuideCityInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideLanguagesCreateNestedManyWithoutCityInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesCreateNestedManyWithoutCityInput>;
-}
-
-@InputType()
-export class CityCreateWithoutGuideLanguagesInput {
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    name!: string;
-    @Field(() => Status, {nullable:true})
-    @Validator.IsString()
-    status?: keyof typeof Status;
-    @Field(() => CountryCreateNestedOneWithoutCityInput, {nullable:false})
-    country!: InstanceType<typeof CountryCreateNestedOneWithoutCityInput>;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => GuideCityCreateNestedManyWithoutCityInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityCreateNestedManyWithoutCityInput>;
 }
 
 @InputType()
@@ -432,10 +394,8 @@ export class CityCreateInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideCityCreateNestedManyWithoutCityInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityCreateNestedManyWithoutCityInput>;
-    @Field(() => GuideLanguagesCreateNestedManyWithoutCityInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesCreateNestedManyWithoutCityInput>;
+    @Field(() => TourCityCreateNestedManyWithoutCityInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityCreateNestedManyWithoutCityInput>;
 }
 
 @ArgsType()
@@ -652,10 +612,8 @@ export class CityOrderByWithRelationInput {
     createdAt?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     updatedAt?: keyof typeof SortOrder;
-    @Field(() => GuideCityOrderByRelationAggregateInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityOrderByRelationAggregateInput>;
-    @Field(() => GuideLanguagesOrderByRelationAggregateInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesOrderByRelationAggregateInput>;
+    @Field(() => TourCityOrderByRelationAggregateInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityOrderByRelationAggregateInput>;
 }
 
 @InputType()
@@ -764,14 +722,12 @@ export class CityUncheckedCreateWithoutCountryInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideCityUncheckedCreateNestedManyWithoutCityInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityUncheckedCreateNestedManyWithoutCityInput>;
-    @Field(() => GuideLanguagesUncheckedCreateNestedManyWithoutCityInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesUncheckedCreateNestedManyWithoutCityInput>;
+    @Field(() => TourCityUncheckedCreateNestedManyWithoutCityInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityUncheckedCreateNestedManyWithoutCityInput>;
 }
 
 @InputType()
-export class CityUncheckedCreateWithoutGuideCityInput {
+export class CityUncheckedCreateWithoutTourCityInput {
     @Field(() => Int, {nullable:true})
     id?: number;
     @Field(() => String, {nullable:false})
@@ -786,28 +742,6 @@ export class CityUncheckedCreateWithoutGuideCityInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideLanguagesUncheckedCreateNestedManyWithoutCityInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesUncheckedCreateNestedManyWithoutCityInput>;
-}
-
-@InputType()
-export class CityUncheckedCreateWithoutGuideLanguagesInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    name!: string;
-    @Field(() => Status, {nullable:true})
-    @Validator.IsString()
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:false})
-    countryId!: number;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => GuideCityUncheckedCreateNestedManyWithoutCityInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityUncheckedCreateNestedManyWithoutCityInput>;
 }
 
 @InputType()
@@ -826,10 +760,8 @@ export class CityUncheckedCreateInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideCityUncheckedCreateNestedManyWithoutCityInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityUncheckedCreateNestedManyWithoutCityInput>;
-    @Field(() => GuideLanguagesUncheckedCreateNestedManyWithoutCityInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesUncheckedCreateNestedManyWithoutCityInput>;
+    @Field(() => TourCityUncheckedCreateNestedManyWithoutCityInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityUncheckedCreateNestedManyWithoutCityInput>;
 }
 
 @InputType()
@@ -917,14 +849,12 @@ export class CityUncheckedUpdateWithoutCountryInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideCityUncheckedUpdateManyWithoutCityInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityUncheckedUpdateManyWithoutCityInput>;
-    @Field(() => GuideLanguagesUncheckedUpdateManyWithoutCityInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesUncheckedUpdateManyWithoutCityInput>;
+    @Field(() => TourCityUncheckedUpdateManyWithoutCityInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityUncheckedUpdateManyWithoutCityInput>;
 }
 
 @InputType()
-export class CityUncheckedUpdateWithoutGuideCityInput {
+export class CityUncheckedUpdateWithoutTourCityInput {
     @Field(() => Int, {nullable:true})
     id?: number;
     @Field(() => String, {nullable:true})
@@ -939,28 +869,6 @@ export class CityUncheckedUpdateWithoutGuideCityInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideLanguagesUncheckedUpdateManyWithoutCityInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesUncheckedUpdateManyWithoutCityInput>;
-}
-
-@InputType()
-export class CityUncheckedUpdateWithoutGuideLanguagesInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    name?: string;
-    @Field(() => Status, {nullable:true})
-    @Validator.IsString()
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:true})
-    countryId?: number;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => GuideCityUncheckedUpdateManyWithoutCityInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityUncheckedUpdateManyWithoutCityInput>;
 }
 
 @InputType()
@@ -979,10 +887,8 @@ export class CityUncheckedUpdateInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideCityUncheckedUpdateManyWithoutCityInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityUncheckedUpdateManyWithoutCityInput>;
-    @Field(() => GuideLanguagesUncheckedUpdateManyWithoutCityInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesUncheckedUpdateManyWithoutCityInput>;
+    @Field(() => TourCityUncheckedUpdateManyWithoutCityInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityUncheckedUpdateManyWithoutCityInput>;
 }
 
 @InputType()
@@ -1047,45 +953,22 @@ export class CityUpdateManyWithoutCountryInput {
 }
 
 @InputType()
-export class CityUpdateOneRequiredWithoutGuideCityInput {
-    @Field(() => CityCreateWithoutGuideCityInput, {nullable:true})
-    @Type(() => CityCreateWithoutGuideCityInput)
-    create?: InstanceType<typeof CityCreateWithoutGuideCityInput>;
-    @Field(() => CityCreateOrConnectWithoutGuideCityInput, {nullable:true})
-    @Type(() => CityCreateOrConnectWithoutGuideCityInput)
-    connectOrCreate?: InstanceType<typeof CityCreateOrConnectWithoutGuideCityInput>;
-    @Field(() => CityUpsertWithoutGuideCityInput, {nullable:true})
-    @Type(() => CityUpsertWithoutGuideCityInput)
-    upsert?: InstanceType<typeof CityUpsertWithoutGuideCityInput>;
+export class CityUpdateOneRequiredWithoutTourCityInput {
+    @Field(() => CityCreateWithoutTourCityInput, {nullable:true})
+    @Type(() => CityCreateWithoutTourCityInput)
+    create?: InstanceType<typeof CityCreateWithoutTourCityInput>;
+    @Field(() => CityCreateOrConnectWithoutTourCityInput, {nullable:true})
+    @Type(() => CityCreateOrConnectWithoutTourCityInput)
+    connectOrCreate?: InstanceType<typeof CityCreateOrConnectWithoutTourCityInput>;
+    @Field(() => CityUpsertWithoutTourCityInput, {nullable:true})
+    @Type(() => CityUpsertWithoutTourCityInput)
+    upsert?: InstanceType<typeof CityUpsertWithoutTourCityInput>;
     @Field(() => CityWhereUniqueInput, {nullable:true})
     @Type(() => CityWhereUniqueInput)
     connect?: InstanceType<typeof CityWhereUniqueInput>;
-    @Field(() => CityUpdateWithoutGuideCityInput, {nullable:true})
-    @Type(() => CityUpdateWithoutGuideCityInput)
-    update?: InstanceType<typeof CityUpdateWithoutGuideCityInput>;
-}
-
-@InputType()
-export class CityUpdateOneWithoutGuideLanguagesInput {
-    @Field(() => CityCreateWithoutGuideLanguagesInput, {nullable:true})
-    @Type(() => CityCreateWithoutGuideLanguagesInput)
-    create?: InstanceType<typeof CityCreateWithoutGuideLanguagesInput>;
-    @Field(() => CityCreateOrConnectWithoutGuideLanguagesInput, {nullable:true})
-    @Type(() => CityCreateOrConnectWithoutGuideLanguagesInput)
-    connectOrCreate?: InstanceType<typeof CityCreateOrConnectWithoutGuideLanguagesInput>;
-    @Field(() => CityUpsertWithoutGuideLanguagesInput, {nullable:true})
-    @Type(() => CityUpsertWithoutGuideLanguagesInput)
-    upsert?: InstanceType<typeof CityUpsertWithoutGuideLanguagesInput>;
-    @Field(() => Boolean, {nullable:true})
-    disconnect?: boolean;
-    @Field(() => Boolean, {nullable:true})
-    delete?: boolean;
-    @Field(() => CityWhereUniqueInput, {nullable:true})
-    @Type(() => CityWhereUniqueInput)
-    connect?: InstanceType<typeof CityWhereUniqueInput>;
-    @Field(() => CityUpdateWithoutGuideLanguagesInput, {nullable:true})
-    @Type(() => CityUpdateWithoutGuideLanguagesInput)
-    update?: InstanceType<typeof CityUpdateWithoutGuideLanguagesInput>;
+    @Field(() => CityUpdateWithoutTourCityInput, {nullable:true})
+    @Type(() => CityUpdateWithoutTourCityInput)
+    update?: InstanceType<typeof CityUpdateWithoutTourCityInput>;
 }
 
 @InputType()
@@ -1110,14 +993,12 @@ export class CityUpdateWithoutCountryInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideCityUpdateManyWithoutCityInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityUpdateManyWithoutCityInput>;
-    @Field(() => GuideLanguagesUpdateManyWithoutCityInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesUpdateManyWithoutCityInput>;
+    @Field(() => TourCityUpdateManyWithoutCityInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityUpdateManyWithoutCityInput>;
 }
 
 @InputType()
-export class CityUpdateWithoutGuideCityInput {
+export class CityUpdateWithoutTourCityInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     name?: string;
@@ -1130,26 +1011,6 @@ export class CityUpdateWithoutGuideCityInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideLanguagesUpdateManyWithoutCityInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesUpdateManyWithoutCityInput>;
-}
-
-@InputType()
-export class CityUpdateWithoutGuideLanguagesInput {
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    name?: string;
-    @Field(() => Status, {nullable:true})
-    @Validator.IsString()
-    status?: keyof typeof Status;
-    @Field(() => CountryUpdateOneRequiredWithoutCityInput, {nullable:true})
-    country?: InstanceType<typeof CountryUpdateOneRequiredWithoutCityInput>;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => GuideCityUpdateManyWithoutCityInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityUpdateManyWithoutCityInput>;
 }
 
 @InputType()
@@ -1166,10 +1027,8 @@ export class CityUpdateInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideCityUpdateManyWithoutCityInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityUpdateManyWithoutCityInput>;
-    @Field(() => GuideLanguagesUpdateManyWithoutCityInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesUpdateManyWithoutCityInput>;
+    @Field(() => TourCityUpdateManyWithoutCityInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityUpdateManyWithoutCityInput>;
 }
 
 @InputType()
@@ -1186,23 +1045,13 @@ export class CityUpsertWithWhereUniqueWithoutCountryInput {
 }
 
 @InputType()
-export class CityUpsertWithoutGuideCityInput {
-    @Field(() => CityUpdateWithoutGuideCityInput, {nullable:false})
-    @Type(() => CityUpdateWithoutGuideCityInput)
-    update!: InstanceType<typeof CityUpdateWithoutGuideCityInput>;
-    @Field(() => CityCreateWithoutGuideCityInput, {nullable:false})
-    @Type(() => CityCreateWithoutGuideCityInput)
-    create!: InstanceType<typeof CityCreateWithoutGuideCityInput>;
-}
-
-@InputType()
-export class CityUpsertWithoutGuideLanguagesInput {
-    @Field(() => CityUpdateWithoutGuideLanguagesInput, {nullable:false})
-    @Type(() => CityUpdateWithoutGuideLanguagesInput)
-    update!: InstanceType<typeof CityUpdateWithoutGuideLanguagesInput>;
-    @Field(() => CityCreateWithoutGuideLanguagesInput, {nullable:false})
-    @Type(() => CityCreateWithoutGuideLanguagesInput)
-    create!: InstanceType<typeof CityCreateWithoutGuideLanguagesInput>;
+export class CityUpsertWithoutTourCityInput {
+    @Field(() => CityUpdateWithoutTourCityInput, {nullable:false})
+    @Type(() => CityUpdateWithoutTourCityInput)
+    update!: InstanceType<typeof CityUpdateWithoutTourCityInput>;
+    @Field(() => CityCreateWithoutTourCityInput, {nullable:false})
+    @Type(() => CityCreateWithoutTourCityInput)
+    create!: InstanceType<typeof CityCreateWithoutTourCityInput>;
 }
 
 @InputType()
@@ -1233,10 +1082,8 @@ export class CityWhereInput {
     createdAt?: InstanceType<typeof DateTimeFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
     updatedAt?: InstanceType<typeof DateTimeFilter>;
-    @Field(() => GuideCityListRelationFilter, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityListRelationFilter>;
-    @Field(() => GuideLanguagesListRelationFilter, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesListRelationFilter>;
+    @Field(() => TourCityListRelationFilter, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityListRelationFilter>;
 }
 
 @ObjectType()
@@ -1255,10 +1102,8 @@ export class City {
     createdAt!: Date;
     @Field(() => Date, {nullable:false})
     updatedAt!: Date;
-    @Field(() => [GuideCity], {nullable:true})
-    GuideCity?: Array<GuideCity>;
-    @Field(() => [GuideLanguages], {nullable:true})
-    GuideLanguages?: Array<GuideLanguages>;
+    @Field(() => [TourCity], {nullable:true})
+    TourCity?: Array<TourCity>;
     @Field(() => CityCount, {nullable:false})
     _count?: InstanceType<typeof CityCount>;
 }
@@ -2254,3848 +2099,6 @@ export class UpsertOneCountryArgs {
 }
 
 @ObjectType()
-export class AggregateGuideCategory {
-    @Field(() => GuideCategoryCountAggregate, {nullable:true})
-    _count?: InstanceType<typeof GuideCategoryCountAggregate>;
-    @Field(() => GuideCategoryAvgAggregate, {nullable:true})
-    _avg?: InstanceType<typeof GuideCategoryAvgAggregate>;
-    @Field(() => GuideCategorySumAggregate, {nullable:true})
-    _sum?: InstanceType<typeof GuideCategorySumAggregate>;
-    @Field(() => GuideCategoryMinAggregate, {nullable:true})
-    _min?: InstanceType<typeof GuideCategoryMinAggregate>;
-    @Field(() => GuideCategoryMaxAggregate, {nullable:true})
-    _max?: InstanceType<typeof GuideCategoryMaxAggregate>;
-}
-
-@ArgsType()
-export class CreateManyGuideCategoryArgs {
-    @Field(() => [GuideCategoryCreateManyInput], {nullable:false})
-    @Type(() => GuideCategoryCreateManyInput)
-    @ValidateNested({ each: true })
-    data!: Array<GuideCategoryCreateManyInput>;
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
-}
-
-@ArgsType()
-export class CreateOneGuideCategoryArgs {
-    @Field(() => GuideCategoryCreateInput, {nullable:false})
-    @Type(() => GuideCategoryCreateInput)
-    @ValidateNested({ each: true })
-    data!: InstanceType<typeof GuideCategoryCreateInput>;
-}
-
-@ArgsType()
-export class DeleteManyGuideCategoryArgs {
-    @Field(() => GuideCategoryWhereInput, {nullable:true})
-    @Type(() => GuideCategoryWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof GuideCategoryWhereInput>;
-}
-
-@ArgsType()
-export class DeleteOneGuideCategoryArgs {
-    @Field(() => GuideCategoryWhereUniqueInput, {nullable:false})
-    @Type(() => GuideCategoryWhereUniqueInput)
-    @ValidateNested({ each: true })
-    where!: InstanceType<typeof GuideCategoryWhereUniqueInput>;
-}
-
-@ArgsType()
-export class FindFirstGuideCategoryArgs {
-    @Field(() => GuideCategoryWhereInput, {nullable:true})
-    @Type(() => GuideCategoryWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof GuideCategoryWhereInput>;
-    @Field(() => [GuideCategoryOrderByWithRelationInput], {nullable:true})
-    orderBy?: Array<GuideCategoryOrderByWithRelationInput>;
-    @Field(() => GuideCategoryWhereUniqueInput, {nullable:true})
-    cursor?: InstanceType<typeof GuideCategoryWhereUniqueInput>;
-    @Field(() => Int, {nullable:true})
-    take?: number;
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-    @Field(() => [GuideCategoryScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof GuideCategoryScalarFieldEnum>;
-}
-
-@ArgsType()
-export class FindManyGuideCategoryArgs {
-    @Field(() => GuideCategoryWhereInput, {nullable:true})
-    @Type(() => GuideCategoryWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof GuideCategoryWhereInput>;
-    @Field(() => [GuideCategoryOrderByWithRelationInput], {nullable:true})
-    orderBy?: Array<GuideCategoryOrderByWithRelationInput>;
-    @Field(() => GuideCategoryWhereUniqueInput, {nullable:true})
-    cursor?: InstanceType<typeof GuideCategoryWhereUniqueInput>;
-    @Field(() => Int, {nullable:true})
-    take?: number;
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-    @Field(() => [GuideCategoryScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof GuideCategoryScalarFieldEnum>;
-}
-
-@ArgsType()
-export class FindUniqueGuideCategoryArgs {
-    @Field(() => GuideCategoryWhereUniqueInput, {nullable:false})
-    @Type(() => GuideCategoryWhereUniqueInput)
-    @ValidateNested({ each: true })
-    where!: InstanceType<typeof GuideCategoryWhereUniqueInput>;
-}
-
-@ArgsType()
-export class GuideCategoryAggregateArgs {
-    @Field(() => GuideCategoryWhereInput, {nullable:true})
-    @Type(() => GuideCategoryWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof GuideCategoryWhereInput>;
-    @Field(() => [GuideCategoryOrderByWithRelationInput], {nullable:true})
-    orderBy?: Array<GuideCategoryOrderByWithRelationInput>;
-    @Field(() => GuideCategoryWhereUniqueInput, {nullable:true})
-    cursor?: InstanceType<typeof GuideCategoryWhereUniqueInput>;
-    @Field(() => Int, {nullable:true})
-    take?: number;
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-    @Field(() => GuideCategoryCountAggregateInput, {nullable:true})
-    _count?: InstanceType<typeof GuideCategoryCountAggregateInput>;
-    @Field(() => GuideCategoryAvgAggregateInput, {nullable:true})
-    _avg?: InstanceType<typeof GuideCategoryAvgAggregateInput>;
-    @Field(() => GuideCategorySumAggregateInput, {nullable:true})
-    _sum?: InstanceType<typeof GuideCategorySumAggregateInput>;
-    @Field(() => GuideCategoryMinAggregateInput, {nullable:true})
-    _min?: InstanceType<typeof GuideCategoryMinAggregateInput>;
-    @Field(() => GuideCategoryMaxAggregateInput, {nullable:true})
-    _max?: InstanceType<typeof GuideCategoryMaxAggregateInput>;
-}
-
-@InputType()
-export class GuideCategoryAvgAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    id?: true;
-}
-
-@ObjectType()
-export class GuideCategoryAvgAggregate {
-    @Field(() => Float, {nullable:true})
-    id?: number;
-}
-
-@InputType()
-export class GuideCategoryAvgOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class GuideCategoryCountAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    id?: true;
-    @Field(() => Boolean, {nullable:true})
-    name?: true;
-    @Field(() => Boolean, {nullable:true})
-    status?: true;
-    @Field(() => Boolean, {nullable:true})
-    createdAt?: true;
-    @Field(() => Boolean, {nullable:true})
-    updatedAt?: true;
-    @Field(() => Boolean, {nullable:true})
-    _all?: true;
-}
-
-@ObjectType()
-export class GuideCategoryCountAggregate {
-    @Field(() => Int, {nullable:false})
-    id!: number;
-    @Field(() => Int, {nullable:false})
-    name!: number;
-    @Field(() => Int, {nullable:false})
-    status!: number;
-    @Field(() => Int, {nullable:false})
-    createdAt!: number;
-    @Field(() => Int, {nullable:false})
-    updatedAt!: number;
-    @Field(() => Int, {nullable:false})
-    _all!: number;
-}
-
-@InputType()
-export class GuideCategoryCountOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    createdAt?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    updatedAt?: keyof typeof SortOrder;
-}
-
-@ObjectType()
-export class GuideCategoryCount {
-    @Field(() => Int, {nullable:false})
-    GuideGuideCategory?: number;
-}
-
-@InputType()
-export class GuideCategoryCreateManyInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    name!: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-}
-
-@InputType()
-export class GuideCategoryCreateNestedOneWithoutGuideGuideCategoryInput {
-    @Field(() => GuideCategoryCreateWithoutGuideGuideCategoryInput, {nullable:true})
-    @Type(() => GuideCategoryCreateWithoutGuideGuideCategoryInput)
-    create?: InstanceType<typeof GuideCategoryCreateWithoutGuideGuideCategoryInput>;
-    @Field(() => GuideCategoryCreateOrConnectWithoutGuideGuideCategoryInput, {nullable:true})
-    @Type(() => GuideCategoryCreateOrConnectWithoutGuideGuideCategoryInput)
-    connectOrCreate?: InstanceType<typeof GuideCategoryCreateOrConnectWithoutGuideGuideCategoryInput>;
-    @Field(() => GuideCategoryWhereUniqueInput, {nullable:true})
-    @Type(() => GuideCategoryWhereUniqueInput)
-    connect?: InstanceType<typeof GuideCategoryWhereUniqueInput>;
-}
-
-@InputType()
-export class GuideCategoryCreateOrConnectWithoutGuideGuideCategoryInput {
-    @Field(() => GuideCategoryWhereUniqueInput, {nullable:false})
-    @Type(() => GuideCategoryWhereUniqueInput)
-    where!: InstanceType<typeof GuideCategoryWhereUniqueInput>;
-    @Field(() => GuideCategoryCreateWithoutGuideGuideCategoryInput, {nullable:false})
-    @Type(() => GuideCategoryCreateWithoutGuideGuideCategoryInput)
-    create!: InstanceType<typeof GuideCategoryCreateWithoutGuideGuideCategoryInput>;
-}
-
-@InputType()
-export class GuideCategoryCreateWithoutGuideGuideCategoryInput {
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    name!: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-}
-
-@InputType()
-export class GuideCategoryCreateInput {
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    name!: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => GuideGuideCategoryCreateNestedManyWithoutGuideCategoryInput, {nullable:true})
-    GuideGuideCategory?: InstanceType<typeof GuideGuideCategoryCreateNestedManyWithoutGuideCategoryInput>;
-}
-
-@ArgsType()
-export class GuideCategoryGroupByArgs {
-    @Field(() => GuideCategoryWhereInput, {nullable:true})
-    @Type(() => GuideCategoryWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof GuideCategoryWhereInput>;
-    @Field(() => [GuideCategoryOrderByWithAggregationInput], {nullable:true})
-    orderBy?: Array<GuideCategoryOrderByWithAggregationInput>;
-    @Field(() => [GuideCategoryScalarFieldEnum], {nullable:false})
-    by!: Array<keyof typeof GuideCategoryScalarFieldEnum>;
-    @Field(() => GuideCategoryScalarWhereWithAggregatesInput, {nullable:true})
-    having?: InstanceType<typeof GuideCategoryScalarWhereWithAggregatesInput>;
-    @Field(() => Int, {nullable:true})
-    take?: number;
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-    @Field(() => GuideCategoryCountAggregateInput, {nullable:true})
-    _count?: InstanceType<typeof GuideCategoryCountAggregateInput>;
-    @Field(() => GuideCategoryAvgAggregateInput, {nullable:true})
-    _avg?: InstanceType<typeof GuideCategoryAvgAggregateInput>;
-    @Field(() => GuideCategorySumAggregateInput, {nullable:true})
-    _sum?: InstanceType<typeof GuideCategorySumAggregateInput>;
-    @Field(() => GuideCategoryMinAggregateInput, {nullable:true})
-    _min?: InstanceType<typeof GuideCategoryMinAggregateInput>;
-    @Field(() => GuideCategoryMaxAggregateInput, {nullable:true})
-    _max?: InstanceType<typeof GuideCategoryMaxAggregateInput>;
-}
-
-@ObjectType()
-export class GuideCategoryGroupBy {
-    @Field(() => Int, {nullable:false})
-    id!: number;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    name!: string;
-    @Field(() => Status, {nullable:false})
-    status!: keyof typeof Status;
-    @Field(() => Date, {nullable:false})
-    createdAt!: Date | string;
-    @Field(() => Date, {nullable:false})
-    updatedAt!: Date | string;
-    @Field(() => GuideCategoryCountAggregate, {nullable:true})
-    _count?: InstanceType<typeof GuideCategoryCountAggregate>;
-    @Field(() => GuideCategoryAvgAggregate, {nullable:true})
-    _avg?: InstanceType<typeof GuideCategoryAvgAggregate>;
-    @Field(() => GuideCategorySumAggregate, {nullable:true})
-    _sum?: InstanceType<typeof GuideCategorySumAggregate>;
-    @Field(() => GuideCategoryMinAggregate, {nullable:true})
-    _min?: InstanceType<typeof GuideCategoryMinAggregate>;
-    @Field(() => GuideCategoryMaxAggregate, {nullable:true})
-    _max?: InstanceType<typeof GuideCategoryMaxAggregate>;
-}
-
-@InputType()
-export class GuideCategoryMaxAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    id?: true;
-    @Field(() => Boolean, {nullable:true})
-    name?: true;
-    @Field(() => Boolean, {nullable:true})
-    status?: true;
-    @Field(() => Boolean, {nullable:true})
-    createdAt?: true;
-    @Field(() => Boolean, {nullable:true})
-    updatedAt?: true;
-}
-
-@ObjectType()
-export class GuideCategoryMaxAggregate {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    name?: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-}
-
-@InputType()
-export class GuideCategoryMaxOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    createdAt?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    updatedAt?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class GuideCategoryMinAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    id?: true;
-    @Field(() => Boolean, {nullable:true})
-    name?: true;
-    @Field(() => Boolean, {nullable:true})
-    status?: true;
-    @Field(() => Boolean, {nullable:true})
-    createdAt?: true;
-    @Field(() => Boolean, {nullable:true})
-    updatedAt?: true;
-}
-
-@ObjectType()
-export class GuideCategoryMinAggregate {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    name?: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-}
-
-@InputType()
-export class GuideCategoryMinOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    createdAt?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    updatedAt?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class GuideCategoryOrderByWithAggregationInput {
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    createdAt?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    updatedAt?: keyof typeof SortOrder;
-    @Field(() => GuideCategoryCountOrderByAggregateInput, {nullable:true})
-    _count?: InstanceType<typeof GuideCategoryCountOrderByAggregateInput>;
-    @Field(() => GuideCategoryAvgOrderByAggregateInput, {nullable:true})
-    _avg?: InstanceType<typeof GuideCategoryAvgOrderByAggregateInput>;
-    @Field(() => GuideCategoryMaxOrderByAggregateInput, {nullable:true})
-    _max?: InstanceType<typeof GuideCategoryMaxOrderByAggregateInput>;
-    @Field(() => GuideCategoryMinOrderByAggregateInput, {nullable:true})
-    _min?: InstanceType<typeof GuideCategoryMinOrderByAggregateInput>;
-    @Field(() => GuideCategorySumOrderByAggregateInput, {nullable:true})
-    _sum?: InstanceType<typeof GuideCategorySumOrderByAggregateInput>;
-}
-
-@InputType()
-export class GuideCategoryOrderByWithRelationInput {
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    createdAt?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    updatedAt?: keyof typeof SortOrder;
-    @Field(() => GuideGuideCategoryOrderByRelationAggregateInput, {nullable:true})
-    GuideGuideCategory?: InstanceType<typeof GuideGuideCategoryOrderByRelationAggregateInput>;
-}
-
-@InputType()
-export class GuideCategoryRelationFilter {
-    @Field(() => GuideCategoryWhereInput, {nullable:true})
-    is?: InstanceType<typeof GuideCategoryWhereInput>;
-    @Field(() => GuideCategoryWhereInput, {nullable:true})
-    isNot?: InstanceType<typeof GuideCategoryWhereInput>;
-}
-
-@InputType()
-export class GuideCategoryScalarWhereWithAggregatesInput {
-    @Field(() => [GuideCategoryScalarWhereWithAggregatesInput], {nullable:true})
-    AND?: Array<GuideCategoryScalarWhereWithAggregatesInput>;
-    @Field(() => [GuideCategoryScalarWhereWithAggregatesInput], {nullable:true})
-    OR?: Array<GuideCategoryScalarWhereWithAggregatesInput>;
-    @Field(() => [GuideCategoryScalarWhereWithAggregatesInput], {nullable:true})
-    NOT?: Array<GuideCategoryScalarWhereWithAggregatesInput>;
-    @Field(() => IntWithAggregatesFilter, {nullable:true})
-    id?: InstanceType<typeof IntWithAggregatesFilter>;
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    name?: InstanceType<typeof StringWithAggregatesFilter>;
-    @Field(() => EnumStatusWithAggregatesFilter, {nullable:true})
-    status?: InstanceType<typeof EnumStatusWithAggregatesFilter>;
-    @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
-    createdAt?: InstanceType<typeof DateTimeWithAggregatesFilter>;
-    @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
-    updatedAt?: InstanceType<typeof DateTimeWithAggregatesFilter>;
-}
-
-@InputType()
-export class GuideCategorySumAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    id?: true;
-}
-
-@ObjectType()
-export class GuideCategorySumAggregate {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-}
-
-@InputType()
-export class GuideCategorySumOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class GuideCategoryUncheckedCreateWithoutGuideGuideCategoryInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    name!: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-}
-
-@InputType()
-export class GuideCategoryUncheckedCreateInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    name!: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => GuideGuideCategoryUncheckedCreateNestedManyWithoutGuideCategoryInput, {nullable:true})
-    GuideGuideCategory?: InstanceType<typeof GuideGuideCategoryUncheckedCreateNestedManyWithoutGuideCategoryInput>;
-}
-
-@InputType()
-export class GuideCategoryUncheckedUpdateManyInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    name?: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-}
-
-@InputType()
-export class GuideCategoryUncheckedUpdateWithoutGuideGuideCategoryInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    name?: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-}
-
-@InputType()
-export class GuideCategoryUncheckedUpdateInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    name?: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => GuideGuideCategoryUncheckedUpdateManyWithoutGuideCategoryInput, {nullable:true})
-    GuideGuideCategory?: InstanceType<typeof GuideGuideCategoryUncheckedUpdateManyWithoutGuideCategoryInput>;
-}
-
-@InputType()
-export class GuideCategoryUpdateManyMutationInput {
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    name?: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-}
-
-@InputType()
-export class GuideCategoryUpdateOneRequiredWithoutGuideGuideCategoryInput {
-    @Field(() => GuideCategoryCreateWithoutGuideGuideCategoryInput, {nullable:true})
-    @Type(() => GuideCategoryCreateWithoutGuideGuideCategoryInput)
-    create?: InstanceType<typeof GuideCategoryCreateWithoutGuideGuideCategoryInput>;
-    @Field(() => GuideCategoryCreateOrConnectWithoutGuideGuideCategoryInput, {nullable:true})
-    @Type(() => GuideCategoryCreateOrConnectWithoutGuideGuideCategoryInput)
-    connectOrCreate?: InstanceType<typeof GuideCategoryCreateOrConnectWithoutGuideGuideCategoryInput>;
-    @Field(() => GuideCategoryUpsertWithoutGuideGuideCategoryInput, {nullable:true})
-    @Type(() => GuideCategoryUpsertWithoutGuideGuideCategoryInput)
-    upsert?: InstanceType<typeof GuideCategoryUpsertWithoutGuideGuideCategoryInput>;
-    @Field(() => GuideCategoryWhereUniqueInput, {nullable:true})
-    @Type(() => GuideCategoryWhereUniqueInput)
-    connect?: InstanceType<typeof GuideCategoryWhereUniqueInput>;
-    @Field(() => GuideCategoryUpdateWithoutGuideGuideCategoryInput, {nullable:true})
-    @Type(() => GuideCategoryUpdateWithoutGuideGuideCategoryInput)
-    update?: InstanceType<typeof GuideCategoryUpdateWithoutGuideGuideCategoryInput>;
-}
-
-@InputType()
-export class GuideCategoryUpdateWithoutGuideGuideCategoryInput {
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    name?: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-}
-
-@InputType()
-export class GuideCategoryUpdateInput {
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    name?: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => GuideGuideCategoryUpdateManyWithoutGuideCategoryInput, {nullable:true})
-    GuideGuideCategory?: InstanceType<typeof GuideGuideCategoryUpdateManyWithoutGuideCategoryInput>;
-}
-
-@InputType()
-export class GuideCategoryUpsertWithoutGuideGuideCategoryInput {
-    @Field(() => GuideCategoryUpdateWithoutGuideGuideCategoryInput, {nullable:false})
-    @Type(() => GuideCategoryUpdateWithoutGuideGuideCategoryInput)
-    update!: InstanceType<typeof GuideCategoryUpdateWithoutGuideGuideCategoryInput>;
-    @Field(() => GuideCategoryCreateWithoutGuideGuideCategoryInput, {nullable:false})
-    @Type(() => GuideCategoryCreateWithoutGuideGuideCategoryInput)
-    create!: InstanceType<typeof GuideCategoryCreateWithoutGuideGuideCategoryInput>;
-}
-
-@InputType()
-export class GuideCategoryWhereUniqueInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-}
-
-@InputType()
-export class GuideCategoryWhereInput {
-    @Field(() => [GuideCategoryWhereInput], {nullable:true})
-    AND?: Array<GuideCategoryWhereInput>;
-    @Field(() => [GuideCategoryWhereInput], {nullable:true})
-    OR?: Array<GuideCategoryWhereInput>;
-    @Field(() => [GuideCategoryWhereInput], {nullable:true})
-    NOT?: Array<GuideCategoryWhereInput>;
-    @Field(() => IntFilter, {nullable:true})
-    id?: InstanceType<typeof IntFilter>;
-    @Field(() => StringFilter, {nullable:true})
-    name?: InstanceType<typeof StringFilter>;
-    @Field(() => EnumStatusFilter, {nullable:true})
-    status?: InstanceType<typeof EnumStatusFilter>;
-    @Field(() => DateTimeFilter, {nullable:true})
-    createdAt?: InstanceType<typeof DateTimeFilter>;
-    @Field(() => DateTimeFilter, {nullable:true})
-    updatedAt?: InstanceType<typeof DateTimeFilter>;
-    @Field(() => GuideGuideCategoryListRelationFilter, {nullable:true})
-    GuideGuideCategory?: InstanceType<typeof GuideGuideCategoryListRelationFilter>;
-}
-
-@ObjectType()
-export class GuideCategory {
-    @Field(() => ID, {nullable:false})
-    id!: number;
-    @Field(() => String, {nullable:false})
-    name!: string;
-    @Field(() => Status, {nullable:false,defaultValue:'ACTIVE'})
-    status!: keyof typeof Status;
-    @Field(() => Date, {nullable:false})
-    createdAt!: Date;
-    @Field(() => Date, {nullable:false})
-    updatedAt!: Date;
-    @Field(() => [GuideGuideCategory], {nullable:true})
-    GuideGuideCategory?: Array<GuideGuideCategory>;
-    @Field(() => GuideCategoryCount, {nullable:false})
-    _count?: InstanceType<typeof GuideCategoryCount>;
-}
-
-@ArgsType()
-export class UpdateManyGuideCategoryArgs {
-    @Field(() => GuideCategoryUpdateManyMutationInput, {nullable:false})
-    @Type(() => GuideCategoryUpdateManyMutationInput)
-    @ValidateNested({ each: true })
-    data!: InstanceType<typeof GuideCategoryUpdateManyMutationInput>;
-    @Field(() => GuideCategoryWhereInput, {nullable:true})
-    @Type(() => GuideCategoryWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof GuideCategoryWhereInput>;
-}
-
-@ArgsType()
-export class UpdateOneGuideCategoryArgs {
-    @Field(() => GuideCategoryUpdateInput, {nullable:false})
-    @Type(() => GuideCategoryUpdateInput)
-    @ValidateNested({ each: true })
-    data!: InstanceType<typeof GuideCategoryUpdateInput>;
-    @Field(() => GuideCategoryWhereUniqueInput, {nullable:false})
-    @Type(() => GuideCategoryWhereUniqueInput)
-    @ValidateNested({ each: true })
-    where!: InstanceType<typeof GuideCategoryWhereUniqueInput>;
-}
-
-@ArgsType()
-export class UpsertOneGuideCategoryArgs {
-    @Field(() => GuideCategoryWhereUniqueInput, {nullable:false})
-    @Type(() => GuideCategoryWhereUniqueInput)
-    @ValidateNested({ each: true })
-    where!: InstanceType<typeof GuideCategoryWhereUniqueInput>;
-    @Field(() => GuideCategoryCreateInput, {nullable:false})
-    @Type(() => GuideCategoryCreateInput)
-    create!: InstanceType<typeof GuideCategoryCreateInput>;
-    @Field(() => GuideCategoryUpdateInput, {nullable:false})
-    @Type(() => GuideCategoryUpdateInput)
-    update!: InstanceType<typeof GuideCategoryUpdateInput>;
-}
-
-@ObjectType()
-export class AggregateGuideCity {
-    @Field(() => GuideCityCountAggregate, {nullable:true})
-    _count?: InstanceType<typeof GuideCityCountAggregate>;
-    @Field(() => GuideCityAvgAggregate, {nullable:true})
-    _avg?: InstanceType<typeof GuideCityAvgAggregate>;
-    @Field(() => GuideCitySumAggregate, {nullable:true})
-    _sum?: InstanceType<typeof GuideCitySumAggregate>;
-    @Field(() => GuideCityMinAggregate, {nullable:true})
-    _min?: InstanceType<typeof GuideCityMinAggregate>;
-    @Field(() => GuideCityMaxAggregate, {nullable:true})
-    _max?: InstanceType<typeof GuideCityMaxAggregate>;
-}
-
-@ArgsType()
-export class CreateManyGuideCityArgs {
-    @Field(() => [GuideCityCreateManyInput], {nullable:false})
-    @Type(() => GuideCityCreateManyInput)
-    @ValidateNested({ each: true })
-    data!: Array<GuideCityCreateManyInput>;
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
-}
-
-@ArgsType()
-export class CreateOneGuideCityArgs {
-    @Field(() => GuideCityCreateInput, {nullable:false})
-    @Type(() => GuideCityCreateInput)
-    @ValidateNested({ each: true })
-    data!: InstanceType<typeof GuideCityCreateInput>;
-}
-
-@ArgsType()
-export class DeleteManyGuideCityArgs {
-    @Field(() => GuideCityWhereInput, {nullable:true})
-    @Type(() => GuideCityWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof GuideCityWhereInput>;
-}
-
-@ArgsType()
-export class DeleteOneGuideCityArgs {
-    @Field(() => GuideCityWhereUniqueInput, {nullable:false})
-    @Type(() => GuideCityWhereUniqueInput)
-    @ValidateNested({ each: true })
-    where!: InstanceType<typeof GuideCityWhereUniqueInput>;
-}
-
-@ArgsType()
-export class FindFirstGuideCityArgs {
-    @Field(() => GuideCityWhereInput, {nullable:true})
-    @Type(() => GuideCityWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof GuideCityWhereInput>;
-    @Field(() => [GuideCityOrderByWithRelationInput], {nullable:true})
-    orderBy?: Array<GuideCityOrderByWithRelationInput>;
-    @Field(() => GuideCityWhereUniqueInput, {nullable:true})
-    cursor?: InstanceType<typeof GuideCityWhereUniqueInput>;
-    @Field(() => Int, {nullable:true})
-    take?: number;
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-    @Field(() => [GuideCityScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof GuideCityScalarFieldEnum>;
-}
-
-@ArgsType()
-export class FindManyGuideCityArgs {
-    @Field(() => GuideCityWhereInput, {nullable:true})
-    @Type(() => GuideCityWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof GuideCityWhereInput>;
-    @Field(() => [GuideCityOrderByWithRelationInput], {nullable:true})
-    orderBy?: Array<GuideCityOrderByWithRelationInput>;
-    @Field(() => GuideCityWhereUniqueInput, {nullable:true})
-    cursor?: InstanceType<typeof GuideCityWhereUniqueInput>;
-    @Field(() => Int, {nullable:true})
-    take?: number;
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-    @Field(() => [GuideCityScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof GuideCityScalarFieldEnum>;
-}
-
-@ArgsType()
-export class FindUniqueGuideCityArgs {
-    @Field(() => GuideCityWhereUniqueInput, {nullable:false})
-    @Type(() => GuideCityWhereUniqueInput)
-    @ValidateNested({ each: true })
-    where!: InstanceType<typeof GuideCityWhereUniqueInput>;
-}
-
-@ArgsType()
-export class GuideCityAggregateArgs {
-    @Field(() => GuideCityWhereInput, {nullable:true})
-    @Type(() => GuideCityWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof GuideCityWhereInput>;
-    @Field(() => [GuideCityOrderByWithRelationInput], {nullable:true})
-    orderBy?: Array<GuideCityOrderByWithRelationInput>;
-    @Field(() => GuideCityWhereUniqueInput, {nullable:true})
-    cursor?: InstanceType<typeof GuideCityWhereUniqueInput>;
-    @Field(() => Int, {nullable:true})
-    take?: number;
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-    @Field(() => GuideCityCountAggregateInput, {nullable:true})
-    _count?: InstanceType<typeof GuideCityCountAggregateInput>;
-    @Field(() => GuideCityAvgAggregateInput, {nullable:true})
-    _avg?: InstanceType<typeof GuideCityAvgAggregateInput>;
-    @Field(() => GuideCitySumAggregateInput, {nullable:true})
-    _sum?: InstanceType<typeof GuideCitySumAggregateInput>;
-    @Field(() => GuideCityMinAggregateInput, {nullable:true})
-    _min?: InstanceType<typeof GuideCityMinAggregateInput>;
-    @Field(() => GuideCityMaxAggregateInput, {nullable:true})
-    _max?: InstanceType<typeof GuideCityMaxAggregateInput>;
-}
-
-@InputType()
-export class GuideCityAvgAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    userId?: true;
-    @Field(() => Boolean, {nullable:true})
-    cityId?: true;
-}
-
-@ObjectType()
-export class GuideCityAvgAggregate {
-    @Field(() => Float, {nullable:true})
-    userId?: number;
-    @Field(() => Float, {nullable:true})
-    cityId?: number;
-}
-
-@InputType()
-export class GuideCityAvgOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    cityId?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class GuideCityCountAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    status?: true;
-    @Field(() => Boolean, {nullable:true})
-    userId?: true;
-    @Field(() => Boolean, {nullable:true})
-    cityId?: true;
-    @Field(() => Boolean, {nullable:true})
-    _all?: true;
-}
-
-@ObjectType()
-export class GuideCityCountAggregate {
-    @Field(() => Int, {nullable:false})
-    status!: number;
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-    @Field(() => Int, {nullable:false})
-    cityId!: number;
-    @Field(() => Int, {nullable:false})
-    _all!: number;
-}
-
-@InputType()
-export class GuideCityCountOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    cityId?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class GuideCityCreateManyCityInputEnvelope {
-    @Field(() => [GuideCityCreateManyCityInput], {nullable:false})
-    @Type(() => GuideCityCreateManyCityInput)
-    data!: Array<GuideCityCreateManyCityInput>;
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
-}
-
-@InputType()
-export class GuideCityCreateManyCityInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-}
-
-@InputType()
-export class GuideCityCreateManyUserInputEnvelope {
-    @Field(() => [GuideCityCreateManyUserInput], {nullable:false})
-    @Type(() => GuideCityCreateManyUserInput)
-    data!: Array<GuideCityCreateManyUserInput>;
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
-}
-
-@InputType()
-export class GuideCityCreateManyUserInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:false})
-    cityId!: number;
-}
-
-@InputType()
-export class GuideCityCreateManyInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-    @Field(() => Int, {nullable:false})
-    cityId!: number;
-}
-
-@InputType()
-export class GuideCityCreateNestedManyWithoutCityInput {
-    @Field(() => [GuideCityCreateWithoutCityInput], {nullable:true})
-    @Type(() => GuideCityCreateWithoutCityInput)
-    create?: Array<GuideCityCreateWithoutCityInput>;
-    @Field(() => [GuideCityCreateOrConnectWithoutCityInput], {nullable:true})
-    @Type(() => GuideCityCreateOrConnectWithoutCityInput)
-    connectOrCreate?: Array<GuideCityCreateOrConnectWithoutCityInput>;
-    @Field(() => GuideCityCreateManyCityInputEnvelope, {nullable:true})
-    @Type(() => GuideCityCreateManyCityInputEnvelope)
-    createMany?: InstanceType<typeof GuideCityCreateManyCityInputEnvelope>;
-    @Field(() => [GuideCityWhereUniqueInput], {nullable:true})
-    @Type(() => GuideCityWhereUniqueInput)
-    connect?: Array<GuideCityWhereUniqueInput>;
-}
-
-@InputType()
-export class GuideCityCreateNestedManyWithoutUserInput {
-    @Field(() => [GuideCityCreateWithoutUserInput], {nullable:true})
-    @Type(() => GuideCityCreateWithoutUserInput)
-    create?: Array<GuideCityCreateWithoutUserInput>;
-    @Field(() => [GuideCityCreateOrConnectWithoutUserInput], {nullable:true})
-    @Type(() => GuideCityCreateOrConnectWithoutUserInput)
-    connectOrCreate?: Array<GuideCityCreateOrConnectWithoutUserInput>;
-    @Field(() => GuideCityCreateManyUserInputEnvelope, {nullable:true})
-    @Type(() => GuideCityCreateManyUserInputEnvelope)
-    createMany?: InstanceType<typeof GuideCityCreateManyUserInputEnvelope>;
-    @Field(() => [GuideCityWhereUniqueInput], {nullable:true})
-    @Type(() => GuideCityWhereUniqueInput)
-    connect?: Array<GuideCityWhereUniqueInput>;
-}
-
-@InputType()
-export class GuideCityCreateOrConnectWithoutCityInput {
-    @Field(() => GuideCityWhereUniqueInput, {nullable:false})
-    @Type(() => GuideCityWhereUniqueInput)
-    where!: InstanceType<typeof GuideCityWhereUniqueInput>;
-    @Field(() => GuideCityCreateWithoutCityInput, {nullable:false})
-    @Type(() => GuideCityCreateWithoutCityInput)
-    create!: InstanceType<typeof GuideCityCreateWithoutCityInput>;
-}
-
-@InputType()
-export class GuideCityCreateOrConnectWithoutUserInput {
-    @Field(() => GuideCityWhereUniqueInput, {nullable:false})
-    @Type(() => GuideCityWhereUniqueInput)
-    where!: InstanceType<typeof GuideCityWhereUniqueInput>;
-    @Field(() => GuideCityCreateWithoutUserInput, {nullable:false})
-    @Type(() => GuideCityCreateWithoutUserInput)
-    create!: InstanceType<typeof GuideCityCreateWithoutUserInput>;
-}
-
-@InputType()
-export class GuideCityCreateWithoutCityInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => UserCreateNestedOneWithoutGuideCityInput, {nullable:false})
-    user!: InstanceType<typeof UserCreateNestedOneWithoutGuideCityInput>;
-}
-
-@InputType()
-export class GuideCityCreateWithoutUserInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => CityCreateNestedOneWithoutGuideCityInput, {nullable:false})
-    city!: InstanceType<typeof CityCreateNestedOneWithoutGuideCityInput>;
-}
-
-@InputType()
-export class GuideCityCreateInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => UserCreateNestedOneWithoutGuideCityInput, {nullable:false})
-    user!: InstanceType<typeof UserCreateNestedOneWithoutGuideCityInput>;
-    @Field(() => CityCreateNestedOneWithoutGuideCityInput, {nullable:false})
-    city!: InstanceType<typeof CityCreateNestedOneWithoutGuideCityInput>;
-}
-
-@ArgsType()
-export class GuideCityGroupByArgs {
-    @Field(() => GuideCityWhereInput, {nullable:true})
-    @Type(() => GuideCityWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof GuideCityWhereInput>;
-    @Field(() => [GuideCityOrderByWithAggregationInput], {nullable:true})
-    orderBy?: Array<GuideCityOrderByWithAggregationInput>;
-    @Field(() => [GuideCityScalarFieldEnum], {nullable:false})
-    by!: Array<keyof typeof GuideCityScalarFieldEnum>;
-    @Field(() => GuideCityScalarWhereWithAggregatesInput, {nullable:true})
-    having?: InstanceType<typeof GuideCityScalarWhereWithAggregatesInput>;
-    @Field(() => Int, {nullable:true})
-    take?: number;
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-    @Field(() => GuideCityCountAggregateInput, {nullable:true})
-    _count?: InstanceType<typeof GuideCityCountAggregateInput>;
-    @Field(() => GuideCityAvgAggregateInput, {nullable:true})
-    _avg?: InstanceType<typeof GuideCityAvgAggregateInput>;
-    @Field(() => GuideCitySumAggregateInput, {nullable:true})
-    _sum?: InstanceType<typeof GuideCitySumAggregateInput>;
-    @Field(() => GuideCityMinAggregateInput, {nullable:true})
-    _min?: InstanceType<typeof GuideCityMinAggregateInput>;
-    @Field(() => GuideCityMaxAggregateInput, {nullable:true})
-    _max?: InstanceType<typeof GuideCityMaxAggregateInput>;
-}
-
-@ObjectType()
-export class GuideCityGroupBy {
-    @Field(() => Status, {nullable:false})
-    status!: keyof typeof Status;
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-    @Field(() => Int, {nullable:false})
-    cityId!: number;
-    @Field(() => GuideCityCountAggregate, {nullable:true})
-    _count?: InstanceType<typeof GuideCityCountAggregate>;
-    @Field(() => GuideCityAvgAggregate, {nullable:true})
-    _avg?: InstanceType<typeof GuideCityAvgAggregate>;
-    @Field(() => GuideCitySumAggregate, {nullable:true})
-    _sum?: InstanceType<typeof GuideCitySumAggregate>;
-    @Field(() => GuideCityMinAggregate, {nullable:true})
-    _min?: InstanceType<typeof GuideCityMinAggregate>;
-    @Field(() => GuideCityMaxAggregate, {nullable:true})
-    _max?: InstanceType<typeof GuideCityMaxAggregate>;
-}
-
-@InputType()
-export class GuideCityListRelationFilter {
-    @Field(() => GuideCityWhereInput, {nullable:true})
-    every?: InstanceType<typeof GuideCityWhereInput>;
-    @Field(() => GuideCityWhereInput, {nullable:true})
-    some?: InstanceType<typeof GuideCityWhereInput>;
-    @Field(() => GuideCityWhereInput, {nullable:true})
-    none?: InstanceType<typeof GuideCityWhereInput>;
-}
-
-@InputType()
-export class GuideCityMaxAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    status?: true;
-    @Field(() => Boolean, {nullable:true})
-    userId?: true;
-    @Field(() => Boolean, {nullable:true})
-    cityId?: true;
-}
-
-@ObjectType()
-export class GuideCityMaxAggregate {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-    @Field(() => Int, {nullable:true})
-    cityId?: number;
-}
-
-@InputType()
-export class GuideCityMaxOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    cityId?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class GuideCityMinAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    status?: true;
-    @Field(() => Boolean, {nullable:true})
-    userId?: true;
-    @Field(() => Boolean, {nullable:true})
-    cityId?: true;
-}
-
-@ObjectType()
-export class GuideCityMinAggregate {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-    @Field(() => Int, {nullable:true})
-    cityId?: number;
-}
-
-@InputType()
-export class GuideCityMinOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    cityId?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class GuideCityOrderByRelationAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    _count?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class GuideCityOrderByWithAggregationInput {
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    cityId?: keyof typeof SortOrder;
-    @Field(() => GuideCityCountOrderByAggregateInput, {nullable:true})
-    _count?: InstanceType<typeof GuideCityCountOrderByAggregateInput>;
-    @Field(() => GuideCityAvgOrderByAggregateInput, {nullable:true})
-    _avg?: InstanceType<typeof GuideCityAvgOrderByAggregateInput>;
-    @Field(() => GuideCityMaxOrderByAggregateInput, {nullable:true})
-    _max?: InstanceType<typeof GuideCityMaxOrderByAggregateInput>;
-    @Field(() => GuideCityMinOrderByAggregateInput, {nullable:true})
-    _min?: InstanceType<typeof GuideCityMinOrderByAggregateInput>;
-    @Field(() => GuideCitySumOrderByAggregateInput, {nullable:true})
-    _sum?: InstanceType<typeof GuideCitySumOrderByAggregateInput>;
-}
-
-@InputType()
-export class GuideCityOrderByWithRelationInput {
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
-    @Field(() => UserOrderByWithRelationInput, {nullable:true})
-    user?: InstanceType<typeof UserOrderByWithRelationInput>;
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-    @Field(() => CityOrderByWithRelationInput, {nullable:true})
-    city?: InstanceType<typeof CityOrderByWithRelationInput>;
-    @Field(() => SortOrder, {nullable:true})
-    cityId?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class GuideCityScalarWhereWithAggregatesInput {
-    @Field(() => [GuideCityScalarWhereWithAggregatesInput], {nullable:true})
-    AND?: Array<GuideCityScalarWhereWithAggregatesInput>;
-    @Field(() => [GuideCityScalarWhereWithAggregatesInput], {nullable:true})
-    OR?: Array<GuideCityScalarWhereWithAggregatesInput>;
-    @Field(() => [GuideCityScalarWhereWithAggregatesInput], {nullable:true})
-    NOT?: Array<GuideCityScalarWhereWithAggregatesInput>;
-    @Field(() => EnumStatusWithAggregatesFilter, {nullable:true})
-    status?: InstanceType<typeof EnumStatusWithAggregatesFilter>;
-    @Field(() => IntWithAggregatesFilter, {nullable:true})
-    userId?: InstanceType<typeof IntWithAggregatesFilter>;
-    @Field(() => IntWithAggregatesFilter, {nullable:true})
-    cityId?: InstanceType<typeof IntWithAggregatesFilter>;
-}
-
-@InputType()
-export class GuideCityScalarWhereInput {
-    @Field(() => [GuideCityScalarWhereInput], {nullable:true})
-    AND?: Array<GuideCityScalarWhereInput>;
-    @Field(() => [GuideCityScalarWhereInput], {nullable:true})
-    OR?: Array<GuideCityScalarWhereInput>;
-    @Field(() => [GuideCityScalarWhereInput], {nullable:true})
-    NOT?: Array<GuideCityScalarWhereInput>;
-    @Field(() => EnumStatusFilter, {nullable:true})
-    status?: InstanceType<typeof EnumStatusFilter>;
-    @Field(() => IntFilter, {nullable:true})
-    userId?: InstanceType<typeof IntFilter>;
-    @Field(() => IntFilter, {nullable:true})
-    cityId?: InstanceType<typeof IntFilter>;
-}
-
-@InputType()
-export class GuideCitySumAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    userId?: true;
-    @Field(() => Boolean, {nullable:true})
-    cityId?: true;
-}
-
-@ObjectType()
-export class GuideCitySumAggregate {
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-    @Field(() => Int, {nullable:true})
-    cityId?: number;
-}
-
-@InputType()
-export class GuideCitySumOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    cityId?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class GuideCityUncheckedCreateNestedManyWithoutCityInput {
-    @Field(() => [GuideCityCreateWithoutCityInput], {nullable:true})
-    @Type(() => GuideCityCreateWithoutCityInput)
-    create?: Array<GuideCityCreateWithoutCityInput>;
-    @Field(() => [GuideCityCreateOrConnectWithoutCityInput], {nullable:true})
-    @Type(() => GuideCityCreateOrConnectWithoutCityInput)
-    connectOrCreate?: Array<GuideCityCreateOrConnectWithoutCityInput>;
-    @Field(() => GuideCityCreateManyCityInputEnvelope, {nullable:true})
-    @Type(() => GuideCityCreateManyCityInputEnvelope)
-    createMany?: InstanceType<typeof GuideCityCreateManyCityInputEnvelope>;
-    @Field(() => [GuideCityWhereUniqueInput], {nullable:true})
-    @Type(() => GuideCityWhereUniqueInput)
-    connect?: Array<GuideCityWhereUniqueInput>;
-}
-
-@InputType()
-export class GuideCityUncheckedCreateNestedManyWithoutUserInput {
-    @Field(() => [GuideCityCreateWithoutUserInput], {nullable:true})
-    @Type(() => GuideCityCreateWithoutUserInput)
-    create?: Array<GuideCityCreateWithoutUserInput>;
-    @Field(() => [GuideCityCreateOrConnectWithoutUserInput], {nullable:true})
-    @Type(() => GuideCityCreateOrConnectWithoutUserInput)
-    connectOrCreate?: Array<GuideCityCreateOrConnectWithoutUserInput>;
-    @Field(() => GuideCityCreateManyUserInputEnvelope, {nullable:true})
-    @Type(() => GuideCityCreateManyUserInputEnvelope)
-    createMany?: InstanceType<typeof GuideCityCreateManyUserInputEnvelope>;
-    @Field(() => [GuideCityWhereUniqueInput], {nullable:true})
-    @Type(() => GuideCityWhereUniqueInput)
-    connect?: Array<GuideCityWhereUniqueInput>;
-}
-
-@InputType()
-export class GuideCityUncheckedCreateWithoutCityInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-}
-
-@InputType()
-export class GuideCityUncheckedCreateWithoutUserInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:false})
-    cityId!: number;
-}
-
-@InputType()
-export class GuideCityUncheckedCreateInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-    @Field(() => Int, {nullable:false})
-    cityId!: number;
-}
-
-@InputType()
-export class GuideCityUncheckedUpdateManyWithoutCityInput {
-    @Field(() => [GuideCityCreateWithoutCityInput], {nullable:true})
-    @Type(() => GuideCityCreateWithoutCityInput)
-    create?: Array<GuideCityCreateWithoutCityInput>;
-    @Field(() => [GuideCityCreateOrConnectWithoutCityInput], {nullable:true})
-    @Type(() => GuideCityCreateOrConnectWithoutCityInput)
-    connectOrCreate?: Array<GuideCityCreateOrConnectWithoutCityInput>;
-    @Field(() => [GuideCityUpsertWithWhereUniqueWithoutCityInput], {nullable:true})
-    @Type(() => GuideCityUpsertWithWhereUniqueWithoutCityInput)
-    upsert?: Array<GuideCityUpsertWithWhereUniqueWithoutCityInput>;
-    @Field(() => GuideCityCreateManyCityInputEnvelope, {nullable:true})
-    @Type(() => GuideCityCreateManyCityInputEnvelope)
-    createMany?: InstanceType<typeof GuideCityCreateManyCityInputEnvelope>;
-    @Field(() => [GuideCityWhereUniqueInput], {nullable:true})
-    @Type(() => GuideCityWhereUniqueInput)
-    set?: Array<GuideCityWhereUniqueInput>;
-    @Field(() => [GuideCityWhereUniqueInput], {nullable:true})
-    @Type(() => GuideCityWhereUniqueInput)
-    disconnect?: Array<GuideCityWhereUniqueInput>;
-    @Field(() => [GuideCityWhereUniqueInput], {nullable:true})
-    @Type(() => GuideCityWhereUniqueInput)
-    delete?: Array<GuideCityWhereUniqueInput>;
-    @Field(() => [GuideCityWhereUniqueInput], {nullable:true})
-    @Type(() => GuideCityWhereUniqueInput)
-    connect?: Array<GuideCityWhereUniqueInput>;
-    @Field(() => [GuideCityUpdateWithWhereUniqueWithoutCityInput], {nullable:true})
-    @Type(() => GuideCityUpdateWithWhereUniqueWithoutCityInput)
-    update?: Array<GuideCityUpdateWithWhereUniqueWithoutCityInput>;
-    @Field(() => [GuideCityUpdateManyWithWhereWithoutCityInput], {nullable:true})
-    @Type(() => GuideCityUpdateManyWithWhereWithoutCityInput)
-    updateMany?: Array<GuideCityUpdateManyWithWhereWithoutCityInput>;
-    @Field(() => [GuideCityScalarWhereInput], {nullable:true})
-    @Type(() => GuideCityScalarWhereInput)
-    deleteMany?: Array<GuideCityScalarWhereInput>;
-}
-
-@InputType()
-export class GuideCityUncheckedUpdateManyWithoutGuideCityInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:true})
-    cityId?: number;
-}
-
-@InputType()
-export class GuideCityUncheckedUpdateManyWithoutUserInput {
-    @Field(() => [GuideCityCreateWithoutUserInput], {nullable:true})
-    @Type(() => GuideCityCreateWithoutUserInput)
-    create?: Array<GuideCityCreateWithoutUserInput>;
-    @Field(() => [GuideCityCreateOrConnectWithoutUserInput], {nullable:true})
-    @Type(() => GuideCityCreateOrConnectWithoutUserInput)
-    connectOrCreate?: Array<GuideCityCreateOrConnectWithoutUserInput>;
-    @Field(() => [GuideCityUpsertWithWhereUniqueWithoutUserInput], {nullable:true})
-    @Type(() => GuideCityUpsertWithWhereUniqueWithoutUserInput)
-    upsert?: Array<GuideCityUpsertWithWhereUniqueWithoutUserInput>;
-    @Field(() => GuideCityCreateManyUserInputEnvelope, {nullable:true})
-    @Type(() => GuideCityCreateManyUserInputEnvelope)
-    createMany?: InstanceType<typeof GuideCityCreateManyUserInputEnvelope>;
-    @Field(() => [GuideCityWhereUniqueInput], {nullable:true})
-    @Type(() => GuideCityWhereUniqueInput)
-    set?: Array<GuideCityWhereUniqueInput>;
-    @Field(() => [GuideCityWhereUniqueInput], {nullable:true})
-    @Type(() => GuideCityWhereUniqueInput)
-    disconnect?: Array<GuideCityWhereUniqueInput>;
-    @Field(() => [GuideCityWhereUniqueInput], {nullable:true})
-    @Type(() => GuideCityWhereUniqueInput)
-    delete?: Array<GuideCityWhereUniqueInput>;
-    @Field(() => [GuideCityWhereUniqueInput], {nullable:true})
-    @Type(() => GuideCityWhereUniqueInput)
-    connect?: Array<GuideCityWhereUniqueInput>;
-    @Field(() => [GuideCityUpdateWithWhereUniqueWithoutUserInput], {nullable:true})
-    @Type(() => GuideCityUpdateWithWhereUniqueWithoutUserInput)
-    update?: Array<GuideCityUpdateWithWhereUniqueWithoutUserInput>;
-    @Field(() => [GuideCityUpdateManyWithWhereWithoutUserInput], {nullable:true})
-    @Type(() => GuideCityUpdateManyWithWhereWithoutUserInput)
-    updateMany?: Array<GuideCityUpdateManyWithWhereWithoutUserInput>;
-    @Field(() => [GuideCityScalarWhereInput], {nullable:true})
-    @Type(() => GuideCityScalarWhereInput)
-    deleteMany?: Array<GuideCityScalarWhereInput>;
-}
-
-@InputType()
-export class GuideCityUncheckedUpdateManyInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-    @Field(() => Int, {nullable:true})
-    cityId?: number;
-}
-
-@InputType()
-export class GuideCityUncheckedUpdateWithoutCityInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-}
-
-@InputType()
-export class GuideCityUncheckedUpdateWithoutUserInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:true})
-    cityId?: number;
-}
-
-@InputType()
-export class GuideCityUncheckedUpdateInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-    @Field(() => Int, {nullable:true})
-    cityId?: number;
-}
-
-@InputType()
-export class GuideCityUpdateManyMutationInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-}
-
-@InputType()
-export class GuideCityUpdateManyWithWhereWithoutCityInput {
-    @Field(() => GuideCityScalarWhereInput, {nullable:false})
-    @Type(() => GuideCityScalarWhereInput)
-    where!: InstanceType<typeof GuideCityScalarWhereInput>;
-    @Field(() => GuideCityUpdateManyMutationInput, {nullable:false})
-    @Type(() => GuideCityUpdateManyMutationInput)
-    data!: InstanceType<typeof GuideCityUpdateManyMutationInput>;
-}
-
-@InputType()
-export class GuideCityUpdateManyWithWhereWithoutUserInput {
-    @Field(() => GuideCityScalarWhereInput, {nullable:false})
-    @Type(() => GuideCityScalarWhereInput)
-    where!: InstanceType<typeof GuideCityScalarWhereInput>;
-    @Field(() => GuideCityUpdateManyMutationInput, {nullable:false})
-    @Type(() => GuideCityUpdateManyMutationInput)
-    data!: InstanceType<typeof GuideCityUpdateManyMutationInput>;
-}
-
-@InputType()
-export class GuideCityUpdateManyWithoutCityInput {
-    @Field(() => [GuideCityCreateWithoutCityInput], {nullable:true})
-    @Type(() => GuideCityCreateWithoutCityInput)
-    create?: Array<GuideCityCreateWithoutCityInput>;
-    @Field(() => [GuideCityCreateOrConnectWithoutCityInput], {nullable:true})
-    @Type(() => GuideCityCreateOrConnectWithoutCityInput)
-    connectOrCreate?: Array<GuideCityCreateOrConnectWithoutCityInput>;
-    @Field(() => [GuideCityUpsertWithWhereUniqueWithoutCityInput], {nullable:true})
-    @Type(() => GuideCityUpsertWithWhereUniqueWithoutCityInput)
-    upsert?: Array<GuideCityUpsertWithWhereUniqueWithoutCityInput>;
-    @Field(() => GuideCityCreateManyCityInputEnvelope, {nullable:true})
-    @Type(() => GuideCityCreateManyCityInputEnvelope)
-    createMany?: InstanceType<typeof GuideCityCreateManyCityInputEnvelope>;
-    @Field(() => [GuideCityWhereUniqueInput], {nullable:true})
-    @Type(() => GuideCityWhereUniqueInput)
-    set?: Array<GuideCityWhereUniqueInput>;
-    @Field(() => [GuideCityWhereUniqueInput], {nullable:true})
-    @Type(() => GuideCityWhereUniqueInput)
-    disconnect?: Array<GuideCityWhereUniqueInput>;
-    @Field(() => [GuideCityWhereUniqueInput], {nullable:true})
-    @Type(() => GuideCityWhereUniqueInput)
-    delete?: Array<GuideCityWhereUniqueInput>;
-    @Field(() => [GuideCityWhereUniqueInput], {nullable:true})
-    @Type(() => GuideCityWhereUniqueInput)
-    connect?: Array<GuideCityWhereUniqueInput>;
-    @Field(() => [GuideCityUpdateWithWhereUniqueWithoutCityInput], {nullable:true})
-    @Type(() => GuideCityUpdateWithWhereUniqueWithoutCityInput)
-    update?: Array<GuideCityUpdateWithWhereUniqueWithoutCityInput>;
-    @Field(() => [GuideCityUpdateManyWithWhereWithoutCityInput], {nullable:true})
-    @Type(() => GuideCityUpdateManyWithWhereWithoutCityInput)
-    updateMany?: Array<GuideCityUpdateManyWithWhereWithoutCityInput>;
-    @Field(() => [GuideCityScalarWhereInput], {nullable:true})
-    @Type(() => GuideCityScalarWhereInput)
-    deleteMany?: Array<GuideCityScalarWhereInput>;
-}
-
-@InputType()
-export class GuideCityUpdateManyWithoutUserInput {
-    @Field(() => [GuideCityCreateWithoutUserInput], {nullable:true})
-    @Type(() => GuideCityCreateWithoutUserInput)
-    create?: Array<GuideCityCreateWithoutUserInput>;
-    @Field(() => [GuideCityCreateOrConnectWithoutUserInput], {nullable:true})
-    @Type(() => GuideCityCreateOrConnectWithoutUserInput)
-    connectOrCreate?: Array<GuideCityCreateOrConnectWithoutUserInput>;
-    @Field(() => [GuideCityUpsertWithWhereUniqueWithoutUserInput], {nullable:true})
-    @Type(() => GuideCityUpsertWithWhereUniqueWithoutUserInput)
-    upsert?: Array<GuideCityUpsertWithWhereUniqueWithoutUserInput>;
-    @Field(() => GuideCityCreateManyUserInputEnvelope, {nullable:true})
-    @Type(() => GuideCityCreateManyUserInputEnvelope)
-    createMany?: InstanceType<typeof GuideCityCreateManyUserInputEnvelope>;
-    @Field(() => [GuideCityWhereUniqueInput], {nullable:true})
-    @Type(() => GuideCityWhereUniqueInput)
-    set?: Array<GuideCityWhereUniqueInput>;
-    @Field(() => [GuideCityWhereUniqueInput], {nullable:true})
-    @Type(() => GuideCityWhereUniqueInput)
-    disconnect?: Array<GuideCityWhereUniqueInput>;
-    @Field(() => [GuideCityWhereUniqueInput], {nullable:true})
-    @Type(() => GuideCityWhereUniqueInput)
-    delete?: Array<GuideCityWhereUniqueInput>;
-    @Field(() => [GuideCityWhereUniqueInput], {nullable:true})
-    @Type(() => GuideCityWhereUniqueInput)
-    connect?: Array<GuideCityWhereUniqueInput>;
-    @Field(() => [GuideCityUpdateWithWhereUniqueWithoutUserInput], {nullable:true})
-    @Type(() => GuideCityUpdateWithWhereUniqueWithoutUserInput)
-    update?: Array<GuideCityUpdateWithWhereUniqueWithoutUserInput>;
-    @Field(() => [GuideCityUpdateManyWithWhereWithoutUserInput], {nullable:true})
-    @Type(() => GuideCityUpdateManyWithWhereWithoutUserInput)
-    updateMany?: Array<GuideCityUpdateManyWithWhereWithoutUserInput>;
-    @Field(() => [GuideCityScalarWhereInput], {nullable:true})
-    @Type(() => GuideCityScalarWhereInput)
-    deleteMany?: Array<GuideCityScalarWhereInput>;
-}
-
-@InputType()
-export class GuideCityUpdateWithWhereUniqueWithoutCityInput {
-    @Field(() => GuideCityWhereUniqueInput, {nullable:false})
-    @Type(() => GuideCityWhereUniqueInput)
-    where!: InstanceType<typeof GuideCityWhereUniqueInput>;
-    @Field(() => GuideCityUpdateWithoutCityInput, {nullable:false})
-    @Type(() => GuideCityUpdateWithoutCityInput)
-    data!: InstanceType<typeof GuideCityUpdateWithoutCityInput>;
-}
-
-@InputType()
-export class GuideCityUpdateWithWhereUniqueWithoutUserInput {
-    @Field(() => GuideCityWhereUniqueInput, {nullable:false})
-    @Type(() => GuideCityWhereUniqueInput)
-    where!: InstanceType<typeof GuideCityWhereUniqueInput>;
-    @Field(() => GuideCityUpdateWithoutUserInput, {nullable:false})
-    @Type(() => GuideCityUpdateWithoutUserInput)
-    data!: InstanceType<typeof GuideCityUpdateWithoutUserInput>;
-}
-
-@InputType()
-export class GuideCityUpdateWithoutCityInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => UserUpdateOneRequiredWithoutGuideCityInput, {nullable:true})
-    user?: InstanceType<typeof UserUpdateOneRequiredWithoutGuideCityInput>;
-}
-
-@InputType()
-export class GuideCityUpdateWithoutUserInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => CityUpdateOneRequiredWithoutGuideCityInput, {nullable:true})
-    city?: InstanceType<typeof CityUpdateOneRequiredWithoutGuideCityInput>;
-}
-
-@InputType()
-export class GuideCityUpdateInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => UserUpdateOneRequiredWithoutGuideCityInput, {nullable:true})
-    user?: InstanceType<typeof UserUpdateOneRequiredWithoutGuideCityInput>;
-    @Field(() => CityUpdateOneRequiredWithoutGuideCityInput, {nullable:true})
-    city?: InstanceType<typeof CityUpdateOneRequiredWithoutGuideCityInput>;
-}
-
-@InputType()
-export class GuideCityUpsertWithWhereUniqueWithoutCityInput {
-    @Field(() => GuideCityWhereUniqueInput, {nullable:false})
-    @Type(() => GuideCityWhereUniqueInput)
-    where!: InstanceType<typeof GuideCityWhereUniqueInput>;
-    @Field(() => GuideCityUpdateWithoutCityInput, {nullable:false})
-    @Type(() => GuideCityUpdateWithoutCityInput)
-    update!: InstanceType<typeof GuideCityUpdateWithoutCityInput>;
-    @Field(() => GuideCityCreateWithoutCityInput, {nullable:false})
-    @Type(() => GuideCityCreateWithoutCityInput)
-    create!: InstanceType<typeof GuideCityCreateWithoutCityInput>;
-}
-
-@InputType()
-export class GuideCityUpsertWithWhereUniqueWithoutUserInput {
-    @Field(() => GuideCityWhereUniqueInput, {nullable:false})
-    @Type(() => GuideCityWhereUniqueInput)
-    where!: InstanceType<typeof GuideCityWhereUniqueInput>;
-    @Field(() => GuideCityUpdateWithoutUserInput, {nullable:false})
-    @Type(() => GuideCityUpdateWithoutUserInput)
-    update!: InstanceType<typeof GuideCityUpdateWithoutUserInput>;
-    @Field(() => GuideCityCreateWithoutUserInput, {nullable:false})
-    @Type(() => GuideCityCreateWithoutUserInput)
-    create!: InstanceType<typeof GuideCityCreateWithoutUserInput>;
-}
-
-@InputType()
-export class GuideCityUserIdCityIdCompoundUniqueInput {
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-    @Field(() => Int, {nullable:false})
-    cityId!: number;
-}
-
-@InputType()
-export class GuideCityWhereUniqueInput {
-    @Field(() => GuideCityUserIdCityIdCompoundUniqueInput, {nullable:true})
-    userId_cityId?: InstanceType<typeof GuideCityUserIdCityIdCompoundUniqueInput>;
-}
-
-@InputType()
-export class GuideCityWhereInput {
-    @Field(() => [GuideCityWhereInput], {nullable:true})
-    AND?: Array<GuideCityWhereInput>;
-    @Field(() => [GuideCityWhereInput], {nullable:true})
-    OR?: Array<GuideCityWhereInput>;
-    @Field(() => [GuideCityWhereInput], {nullable:true})
-    NOT?: Array<GuideCityWhereInput>;
-    @Field(() => EnumStatusFilter, {nullable:true})
-    status?: InstanceType<typeof EnumStatusFilter>;
-    @Field(() => UserRelationFilter, {nullable:true})
-    user?: InstanceType<typeof UserRelationFilter>;
-    @Field(() => IntFilter, {nullable:true})
-    userId?: InstanceType<typeof IntFilter>;
-    @Field(() => CityRelationFilter, {nullable:true})
-    city?: InstanceType<typeof CityRelationFilter>;
-    @Field(() => IntFilter, {nullable:true})
-    cityId?: InstanceType<typeof IntFilter>;
-}
-
-@ObjectType()
-export class GuideCity {
-    @Field(() => Status, {nullable:false,defaultValue:'ACTIVE'})
-    status!: keyof typeof Status;
-    @Field(() => User, {nullable:false})
-    user?: InstanceType<typeof User>;
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-    @Field(() => City, {nullable:false})
-    city?: InstanceType<typeof City>;
-    @Field(() => Int, {nullable:false})
-    cityId!: number;
-}
-
-@ArgsType()
-export class UpdateManyGuideCityArgs {
-    @Field(() => GuideCityUpdateManyMutationInput, {nullable:false})
-    @Type(() => GuideCityUpdateManyMutationInput)
-    @ValidateNested({ each: true })
-    data!: InstanceType<typeof GuideCityUpdateManyMutationInput>;
-    @Field(() => GuideCityWhereInput, {nullable:true})
-    @Type(() => GuideCityWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof GuideCityWhereInput>;
-}
-
-@ArgsType()
-export class UpdateOneGuideCityArgs {
-    @Field(() => GuideCityUpdateInput, {nullable:false})
-    @Type(() => GuideCityUpdateInput)
-    @ValidateNested({ each: true })
-    data!: InstanceType<typeof GuideCityUpdateInput>;
-    @Field(() => GuideCityWhereUniqueInput, {nullable:false})
-    @Type(() => GuideCityWhereUniqueInput)
-    @ValidateNested({ each: true })
-    where!: InstanceType<typeof GuideCityWhereUniqueInput>;
-}
-
-@ArgsType()
-export class UpsertOneGuideCityArgs {
-    @Field(() => GuideCityWhereUniqueInput, {nullable:false})
-    @Type(() => GuideCityWhereUniqueInput)
-    @ValidateNested({ each: true })
-    where!: InstanceType<typeof GuideCityWhereUniqueInput>;
-    @Field(() => GuideCityCreateInput, {nullable:false})
-    @Type(() => GuideCityCreateInput)
-    create!: InstanceType<typeof GuideCityCreateInput>;
-    @Field(() => GuideCityUpdateInput, {nullable:false})
-    @Type(() => GuideCityUpdateInput)
-    update!: InstanceType<typeof GuideCityUpdateInput>;
-}
-
-@ObjectType()
-export class AggregateGuideGuideCategory {
-    @Field(() => GuideGuideCategoryCountAggregate, {nullable:true})
-    _count?: InstanceType<typeof GuideGuideCategoryCountAggregate>;
-    @Field(() => GuideGuideCategoryAvgAggregate, {nullable:true})
-    _avg?: InstanceType<typeof GuideGuideCategoryAvgAggregate>;
-    @Field(() => GuideGuideCategorySumAggregate, {nullable:true})
-    _sum?: InstanceType<typeof GuideGuideCategorySumAggregate>;
-    @Field(() => GuideGuideCategoryMinAggregate, {nullable:true})
-    _min?: InstanceType<typeof GuideGuideCategoryMinAggregate>;
-    @Field(() => GuideGuideCategoryMaxAggregate, {nullable:true})
-    _max?: InstanceType<typeof GuideGuideCategoryMaxAggregate>;
-}
-
-@ArgsType()
-export class CreateManyGuideGuideCategoryArgs {
-    @Field(() => [GuideGuideCategoryCreateManyInput], {nullable:false})
-    @Type(() => GuideGuideCategoryCreateManyInput)
-    @ValidateNested({ each: true })
-    data!: Array<GuideGuideCategoryCreateManyInput>;
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
-}
-
-@ArgsType()
-export class CreateOneGuideGuideCategoryArgs {
-    @Field(() => GuideGuideCategoryCreateInput, {nullable:false})
-    @Type(() => GuideGuideCategoryCreateInput)
-    @ValidateNested({ each: true })
-    data!: InstanceType<typeof GuideGuideCategoryCreateInput>;
-}
-
-@ArgsType()
-export class DeleteManyGuideGuideCategoryArgs {
-    @Field(() => GuideGuideCategoryWhereInput, {nullable:true})
-    @Type(() => GuideGuideCategoryWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof GuideGuideCategoryWhereInput>;
-}
-
-@ArgsType()
-export class DeleteOneGuideGuideCategoryArgs {
-    @Field(() => GuideGuideCategoryWhereUniqueInput, {nullable:false})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    @ValidateNested({ each: true })
-    where!: InstanceType<typeof GuideGuideCategoryWhereUniqueInput>;
-}
-
-@ArgsType()
-export class FindFirstGuideGuideCategoryArgs {
-    @Field(() => GuideGuideCategoryWhereInput, {nullable:true})
-    @Type(() => GuideGuideCategoryWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof GuideGuideCategoryWhereInput>;
-    @Field(() => [GuideGuideCategoryOrderByWithRelationInput], {nullable:true})
-    orderBy?: Array<GuideGuideCategoryOrderByWithRelationInput>;
-    @Field(() => GuideGuideCategoryWhereUniqueInput, {nullable:true})
-    cursor?: InstanceType<typeof GuideGuideCategoryWhereUniqueInput>;
-    @Field(() => Int, {nullable:true})
-    take?: number;
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-    @Field(() => [GuideGuideCategoryScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof GuideGuideCategoryScalarFieldEnum>;
-}
-
-@ArgsType()
-export class FindManyGuideGuideCategoryArgs {
-    @Field(() => GuideGuideCategoryWhereInput, {nullable:true})
-    @Type(() => GuideGuideCategoryWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof GuideGuideCategoryWhereInput>;
-    @Field(() => [GuideGuideCategoryOrderByWithRelationInput], {nullable:true})
-    orderBy?: Array<GuideGuideCategoryOrderByWithRelationInput>;
-    @Field(() => GuideGuideCategoryWhereUniqueInput, {nullable:true})
-    cursor?: InstanceType<typeof GuideGuideCategoryWhereUniqueInput>;
-    @Field(() => Int, {nullable:true})
-    take?: number;
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-    @Field(() => [GuideGuideCategoryScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof GuideGuideCategoryScalarFieldEnum>;
-}
-
-@ArgsType()
-export class FindUniqueGuideGuideCategoryArgs {
-    @Field(() => GuideGuideCategoryWhereUniqueInput, {nullable:false})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    @ValidateNested({ each: true })
-    where!: InstanceType<typeof GuideGuideCategoryWhereUniqueInput>;
-}
-
-@ArgsType()
-export class GuideGuideCategoryAggregateArgs {
-    @Field(() => GuideGuideCategoryWhereInput, {nullable:true})
-    @Type(() => GuideGuideCategoryWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof GuideGuideCategoryWhereInput>;
-    @Field(() => [GuideGuideCategoryOrderByWithRelationInput], {nullable:true})
-    orderBy?: Array<GuideGuideCategoryOrderByWithRelationInput>;
-    @Field(() => GuideGuideCategoryWhereUniqueInput, {nullable:true})
-    cursor?: InstanceType<typeof GuideGuideCategoryWhereUniqueInput>;
-    @Field(() => Int, {nullable:true})
-    take?: number;
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-    @Field(() => GuideGuideCategoryCountAggregateInput, {nullable:true})
-    _count?: InstanceType<typeof GuideGuideCategoryCountAggregateInput>;
-    @Field(() => GuideGuideCategoryAvgAggregateInput, {nullable:true})
-    _avg?: InstanceType<typeof GuideGuideCategoryAvgAggregateInput>;
-    @Field(() => GuideGuideCategorySumAggregateInput, {nullable:true})
-    _sum?: InstanceType<typeof GuideGuideCategorySumAggregateInput>;
-    @Field(() => GuideGuideCategoryMinAggregateInput, {nullable:true})
-    _min?: InstanceType<typeof GuideGuideCategoryMinAggregateInput>;
-    @Field(() => GuideGuideCategoryMaxAggregateInput, {nullable:true})
-    _max?: InstanceType<typeof GuideGuideCategoryMaxAggregateInput>;
-}
-
-@InputType()
-export class GuideGuideCategoryAvgAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    userId?: true;
-    @Field(() => Boolean, {nullable:true})
-    guideCategoryId?: true;
-}
-
-@ObjectType()
-export class GuideGuideCategoryAvgAggregate {
-    @Field(() => Float, {nullable:true})
-    userId?: number;
-    @Field(() => Float, {nullable:true})
-    guideCategoryId?: number;
-}
-
-@InputType()
-export class GuideGuideCategoryAvgOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    guideCategoryId?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class GuideGuideCategoryCountAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    status?: true;
-    @Field(() => Boolean, {nullable:true})
-    userId?: true;
-    @Field(() => Boolean, {nullable:true})
-    guideCategoryId?: true;
-    @Field(() => Boolean, {nullable:true})
-    _all?: true;
-}
-
-@ObjectType()
-export class GuideGuideCategoryCountAggregate {
-    @Field(() => Int, {nullable:false})
-    status!: number;
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-    @Field(() => Int, {nullable:false})
-    guideCategoryId!: number;
-    @Field(() => Int, {nullable:false})
-    _all!: number;
-}
-
-@InputType()
-export class GuideGuideCategoryCountOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    guideCategoryId?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class GuideGuideCategoryCreateManyGuideCategoryInputEnvelope {
-    @Field(() => [GuideGuideCategoryCreateManyGuideCategoryInput], {nullable:false})
-    @Type(() => GuideGuideCategoryCreateManyGuideCategoryInput)
-    data!: Array<GuideGuideCategoryCreateManyGuideCategoryInput>;
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
-}
-
-@InputType()
-export class GuideGuideCategoryCreateManyGuideCategoryInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-}
-
-@InputType()
-export class GuideGuideCategoryCreateManyUserInputEnvelope {
-    @Field(() => [GuideGuideCategoryCreateManyUserInput], {nullable:false})
-    @Type(() => GuideGuideCategoryCreateManyUserInput)
-    data!: Array<GuideGuideCategoryCreateManyUserInput>;
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
-}
-
-@InputType()
-export class GuideGuideCategoryCreateManyUserInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:false})
-    guideCategoryId!: number;
-}
-
-@InputType()
-export class GuideGuideCategoryCreateManyInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-    @Field(() => Int, {nullable:false})
-    guideCategoryId!: number;
-}
-
-@InputType()
-export class GuideGuideCategoryCreateNestedManyWithoutGuideCategoryInput {
-    @Field(() => [GuideGuideCategoryCreateWithoutGuideCategoryInput], {nullable:true})
-    @Type(() => GuideGuideCategoryCreateWithoutGuideCategoryInput)
-    create?: Array<GuideGuideCategoryCreateWithoutGuideCategoryInput>;
-    @Field(() => [GuideGuideCategoryCreateOrConnectWithoutGuideCategoryInput], {nullable:true})
-    @Type(() => GuideGuideCategoryCreateOrConnectWithoutGuideCategoryInput)
-    connectOrCreate?: Array<GuideGuideCategoryCreateOrConnectWithoutGuideCategoryInput>;
-    @Field(() => GuideGuideCategoryCreateManyGuideCategoryInputEnvelope, {nullable:true})
-    @Type(() => GuideGuideCategoryCreateManyGuideCategoryInputEnvelope)
-    createMany?: InstanceType<typeof GuideGuideCategoryCreateManyGuideCategoryInputEnvelope>;
-    @Field(() => [GuideGuideCategoryWhereUniqueInput], {nullable:true})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    connect?: Array<GuideGuideCategoryWhereUniqueInput>;
-}
-
-@InputType()
-export class GuideGuideCategoryCreateNestedManyWithoutUserInput {
-    @Field(() => [GuideGuideCategoryCreateWithoutUserInput], {nullable:true})
-    @Type(() => GuideGuideCategoryCreateWithoutUserInput)
-    create?: Array<GuideGuideCategoryCreateWithoutUserInput>;
-    @Field(() => [GuideGuideCategoryCreateOrConnectWithoutUserInput], {nullable:true})
-    @Type(() => GuideGuideCategoryCreateOrConnectWithoutUserInput)
-    connectOrCreate?: Array<GuideGuideCategoryCreateOrConnectWithoutUserInput>;
-    @Field(() => GuideGuideCategoryCreateManyUserInputEnvelope, {nullable:true})
-    @Type(() => GuideGuideCategoryCreateManyUserInputEnvelope)
-    createMany?: InstanceType<typeof GuideGuideCategoryCreateManyUserInputEnvelope>;
-    @Field(() => [GuideGuideCategoryWhereUniqueInput], {nullable:true})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    connect?: Array<GuideGuideCategoryWhereUniqueInput>;
-}
-
-@InputType()
-export class GuideGuideCategoryCreateOrConnectWithoutGuideCategoryInput {
-    @Field(() => GuideGuideCategoryWhereUniqueInput, {nullable:false})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    where!: InstanceType<typeof GuideGuideCategoryWhereUniqueInput>;
-    @Field(() => GuideGuideCategoryCreateWithoutGuideCategoryInput, {nullable:false})
-    @Type(() => GuideGuideCategoryCreateWithoutGuideCategoryInput)
-    create!: InstanceType<typeof GuideGuideCategoryCreateWithoutGuideCategoryInput>;
-}
-
-@InputType()
-export class GuideGuideCategoryCreateOrConnectWithoutUserInput {
-    @Field(() => GuideGuideCategoryWhereUniqueInput, {nullable:false})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    where!: InstanceType<typeof GuideGuideCategoryWhereUniqueInput>;
-    @Field(() => GuideGuideCategoryCreateWithoutUserInput, {nullable:false})
-    @Type(() => GuideGuideCategoryCreateWithoutUserInput)
-    create!: InstanceType<typeof GuideGuideCategoryCreateWithoutUserInput>;
-}
-
-@InputType()
-export class GuideGuideCategoryCreateWithoutGuideCategoryInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => UserCreateNestedOneWithoutGuideGuideCategoryInput, {nullable:false})
-    user!: InstanceType<typeof UserCreateNestedOneWithoutGuideGuideCategoryInput>;
-}
-
-@InputType()
-export class GuideGuideCategoryCreateWithoutUserInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => GuideCategoryCreateNestedOneWithoutGuideGuideCategoryInput, {nullable:false})
-    guideCategory!: InstanceType<typeof GuideCategoryCreateNestedOneWithoutGuideGuideCategoryInput>;
-}
-
-@InputType()
-export class GuideGuideCategoryCreateInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => UserCreateNestedOneWithoutGuideGuideCategoryInput, {nullable:false})
-    user!: InstanceType<typeof UserCreateNestedOneWithoutGuideGuideCategoryInput>;
-    @Field(() => GuideCategoryCreateNestedOneWithoutGuideGuideCategoryInput, {nullable:false})
-    guideCategory!: InstanceType<typeof GuideCategoryCreateNestedOneWithoutGuideGuideCategoryInput>;
-}
-
-@ArgsType()
-export class GuideGuideCategoryGroupByArgs {
-    @Field(() => GuideGuideCategoryWhereInput, {nullable:true})
-    @Type(() => GuideGuideCategoryWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof GuideGuideCategoryWhereInput>;
-    @Field(() => [GuideGuideCategoryOrderByWithAggregationInput], {nullable:true})
-    orderBy?: Array<GuideGuideCategoryOrderByWithAggregationInput>;
-    @Field(() => [GuideGuideCategoryScalarFieldEnum], {nullable:false})
-    by!: Array<keyof typeof GuideGuideCategoryScalarFieldEnum>;
-    @Field(() => GuideGuideCategoryScalarWhereWithAggregatesInput, {nullable:true})
-    having?: InstanceType<typeof GuideGuideCategoryScalarWhereWithAggregatesInput>;
-    @Field(() => Int, {nullable:true})
-    take?: number;
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-    @Field(() => GuideGuideCategoryCountAggregateInput, {nullable:true})
-    _count?: InstanceType<typeof GuideGuideCategoryCountAggregateInput>;
-    @Field(() => GuideGuideCategoryAvgAggregateInput, {nullable:true})
-    _avg?: InstanceType<typeof GuideGuideCategoryAvgAggregateInput>;
-    @Field(() => GuideGuideCategorySumAggregateInput, {nullable:true})
-    _sum?: InstanceType<typeof GuideGuideCategorySumAggregateInput>;
-    @Field(() => GuideGuideCategoryMinAggregateInput, {nullable:true})
-    _min?: InstanceType<typeof GuideGuideCategoryMinAggregateInput>;
-    @Field(() => GuideGuideCategoryMaxAggregateInput, {nullable:true})
-    _max?: InstanceType<typeof GuideGuideCategoryMaxAggregateInput>;
-}
-
-@ObjectType()
-export class GuideGuideCategoryGroupBy {
-    @Field(() => Status, {nullable:false})
-    status!: keyof typeof Status;
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-    @Field(() => Int, {nullable:false})
-    guideCategoryId!: number;
-    @Field(() => GuideGuideCategoryCountAggregate, {nullable:true})
-    _count?: InstanceType<typeof GuideGuideCategoryCountAggregate>;
-    @Field(() => GuideGuideCategoryAvgAggregate, {nullable:true})
-    _avg?: InstanceType<typeof GuideGuideCategoryAvgAggregate>;
-    @Field(() => GuideGuideCategorySumAggregate, {nullable:true})
-    _sum?: InstanceType<typeof GuideGuideCategorySumAggregate>;
-    @Field(() => GuideGuideCategoryMinAggregate, {nullable:true})
-    _min?: InstanceType<typeof GuideGuideCategoryMinAggregate>;
-    @Field(() => GuideGuideCategoryMaxAggregate, {nullable:true})
-    _max?: InstanceType<typeof GuideGuideCategoryMaxAggregate>;
-}
-
-@InputType()
-export class GuideGuideCategoryListRelationFilter {
-    @Field(() => GuideGuideCategoryWhereInput, {nullable:true})
-    every?: InstanceType<typeof GuideGuideCategoryWhereInput>;
-    @Field(() => GuideGuideCategoryWhereInput, {nullable:true})
-    some?: InstanceType<typeof GuideGuideCategoryWhereInput>;
-    @Field(() => GuideGuideCategoryWhereInput, {nullable:true})
-    none?: InstanceType<typeof GuideGuideCategoryWhereInput>;
-}
-
-@InputType()
-export class GuideGuideCategoryMaxAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    status?: true;
-    @Field(() => Boolean, {nullable:true})
-    userId?: true;
-    @Field(() => Boolean, {nullable:true})
-    guideCategoryId?: true;
-}
-
-@ObjectType()
-export class GuideGuideCategoryMaxAggregate {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-    @Field(() => Int, {nullable:true})
-    guideCategoryId?: number;
-}
-
-@InputType()
-export class GuideGuideCategoryMaxOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    guideCategoryId?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class GuideGuideCategoryMinAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    status?: true;
-    @Field(() => Boolean, {nullable:true})
-    userId?: true;
-    @Field(() => Boolean, {nullable:true})
-    guideCategoryId?: true;
-}
-
-@ObjectType()
-export class GuideGuideCategoryMinAggregate {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-    @Field(() => Int, {nullable:true})
-    guideCategoryId?: number;
-}
-
-@InputType()
-export class GuideGuideCategoryMinOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    guideCategoryId?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class GuideGuideCategoryOrderByRelationAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    _count?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class GuideGuideCategoryOrderByWithAggregationInput {
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    guideCategoryId?: keyof typeof SortOrder;
-    @Field(() => GuideGuideCategoryCountOrderByAggregateInput, {nullable:true})
-    _count?: InstanceType<typeof GuideGuideCategoryCountOrderByAggregateInput>;
-    @Field(() => GuideGuideCategoryAvgOrderByAggregateInput, {nullable:true})
-    _avg?: InstanceType<typeof GuideGuideCategoryAvgOrderByAggregateInput>;
-    @Field(() => GuideGuideCategoryMaxOrderByAggregateInput, {nullable:true})
-    _max?: InstanceType<typeof GuideGuideCategoryMaxOrderByAggregateInput>;
-    @Field(() => GuideGuideCategoryMinOrderByAggregateInput, {nullable:true})
-    _min?: InstanceType<typeof GuideGuideCategoryMinOrderByAggregateInput>;
-    @Field(() => GuideGuideCategorySumOrderByAggregateInput, {nullable:true})
-    _sum?: InstanceType<typeof GuideGuideCategorySumOrderByAggregateInput>;
-}
-
-@InputType()
-export class GuideGuideCategoryOrderByWithRelationInput {
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
-    @Field(() => UserOrderByWithRelationInput, {nullable:true})
-    user?: InstanceType<typeof UserOrderByWithRelationInput>;
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-    @Field(() => GuideCategoryOrderByWithRelationInput, {nullable:true})
-    guideCategory?: InstanceType<typeof GuideCategoryOrderByWithRelationInput>;
-    @Field(() => SortOrder, {nullable:true})
-    guideCategoryId?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class GuideGuideCategoryScalarWhereWithAggregatesInput {
-    @Field(() => [GuideGuideCategoryScalarWhereWithAggregatesInput], {nullable:true})
-    AND?: Array<GuideGuideCategoryScalarWhereWithAggregatesInput>;
-    @Field(() => [GuideGuideCategoryScalarWhereWithAggregatesInput], {nullable:true})
-    OR?: Array<GuideGuideCategoryScalarWhereWithAggregatesInput>;
-    @Field(() => [GuideGuideCategoryScalarWhereWithAggregatesInput], {nullable:true})
-    NOT?: Array<GuideGuideCategoryScalarWhereWithAggregatesInput>;
-    @Field(() => EnumStatusWithAggregatesFilter, {nullable:true})
-    status?: InstanceType<typeof EnumStatusWithAggregatesFilter>;
-    @Field(() => IntWithAggregatesFilter, {nullable:true})
-    userId?: InstanceType<typeof IntWithAggregatesFilter>;
-    @Field(() => IntWithAggregatesFilter, {nullable:true})
-    guideCategoryId?: InstanceType<typeof IntWithAggregatesFilter>;
-}
-
-@InputType()
-export class GuideGuideCategoryScalarWhereInput {
-    @Field(() => [GuideGuideCategoryScalarWhereInput], {nullable:true})
-    AND?: Array<GuideGuideCategoryScalarWhereInput>;
-    @Field(() => [GuideGuideCategoryScalarWhereInput], {nullable:true})
-    OR?: Array<GuideGuideCategoryScalarWhereInput>;
-    @Field(() => [GuideGuideCategoryScalarWhereInput], {nullable:true})
-    NOT?: Array<GuideGuideCategoryScalarWhereInput>;
-    @Field(() => EnumStatusFilter, {nullable:true})
-    status?: InstanceType<typeof EnumStatusFilter>;
-    @Field(() => IntFilter, {nullable:true})
-    userId?: InstanceType<typeof IntFilter>;
-    @Field(() => IntFilter, {nullable:true})
-    guideCategoryId?: InstanceType<typeof IntFilter>;
-}
-
-@InputType()
-export class GuideGuideCategorySumAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    userId?: true;
-    @Field(() => Boolean, {nullable:true})
-    guideCategoryId?: true;
-}
-
-@ObjectType()
-export class GuideGuideCategorySumAggregate {
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-    @Field(() => Int, {nullable:true})
-    guideCategoryId?: number;
-}
-
-@InputType()
-export class GuideGuideCategorySumOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    guideCategoryId?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class GuideGuideCategoryUncheckedCreateNestedManyWithoutGuideCategoryInput {
-    @Field(() => [GuideGuideCategoryCreateWithoutGuideCategoryInput], {nullable:true})
-    @Type(() => GuideGuideCategoryCreateWithoutGuideCategoryInput)
-    create?: Array<GuideGuideCategoryCreateWithoutGuideCategoryInput>;
-    @Field(() => [GuideGuideCategoryCreateOrConnectWithoutGuideCategoryInput], {nullable:true})
-    @Type(() => GuideGuideCategoryCreateOrConnectWithoutGuideCategoryInput)
-    connectOrCreate?: Array<GuideGuideCategoryCreateOrConnectWithoutGuideCategoryInput>;
-    @Field(() => GuideGuideCategoryCreateManyGuideCategoryInputEnvelope, {nullable:true})
-    @Type(() => GuideGuideCategoryCreateManyGuideCategoryInputEnvelope)
-    createMany?: InstanceType<typeof GuideGuideCategoryCreateManyGuideCategoryInputEnvelope>;
-    @Field(() => [GuideGuideCategoryWhereUniqueInput], {nullable:true})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    connect?: Array<GuideGuideCategoryWhereUniqueInput>;
-}
-
-@InputType()
-export class GuideGuideCategoryUncheckedCreateNestedManyWithoutUserInput {
-    @Field(() => [GuideGuideCategoryCreateWithoutUserInput], {nullable:true})
-    @Type(() => GuideGuideCategoryCreateWithoutUserInput)
-    create?: Array<GuideGuideCategoryCreateWithoutUserInput>;
-    @Field(() => [GuideGuideCategoryCreateOrConnectWithoutUserInput], {nullable:true})
-    @Type(() => GuideGuideCategoryCreateOrConnectWithoutUserInput)
-    connectOrCreate?: Array<GuideGuideCategoryCreateOrConnectWithoutUserInput>;
-    @Field(() => GuideGuideCategoryCreateManyUserInputEnvelope, {nullable:true})
-    @Type(() => GuideGuideCategoryCreateManyUserInputEnvelope)
-    createMany?: InstanceType<typeof GuideGuideCategoryCreateManyUserInputEnvelope>;
-    @Field(() => [GuideGuideCategoryWhereUniqueInput], {nullable:true})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    connect?: Array<GuideGuideCategoryWhereUniqueInput>;
-}
-
-@InputType()
-export class GuideGuideCategoryUncheckedCreateWithoutGuideCategoryInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-}
-
-@InputType()
-export class GuideGuideCategoryUncheckedCreateWithoutUserInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:false})
-    guideCategoryId!: number;
-}
-
-@InputType()
-export class GuideGuideCategoryUncheckedCreateInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-    @Field(() => Int, {nullable:false})
-    guideCategoryId!: number;
-}
-
-@InputType()
-export class GuideGuideCategoryUncheckedUpdateManyWithoutGuideCategoryInput {
-    @Field(() => [GuideGuideCategoryCreateWithoutGuideCategoryInput], {nullable:true})
-    @Type(() => GuideGuideCategoryCreateWithoutGuideCategoryInput)
-    create?: Array<GuideGuideCategoryCreateWithoutGuideCategoryInput>;
-    @Field(() => [GuideGuideCategoryCreateOrConnectWithoutGuideCategoryInput], {nullable:true})
-    @Type(() => GuideGuideCategoryCreateOrConnectWithoutGuideCategoryInput)
-    connectOrCreate?: Array<GuideGuideCategoryCreateOrConnectWithoutGuideCategoryInput>;
-    @Field(() => [GuideGuideCategoryUpsertWithWhereUniqueWithoutGuideCategoryInput], {nullable:true})
-    @Type(() => GuideGuideCategoryUpsertWithWhereUniqueWithoutGuideCategoryInput)
-    upsert?: Array<GuideGuideCategoryUpsertWithWhereUniqueWithoutGuideCategoryInput>;
-    @Field(() => GuideGuideCategoryCreateManyGuideCategoryInputEnvelope, {nullable:true})
-    @Type(() => GuideGuideCategoryCreateManyGuideCategoryInputEnvelope)
-    createMany?: InstanceType<typeof GuideGuideCategoryCreateManyGuideCategoryInputEnvelope>;
-    @Field(() => [GuideGuideCategoryWhereUniqueInput], {nullable:true})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    set?: Array<GuideGuideCategoryWhereUniqueInput>;
-    @Field(() => [GuideGuideCategoryWhereUniqueInput], {nullable:true})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    disconnect?: Array<GuideGuideCategoryWhereUniqueInput>;
-    @Field(() => [GuideGuideCategoryWhereUniqueInput], {nullable:true})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    delete?: Array<GuideGuideCategoryWhereUniqueInput>;
-    @Field(() => [GuideGuideCategoryWhereUniqueInput], {nullable:true})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    connect?: Array<GuideGuideCategoryWhereUniqueInput>;
-    @Field(() => [GuideGuideCategoryUpdateWithWhereUniqueWithoutGuideCategoryInput], {nullable:true})
-    @Type(() => GuideGuideCategoryUpdateWithWhereUniqueWithoutGuideCategoryInput)
-    update?: Array<GuideGuideCategoryUpdateWithWhereUniqueWithoutGuideCategoryInput>;
-    @Field(() => [GuideGuideCategoryUpdateManyWithWhereWithoutGuideCategoryInput], {nullable:true})
-    @Type(() => GuideGuideCategoryUpdateManyWithWhereWithoutGuideCategoryInput)
-    updateMany?: Array<GuideGuideCategoryUpdateManyWithWhereWithoutGuideCategoryInput>;
-    @Field(() => [GuideGuideCategoryScalarWhereInput], {nullable:true})
-    @Type(() => GuideGuideCategoryScalarWhereInput)
-    deleteMany?: Array<GuideGuideCategoryScalarWhereInput>;
-}
-
-@InputType()
-export class GuideGuideCategoryUncheckedUpdateManyWithoutGuideGuideCategoryInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:true})
-    guideCategoryId?: number;
-}
-
-@InputType()
-export class GuideGuideCategoryUncheckedUpdateManyWithoutUserInput {
-    @Field(() => [GuideGuideCategoryCreateWithoutUserInput], {nullable:true})
-    @Type(() => GuideGuideCategoryCreateWithoutUserInput)
-    create?: Array<GuideGuideCategoryCreateWithoutUserInput>;
-    @Field(() => [GuideGuideCategoryCreateOrConnectWithoutUserInput], {nullable:true})
-    @Type(() => GuideGuideCategoryCreateOrConnectWithoutUserInput)
-    connectOrCreate?: Array<GuideGuideCategoryCreateOrConnectWithoutUserInput>;
-    @Field(() => [GuideGuideCategoryUpsertWithWhereUniqueWithoutUserInput], {nullable:true})
-    @Type(() => GuideGuideCategoryUpsertWithWhereUniqueWithoutUserInput)
-    upsert?: Array<GuideGuideCategoryUpsertWithWhereUniqueWithoutUserInput>;
-    @Field(() => GuideGuideCategoryCreateManyUserInputEnvelope, {nullable:true})
-    @Type(() => GuideGuideCategoryCreateManyUserInputEnvelope)
-    createMany?: InstanceType<typeof GuideGuideCategoryCreateManyUserInputEnvelope>;
-    @Field(() => [GuideGuideCategoryWhereUniqueInput], {nullable:true})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    set?: Array<GuideGuideCategoryWhereUniqueInput>;
-    @Field(() => [GuideGuideCategoryWhereUniqueInput], {nullable:true})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    disconnect?: Array<GuideGuideCategoryWhereUniqueInput>;
-    @Field(() => [GuideGuideCategoryWhereUniqueInput], {nullable:true})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    delete?: Array<GuideGuideCategoryWhereUniqueInput>;
-    @Field(() => [GuideGuideCategoryWhereUniqueInput], {nullable:true})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    connect?: Array<GuideGuideCategoryWhereUniqueInput>;
-    @Field(() => [GuideGuideCategoryUpdateWithWhereUniqueWithoutUserInput], {nullable:true})
-    @Type(() => GuideGuideCategoryUpdateWithWhereUniqueWithoutUserInput)
-    update?: Array<GuideGuideCategoryUpdateWithWhereUniqueWithoutUserInput>;
-    @Field(() => [GuideGuideCategoryUpdateManyWithWhereWithoutUserInput], {nullable:true})
-    @Type(() => GuideGuideCategoryUpdateManyWithWhereWithoutUserInput)
-    updateMany?: Array<GuideGuideCategoryUpdateManyWithWhereWithoutUserInput>;
-    @Field(() => [GuideGuideCategoryScalarWhereInput], {nullable:true})
-    @Type(() => GuideGuideCategoryScalarWhereInput)
-    deleteMany?: Array<GuideGuideCategoryScalarWhereInput>;
-}
-
-@InputType()
-export class GuideGuideCategoryUncheckedUpdateManyInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-    @Field(() => Int, {nullable:true})
-    guideCategoryId?: number;
-}
-
-@InputType()
-export class GuideGuideCategoryUncheckedUpdateWithoutGuideCategoryInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-}
-
-@InputType()
-export class GuideGuideCategoryUncheckedUpdateWithoutUserInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:true})
-    guideCategoryId?: number;
-}
-
-@InputType()
-export class GuideGuideCategoryUncheckedUpdateInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-    @Field(() => Int, {nullable:true})
-    guideCategoryId?: number;
-}
-
-@InputType()
-export class GuideGuideCategoryUpdateManyMutationInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-}
-
-@InputType()
-export class GuideGuideCategoryUpdateManyWithWhereWithoutGuideCategoryInput {
-    @Field(() => GuideGuideCategoryScalarWhereInput, {nullable:false})
-    @Type(() => GuideGuideCategoryScalarWhereInput)
-    where!: InstanceType<typeof GuideGuideCategoryScalarWhereInput>;
-    @Field(() => GuideGuideCategoryUpdateManyMutationInput, {nullable:false})
-    @Type(() => GuideGuideCategoryUpdateManyMutationInput)
-    data!: InstanceType<typeof GuideGuideCategoryUpdateManyMutationInput>;
-}
-
-@InputType()
-export class GuideGuideCategoryUpdateManyWithWhereWithoutUserInput {
-    @Field(() => GuideGuideCategoryScalarWhereInput, {nullable:false})
-    @Type(() => GuideGuideCategoryScalarWhereInput)
-    where!: InstanceType<typeof GuideGuideCategoryScalarWhereInput>;
-    @Field(() => GuideGuideCategoryUpdateManyMutationInput, {nullable:false})
-    @Type(() => GuideGuideCategoryUpdateManyMutationInput)
-    data!: InstanceType<typeof GuideGuideCategoryUpdateManyMutationInput>;
-}
-
-@InputType()
-export class GuideGuideCategoryUpdateManyWithoutGuideCategoryInput {
-    @Field(() => [GuideGuideCategoryCreateWithoutGuideCategoryInput], {nullable:true})
-    @Type(() => GuideGuideCategoryCreateWithoutGuideCategoryInput)
-    create?: Array<GuideGuideCategoryCreateWithoutGuideCategoryInput>;
-    @Field(() => [GuideGuideCategoryCreateOrConnectWithoutGuideCategoryInput], {nullable:true})
-    @Type(() => GuideGuideCategoryCreateOrConnectWithoutGuideCategoryInput)
-    connectOrCreate?: Array<GuideGuideCategoryCreateOrConnectWithoutGuideCategoryInput>;
-    @Field(() => [GuideGuideCategoryUpsertWithWhereUniqueWithoutGuideCategoryInput], {nullable:true})
-    @Type(() => GuideGuideCategoryUpsertWithWhereUniqueWithoutGuideCategoryInput)
-    upsert?: Array<GuideGuideCategoryUpsertWithWhereUniqueWithoutGuideCategoryInput>;
-    @Field(() => GuideGuideCategoryCreateManyGuideCategoryInputEnvelope, {nullable:true})
-    @Type(() => GuideGuideCategoryCreateManyGuideCategoryInputEnvelope)
-    createMany?: InstanceType<typeof GuideGuideCategoryCreateManyGuideCategoryInputEnvelope>;
-    @Field(() => [GuideGuideCategoryWhereUniqueInput], {nullable:true})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    set?: Array<GuideGuideCategoryWhereUniqueInput>;
-    @Field(() => [GuideGuideCategoryWhereUniqueInput], {nullable:true})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    disconnect?: Array<GuideGuideCategoryWhereUniqueInput>;
-    @Field(() => [GuideGuideCategoryWhereUniqueInput], {nullable:true})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    delete?: Array<GuideGuideCategoryWhereUniqueInput>;
-    @Field(() => [GuideGuideCategoryWhereUniqueInput], {nullable:true})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    connect?: Array<GuideGuideCategoryWhereUniqueInput>;
-    @Field(() => [GuideGuideCategoryUpdateWithWhereUniqueWithoutGuideCategoryInput], {nullable:true})
-    @Type(() => GuideGuideCategoryUpdateWithWhereUniqueWithoutGuideCategoryInput)
-    update?: Array<GuideGuideCategoryUpdateWithWhereUniqueWithoutGuideCategoryInput>;
-    @Field(() => [GuideGuideCategoryUpdateManyWithWhereWithoutGuideCategoryInput], {nullable:true})
-    @Type(() => GuideGuideCategoryUpdateManyWithWhereWithoutGuideCategoryInput)
-    updateMany?: Array<GuideGuideCategoryUpdateManyWithWhereWithoutGuideCategoryInput>;
-    @Field(() => [GuideGuideCategoryScalarWhereInput], {nullable:true})
-    @Type(() => GuideGuideCategoryScalarWhereInput)
-    deleteMany?: Array<GuideGuideCategoryScalarWhereInput>;
-}
-
-@InputType()
-export class GuideGuideCategoryUpdateManyWithoutUserInput {
-    @Field(() => [GuideGuideCategoryCreateWithoutUserInput], {nullable:true})
-    @Type(() => GuideGuideCategoryCreateWithoutUserInput)
-    create?: Array<GuideGuideCategoryCreateWithoutUserInput>;
-    @Field(() => [GuideGuideCategoryCreateOrConnectWithoutUserInput], {nullable:true})
-    @Type(() => GuideGuideCategoryCreateOrConnectWithoutUserInput)
-    connectOrCreate?: Array<GuideGuideCategoryCreateOrConnectWithoutUserInput>;
-    @Field(() => [GuideGuideCategoryUpsertWithWhereUniqueWithoutUserInput], {nullable:true})
-    @Type(() => GuideGuideCategoryUpsertWithWhereUniqueWithoutUserInput)
-    upsert?: Array<GuideGuideCategoryUpsertWithWhereUniqueWithoutUserInput>;
-    @Field(() => GuideGuideCategoryCreateManyUserInputEnvelope, {nullable:true})
-    @Type(() => GuideGuideCategoryCreateManyUserInputEnvelope)
-    createMany?: InstanceType<typeof GuideGuideCategoryCreateManyUserInputEnvelope>;
-    @Field(() => [GuideGuideCategoryWhereUniqueInput], {nullable:true})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    set?: Array<GuideGuideCategoryWhereUniqueInput>;
-    @Field(() => [GuideGuideCategoryWhereUniqueInput], {nullable:true})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    disconnect?: Array<GuideGuideCategoryWhereUniqueInput>;
-    @Field(() => [GuideGuideCategoryWhereUniqueInput], {nullable:true})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    delete?: Array<GuideGuideCategoryWhereUniqueInput>;
-    @Field(() => [GuideGuideCategoryWhereUniqueInput], {nullable:true})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    connect?: Array<GuideGuideCategoryWhereUniqueInput>;
-    @Field(() => [GuideGuideCategoryUpdateWithWhereUniqueWithoutUserInput], {nullable:true})
-    @Type(() => GuideGuideCategoryUpdateWithWhereUniqueWithoutUserInput)
-    update?: Array<GuideGuideCategoryUpdateWithWhereUniqueWithoutUserInput>;
-    @Field(() => [GuideGuideCategoryUpdateManyWithWhereWithoutUserInput], {nullable:true})
-    @Type(() => GuideGuideCategoryUpdateManyWithWhereWithoutUserInput)
-    updateMany?: Array<GuideGuideCategoryUpdateManyWithWhereWithoutUserInput>;
-    @Field(() => [GuideGuideCategoryScalarWhereInput], {nullable:true})
-    @Type(() => GuideGuideCategoryScalarWhereInput)
-    deleteMany?: Array<GuideGuideCategoryScalarWhereInput>;
-}
-
-@InputType()
-export class GuideGuideCategoryUpdateWithWhereUniqueWithoutGuideCategoryInput {
-    @Field(() => GuideGuideCategoryWhereUniqueInput, {nullable:false})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    where!: InstanceType<typeof GuideGuideCategoryWhereUniqueInput>;
-    @Field(() => GuideGuideCategoryUpdateWithoutGuideCategoryInput, {nullable:false})
-    @Type(() => GuideGuideCategoryUpdateWithoutGuideCategoryInput)
-    data!: InstanceType<typeof GuideGuideCategoryUpdateWithoutGuideCategoryInput>;
-}
-
-@InputType()
-export class GuideGuideCategoryUpdateWithWhereUniqueWithoutUserInput {
-    @Field(() => GuideGuideCategoryWhereUniqueInput, {nullable:false})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    where!: InstanceType<typeof GuideGuideCategoryWhereUniqueInput>;
-    @Field(() => GuideGuideCategoryUpdateWithoutUserInput, {nullable:false})
-    @Type(() => GuideGuideCategoryUpdateWithoutUserInput)
-    data!: InstanceType<typeof GuideGuideCategoryUpdateWithoutUserInput>;
-}
-
-@InputType()
-export class GuideGuideCategoryUpdateWithoutGuideCategoryInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => UserUpdateOneRequiredWithoutGuideGuideCategoryInput, {nullable:true})
-    user?: InstanceType<typeof UserUpdateOneRequiredWithoutGuideGuideCategoryInput>;
-}
-
-@InputType()
-export class GuideGuideCategoryUpdateWithoutUserInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => GuideCategoryUpdateOneRequiredWithoutGuideGuideCategoryInput, {nullable:true})
-    guideCategory?: InstanceType<typeof GuideCategoryUpdateOneRequiredWithoutGuideGuideCategoryInput>;
-}
-
-@InputType()
-export class GuideGuideCategoryUpdateInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => UserUpdateOneRequiredWithoutGuideGuideCategoryInput, {nullable:true})
-    user?: InstanceType<typeof UserUpdateOneRequiredWithoutGuideGuideCategoryInput>;
-    @Field(() => GuideCategoryUpdateOneRequiredWithoutGuideGuideCategoryInput, {nullable:true})
-    guideCategory?: InstanceType<typeof GuideCategoryUpdateOneRequiredWithoutGuideGuideCategoryInput>;
-}
-
-@InputType()
-export class GuideGuideCategoryUpsertWithWhereUniqueWithoutGuideCategoryInput {
-    @Field(() => GuideGuideCategoryWhereUniqueInput, {nullable:false})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    where!: InstanceType<typeof GuideGuideCategoryWhereUniqueInput>;
-    @Field(() => GuideGuideCategoryUpdateWithoutGuideCategoryInput, {nullable:false})
-    @Type(() => GuideGuideCategoryUpdateWithoutGuideCategoryInput)
-    update!: InstanceType<typeof GuideGuideCategoryUpdateWithoutGuideCategoryInput>;
-    @Field(() => GuideGuideCategoryCreateWithoutGuideCategoryInput, {nullable:false})
-    @Type(() => GuideGuideCategoryCreateWithoutGuideCategoryInput)
-    create!: InstanceType<typeof GuideGuideCategoryCreateWithoutGuideCategoryInput>;
-}
-
-@InputType()
-export class GuideGuideCategoryUpsertWithWhereUniqueWithoutUserInput {
-    @Field(() => GuideGuideCategoryWhereUniqueInput, {nullable:false})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    where!: InstanceType<typeof GuideGuideCategoryWhereUniqueInput>;
-    @Field(() => GuideGuideCategoryUpdateWithoutUserInput, {nullable:false})
-    @Type(() => GuideGuideCategoryUpdateWithoutUserInput)
-    update!: InstanceType<typeof GuideGuideCategoryUpdateWithoutUserInput>;
-    @Field(() => GuideGuideCategoryCreateWithoutUserInput, {nullable:false})
-    @Type(() => GuideGuideCategoryCreateWithoutUserInput)
-    create!: InstanceType<typeof GuideGuideCategoryCreateWithoutUserInput>;
-}
-
-@InputType()
-export class GuideGuideCategoryUserIdGuideCategoryIdCompoundUniqueInput {
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-    @Field(() => Int, {nullable:false})
-    guideCategoryId!: number;
-}
-
-@InputType()
-export class GuideGuideCategoryWhereUniqueInput {
-    @Field(() => GuideGuideCategoryUserIdGuideCategoryIdCompoundUniqueInput, {nullable:true})
-    userId_guideCategoryId?: InstanceType<typeof GuideGuideCategoryUserIdGuideCategoryIdCompoundUniqueInput>;
-}
-
-@InputType()
-export class GuideGuideCategoryWhereInput {
-    @Field(() => [GuideGuideCategoryWhereInput], {nullable:true})
-    AND?: Array<GuideGuideCategoryWhereInput>;
-    @Field(() => [GuideGuideCategoryWhereInput], {nullable:true})
-    OR?: Array<GuideGuideCategoryWhereInput>;
-    @Field(() => [GuideGuideCategoryWhereInput], {nullable:true})
-    NOT?: Array<GuideGuideCategoryWhereInput>;
-    @Field(() => EnumStatusFilter, {nullable:true})
-    status?: InstanceType<typeof EnumStatusFilter>;
-    @Field(() => UserRelationFilter, {nullable:true})
-    user?: InstanceType<typeof UserRelationFilter>;
-    @Field(() => IntFilter, {nullable:true})
-    userId?: InstanceType<typeof IntFilter>;
-    @Field(() => GuideCategoryRelationFilter, {nullable:true})
-    guideCategory?: InstanceType<typeof GuideCategoryRelationFilter>;
-    @Field(() => IntFilter, {nullable:true})
-    guideCategoryId?: InstanceType<typeof IntFilter>;
-}
-
-@ObjectType()
-export class GuideGuideCategory {
-    @Field(() => Status, {nullable:false,defaultValue:'ACTIVE'})
-    status!: keyof typeof Status;
-    @Field(() => User, {nullable:false})
-    user?: InstanceType<typeof User>;
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-    @Field(() => GuideCategory, {nullable:false})
-    guideCategory?: InstanceType<typeof GuideCategory>;
-    @Field(() => Int, {nullable:false})
-    guideCategoryId!: number;
-}
-
-@ArgsType()
-export class UpdateManyGuideGuideCategoryArgs {
-    @Field(() => GuideGuideCategoryUpdateManyMutationInput, {nullable:false})
-    @Type(() => GuideGuideCategoryUpdateManyMutationInput)
-    @ValidateNested({ each: true })
-    data!: InstanceType<typeof GuideGuideCategoryUpdateManyMutationInput>;
-    @Field(() => GuideGuideCategoryWhereInput, {nullable:true})
-    @Type(() => GuideGuideCategoryWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof GuideGuideCategoryWhereInput>;
-}
-
-@ArgsType()
-export class UpdateOneGuideGuideCategoryArgs {
-    @Field(() => GuideGuideCategoryUpdateInput, {nullable:false})
-    @Type(() => GuideGuideCategoryUpdateInput)
-    @ValidateNested({ each: true })
-    data!: InstanceType<typeof GuideGuideCategoryUpdateInput>;
-    @Field(() => GuideGuideCategoryWhereUniqueInput, {nullable:false})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    @ValidateNested({ each: true })
-    where!: InstanceType<typeof GuideGuideCategoryWhereUniqueInput>;
-}
-
-@ArgsType()
-export class UpsertOneGuideGuideCategoryArgs {
-    @Field(() => GuideGuideCategoryWhereUniqueInput, {nullable:false})
-    @Type(() => GuideGuideCategoryWhereUniqueInput)
-    @ValidateNested({ each: true })
-    where!: InstanceType<typeof GuideGuideCategoryWhereUniqueInput>;
-    @Field(() => GuideGuideCategoryCreateInput, {nullable:false})
-    @Type(() => GuideGuideCategoryCreateInput)
-    create!: InstanceType<typeof GuideGuideCategoryCreateInput>;
-    @Field(() => GuideGuideCategoryUpdateInput, {nullable:false})
-    @Type(() => GuideGuideCategoryUpdateInput)
-    update!: InstanceType<typeof GuideGuideCategoryUpdateInput>;
-}
-
-@ObjectType()
-export class AggregateGuideLanguages {
-    @Field(() => GuideLanguagesCountAggregate, {nullable:true})
-    _count?: InstanceType<typeof GuideLanguagesCountAggregate>;
-    @Field(() => GuideLanguagesAvgAggregate, {nullable:true})
-    _avg?: InstanceType<typeof GuideLanguagesAvgAggregate>;
-    @Field(() => GuideLanguagesSumAggregate, {nullable:true})
-    _sum?: InstanceType<typeof GuideLanguagesSumAggregate>;
-    @Field(() => GuideLanguagesMinAggregate, {nullable:true})
-    _min?: InstanceType<typeof GuideLanguagesMinAggregate>;
-    @Field(() => GuideLanguagesMaxAggregate, {nullable:true})
-    _max?: InstanceType<typeof GuideLanguagesMaxAggregate>;
-}
-
-@ArgsType()
-export class CreateManyGuideLanguagesArgs {
-    @Field(() => [GuideLanguagesCreateManyInput], {nullable:false})
-    @Type(() => GuideLanguagesCreateManyInput)
-    @ValidateNested({ each: true })
-    data!: Array<GuideLanguagesCreateManyInput>;
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
-}
-
-@ArgsType()
-export class CreateOneGuideLanguagesArgs {
-    @Field(() => GuideLanguagesCreateInput, {nullable:false})
-    @Type(() => GuideLanguagesCreateInput)
-    @ValidateNested({ each: true })
-    data!: InstanceType<typeof GuideLanguagesCreateInput>;
-}
-
-@ArgsType()
-export class DeleteManyGuideLanguagesArgs {
-    @Field(() => GuideLanguagesWhereInput, {nullable:true})
-    @Type(() => GuideLanguagesWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof GuideLanguagesWhereInput>;
-}
-
-@ArgsType()
-export class DeleteOneGuideLanguagesArgs {
-    @Field(() => GuideLanguagesWhereUniqueInput, {nullable:false})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    @ValidateNested({ each: true })
-    where!: InstanceType<typeof GuideLanguagesWhereUniqueInput>;
-}
-
-@ArgsType()
-export class FindFirstGuideLanguagesArgs {
-    @Field(() => GuideLanguagesWhereInput, {nullable:true})
-    @Type(() => GuideLanguagesWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof GuideLanguagesWhereInput>;
-    @Field(() => [GuideLanguagesOrderByWithRelationInput], {nullable:true})
-    orderBy?: Array<GuideLanguagesOrderByWithRelationInput>;
-    @Field(() => GuideLanguagesWhereUniqueInput, {nullable:true})
-    cursor?: InstanceType<typeof GuideLanguagesWhereUniqueInput>;
-    @Field(() => Int, {nullable:true})
-    take?: number;
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-    @Field(() => [GuideLanguagesScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof GuideLanguagesScalarFieldEnum>;
-}
-
-@ArgsType()
-export class FindManyGuideLanguagesArgs {
-    @Field(() => GuideLanguagesWhereInput, {nullable:true})
-    @Type(() => GuideLanguagesWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof GuideLanguagesWhereInput>;
-    @Field(() => [GuideLanguagesOrderByWithRelationInput], {nullable:true})
-    orderBy?: Array<GuideLanguagesOrderByWithRelationInput>;
-    @Field(() => GuideLanguagesWhereUniqueInput, {nullable:true})
-    cursor?: InstanceType<typeof GuideLanguagesWhereUniqueInput>;
-    @Field(() => Int, {nullable:true})
-    take?: number;
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-    @Field(() => [GuideLanguagesScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof GuideLanguagesScalarFieldEnum>;
-}
-
-@ArgsType()
-export class FindUniqueGuideLanguagesArgs {
-    @Field(() => GuideLanguagesWhereUniqueInput, {nullable:false})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    @ValidateNested({ each: true })
-    where!: InstanceType<typeof GuideLanguagesWhereUniqueInput>;
-}
-
-@ArgsType()
-export class GuideLanguagesAggregateArgs {
-    @Field(() => GuideLanguagesWhereInput, {nullable:true})
-    @Type(() => GuideLanguagesWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof GuideLanguagesWhereInput>;
-    @Field(() => [GuideLanguagesOrderByWithRelationInput], {nullable:true})
-    orderBy?: Array<GuideLanguagesOrderByWithRelationInput>;
-    @Field(() => GuideLanguagesWhereUniqueInput, {nullable:true})
-    cursor?: InstanceType<typeof GuideLanguagesWhereUniqueInput>;
-    @Field(() => Int, {nullable:true})
-    take?: number;
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-    @Field(() => GuideLanguagesCountAggregateInput, {nullable:true})
-    _count?: InstanceType<typeof GuideLanguagesCountAggregateInput>;
-    @Field(() => GuideLanguagesAvgAggregateInput, {nullable:true})
-    _avg?: InstanceType<typeof GuideLanguagesAvgAggregateInput>;
-    @Field(() => GuideLanguagesSumAggregateInput, {nullable:true})
-    _sum?: InstanceType<typeof GuideLanguagesSumAggregateInput>;
-    @Field(() => GuideLanguagesMinAggregateInput, {nullable:true})
-    _min?: InstanceType<typeof GuideLanguagesMinAggregateInput>;
-    @Field(() => GuideLanguagesMaxAggregateInput, {nullable:true})
-    _max?: InstanceType<typeof GuideLanguagesMaxAggregateInput>;
-}
-
-@InputType()
-export class GuideLanguagesAvgAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    userId?: true;
-    @Field(() => Boolean, {nullable:true})
-    languageId?: true;
-    @Field(() => Boolean, {nullable:true})
-    cityId?: true;
-}
-
-@ObjectType()
-export class GuideLanguagesAvgAggregate {
-    @Field(() => Float, {nullable:true})
-    userId?: number;
-    @Field(() => Float, {nullable:true})
-    languageId?: number;
-    @Field(() => Float, {nullable:true})
-    cityId?: number;
-}
-
-@InputType()
-export class GuideLanguagesAvgOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    languageId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    cityId?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class GuideLanguagesCountAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    status?: true;
-    @Field(() => Boolean, {nullable:true})
-    userId?: true;
-    @Field(() => Boolean, {nullable:true})
-    languageId?: true;
-    @Field(() => Boolean, {nullable:true})
-    cityId?: true;
-    @Field(() => Boolean, {nullable:true})
-    _all?: true;
-}
-
-@ObjectType()
-export class GuideLanguagesCountAggregate {
-    @Field(() => Int, {nullable:false})
-    status!: number;
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-    @Field(() => Int, {nullable:false})
-    languageId!: number;
-    @Field(() => Int, {nullable:false})
-    cityId!: number;
-    @Field(() => Int, {nullable:false})
-    _all!: number;
-}
-
-@InputType()
-export class GuideLanguagesCountOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    languageId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    cityId?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class GuideLanguagesCreateManyCityInputEnvelope {
-    @Field(() => [GuideLanguagesCreateManyCityInput], {nullable:false})
-    @Type(() => GuideLanguagesCreateManyCityInput)
-    data!: Array<GuideLanguagesCreateManyCityInput>;
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
-}
-
-@InputType()
-export class GuideLanguagesCreateManyCityInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-    @Field(() => Int, {nullable:false})
-    languageId!: number;
-}
-
-@InputType()
-export class GuideLanguagesCreateManyLanguageInputEnvelope {
-    @Field(() => [GuideLanguagesCreateManyLanguageInput], {nullable:false})
-    @Type(() => GuideLanguagesCreateManyLanguageInput)
-    data!: Array<GuideLanguagesCreateManyLanguageInput>;
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
-}
-
-@InputType()
-export class GuideLanguagesCreateManyLanguageInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-    @Field(() => Int, {nullable:true})
-    cityId?: number;
-}
-
-@InputType()
-export class GuideLanguagesCreateManyUserInputEnvelope {
-    @Field(() => [GuideLanguagesCreateManyUserInput], {nullable:false})
-    @Type(() => GuideLanguagesCreateManyUserInput)
-    data!: Array<GuideLanguagesCreateManyUserInput>;
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
-}
-
-@InputType()
-export class GuideLanguagesCreateManyUserInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:false})
-    languageId!: number;
-    @Field(() => Int, {nullable:true})
-    cityId?: number;
-}
-
-@InputType()
-export class GuideLanguagesCreateManyInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-    @Field(() => Int, {nullable:false})
-    languageId!: number;
-    @Field(() => Int, {nullable:true})
-    cityId?: number;
-}
-
-@InputType()
-export class GuideLanguagesCreateNestedManyWithoutCityInput {
-    @Field(() => [GuideLanguagesCreateWithoutCityInput], {nullable:true})
-    @Type(() => GuideLanguagesCreateWithoutCityInput)
-    create?: Array<GuideLanguagesCreateWithoutCityInput>;
-    @Field(() => [GuideLanguagesCreateOrConnectWithoutCityInput], {nullable:true})
-    @Type(() => GuideLanguagesCreateOrConnectWithoutCityInput)
-    connectOrCreate?: Array<GuideLanguagesCreateOrConnectWithoutCityInput>;
-    @Field(() => GuideLanguagesCreateManyCityInputEnvelope, {nullable:true})
-    @Type(() => GuideLanguagesCreateManyCityInputEnvelope)
-    createMany?: InstanceType<typeof GuideLanguagesCreateManyCityInputEnvelope>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    connect?: Array<GuideLanguagesWhereUniqueInput>;
-}
-
-@InputType()
-export class GuideLanguagesCreateNestedManyWithoutLanguageInput {
-    @Field(() => [GuideLanguagesCreateWithoutLanguageInput], {nullable:true})
-    @Type(() => GuideLanguagesCreateWithoutLanguageInput)
-    create?: Array<GuideLanguagesCreateWithoutLanguageInput>;
-    @Field(() => [GuideLanguagesCreateOrConnectWithoutLanguageInput], {nullable:true})
-    @Type(() => GuideLanguagesCreateOrConnectWithoutLanguageInput)
-    connectOrCreate?: Array<GuideLanguagesCreateOrConnectWithoutLanguageInput>;
-    @Field(() => GuideLanguagesCreateManyLanguageInputEnvelope, {nullable:true})
-    @Type(() => GuideLanguagesCreateManyLanguageInputEnvelope)
-    createMany?: InstanceType<typeof GuideLanguagesCreateManyLanguageInputEnvelope>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    connect?: Array<GuideLanguagesWhereUniqueInput>;
-}
-
-@InputType()
-export class GuideLanguagesCreateNestedManyWithoutUserInput {
-    @Field(() => [GuideLanguagesCreateWithoutUserInput], {nullable:true})
-    @Type(() => GuideLanguagesCreateWithoutUserInput)
-    create?: Array<GuideLanguagesCreateWithoutUserInput>;
-    @Field(() => [GuideLanguagesCreateOrConnectWithoutUserInput], {nullable:true})
-    @Type(() => GuideLanguagesCreateOrConnectWithoutUserInput)
-    connectOrCreate?: Array<GuideLanguagesCreateOrConnectWithoutUserInput>;
-    @Field(() => GuideLanguagesCreateManyUserInputEnvelope, {nullable:true})
-    @Type(() => GuideLanguagesCreateManyUserInputEnvelope)
-    createMany?: InstanceType<typeof GuideLanguagesCreateManyUserInputEnvelope>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    connect?: Array<GuideLanguagesWhereUniqueInput>;
-}
-
-@InputType()
-export class GuideLanguagesCreateOrConnectWithoutCityInput {
-    @Field(() => GuideLanguagesWhereUniqueInput, {nullable:false})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    where!: InstanceType<typeof GuideLanguagesWhereUniqueInput>;
-    @Field(() => GuideLanguagesCreateWithoutCityInput, {nullable:false})
-    @Type(() => GuideLanguagesCreateWithoutCityInput)
-    create!: InstanceType<typeof GuideLanguagesCreateWithoutCityInput>;
-}
-
-@InputType()
-export class GuideLanguagesCreateOrConnectWithoutLanguageInput {
-    @Field(() => GuideLanguagesWhereUniqueInput, {nullable:false})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    where!: InstanceType<typeof GuideLanguagesWhereUniqueInput>;
-    @Field(() => GuideLanguagesCreateWithoutLanguageInput, {nullable:false})
-    @Type(() => GuideLanguagesCreateWithoutLanguageInput)
-    create!: InstanceType<typeof GuideLanguagesCreateWithoutLanguageInput>;
-}
-
-@InputType()
-export class GuideLanguagesCreateOrConnectWithoutUserInput {
-    @Field(() => GuideLanguagesWhereUniqueInput, {nullable:false})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    where!: InstanceType<typeof GuideLanguagesWhereUniqueInput>;
-    @Field(() => GuideLanguagesCreateWithoutUserInput, {nullable:false})
-    @Type(() => GuideLanguagesCreateWithoutUserInput)
-    create!: InstanceType<typeof GuideLanguagesCreateWithoutUserInput>;
-}
-
-@InputType()
-export class GuideLanguagesCreateWithoutCityInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => UserCreateNestedOneWithoutGuideLanguagesInput, {nullable:false})
-    user!: InstanceType<typeof UserCreateNestedOneWithoutGuideLanguagesInput>;
-    @Field(() => LanguagesCreateNestedOneWithoutGuideLanguagesInput, {nullable:false})
-    language!: InstanceType<typeof LanguagesCreateNestedOneWithoutGuideLanguagesInput>;
-}
-
-@InputType()
-export class GuideLanguagesCreateWithoutLanguageInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => UserCreateNestedOneWithoutGuideLanguagesInput, {nullable:false})
-    user!: InstanceType<typeof UserCreateNestedOneWithoutGuideLanguagesInput>;
-    @Field(() => CityCreateNestedOneWithoutGuideLanguagesInput, {nullable:true})
-    City?: InstanceType<typeof CityCreateNestedOneWithoutGuideLanguagesInput>;
-}
-
-@InputType()
-export class GuideLanguagesCreateWithoutUserInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => LanguagesCreateNestedOneWithoutGuideLanguagesInput, {nullable:false})
-    language!: InstanceType<typeof LanguagesCreateNestedOneWithoutGuideLanguagesInput>;
-    @Field(() => CityCreateNestedOneWithoutGuideLanguagesInput, {nullable:true})
-    City?: InstanceType<typeof CityCreateNestedOneWithoutGuideLanguagesInput>;
-}
-
-@InputType()
-export class GuideLanguagesCreateInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => UserCreateNestedOneWithoutGuideLanguagesInput, {nullable:false})
-    user!: InstanceType<typeof UserCreateNestedOneWithoutGuideLanguagesInput>;
-    @Field(() => LanguagesCreateNestedOneWithoutGuideLanguagesInput, {nullable:false})
-    language!: InstanceType<typeof LanguagesCreateNestedOneWithoutGuideLanguagesInput>;
-    @Field(() => CityCreateNestedOneWithoutGuideLanguagesInput, {nullable:true})
-    City?: InstanceType<typeof CityCreateNestedOneWithoutGuideLanguagesInput>;
-}
-
-@ArgsType()
-export class GuideLanguagesGroupByArgs {
-    @Field(() => GuideLanguagesWhereInput, {nullable:true})
-    @Type(() => GuideLanguagesWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof GuideLanguagesWhereInput>;
-    @Field(() => [GuideLanguagesOrderByWithAggregationInput], {nullable:true})
-    orderBy?: Array<GuideLanguagesOrderByWithAggregationInput>;
-    @Field(() => [GuideLanguagesScalarFieldEnum], {nullable:false})
-    by!: Array<keyof typeof GuideLanguagesScalarFieldEnum>;
-    @Field(() => GuideLanguagesScalarWhereWithAggregatesInput, {nullable:true})
-    having?: InstanceType<typeof GuideLanguagesScalarWhereWithAggregatesInput>;
-    @Field(() => Int, {nullable:true})
-    take?: number;
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-    @Field(() => GuideLanguagesCountAggregateInput, {nullable:true})
-    _count?: InstanceType<typeof GuideLanguagesCountAggregateInput>;
-    @Field(() => GuideLanguagesAvgAggregateInput, {nullable:true})
-    _avg?: InstanceType<typeof GuideLanguagesAvgAggregateInput>;
-    @Field(() => GuideLanguagesSumAggregateInput, {nullable:true})
-    _sum?: InstanceType<typeof GuideLanguagesSumAggregateInput>;
-    @Field(() => GuideLanguagesMinAggregateInput, {nullable:true})
-    _min?: InstanceType<typeof GuideLanguagesMinAggregateInput>;
-    @Field(() => GuideLanguagesMaxAggregateInput, {nullable:true})
-    _max?: InstanceType<typeof GuideLanguagesMaxAggregateInput>;
-}
-
-@ObjectType()
-export class GuideLanguagesGroupBy {
-    @Field(() => Status, {nullable:false})
-    status!: keyof typeof Status;
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-    @Field(() => Int, {nullable:false})
-    languageId!: number;
-    @Field(() => Int, {nullable:true})
-    cityId?: number;
-    @Field(() => GuideLanguagesCountAggregate, {nullable:true})
-    _count?: InstanceType<typeof GuideLanguagesCountAggregate>;
-    @Field(() => GuideLanguagesAvgAggregate, {nullable:true})
-    _avg?: InstanceType<typeof GuideLanguagesAvgAggregate>;
-    @Field(() => GuideLanguagesSumAggregate, {nullable:true})
-    _sum?: InstanceType<typeof GuideLanguagesSumAggregate>;
-    @Field(() => GuideLanguagesMinAggregate, {nullable:true})
-    _min?: InstanceType<typeof GuideLanguagesMinAggregate>;
-    @Field(() => GuideLanguagesMaxAggregate, {nullable:true})
-    _max?: InstanceType<typeof GuideLanguagesMaxAggregate>;
-}
-
-@InputType()
-export class GuideLanguagesListRelationFilter {
-    @Field(() => GuideLanguagesWhereInput, {nullable:true})
-    every?: InstanceType<typeof GuideLanguagesWhereInput>;
-    @Field(() => GuideLanguagesWhereInput, {nullable:true})
-    some?: InstanceType<typeof GuideLanguagesWhereInput>;
-    @Field(() => GuideLanguagesWhereInput, {nullable:true})
-    none?: InstanceType<typeof GuideLanguagesWhereInput>;
-}
-
-@InputType()
-export class GuideLanguagesMaxAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    status?: true;
-    @Field(() => Boolean, {nullable:true})
-    userId?: true;
-    @Field(() => Boolean, {nullable:true})
-    languageId?: true;
-    @Field(() => Boolean, {nullable:true})
-    cityId?: true;
-}
-
-@ObjectType()
-export class GuideLanguagesMaxAggregate {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-    @Field(() => Int, {nullable:true})
-    languageId?: number;
-    @Field(() => Int, {nullable:true})
-    cityId?: number;
-}
-
-@InputType()
-export class GuideLanguagesMaxOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    languageId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    cityId?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class GuideLanguagesMinAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    status?: true;
-    @Field(() => Boolean, {nullable:true})
-    userId?: true;
-    @Field(() => Boolean, {nullable:true})
-    languageId?: true;
-    @Field(() => Boolean, {nullable:true})
-    cityId?: true;
-}
-
-@ObjectType()
-export class GuideLanguagesMinAggregate {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-    @Field(() => Int, {nullable:true})
-    languageId?: number;
-    @Field(() => Int, {nullable:true})
-    cityId?: number;
-}
-
-@InputType()
-export class GuideLanguagesMinOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    languageId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    cityId?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class GuideLanguagesOrderByRelationAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    _count?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class GuideLanguagesOrderByWithAggregationInput {
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    languageId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    cityId?: keyof typeof SortOrder;
-    @Field(() => GuideLanguagesCountOrderByAggregateInput, {nullable:true})
-    _count?: InstanceType<typeof GuideLanguagesCountOrderByAggregateInput>;
-    @Field(() => GuideLanguagesAvgOrderByAggregateInput, {nullable:true})
-    _avg?: InstanceType<typeof GuideLanguagesAvgOrderByAggregateInput>;
-    @Field(() => GuideLanguagesMaxOrderByAggregateInput, {nullable:true})
-    _max?: InstanceType<typeof GuideLanguagesMaxOrderByAggregateInput>;
-    @Field(() => GuideLanguagesMinOrderByAggregateInput, {nullable:true})
-    _min?: InstanceType<typeof GuideLanguagesMinOrderByAggregateInput>;
-    @Field(() => GuideLanguagesSumOrderByAggregateInput, {nullable:true})
-    _sum?: InstanceType<typeof GuideLanguagesSumOrderByAggregateInput>;
-}
-
-@InputType()
-export class GuideLanguagesOrderByWithRelationInput {
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
-    @Field(() => UserOrderByWithRelationInput, {nullable:true})
-    user?: InstanceType<typeof UserOrderByWithRelationInput>;
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-    @Field(() => LanguagesOrderByWithRelationInput, {nullable:true})
-    language?: InstanceType<typeof LanguagesOrderByWithRelationInput>;
-    @Field(() => SortOrder, {nullable:true})
-    languageId?: keyof typeof SortOrder;
-    @Field(() => CityOrderByWithRelationInput, {nullable:true})
-    City?: InstanceType<typeof CityOrderByWithRelationInput>;
-    @Field(() => SortOrder, {nullable:true})
-    cityId?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class GuideLanguagesScalarWhereWithAggregatesInput {
-    @Field(() => [GuideLanguagesScalarWhereWithAggregatesInput], {nullable:true})
-    AND?: Array<GuideLanguagesScalarWhereWithAggregatesInput>;
-    @Field(() => [GuideLanguagesScalarWhereWithAggregatesInput], {nullable:true})
-    OR?: Array<GuideLanguagesScalarWhereWithAggregatesInput>;
-    @Field(() => [GuideLanguagesScalarWhereWithAggregatesInput], {nullable:true})
-    NOT?: Array<GuideLanguagesScalarWhereWithAggregatesInput>;
-    @Field(() => EnumStatusWithAggregatesFilter, {nullable:true})
-    status?: InstanceType<typeof EnumStatusWithAggregatesFilter>;
-    @Field(() => IntWithAggregatesFilter, {nullable:true})
-    userId?: InstanceType<typeof IntWithAggregatesFilter>;
-    @Field(() => IntWithAggregatesFilter, {nullable:true})
-    languageId?: InstanceType<typeof IntWithAggregatesFilter>;
-    @Field(() => IntWithAggregatesFilter, {nullable:true})
-    cityId?: InstanceType<typeof IntWithAggregatesFilter>;
-}
-
-@InputType()
-export class GuideLanguagesScalarWhereInput {
-    @Field(() => [GuideLanguagesScalarWhereInput], {nullable:true})
-    AND?: Array<GuideLanguagesScalarWhereInput>;
-    @Field(() => [GuideLanguagesScalarWhereInput], {nullable:true})
-    OR?: Array<GuideLanguagesScalarWhereInput>;
-    @Field(() => [GuideLanguagesScalarWhereInput], {nullable:true})
-    NOT?: Array<GuideLanguagesScalarWhereInput>;
-    @Field(() => EnumStatusFilter, {nullable:true})
-    status?: InstanceType<typeof EnumStatusFilter>;
-    @Field(() => IntFilter, {nullable:true})
-    userId?: InstanceType<typeof IntFilter>;
-    @Field(() => IntFilter, {nullable:true})
-    languageId?: InstanceType<typeof IntFilter>;
-    @Field(() => IntFilter, {nullable:true})
-    cityId?: InstanceType<typeof IntFilter>;
-}
-
-@InputType()
-export class GuideLanguagesSumAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    userId?: true;
-    @Field(() => Boolean, {nullable:true})
-    languageId?: true;
-    @Field(() => Boolean, {nullable:true})
-    cityId?: true;
-}
-
-@ObjectType()
-export class GuideLanguagesSumAggregate {
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-    @Field(() => Int, {nullable:true})
-    languageId?: number;
-    @Field(() => Int, {nullable:true})
-    cityId?: number;
-}
-
-@InputType()
-export class GuideLanguagesSumOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    languageId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    cityId?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class GuideLanguagesUncheckedCreateNestedManyWithoutCityInput {
-    @Field(() => [GuideLanguagesCreateWithoutCityInput], {nullable:true})
-    @Type(() => GuideLanguagesCreateWithoutCityInput)
-    create?: Array<GuideLanguagesCreateWithoutCityInput>;
-    @Field(() => [GuideLanguagesCreateOrConnectWithoutCityInput], {nullable:true})
-    @Type(() => GuideLanguagesCreateOrConnectWithoutCityInput)
-    connectOrCreate?: Array<GuideLanguagesCreateOrConnectWithoutCityInput>;
-    @Field(() => GuideLanguagesCreateManyCityInputEnvelope, {nullable:true})
-    @Type(() => GuideLanguagesCreateManyCityInputEnvelope)
-    createMany?: InstanceType<typeof GuideLanguagesCreateManyCityInputEnvelope>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    connect?: Array<GuideLanguagesWhereUniqueInput>;
-}
-
-@InputType()
-export class GuideLanguagesUncheckedCreateNestedManyWithoutLanguageInput {
-    @Field(() => [GuideLanguagesCreateWithoutLanguageInput], {nullable:true})
-    @Type(() => GuideLanguagesCreateWithoutLanguageInput)
-    create?: Array<GuideLanguagesCreateWithoutLanguageInput>;
-    @Field(() => [GuideLanguagesCreateOrConnectWithoutLanguageInput], {nullable:true})
-    @Type(() => GuideLanguagesCreateOrConnectWithoutLanguageInput)
-    connectOrCreate?: Array<GuideLanguagesCreateOrConnectWithoutLanguageInput>;
-    @Field(() => GuideLanguagesCreateManyLanguageInputEnvelope, {nullable:true})
-    @Type(() => GuideLanguagesCreateManyLanguageInputEnvelope)
-    createMany?: InstanceType<typeof GuideLanguagesCreateManyLanguageInputEnvelope>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    connect?: Array<GuideLanguagesWhereUniqueInput>;
-}
-
-@InputType()
-export class GuideLanguagesUncheckedCreateNestedManyWithoutUserInput {
-    @Field(() => [GuideLanguagesCreateWithoutUserInput], {nullable:true})
-    @Type(() => GuideLanguagesCreateWithoutUserInput)
-    create?: Array<GuideLanguagesCreateWithoutUserInput>;
-    @Field(() => [GuideLanguagesCreateOrConnectWithoutUserInput], {nullable:true})
-    @Type(() => GuideLanguagesCreateOrConnectWithoutUserInput)
-    connectOrCreate?: Array<GuideLanguagesCreateOrConnectWithoutUserInput>;
-    @Field(() => GuideLanguagesCreateManyUserInputEnvelope, {nullable:true})
-    @Type(() => GuideLanguagesCreateManyUserInputEnvelope)
-    createMany?: InstanceType<typeof GuideLanguagesCreateManyUserInputEnvelope>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    connect?: Array<GuideLanguagesWhereUniqueInput>;
-}
-
-@InputType()
-export class GuideLanguagesUncheckedCreateWithoutCityInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-    @Field(() => Int, {nullable:false})
-    languageId!: number;
-}
-
-@InputType()
-export class GuideLanguagesUncheckedCreateWithoutLanguageInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-    @Field(() => Int, {nullable:true})
-    cityId?: number;
-}
-
-@InputType()
-export class GuideLanguagesUncheckedCreateWithoutUserInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:false})
-    languageId!: number;
-    @Field(() => Int, {nullable:true})
-    cityId?: number;
-}
-
-@InputType()
-export class GuideLanguagesUncheckedCreateInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-    @Field(() => Int, {nullable:false})
-    languageId!: number;
-    @Field(() => Int, {nullable:true})
-    cityId?: number;
-}
-
-@InputType()
-export class GuideLanguagesUncheckedUpdateManyWithoutCityInput {
-    @Field(() => [GuideLanguagesCreateWithoutCityInput], {nullable:true})
-    @Type(() => GuideLanguagesCreateWithoutCityInput)
-    create?: Array<GuideLanguagesCreateWithoutCityInput>;
-    @Field(() => [GuideLanguagesCreateOrConnectWithoutCityInput], {nullable:true})
-    @Type(() => GuideLanguagesCreateOrConnectWithoutCityInput)
-    connectOrCreate?: Array<GuideLanguagesCreateOrConnectWithoutCityInput>;
-    @Field(() => [GuideLanguagesUpsertWithWhereUniqueWithoutCityInput], {nullable:true})
-    @Type(() => GuideLanguagesUpsertWithWhereUniqueWithoutCityInput)
-    upsert?: Array<GuideLanguagesUpsertWithWhereUniqueWithoutCityInput>;
-    @Field(() => GuideLanguagesCreateManyCityInputEnvelope, {nullable:true})
-    @Type(() => GuideLanguagesCreateManyCityInputEnvelope)
-    createMany?: InstanceType<typeof GuideLanguagesCreateManyCityInputEnvelope>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    set?: Array<GuideLanguagesWhereUniqueInput>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    disconnect?: Array<GuideLanguagesWhereUniqueInput>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    delete?: Array<GuideLanguagesWhereUniqueInput>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    connect?: Array<GuideLanguagesWhereUniqueInput>;
-    @Field(() => [GuideLanguagesUpdateWithWhereUniqueWithoutCityInput], {nullable:true})
-    @Type(() => GuideLanguagesUpdateWithWhereUniqueWithoutCityInput)
-    update?: Array<GuideLanguagesUpdateWithWhereUniqueWithoutCityInput>;
-    @Field(() => [GuideLanguagesUpdateManyWithWhereWithoutCityInput], {nullable:true})
-    @Type(() => GuideLanguagesUpdateManyWithWhereWithoutCityInput)
-    updateMany?: Array<GuideLanguagesUpdateManyWithWhereWithoutCityInput>;
-    @Field(() => [GuideLanguagesScalarWhereInput], {nullable:true})
-    @Type(() => GuideLanguagesScalarWhereInput)
-    deleteMany?: Array<GuideLanguagesScalarWhereInput>;
-}
-
-@InputType()
-export class GuideLanguagesUncheckedUpdateManyWithoutGuideLanguagesInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:true})
-    languageId?: number;
-    @Field(() => Int, {nullable:true})
-    cityId?: number;
-}
-
-@InputType()
-export class GuideLanguagesUncheckedUpdateManyWithoutLanguageInput {
-    @Field(() => [GuideLanguagesCreateWithoutLanguageInput], {nullable:true})
-    @Type(() => GuideLanguagesCreateWithoutLanguageInput)
-    create?: Array<GuideLanguagesCreateWithoutLanguageInput>;
-    @Field(() => [GuideLanguagesCreateOrConnectWithoutLanguageInput], {nullable:true})
-    @Type(() => GuideLanguagesCreateOrConnectWithoutLanguageInput)
-    connectOrCreate?: Array<GuideLanguagesCreateOrConnectWithoutLanguageInput>;
-    @Field(() => [GuideLanguagesUpsertWithWhereUniqueWithoutLanguageInput], {nullable:true})
-    @Type(() => GuideLanguagesUpsertWithWhereUniqueWithoutLanguageInput)
-    upsert?: Array<GuideLanguagesUpsertWithWhereUniqueWithoutLanguageInput>;
-    @Field(() => GuideLanguagesCreateManyLanguageInputEnvelope, {nullable:true})
-    @Type(() => GuideLanguagesCreateManyLanguageInputEnvelope)
-    createMany?: InstanceType<typeof GuideLanguagesCreateManyLanguageInputEnvelope>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    set?: Array<GuideLanguagesWhereUniqueInput>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    disconnect?: Array<GuideLanguagesWhereUniqueInput>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    delete?: Array<GuideLanguagesWhereUniqueInput>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    connect?: Array<GuideLanguagesWhereUniqueInput>;
-    @Field(() => [GuideLanguagesUpdateWithWhereUniqueWithoutLanguageInput], {nullable:true})
-    @Type(() => GuideLanguagesUpdateWithWhereUniqueWithoutLanguageInput)
-    update?: Array<GuideLanguagesUpdateWithWhereUniqueWithoutLanguageInput>;
-    @Field(() => [GuideLanguagesUpdateManyWithWhereWithoutLanguageInput], {nullable:true})
-    @Type(() => GuideLanguagesUpdateManyWithWhereWithoutLanguageInput)
-    updateMany?: Array<GuideLanguagesUpdateManyWithWhereWithoutLanguageInput>;
-    @Field(() => [GuideLanguagesScalarWhereInput], {nullable:true})
-    @Type(() => GuideLanguagesScalarWhereInput)
-    deleteMany?: Array<GuideLanguagesScalarWhereInput>;
-}
-
-@InputType()
-export class GuideLanguagesUncheckedUpdateManyWithoutUserInput {
-    @Field(() => [GuideLanguagesCreateWithoutUserInput], {nullable:true})
-    @Type(() => GuideLanguagesCreateWithoutUserInput)
-    create?: Array<GuideLanguagesCreateWithoutUserInput>;
-    @Field(() => [GuideLanguagesCreateOrConnectWithoutUserInput], {nullable:true})
-    @Type(() => GuideLanguagesCreateOrConnectWithoutUserInput)
-    connectOrCreate?: Array<GuideLanguagesCreateOrConnectWithoutUserInput>;
-    @Field(() => [GuideLanguagesUpsertWithWhereUniqueWithoutUserInput], {nullable:true})
-    @Type(() => GuideLanguagesUpsertWithWhereUniqueWithoutUserInput)
-    upsert?: Array<GuideLanguagesUpsertWithWhereUniqueWithoutUserInput>;
-    @Field(() => GuideLanguagesCreateManyUserInputEnvelope, {nullable:true})
-    @Type(() => GuideLanguagesCreateManyUserInputEnvelope)
-    createMany?: InstanceType<typeof GuideLanguagesCreateManyUserInputEnvelope>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    set?: Array<GuideLanguagesWhereUniqueInput>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    disconnect?: Array<GuideLanguagesWhereUniqueInput>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    delete?: Array<GuideLanguagesWhereUniqueInput>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    connect?: Array<GuideLanguagesWhereUniqueInput>;
-    @Field(() => [GuideLanguagesUpdateWithWhereUniqueWithoutUserInput], {nullable:true})
-    @Type(() => GuideLanguagesUpdateWithWhereUniqueWithoutUserInput)
-    update?: Array<GuideLanguagesUpdateWithWhereUniqueWithoutUserInput>;
-    @Field(() => [GuideLanguagesUpdateManyWithWhereWithoutUserInput], {nullable:true})
-    @Type(() => GuideLanguagesUpdateManyWithWhereWithoutUserInput)
-    updateMany?: Array<GuideLanguagesUpdateManyWithWhereWithoutUserInput>;
-    @Field(() => [GuideLanguagesScalarWhereInput], {nullable:true})
-    @Type(() => GuideLanguagesScalarWhereInput)
-    deleteMany?: Array<GuideLanguagesScalarWhereInput>;
-}
-
-@InputType()
-export class GuideLanguagesUncheckedUpdateManyInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-    @Field(() => Int, {nullable:true})
-    languageId?: number;
-    @Field(() => Int, {nullable:true})
-    cityId?: number;
-}
-
-@InputType()
-export class GuideLanguagesUncheckedUpdateWithoutCityInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-    @Field(() => Int, {nullable:true})
-    languageId?: number;
-}
-
-@InputType()
-export class GuideLanguagesUncheckedUpdateWithoutLanguageInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-    @Field(() => Int, {nullable:true})
-    cityId?: number;
-}
-
-@InputType()
-export class GuideLanguagesUncheckedUpdateWithoutUserInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:true})
-    languageId?: number;
-    @Field(() => Int, {nullable:true})
-    cityId?: number;
-}
-
-@InputType()
-export class GuideLanguagesUncheckedUpdateInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-    @Field(() => Int, {nullable:true})
-    languageId?: number;
-    @Field(() => Int, {nullable:true})
-    cityId?: number;
-}
-
-@InputType()
-export class GuideLanguagesUpdateManyMutationInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-}
-
-@InputType()
-export class GuideLanguagesUpdateManyWithWhereWithoutCityInput {
-    @Field(() => GuideLanguagesScalarWhereInput, {nullable:false})
-    @Type(() => GuideLanguagesScalarWhereInput)
-    where!: InstanceType<typeof GuideLanguagesScalarWhereInput>;
-    @Field(() => GuideLanguagesUpdateManyMutationInput, {nullable:false})
-    @Type(() => GuideLanguagesUpdateManyMutationInput)
-    data!: InstanceType<typeof GuideLanguagesUpdateManyMutationInput>;
-}
-
-@InputType()
-export class GuideLanguagesUpdateManyWithWhereWithoutLanguageInput {
-    @Field(() => GuideLanguagesScalarWhereInput, {nullable:false})
-    @Type(() => GuideLanguagesScalarWhereInput)
-    where!: InstanceType<typeof GuideLanguagesScalarWhereInput>;
-    @Field(() => GuideLanguagesUpdateManyMutationInput, {nullable:false})
-    @Type(() => GuideLanguagesUpdateManyMutationInput)
-    data!: InstanceType<typeof GuideLanguagesUpdateManyMutationInput>;
-}
-
-@InputType()
-export class GuideLanguagesUpdateManyWithWhereWithoutUserInput {
-    @Field(() => GuideLanguagesScalarWhereInput, {nullable:false})
-    @Type(() => GuideLanguagesScalarWhereInput)
-    where!: InstanceType<typeof GuideLanguagesScalarWhereInput>;
-    @Field(() => GuideLanguagesUpdateManyMutationInput, {nullable:false})
-    @Type(() => GuideLanguagesUpdateManyMutationInput)
-    data!: InstanceType<typeof GuideLanguagesUpdateManyMutationInput>;
-}
-
-@InputType()
-export class GuideLanguagesUpdateManyWithoutCityInput {
-    @Field(() => [GuideLanguagesCreateWithoutCityInput], {nullable:true})
-    @Type(() => GuideLanguagesCreateWithoutCityInput)
-    create?: Array<GuideLanguagesCreateWithoutCityInput>;
-    @Field(() => [GuideLanguagesCreateOrConnectWithoutCityInput], {nullable:true})
-    @Type(() => GuideLanguagesCreateOrConnectWithoutCityInput)
-    connectOrCreate?: Array<GuideLanguagesCreateOrConnectWithoutCityInput>;
-    @Field(() => [GuideLanguagesUpsertWithWhereUniqueWithoutCityInput], {nullable:true})
-    @Type(() => GuideLanguagesUpsertWithWhereUniqueWithoutCityInput)
-    upsert?: Array<GuideLanguagesUpsertWithWhereUniqueWithoutCityInput>;
-    @Field(() => GuideLanguagesCreateManyCityInputEnvelope, {nullable:true})
-    @Type(() => GuideLanguagesCreateManyCityInputEnvelope)
-    createMany?: InstanceType<typeof GuideLanguagesCreateManyCityInputEnvelope>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    set?: Array<GuideLanguagesWhereUniqueInput>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    disconnect?: Array<GuideLanguagesWhereUniqueInput>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    delete?: Array<GuideLanguagesWhereUniqueInput>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    connect?: Array<GuideLanguagesWhereUniqueInput>;
-    @Field(() => [GuideLanguagesUpdateWithWhereUniqueWithoutCityInput], {nullable:true})
-    @Type(() => GuideLanguagesUpdateWithWhereUniqueWithoutCityInput)
-    update?: Array<GuideLanguagesUpdateWithWhereUniqueWithoutCityInput>;
-    @Field(() => [GuideLanguagesUpdateManyWithWhereWithoutCityInput], {nullable:true})
-    @Type(() => GuideLanguagesUpdateManyWithWhereWithoutCityInput)
-    updateMany?: Array<GuideLanguagesUpdateManyWithWhereWithoutCityInput>;
-    @Field(() => [GuideLanguagesScalarWhereInput], {nullable:true})
-    @Type(() => GuideLanguagesScalarWhereInput)
-    deleteMany?: Array<GuideLanguagesScalarWhereInput>;
-}
-
-@InputType()
-export class GuideLanguagesUpdateManyWithoutLanguageInput {
-    @Field(() => [GuideLanguagesCreateWithoutLanguageInput], {nullable:true})
-    @Type(() => GuideLanguagesCreateWithoutLanguageInput)
-    create?: Array<GuideLanguagesCreateWithoutLanguageInput>;
-    @Field(() => [GuideLanguagesCreateOrConnectWithoutLanguageInput], {nullable:true})
-    @Type(() => GuideLanguagesCreateOrConnectWithoutLanguageInput)
-    connectOrCreate?: Array<GuideLanguagesCreateOrConnectWithoutLanguageInput>;
-    @Field(() => [GuideLanguagesUpsertWithWhereUniqueWithoutLanguageInput], {nullable:true})
-    @Type(() => GuideLanguagesUpsertWithWhereUniqueWithoutLanguageInput)
-    upsert?: Array<GuideLanguagesUpsertWithWhereUniqueWithoutLanguageInput>;
-    @Field(() => GuideLanguagesCreateManyLanguageInputEnvelope, {nullable:true})
-    @Type(() => GuideLanguagesCreateManyLanguageInputEnvelope)
-    createMany?: InstanceType<typeof GuideLanguagesCreateManyLanguageInputEnvelope>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    set?: Array<GuideLanguagesWhereUniqueInput>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    disconnect?: Array<GuideLanguagesWhereUniqueInput>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    delete?: Array<GuideLanguagesWhereUniqueInput>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    connect?: Array<GuideLanguagesWhereUniqueInput>;
-    @Field(() => [GuideLanguagesUpdateWithWhereUniqueWithoutLanguageInput], {nullable:true})
-    @Type(() => GuideLanguagesUpdateWithWhereUniqueWithoutLanguageInput)
-    update?: Array<GuideLanguagesUpdateWithWhereUniqueWithoutLanguageInput>;
-    @Field(() => [GuideLanguagesUpdateManyWithWhereWithoutLanguageInput], {nullable:true})
-    @Type(() => GuideLanguagesUpdateManyWithWhereWithoutLanguageInput)
-    updateMany?: Array<GuideLanguagesUpdateManyWithWhereWithoutLanguageInput>;
-    @Field(() => [GuideLanguagesScalarWhereInput], {nullable:true})
-    @Type(() => GuideLanguagesScalarWhereInput)
-    deleteMany?: Array<GuideLanguagesScalarWhereInput>;
-}
-
-@InputType()
-export class GuideLanguagesUpdateManyWithoutUserInput {
-    @Field(() => [GuideLanguagesCreateWithoutUserInput], {nullable:true})
-    @Type(() => GuideLanguagesCreateWithoutUserInput)
-    create?: Array<GuideLanguagesCreateWithoutUserInput>;
-    @Field(() => [GuideLanguagesCreateOrConnectWithoutUserInput], {nullable:true})
-    @Type(() => GuideLanguagesCreateOrConnectWithoutUserInput)
-    connectOrCreate?: Array<GuideLanguagesCreateOrConnectWithoutUserInput>;
-    @Field(() => [GuideLanguagesUpsertWithWhereUniqueWithoutUserInput], {nullable:true})
-    @Type(() => GuideLanguagesUpsertWithWhereUniqueWithoutUserInput)
-    upsert?: Array<GuideLanguagesUpsertWithWhereUniqueWithoutUserInput>;
-    @Field(() => GuideLanguagesCreateManyUserInputEnvelope, {nullable:true})
-    @Type(() => GuideLanguagesCreateManyUserInputEnvelope)
-    createMany?: InstanceType<typeof GuideLanguagesCreateManyUserInputEnvelope>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    set?: Array<GuideLanguagesWhereUniqueInput>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    disconnect?: Array<GuideLanguagesWhereUniqueInput>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    delete?: Array<GuideLanguagesWhereUniqueInput>;
-    @Field(() => [GuideLanguagesWhereUniqueInput], {nullable:true})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    connect?: Array<GuideLanguagesWhereUniqueInput>;
-    @Field(() => [GuideLanguagesUpdateWithWhereUniqueWithoutUserInput], {nullable:true})
-    @Type(() => GuideLanguagesUpdateWithWhereUniqueWithoutUserInput)
-    update?: Array<GuideLanguagesUpdateWithWhereUniqueWithoutUserInput>;
-    @Field(() => [GuideLanguagesUpdateManyWithWhereWithoutUserInput], {nullable:true})
-    @Type(() => GuideLanguagesUpdateManyWithWhereWithoutUserInput)
-    updateMany?: Array<GuideLanguagesUpdateManyWithWhereWithoutUserInput>;
-    @Field(() => [GuideLanguagesScalarWhereInput], {nullable:true})
-    @Type(() => GuideLanguagesScalarWhereInput)
-    deleteMany?: Array<GuideLanguagesScalarWhereInput>;
-}
-
-@InputType()
-export class GuideLanguagesUpdateWithWhereUniqueWithoutCityInput {
-    @Field(() => GuideLanguagesWhereUniqueInput, {nullable:false})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    where!: InstanceType<typeof GuideLanguagesWhereUniqueInput>;
-    @Field(() => GuideLanguagesUpdateWithoutCityInput, {nullable:false})
-    @Type(() => GuideLanguagesUpdateWithoutCityInput)
-    data!: InstanceType<typeof GuideLanguagesUpdateWithoutCityInput>;
-}
-
-@InputType()
-export class GuideLanguagesUpdateWithWhereUniqueWithoutLanguageInput {
-    @Field(() => GuideLanguagesWhereUniqueInput, {nullable:false})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    where!: InstanceType<typeof GuideLanguagesWhereUniqueInput>;
-    @Field(() => GuideLanguagesUpdateWithoutLanguageInput, {nullable:false})
-    @Type(() => GuideLanguagesUpdateWithoutLanguageInput)
-    data!: InstanceType<typeof GuideLanguagesUpdateWithoutLanguageInput>;
-}
-
-@InputType()
-export class GuideLanguagesUpdateWithWhereUniqueWithoutUserInput {
-    @Field(() => GuideLanguagesWhereUniqueInput, {nullable:false})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    where!: InstanceType<typeof GuideLanguagesWhereUniqueInput>;
-    @Field(() => GuideLanguagesUpdateWithoutUserInput, {nullable:false})
-    @Type(() => GuideLanguagesUpdateWithoutUserInput)
-    data!: InstanceType<typeof GuideLanguagesUpdateWithoutUserInput>;
-}
-
-@InputType()
-export class GuideLanguagesUpdateWithoutCityInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => UserUpdateOneRequiredWithoutGuideLanguagesInput, {nullable:true})
-    user?: InstanceType<typeof UserUpdateOneRequiredWithoutGuideLanguagesInput>;
-    @Field(() => LanguagesUpdateOneRequiredWithoutGuideLanguagesInput, {nullable:true})
-    language?: InstanceType<typeof LanguagesUpdateOneRequiredWithoutGuideLanguagesInput>;
-}
-
-@InputType()
-export class GuideLanguagesUpdateWithoutLanguageInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => UserUpdateOneRequiredWithoutGuideLanguagesInput, {nullable:true})
-    user?: InstanceType<typeof UserUpdateOneRequiredWithoutGuideLanguagesInput>;
-    @Field(() => CityUpdateOneWithoutGuideLanguagesInput, {nullable:true})
-    City?: InstanceType<typeof CityUpdateOneWithoutGuideLanguagesInput>;
-}
-
-@InputType()
-export class GuideLanguagesUpdateWithoutUserInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => LanguagesUpdateOneRequiredWithoutGuideLanguagesInput, {nullable:true})
-    language?: InstanceType<typeof LanguagesUpdateOneRequiredWithoutGuideLanguagesInput>;
-    @Field(() => CityUpdateOneWithoutGuideLanguagesInput, {nullable:true})
-    City?: InstanceType<typeof CityUpdateOneWithoutGuideLanguagesInput>;
-}
-
-@InputType()
-export class GuideLanguagesUpdateInput {
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => UserUpdateOneRequiredWithoutGuideLanguagesInput, {nullable:true})
-    user?: InstanceType<typeof UserUpdateOneRequiredWithoutGuideLanguagesInput>;
-    @Field(() => LanguagesUpdateOneRequiredWithoutGuideLanguagesInput, {nullable:true})
-    language?: InstanceType<typeof LanguagesUpdateOneRequiredWithoutGuideLanguagesInput>;
-    @Field(() => CityUpdateOneWithoutGuideLanguagesInput, {nullable:true})
-    City?: InstanceType<typeof CityUpdateOneWithoutGuideLanguagesInput>;
-}
-
-@InputType()
-export class GuideLanguagesUpsertWithWhereUniqueWithoutCityInput {
-    @Field(() => GuideLanguagesWhereUniqueInput, {nullable:false})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    where!: InstanceType<typeof GuideLanguagesWhereUniqueInput>;
-    @Field(() => GuideLanguagesUpdateWithoutCityInput, {nullable:false})
-    @Type(() => GuideLanguagesUpdateWithoutCityInput)
-    update!: InstanceType<typeof GuideLanguagesUpdateWithoutCityInput>;
-    @Field(() => GuideLanguagesCreateWithoutCityInput, {nullable:false})
-    @Type(() => GuideLanguagesCreateWithoutCityInput)
-    create!: InstanceType<typeof GuideLanguagesCreateWithoutCityInput>;
-}
-
-@InputType()
-export class GuideLanguagesUpsertWithWhereUniqueWithoutLanguageInput {
-    @Field(() => GuideLanguagesWhereUniqueInput, {nullable:false})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    where!: InstanceType<typeof GuideLanguagesWhereUniqueInput>;
-    @Field(() => GuideLanguagesUpdateWithoutLanguageInput, {nullable:false})
-    @Type(() => GuideLanguagesUpdateWithoutLanguageInput)
-    update!: InstanceType<typeof GuideLanguagesUpdateWithoutLanguageInput>;
-    @Field(() => GuideLanguagesCreateWithoutLanguageInput, {nullable:false})
-    @Type(() => GuideLanguagesCreateWithoutLanguageInput)
-    create!: InstanceType<typeof GuideLanguagesCreateWithoutLanguageInput>;
-}
-
-@InputType()
-export class GuideLanguagesUpsertWithWhereUniqueWithoutUserInput {
-    @Field(() => GuideLanguagesWhereUniqueInput, {nullable:false})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    where!: InstanceType<typeof GuideLanguagesWhereUniqueInput>;
-    @Field(() => GuideLanguagesUpdateWithoutUserInput, {nullable:false})
-    @Type(() => GuideLanguagesUpdateWithoutUserInput)
-    update!: InstanceType<typeof GuideLanguagesUpdateWithoutUserInput>;
-    @Field(() => GuideLanguagesCreateWithoutUserInput, {nullable:false})
-    @Type(() => GuideLanguagesCreateWithoutUserInput)
-    create!: InstanceType<typeof GuideLanguagesCreateWithoutUserInput>;
-}
-
-@InputType()
-export class GuideLanguagesUserIdLanguageIdCompoundUniqueInput {
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-    @Field(() => Int, {nullable:false})
-    languageId!: number;
-}
-
-@InputType()
-export class GuideLanguagesWhereUniqueInput {
-    @Field(() => GuideLanguagesUserIdLanguageIdCompoundUniqueInput, {nullable:true})
-    userId_languageId?: InstanceType<typeof GuideLanguagesUserIdLanguageIdCompoundUniqueInput>;
-}
-
-@InputType()
-export class GuideLanguagesWhereInput {
-    @Field(() => [GuideLanguagesWhereInput], {nullable:true})
-    AND?: Array<GuideLanguagesWhereInput>;
-    @Field(() => [GuideLanguagesWhereInput], {nullable:true})
-    OR?: Array<GuideLanguagesWhereInput>;
-    @Field(() => [GuideLanguagesWhereInput], {nullable:true})
-    NOT?: Array<GuideLanguagesWhereInput>;
-    @Field(() => EnumStatusFilter, {nullable:true})
-    status?: InstanceType<typeof EnumStatusFilter>;
-    @Field(() => UserRelationFilter, {nullable:true})
-    user?: InstanceType<typeof UserRelationFilter>;
-    @Field(() => IntFilter, {nullable:true})
-    userId?: InstanceType<typeof IntFilter>;
-    @Field(() => LanguagesRelationFilter, {nullable:true})
-    language?: InstanceType<typeof LanguagesRelationFilter>;
-    @Field(() => IntFilter, {nullable:true})
-    languageId?: InstanceType<typeof IntFilter>;
-    @Field(() => CityRelationFilter, {nullable:true})
-    City?: InstanceType<typeof CityRelationFilter>;
-    @Field(() => IntFilter, {nullable:true})
-    cityId?: InstanceType<typeof IntFilter>;
-}
-
-@ObjectType()
-export class GuideLanguages {
-    @Field(() => Status, {nullable:false,defaultValue:'ACTIVE'})
-    status!: keyof typeof Status;
-    @Field(() => User, {nullable:false})
-    user?: InstanceType<typeof User>;
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-    @Field(() => Languages, {nullable:false})
-    language?: InstanceType<typeof Languages>;
-    @Field(() => Int, {nullable:false})
-    languageId!: number;
-    @Field(() => City, {nullable:true})
-    City?: InstanceType<typeof City> | null;
-    @Field(() => Int, {nullable:true})
-    cityId!: number | null;
-}
-
-@ArgsType()
-export class UpdateManyGuideLanguagesArgs {
-    @Field(() => GuideLanguagesUpdateManyMutationInput, {nullable:false})
-    @Type(() => GuideLanguagesUpdateManyMutationInput)
-    @ValidateNested({ each: true })
-    data!: InstanceType<typeof GuideLanguagesUpdateManyMutationInput>;
-    @Field(() => GuideLanguagesWhereInput, {nullable:true})
-    @Type(() => GuideLanguagesWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof GuideLanguagesWhereInput>;
-}
-
-@ArgsType()
-export class UpdateOneGuideLanguagesArgs {
-    @Field(() => GuideLanguagesUpdateInput, {nullable:false})
-    @Type(() => GuideLanguagesUpdateInput)
-    @ValidateNested({ each: true })
-    data!: InstanceType<typeof GuideLanguagesUpdateInput>;
-    @Field(() => GuideLanguagesWhereUniqueInput, {nullable:false})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    @ValidateNested({ each: true })
-    where!: InstanceType<typeof GuideLanguagesWhereUniqueInput>;
-}
-
-@ArgsType()
-export class UpsertOneGuideLanguagesArgs {
-    @Field(() => GuideLanguagesWhereUniqueInput, {nullable:false})
-    @Type(() => GuideLanguagesWhereUniqueInput)
-    @ValidateNested({ each: true })
-    where!: InstanceType<typeof GuideLanguagesWhereUniqueInput>;
-    @Field(() => GuideLanguagesCreateInput, {nullable:false})
-    @Type(() => GuideLanguagesCreateInput)
-    create!: InstanceType<typeof GuideLanguagesCreateInput>;
-    @Field(() => GuideLanguagesUpdateInput, {nullable:false})
-    @Type(() => GuideLanguagesUpdateInput)
-    update!: InstanceType<typeof GuideLanguagesUpdateInput>;
-}
-
-@ObjectType()
 export class AggregateLanguages {
     @Field(() => LanguagesCountAggregate, {nullable:true})
     _count?: InstanceType<typeof LanguagesCountAggregate>;
@@ -6280,7 +2283,7 @@ export class LanguagesCountOrderByAggregateInput {
 @ObjectType()
 export class LanguagesCount {
     @Field(() => Int, {nullable:false})
-    GuideLanguages?: number;
+    TourLanguages?: number;
 }
 
 @InputType()
@@ -6300,30 +2303,30 @@ export class LanguagesCreateManyInput {
 }
 
 @InputType()
-export class LanguagesCreateNestedOneWithoutGuideLanguagesInput {
-    @Field(() => LanguagesCreateWithoutGuideLanguagesInput, {nullable:true})
-    @Type(() => LanguagesCreateWithoutGuideLanguagesInput)
-    create?: InstanceType<typeof LanguagesCreateWithoutGuideLanguagesInput>;
-    @Field(() => LanguagesCreateOrConnectWithoutGuideLanguagesInput, {nullable:true})
-    @Type(() => LanguagesCreateOrConnectWithoutGuideLanguagesInput)
-    connectOrCreate?: InstanceType<typeof LanguagesCreateOrConnectWithoutGuideLanguagesInput>;
+export class LanguagesCreateNestedOneWithoutTourLanguagesInput {
+    @Field(() => LanguagesCreateWithoutTourLanguagesInput, {nullable:true})
+    @Type(() => LanguagesCreateWithoutTourLanguagesInput)
+    create?: InstanceType<typeof LanguagesCreateWithoutTourLanguagesInput>;
+    @Field(() => LanguagesCreateOrConnectWithoutTourLanguagesInput, {nullable:true})
+    @Type(() => LanguagesCreateOrConnectWithoutTourLanguagesInput)
+    connectOrCreate?: InstanceType<typeof LanguagesCreateOrConnectWithoutTourLanguagesInput>;
     @Field(() => LanguagesWhereUniqueInput, {nullable:true})
     @Type(() => LanguagesWhereUniqueInput)
     connect?: InstanceType<typeof LanguagesWhereUniqueInput>;
 }
 
 @InputType()
-export class LanguagesCreateOrConnectWithoutGuideLanguagesInput {
+export class LanguagesCreateOrConnectWithoutTourLanguagesInput {
     @Field(() => LanguagesWhereUniqueInput, {nullable:false})
     @Type(() => LanguagesWhereUniqueInput)
     where!: InstanceType<typeof LanguagesWhereUniqueInput>;
-    @Field(() => LanguagesCreateWithoutGuideLanguagesInput, {nullable:false})
-    @Type(() => LanguagesCreateWithoutGuideLanguagesInput)
-    create!: InstanceType<typeof LanguagesCreateWithoutGuideLanguagesInput>;
+    @Field(() => LanguagesCreateWithoutTourLanguagesInput, {nullable:false})
+    @Type(() => LanguagesCreateWithoutTourLanguagesInput)
+    create!: InstanceType<typeof LanguagesCreateWithoutTourLanguagesInput>;
 }
 
 @InputType()
-export class LanguagesCreateWithoutGuideLanguagesInput {
+export class LanguagesCreateWithoutTourLanguagesInput {
     @Field(() => String, {nullable:false})
     @Validator.IsString()
     name!: string;
@@ -6348,8 +2351,8 @@ export class LanguagesCreateInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideLanguagesCreateNestedManyWithoutLanguageInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesCreateNestedManyWithoutLanguageInput>;
+    @Field(() => TourLanguagesCreateNestedManyWithoutLanguageInput, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesCreateNestedManyWithoutLanguageInput>;
 }
 
 @ArgsType()
@@ -6530,8 +2533,8 @@ export class LanguagesOrderByWithRelationInput {
     createdAt?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     updatedAt?: keyof typeof SortOrder;
-    @Field(() => GuideLanguagesOrderByRelationAggregateInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesOrderByRelationAggregateInput>;
+    @Field(() => TourLanguagesOrderByRelationAggregateInput, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesOrderByRelationAggregateInput>;
 }
 
 @InputType()
@@ -6581,7 +2584,7 @@ export class LanguagesSumOrderByAggregateInput {
 }
 
 @InputType()
-export class LanguagesUncheckedCreateWithoutGuideLanguagesInput {
+export class LanguagesUncheckedCreateWithoutTourLanguagesInput {
     @Field(() => Int, {nullable:true})
     id?: number;
     @Field(() => String, {nullable:false})
@@ -6610,8 +2613,8 @@ export class LanguagesUncheckedCreateInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideLanguagesUncheckedCreateNestedManyWithoutLanguageInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesUncheckedCreateNestedManyWithoutLanguageInput>;
+    @Field(() => TourLanguagesUncheckedCreateNestedManyWithoutLanguageInput, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesUncheckedCreateNestedManyWithoutLanguageInput>;
 }
 
 @InputType()
@@ -6631,7 +2634,7 @@ export class LanguagesUncheckedUpdateManyInput {
 }
 
 @InputType()
-export class LanguagesUncheckedUpdateWithoutGuideLanguagesInput {
+export class LanguagesUncheckedUpdateWithoutTourLanguagesInput {
     @Field(() => Int, {nullable:true})
     id?: number;
     @Field(() => String, {nullable:true})
@@ -6660,8 +2663,8 @@ export class LanguagesUncheckedUpdateInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideLanguagesUncheckedUpdateManyWithoutLanguageInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesUncheckedUpdateManyWithoutLanguageInput>;
+    @Field(() => TourLanguagesUncheckedUpdateManyWithoutLanguageInput, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesUncheckedUpdateManyWithoutLanguageInput>;
 }
 
 @InputType()
@@ -6679,26 +2682,26 @@ export class LanguagesUpdateManyMutationInput {
 }
 
 @InputType()
-export class LanguagesUpdateOneRequiredWithoutGuideLanguagesInput {
-    @Field(() => LanguagesCreateWithoutGuideLanguagesInput, {nullable:true})
-    @Type(() => LanguagesCreateWithoutGuideLanguagesInput)
-    create?: InstanceType<typeof LanguagesCreateWithoutGuideLanguagesInput>;
-    @Field(() => LanguagesCreateOrConnectWithoutGuideLanguagesInput, {nullable:true})
-    @Type(() => LanguagesCreateOrConnectWithoutGuideLanguagesInput)
-    connectOrCreate?: InstanceType<typeof LanguagesCreateOrConnectWithoutGuideLanguagesInput>;
-    @Field(() => LanguagesUpsertWithoutGuideLanguagesInput, {nullable:true})
-    @Type(() => LanguagesUpsertWithoutGuideLanguagesInput)
-    upsert?: InstanceType<typeof LanguagesUpsertWithoutGuideLanguagesInput>;
+export class LanguagesUpdateOneRequiredWithoutTourLanguagesInput {
+    @Field(() => LanguagesCreateWithoutTourLanguagesInput, {nullable:true})
+    @Type(() => LanguagesCreateWithoutTourLanguagesInput)
+    create?: InstanceType<typeof LanguagesCreateWithoutTourLanguagesInput>;
+    @Field(() => LanguagesCreateOrConnectWithoutTourLanguagesInput, {nullable:true})
+    @Type(() => LanguagesCreateOrConnectWithoutTourLanguagesInput)
+    connectOrCreate?: InstanceType<typeof LanguagesCreateOrConnectWithoutTourLanguagesInput>;
+    @Field(() => LanguagesUpsertWithoutTourLanguagesInput, {nullable:true})
+    @Type(() => LanguagesUpsertWithoutTourLanguagesInput)
+    upsert?: InstanceType<typeof LanguagesUpsertWithoutTourLanguagesInput>;
     @Field(() => LanguagesWhereUniqueInput, {nullable:true})
     @Type(() => LanguagesWhereUniqueInput)
     connect?: InstanceType<typeof LanguagesWhereUniqueInput>;
-    @Field(() => LanguagesUpdateWithoutGuideLanguagesInput, {nullable:true})
-    @Type(() => LanguagesUpdateWithoutGuideLanguagesInput)
-    update?: InstanceType<typeof LanguagesUpdateWithoutGuideLanguagesInput>;
+    @Field(() => LanguagesUpdateWithoutTourLanguagesInput, {nullable:true})
+    @Type(() => LanguagesUpdateWithoutTourLanguagesInput)
+    update?: InstanceType<typeof LanguagesUpdateWithoutTourLanguagesInput>;
 }
 
 @InputType()
-export class LanguagesUpdateWithoutGuideLanguagesInput {
+export class LanguagesUpdateWithoutTourLanguagesInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     name?: string;
@@ -6723,18 +2726,18 @@ export class LanguagesUpdateInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideLanguagesUpdateManyWithoutLanguageInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesUpdateManyWithoutLanguageInput>;
+    @Field(() => TourLanguagesUpdateManyWithoutLanguageInput, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesUpdateManyWithoutLanguageInput>;
 }
 
 @InputType()
-export class LanguagesUpsertWithoutGuideLanguagesInput {
-    @Field(() => LanguagesUpdateWithoutGuideLanguagesInput, {nullable:false})
-    @Type(() => LanguagesUpdateWithoutGuideLanguagesInput)
-    update!: InstanceType<typeof LanguagesUpdateWithoutGuideLanguagesInput>;
-    @Field(() => LanguagesCreateWithoutGuideLanguagesInput, {nullable:false})
-    @Type(() => LanguagesCreateWithoutGuideLanguagesInput)
-    create!: InstanceType<typeof LanguagesCreateWithoutGuideLanguagesInput>;
+export class LanguagesUpsertWithoutTourLanguagesInput {
+    @Field(() => LanguagesUpdateWithoutTourLanguagesInput, {nullable:false})
+    @Type(() => LanguagesUpdateWithoutTourLanguagesInput)
+    update!: InstanceType<typeof LanguagesUpdateWithoutTourLanguagesInput>;
+    @Field(() => LanguagesCreateWithoutTourLanguagesInput, {nullable:false})
+    @Type(() => LanguagesCreateWithoutTourLanguagesInput)
+    create!: InstanceType<typeof LanguagesCreateWithoutTourLanguagesInput>;
 }
 
 @InputType()
@@ -6761,8 +2764,8 @@ export class LanguagesWhereInput {
     createdAt?: InstanceType<typeof DateTimeFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
     updatedAt?: InstanceType<typeof DateTimeFilter>;
-    @Field(() => GuideLanguagesListRelationFilter, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesListRelationFilter>;
+    @Field(() => TourLanguagesListRelationFilter, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesListRelationFilter>;
 }
 
 @ObjectType()
@@ -6777,8 +2780,8 @@ export class Languages {
     createdAt!: Date;
     @Field(() => Date, {nullable:false})
     updatedAt!: Date;
-    @Field(() => [GuideLanguages], {nullable:true})
-    GuideLanguages?: Array<GuideLanguages>;
+    @Field(() => [TourLanguages], {nullable:true})
+    TourLanguages?: Array<TourLanguages>;
     @Field(() => LanguagesCount, {nullable:false})
     _count?: InstanceType<typeof LanguagesCount>;
 }
@@ -7122,6 +3125,4994 @@ export class StringWithAggregatesFilter {
 }
 
 @ObjectType()
+export class AggregateTour {
+    @Field(() => TourCountAggregate, {nullable:true})
+    _count?: InstanceType<typeof TourCountAggregate>;
+    @Field(() => TourAvgAggregate, {nullable:true})
+    _avg?: InstanceType<typeof TourAvgAggregate>;
+    @Field(() => TourSumAggregate, {nullable:true})
+    _sum?: InstanceType<typeof TourSumAggregate>;
+    @Field(() => TourMinAggregate, {nullable:true})
+    _min?: InstanceType<typeof TourMinAggregate>;
+    @Field(() => TourMaxAggregate, {nullable:true})
+    _max?: InstanceType<typeof TourMaxAggregate>;
+}
+
+@ArgsType()
+export class CreateManyTourArgs {
+    @Field(() => [TourCreateManyInput], {nullable:false})
+    @Type(() => TourCreateManyInput)
+    @ValidateNested({ each: true })
+    data!: Array<TourCreateManyInput>;
+    @Field(() => Boolean, {nullable:true})
+    skipDuplicates?: boolean;
+}
+
+@ArgsType()
+export class CreateOneTourArgs {
+    @Field(() => TourCreateInput, {nullable:false})
+    @Type(() => TourCreateInput)
+    @ValidateNested({ each: true })
+    data!: InstanceType<typeof TourCreateInput>;
+}
+
+@ArgsType()
+export class DeleteManyTourArgs {
+    @Field(() => TourWhereInput, {nullable:true})
+    @Type(() => TourWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourWhereInput>;
+}
+
+@ArgsType()
+export class DeleteOneTourArgs {
+    @Field(() => TourWhereUniqueInput, {nullable:false})
+    @Type(() => TourWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof TourWhereUniqueInput>;
+}
+
+@ArgsType()
+export class FindFirstTourArgs {
+    @Field(() => TourWhereInput, {nullable:true})
+    @Type(() => TourWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourWhereInput>;
+    @Field(() => [TourOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<TourOrderByWithRelationInput>;
+    @Field(() => TourWhereUniqueInput, {nullable:true})
+    cursor?: InstanceType<typeof TourWhereUniqueInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => [TourScalarFieldEnum], {nullable:true})
+    distinct?: Array<keyof typeof TourScalarFieldEnum>;
+}
+
+@ArgsType()
+export class FindManyTourArgs {
+    @Field(() => TourWhereInput, {nullable:true})
+    @Type(() => TourWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourWhereInput>;
+    @Field(() => [TourOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<TourOrderByWithRelationInput>;
+    @Field(() => TourWhereUniqueInput, {nullable:true})
+    cursor?: InstanceType<typeof TourWhereUniqueInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => [TourScalarFieldEnum], {nullable:true})
+    distinct?: Array<keyof typeof TourScalarFieldEnum>;
+}
+
+@ArgsType()
+export class FindUniqueTourArgs {
+    @Field(() => TourWhereUniqueInput, {nullable:false})
+    @Type(() => TourWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof TourWhereUniqueInput>;
+}
+
+@ArgsType()
+export class TourAggregateArgs {
+    @Field(() => TourWhereInput, {nullable:true})
+    @Type(() => TourWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourWhereInput>;
+    @Field(() => [TourOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<TourOrderByWithRelationInput>;
+    @Field(() => TourWhereUniqueInput, {nullable:true})
+    cursor?: InstanceType<typeof TourWhereUniqueInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => TourCountAggregateInput, {nullable:true})
+    _count?: InstanceType<typeof TourCountAggregateInput>;
+    @Field(() => TourAvgAggregateInput, {nullable:true})
+    _avg?: InstanceType<typeof TourAvgAggregateInput>;
+    @Field(() => TourSumAggregateInput, {nullable:true})
+    _sum?: InstanceType<typeof TourSumAggregateInput>;
+    @Field(() => TourMinAggregateInput, {nullable:true})
+    _min?: InstanceType<typeof TourMinAggregateInput>;
+    @Field(() => TourMaxAggregateInput, {nullable:true})
+    _max?: InstanceType<typeof TourMaxAggregateInput>;
+}
+
+@InputType()
+export class TourAvgAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+    @Field(() => Boolean, {nullable:true})
+    guideId?: true;
+}
+
+@ObjectType()
+export class TourAvgAggregate {
+    @Field(() => Float, {nullable:true})
+    id?: number;
+    @Field(() => Float, {nullable:true})
+    guideId?: number;
+}
+
+@InputType()
+export class TourAvgOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    guideId?: keyof typeof SortOrder;
+}
+
+@ObjectType()
+export class TourCategoryCount {
+    @Field(() => Int, {nullable:false})
+    TourTourCategory?: number;
+}
+
+@InputType()
+export class TourCountAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+    @Field(() => Boolean, {nullable:true})
+    name?: true;
+    @Field(() => Boolean, {nullable:true})
+    status?: true;
+    @Field(() => Boolean, {nullable:true})
+    guideId?: true;
+    @Field(() => Boolean, {nullable:true})
+    createdAt?: true;
+    @Field(() => Boolean, {nullable:true})
+    updatedAt?: true;
+    @Field(() => Boolean, {nullable:true})
+    _all?: true;
+}
+
+@ObjectType()
+export class TourCountAggregate {
+    @Field(() => Int, {nullable:false})
+    id!: number;
+    @Field(() => Int, {nullable:false})
+    name!: number;
+    @Field(() => Int, {nullable:false})
+    status!: number;
+    @Field(() => Int, {nullable:false})
+    guideId!: number;
+    @Field(() => Int, {nullable:false})
+    createdAt!: number;
+    @Field(() => Int, {nullable:false})
+    updatedAt!: number;
+    @Field(() => Int, {nullable:false})
+    _all!: number;
+}
+
+@InputType()
+export class TourCountOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    name?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    guideId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
+}
+
+@ObjectType()
+export class TourCount {
+    @Field(() => Int, {nullable:false})
+    TourTourCategory?: number;
+    @Field(() => Int, {nullable:false})
+    TourCity?: number;
+    @Field(() => Int, {nullable:false})
+    TourLanguages?: number;
+}
+
+@InputType()
+export class TourCreateManyGuideInputEnvelope {
+    @Field(() => [TourCreateManyGuideInput], {nullable:false})
+    @Type(() => TourCreateManyGuideInput)
+    data!: Array<TourCreateManyGuideInput>;
+    @Field(() => Boolean, {nullable:true})
+    skipDuplicates?: boolean;
+}
+
+@InputType()
+export class TourCreateManyGuideInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourCreateManyInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    guideId!: number;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourCreateNestedManyWithoutGuideInput {
+    @Field(() => [TourCreateWithoutGuideInput], {nullable:true})
+    @Type(() => TourCreateWithoutGuideInput)
+    create?: Array<TourCreateWithoutGuideInput>;
+    @Field(() => [TourCreateOrConnectWithoutGuideInput], {nullable:true})
+    @Type(() => TourCreateOrConnectWithoutGuideInput)
+    connectOrCreate?: Array<TourCreateOrConnectWithoutGuideInput>;
+    @Field(() => TourCreateManyGuideInputEnvelope, {nullable:true})
+    @Type(() => TourCreateManyGuideInputEnvelope)
+    createMany?: InstanceType<typeof TourCreateManyGuideInputEnvelope>;
+    @Field(() => [TourWhereUniqueInput], {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    connect?: Array<TourWhereUniqueInput>;
+}
+
+@InputType()
+export class TourCreateNestedOneWithoutTourCityInput {
+    @Field(() => TourCreateWithoutTourCityInput, {nullable:true})
+    @Type(() => TourCreateWithoutTourCityInput)
+    create?: InstanceType<typeof TourCreateWithoutTourCityInput>;
+    @Field(() => TourCreateOrConnectWithoutTourCityInput, {nullable:true})
+    @Type(() => TourCreateOrConnectWithoutTourCityInput)
+    connectOrCreate?: InstanceType<typeof TourCreateOrConnectWithoutTourCityInput>;
+    @Field(() => TourWhereUniqueInput, {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    connect?: InstanceType<typeof TourWhereUniqueInput>;
+}
+
+@InputType()
+export class TourCreateNestedOneWithoutTourLanguagesInput {
+    @Field(() => TourCreateWithoutTourLanguagesInput, {nullable:true})
+    @Type(() => TourCreateWithoutTourLanguagesInput)
+    create?: InstanceType<typeof TourCreateWithoutTourLanguagesInput>;
+    @Field(() => TourCreateOrConnectWithoutTourLanguagesInput, {nullable:true})
+    @Type(() => TourCreateOrConnectWithoutTourLanguagesInput)
+    connectOrCreate?: InstanceType<typeof TourCreateOrConnectWithoutTourLanguagesInput>;
+    @Field(() => TourWhereUniqueInput, {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    connect?: InstanceType<typeof TourWhereUniqueInput>;
+}
+
+@InputType()
+export class TourCreateNestedOneWithoutTourTourCategoryInput {
+    @Field(() => TourCreateWithoutTourTourCategoryInput, {nullable:true})
+    @Type(() => TourCreateWithoutTourTourCategoryInput)
+    create?: InstanceType<typeof TourCreateWithoutTourTourCategoryInput>;
+    @Field(() => TourCreateOrConnectWithoutTourTourCategoryInput, {nullable:true})
+    @Type(() => TourCreateOrConnectWithoutTourTourCategoryInput)
+    connectOrCreate?: InstanceType<typeof TourCreateOrConnectWithoutTourTourCategoryInput>;
+    @Field(() => TourWhereUniqueInput, {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    connect?: InstanceType<typeof TourWhereUniqueInput>;
+}
+
+@InputType()
+export class TourCreateOrConnectWithoutGuideInput {
+    @Field(() => TourWhereUniqueInput, {nullable:false})
+    @Type(() => TourWhereUniqueInput)
+    where!: InstanceType<typeof TourWhereUniqueInput>;
+    @Field(() => TourCreateWithoutGuideInput, {nullable:false})
+    @Type(() => TourCreateWithoutGuideInput)
+    create!: InstanceType<typeof TourCreateWithoutGuideInput>;
+}
+
+@InputType()
+export class TourCreateOrConnectWithoutTourCityInput {
+    @Field(() => TourWhereUniqueInput, {nullable:false})
+    @Type(() => TourWhereUniqueInput)
+    where!: InstanceType<typeof TourWhereUniqueInput>;
+    @Field(() => TourCreateWithoutTourCityInput, {nullable:false})
+    @Type(() => TourCreateWithoutTourCityInput)
+    create!: InstanceType<typeof TourCreateWithoutTourCityInput>;
+}
+
+@InputType()
+export class TourCreateOrConnectWithoutTourLanguagesInput {
+    @Field(() => TourWhereUniqueInput, {nullable:false})
+    @Type(() => TourWhereUniqueInput)
+    where!: InstanceType<typeof TourWhereUniqueInput>;
+    @Field(() => TourCreateWithoutTourLanguagesInput, {nullable:false})
+    @Type(() => TourCreateWithoutTourLanguagesInput)
+    create!: InstanceType<typeof TourCreateWithoutTourLanguagesInput>;
+}
+
+@InputType()
+export class TourCreateOrConnectWithoutTourTourCategoryInput {
+    @Field(() => TourWhereUniqueInput, {nullable:false})
+    @Type(() => TourWhereUniqueInput)
+    where!: InstanceType<typeof TourWhereUniqueInput>;
+    @Field(() => TourCreateWithoutTourTourCategoryInput, {nullable:false})
+    @Type(() => TourCreateWithoutTourTourCategoryInput)
+    create!: InstanceType<typeof TourCreateWithoutTourTourCategoryInput>;
+}
+
+@InputType()
+export class TourCreateWithoutGuideInput {
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => TourTourCategoryCreateNestedManyWithoutTourInput, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryCreateNestedManyWithoutTourInput>;
+    @Field(() => TourCityCreateNestedManyWithoutTourInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityCreateNestedManyWithoutTourInput>;
+    @Field(() => TourLanguagesCreateNestedManyWithoutTourInput, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesCreateNestedManyWithoutTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourCreateWithoutTourCityInput {
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => UserCreateNestedOneWithoutTourInput, {nullable:false})
+    guide!: InstanceType<typeof UserCreateNestedOneWithoutTourInput>;
+    @Field(() => TourTourCategoryCreateNestedManyWithoutTourInput, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryCreateNestedManyWithoutTourInput>;
+    @Field(() => TourLanguagesCreateNestedManyWithoutTourInput, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesCreateNestedManyWithoutTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourCreateWithoutTourLanguagesInput {
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => UserCreateNestedOneWithoutTourInput, {nullable:false})
+    guide!: InstanceType<typeof UserCreateNestedOneWithoutTourInput>;
+    @Field(() => TourTourCategoryCreateNestedManyWithoutTourInput, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryCreateNestedManyWithoutTourInput>;
+    @Field(() => TourCityCreateNestedManyWithoutTourInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityCreateNestedManyWithoutTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourCreateWithoutTourTourCategoryInput {
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => UserCreateNestedOneWithoutTourInput, {nullable:false})
+    guide!: InstanceType<typeof UserCreateNestedOneWithoutTourInput>;
+    @Field(() => TourCityCreateNestedManyWithoutTourInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityCreateNestedManyWithoutTourInput>;
+    @Field(() => TourLanguagesCreateNestedManyWithoutTourInput, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesCreateNestedManyWithoutTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourCreateInput {
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => UserCreateNestedOneWithoutTourInput, {nullable:false})
+    guide!: InstanceType<typeof UserCreateNestedOneWithoutTourInput>;
+    @Field(() => TourTourCategoryCreateNestedManyWithoutTourInput, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryCreateNestedManyWithoutTourInput>;
+    @Field(() => TourCityCreateNestedManyWithoutTourInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityCreateNestedManyWithoutTourInput>;
+    @Field(() => TourLanguagesCreateNestedManyWithoutTourInput, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesCreateNestedManyWithoutTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@ArgsType()
+export class TourGroupByArgs {
+    @Field(() => TourWhereInput, {nullable:true})
+    @Type(() => TourWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourWhereInput>;
+    @Field(() => [TourOrderByWithAggregationInput], {nullable:true})
+    orderBy?: Array<TourOrderByWithAggregationInput>;
+    @Field(() => [TourScalarFieldEnum], {nullable:false})
+    by!: Array<keyof typeof TourScalarFieldEnum>;
+    @Field(() => TourScalarWhereWithAggregatesInput, {nullable:true})
+    having?: InstanceType<typeof TourScalarWhereWithAggregatesInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => TourCountAggregateInput, {nullable:true})
+    _count?: InstanceType<typeof TourCountAggregateInput>;
+    @Field(() => TourAvgAggregateInput, {nullable:true})
+    _avg?: InstanceType<typeof TourAvgAggregateInput>;
+    @Field(() => TourSumAggregateInput, {nullable:true})
+    _sum?: InstanceType<typeof TourSumAggregateInput>;
+    @Field(() => TourMinAggregateInput, {nullable:true})
+    _min?: InstanceType<typeof TourMinAggregateInput>;
+    @Field(() => TourMaxAggregateInput, {nullable:true})
+    _max?: InstanceType<typeof TourMaxAggregateInput>;
+}
+
+@ObjectType()
+export class TourGroupBy {
+    @Field(() => Int, {nullable:false})
+    id!: number;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:false})
+    @Validator.IsString()
+    status!: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    guideId!: number;
+    @Field(() => Date, {nullable:false})
+    createdAt!: Date | string;
+    @Field(() => Date, {nullable:false})
+    updatedAt!: Date | string;
+    @Field(() => TourCountAggregate, {nullable:true})
+    _count?: InstanceType<typeof TourCountAggregate>;
+    @Field(() => TourAvgAggregate, {nullable:true})
+    _avg?: InstanceType<typeof TourAvgAggregate>;
+    @Field(() => TourSumAggregate, {nullable:true})
+    _sum?: InstanceType<typeof TourSumAggregate>;
+    @Field(() => TourMinAggregate, {nullable:true})
+    _min?: InstanceType<typeof TourMinAggregate>;
+    @Field(() => TourMaxAggregate, {nullable:true})
+    _max?: InstanceType<typeof TourMaxAggregate>;
+}
+
+@InputType()
+export class TourListRelationFilter {
+    @Field(() => TourWhereInput, {nullable:true})
+    every?: InstanceType<typeof TourWhereInput>;
+    @Field(() => TourWhereInput, {nullable:true})
+    some?: InstanceType<typeof TourWhereInput>;
+    @Field(() => TourWhereInput, {nullable:true})
+    none?: InstanceType<typeof TourWhereInput>;
+}
+
+@InputType()
+export class TourMaxAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+    @Field(() => Boolean, {nullable:true})
+    name?: true;
+    @Field(() => Boolean, {nullable:true})
+    status?: true;
+    @Field(() => Boolean, {nullable:true})
+    guideId?: true;
+    @Field(() => Boolean, {nullable:true})
+    createdAt?: true;
+    @Field(() => Boolean, {nullable:true})
+    updatedAt?: true;
+}
+
+@ObjectType()
+export class TourMaxAggregate {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    guideId?: number;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourMaxOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    name?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    guideId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourMinAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+    @Field(() => Boolean, {nullable:true})
+    name?: true;
+    @Field(() => Boolean, {nullable:true})
+    status?: true;
+    @Field(() => Boolean, {nullable:true})
+    guideId?: true;
+    @Field(() => Boolean, {nullable:true})
+    createdAt?: true;
+    @Field(() => Boolean, {nullable:true})
+    updatedAt?: true;
+}
+
+@ObjectType()
+export class TourMinAggregate {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    guideId?: number;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourMinOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    name?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    guideId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourOrderByRelationAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    _count?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourOrderByWithAggregationInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    name?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    guideId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
+    @Field(() => TourCountOrderByAggregateInput, {nullable:true})
+    _count?: InstanceType<typeof TourCountOrderByAggregateInput>;
+    @Field(() => TourAvgOrderByAggregateInput, {nullable:true})
+    _avg?: InstanceType<typeof TourAvgOrderByAggregateInput>;
+    @Field(() => TourMaxOrderByAggregateInput, {nullable:true})
+    _max?: InstanceType<typeof TourMaxOrderByAggregateInput>;
+    @Field(() => TourMinOrderByAggregateInput, {nullable:true})
+    _min?: InstanceType<typeof TourMinOrderByAggregateInput>;
+    @Field(() => TourSumOrderByAggregateInput, {nullable:true})
+    _sum?: InstanceType<typeof TourSumOrderByAggregateInput>;
+}
+
+@InputType()
+export class TourOrderByWithRelationInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    name?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => UserOrderByWithRelationInput, {nullable:true})
+    guide?: InstanceType<typeof UserOrderByWithRelationInput>;
+    @Field(() => SortOrder, {nullable:true})
+    guideId?: keyof typeof SortOrder;
+    @Field(() => TourTourCategoryOrderByRelationAggregateInput, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryOrderByRelationAggregateInput>;
+    @Field(() => TourCityOrderByRelationAggregateInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityOrderByRelationAggregateInput>;
+    @Field(() => TourLanguagesOrderByRelationAggregateInput, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesOrderByRelationAggregateInput>;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourRelationFilter {
+    @Field(() => TourWhereInput, {nullable:true})
+    is?: InstanceType<typeof TourWhereInput>;
+    @Field(() => TourWhereInput, {nullable:true})
+    isNot?: InstanceType<typeof TourWhereInput>;
+}
+
+@InputType()
+export class TourScalarWhereWithAggregatesInput {
+    @Field(() => [TourScalarWhereWithAggregatesInput], {nullable:true})
+    AND?: Array<TourScalarWhereWithAggregatesInput>;
+    @Field(() => [TourScalarWhereWithAggregatesInput], {nullable:true})
+    OR?: Array<TourScalarWhereWithAggregatesInput>;
+    @Field(() => [TourScalarWhereWithAggregatesInput], {nullable:true})
+    NOT?: Array<TourScalarWhereWithAggregatesInput>;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    id?: InstanceType<typeof IntWithAggregatesFilter>;
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    name?: InstanceType<typeof StringWithAggregatesFilter>;
+    @Field(() => EnumStatusWithAggregatesFilter, {nullable:true})
+    status?: InstanceType<typeof EnumStatusWithAggregatesFilter>;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    guideId?: InstanceType<typeof IntWithAggregatesFilter>;
+    @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
+    createdAt?: InstanceType<typeof DateTimeWithAggregatesFilter>;
+    @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
+    updatedAt?: InstanceType<typeof DateTimeWithAggregatesFilter>;
+}
+
+@InputType()
+export class TourScalarWhereInput {
+    @Field(() => [TourScalarWhereInput], {nullable:true})
+    AND?: Array<TourScalarWhereInput>;
+    @Field(() => [TourScalarWhereInput], {nullable:true})
+    OR?: Array<TourScalarWhereInput>;
+    @Field(() => [TourScalarWhereInput], {nullable:true})
+    NOT?: Array<TourScalarWhereInput>;
+    @Field(() => IntFilter, {nullable:true})
+    id?: InstanceType<typeof IntFilter>;
+    @Field(() => StringFilter, {nullable:true})
+    name?: InstanceType<typeof StringFilter>;
+    @Field(() => EnumStatusFilter, {nullable:true})
+    status?: InstanceType<typeof EnumStatusFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    guideId?: InstanceType<typeof IntFilter>;
+    @Field(() => DateTimeFilter, {nullable:true})
+    createdAt?: InstanceType<typeof DateTimeFilter>;
+    @Field(() => DateTimeFilter, {nullable:true})
+    updatedAt?: InstanceType<typeof DateTimeFilter>;
+}
+
+@InputType()
+export class TourSumAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+    @Field(() => Boolean, {nullable:true})
+    guideId?: true;
+}
+
+@ObjectType()
+export class TourSumAggregate {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Int, {nullable:true})
+    guideId?: number;
+}
+
+@InputType()
+export class TourSumOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    guideId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourUncheckedCreateNestedManyWithoutGuideInput {
+    @Field(() => [TourCreateWithoutGuideInput], {nullable:true})
+    @Type(() => TourCreateWithoutGuideInput)
+    create?: Array<TourCreateWithoutGuideInput>;
+    @Field(() => [TourCreateOrConnectWithoutGuideInput], {nullable:true})
+    @Type(() => TourCreateOrConnectWithoutGuideInput)
+    connectOrCreate?: Array<TourCreateOrConnectWithoutGuideInput>;
+    @Field(() => TourCreateManyGuideInputEnvelope, {nullable:true})
+    @Type(() => TourCreateManyGuideInputEnvelope)
+    createMany?: InstanceType<typeof TourCreateManyGuideInputEnvelope>;
+    @Field(() => [TourWhereUniqueInput], {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    connect?: Array<TourWhereUniqueInput>;
+}
+
+@InputType()
+export class TourUncheckedCreateWithoutGuideInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => TourTourCategoryUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryUncheckedCreateNestedManyWithoutTourInput>;
+    @Field(() => TourCityUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityUncheckedCreateNestedManyWithoutTourInput>;
+    @Field(() => TourLanguagesUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesUncheckedCreateNestedManyWithoutTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourUncheckedCreateWithoutTourCityInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    guideId!: number;
+    @Field(() => TourTourCategoryUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryUncheckedCreateNestedManyWithoutTourInput>;
+    @Field(() => TourLanguagesUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesUncheckedCreateNestedManyWithoutTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourUncheckedCreateWithoutTourLanguagesInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    guideId!: number;
+    @Field(() => TourTourCategoryUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryUncheckedCreateNestedManyWithoutTourInput>;
+    @Field(() => TourCityUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityUncheckedCreateNestedManyWithoutTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourUncheckedCreateWithoutTourTourCategoryInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    guideId!: number;
+    @Field(() => TourCityUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityUncheckedCreateNestedManyWithoutTourInput>;
+    @Field(() => TourLanguagesUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesUncheckedCreateNestedManyWithoutTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourUncheckedCreateInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    guideId!: number;
+    @Field(() => TourTourCategoryUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryUncheckedCreateNestedManyWithoutTourInput>;
+    @Field(() => TourCityUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityUncheckedCreateNestedManyWithoutTourInput>;
+    @Field(() => TourLanguagesUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesUncheckedCreateNestedManyWithoutTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourUncheckedUpdateManyWithoutGuideInput {
+    @Field(() => [TourCreateWithoutGuideInput], {nullable:true})
+    @Type(() => TourCreateWithoutGuideInput)
+    create?: Array<TourCreateWithoutGuideInput>;
+    @Field(() => [TourCreateOrConnectWithoutGuideInput], {nullable:true})
+    @Type(() => TourCreateOrConnectWithoutGuideInput)
+    connectOrCreate?: Array<TourCreateOrConnectWithoutGuideInput>;
+    @Field(() => [TourUpsertWithWhereUniqueWithoutGuideInput], {nullable:true})
+    @Type(() => TourUpsertWithWhereUniqueWithoutGuideInput)
+    upsert?: Array<TourUpsertWithWhereUniqueWithoutGuideInput>;
+    @Field(() => TourCreateManyGuideInputEnvelope, {nullable:true})
+    @Type(() => TourCreateManyGuideInputEnvelope)
+    createMany?: InstanceType<typeof TourCreateManyGuideInputEnvelope>;
+    @Field(() => [TourWhereUniqueInput], {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    set?: Array<TourWhereUniqueInput>;
+    @Field(() => [TourWhereUniqueInput], {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    disconnect?: Array<TourWhereUniqueInput>;
+    @Field(() => [TourWhereUniqueInput], {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    delete?: Array<TourWhereUniqueInput>;
+    @Field(() => [TourWhereUniqueInput], {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    connect?: Array<TourWhereUniqueInput>;
+    @Field(() => [TourUpdateWithWhereUniqueWithoutGuideInput], {nullable:true})
+    @Type(() => TourUpdateWithWhereUniqueWithoutGuideInput)
+    update?: Array<TourUpdateWithWhereUniqueWithoutGuideInput>;
+    @Field(() => [TourUpdateManyWithWhereWithoutGuideInput], {nullable:true})
+    @Type(() => TourUpdateManyWithWhereWithoutGuideInput)
+    updateMany?: Array<TourUpdateManyWithWhereWithoutGuideInput>;
+    @Field(() => [TourScalarWhereInput], {nullable:true})
+    @Type(() => TourScalarWhereInput)
+    deleteMany?: Array<TourScalarWhereInput>;
+}
+
+@InputType()
+export class TourUncheckedUpdateManyWithoutTourInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourUncheckedUpdateManyInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    guideId?: number;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourUncheckedUpdateWithoutGuideInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => TourTourCategoryUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryUncheckedUpdateManyWithoutTourInput>;
+    @Field(() => TourCityUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityUncheckedUpdateManyWithoutTourInput>;
+    @Field(() => TourLanguagesUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesUncheckedUpdateManyWithoutTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourUncheckedUpdateWithoutTourCityInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    guideId?: number;
+    @Field(() => TourTourCategoryUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryUncheckedUpdateManyWithoutTourInput>;
+    @Field(() => TourLanguagesUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesUncheckedUpdateManyWithoutTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourUncheckedUpdateWithoutTourLanguagesInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    guideId?: number;
+    @Field(() => TourTourCategoryUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryUncheckedUpdateManyWithoutTourInput>;
+    @Field(() => TourCityUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityUncheckedUpdateManyWithoutTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourUncheckedUpdateWithoutTourTourCategoryInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    guideId?: number;
+    @Field(() => TourCityUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityUncheckedUpdateManyWithoutTourInput>;
+    @Field(() => TourLanguagesUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesUncheckedUpdateManyWithoutTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourUncheckedUpdateInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    guideId?: number;
+    @Field(() => TourTourCategoryUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryUncheckedUpdateManyWithoutTourInput>;
+    @Field(() => TourCityUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityUncheckedUpdateManyWithoutTourInput>;
+    @Field(() => TourLanguagesUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesUncheckedUpdateManyWithoutTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourUpdateManyMutationInput {
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourUpdateManyWithWhereWithoutGuideInput {
+    @Field(() => TourScalarWhereInput, {nullable:false})
+    @Type(() => TourScalarWhereInput)
+    where!: InstanceType<typeof TourScalarWhereInput>;
+    @Field(() => TourUpdateManyMutationInput, {nullable:false})
+    @Type(() => TourUpdateManyMutationInput)
+    data!: InstanceType<typeof TourUpdateManyMutationInput>;
+}
+
+@InputType()
+export class TourUpdateManyWithoutGuideInput {
+    @Field(() => [TourCreateWithoutGuideInput], {nullable:true})
+    @Type(() => TourCreateWithoutGuideInput)
+    create?: Array<TourCreateWithoutGuideInput>;
+    @Field(() => [TourCreateOrConnectWithoutGuideInput], {nullable:true})
+    @Type(() => TourCreateOrConnectWithoutGuideInput)
+    connectOrCreate?: Array<TourCreateOrConnectWithoutGuideInput>;
+    @Field(() => [TourUpsertWithWhereUniqueWithoutGuideInput], {nullable:true})
+    @Type(() => TourUpsertWithWhereUniqueWithoutGuideInput)
+    upsert?: Array<TourUpsertWithWhereUniqueWithoutGuideInput>;
+    @Field(() => TourCreateManyGuideInputEnvelope, {nullable:true})
+    @Type(() => TourCreateManyGuideInputEnvelope)
+    createMany?: InstanceType<typeof TourCreateManyGuideInputEnvelope>;
+    @Field(() => [TourWhereUniqueInput], {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    set?: Array<TourWhereUniqueInput>;
+    @Field(() => [TourWhereUniqueInput], {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    disconnect?: Array<TourWhereUniqueInput>;
+    @Field(() => [TourWhereUniqueInput], {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    delete?: Array<TourWhereUniqueInput>;
+    @Field(() => [TourWhereUniqueInput], {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    connect?: Array<TourWhereUniqueInput>;
+    @Field(() => [TourUpdateWithWhereUniqueWithoutGuideInput], {nullable:true})
+    @Type(() => TourUpdateWithWhereUniqueWithoutGuideInput)
+    update?: Array<TourUpdateWithWhereUniqueWithoutGuideInput>;
+    @Field(() => [TourUpdateManyWithWhereWithoutGuideInput], {nullable:true})
+    @Type(() => TourUpdateManyWithWhereWithoutGuideInput)
+    updateMany?: Array<TourUpdateManyWithWhereWithoutGuideInput>;
+    @Field(() => [TourScalarWhereInput], {nullable:true})
+    @Type(() => TourScalarWhereInput)
+    deleteMany?: Array<TourScalarWhereInput>;
+}
+
+@InputType()
+export class TourUpdateOneWithoutTourCityInput {
+    @Field(() => TourCreateWithoutTourCityInput, {nullable:true})
+    @Type(() => TourCreateWithoutTourCityInput)
+    create?: InstanceType<typeof TourCreateWithoutTourCityInput>;
+    @Field(() => TourCreateOrConnectWithoutTourCityInput, {nullable:true})
+    @Type(() => TourCreateOrConnectWithoutTourCityInput)
+    connectOrCreate?: InstanceType<typeof TourCreateOrConnectWithoutTourCityInput>;
+    @Field(() => TourUpsertWithoutTourCityInput, {nullable:true})
+    @Type(() => TourUpsertWithoutTourCityInput)
+    upsert?: InstanceType<typeof TourUpsertWithoutTourCityInput>;
+    @Field(() => Boolean, {nullable:true})
+    disconnect?: boolean;
+    @Field(() => Boolean, {nullable:true})
+    delete?: boolean;
+    @Field(() => TourWhereUniqueInput, {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    connect?: InstanceType<typeof TourWhereUniqueInput>;
+    @Field(() => TourUpdateWithoutTourCityInput, {nullable:true})
+    @Type(() => TourUpdateWithoutTourCityInput)
+    update?: InstanceType<typeof TourUpdateWithoutTourCityInput>;
+}
+
+@InputType()
+export class TourUpdateOneWithoutTourLanguagesInput {
+    @Field(() => TourCreateWithoutTourLanguagesInput, {nullable:true})
+    @Type(() => TourCreateWithoutTourLanguagesInput)
+    create?: InstanceType<typeof TourCreateWithoutTourLanguagesInput>;
+    @Field(() => TourCreateOrConnectWithoutTourLanguagesInput, {nullable:true})
+    @Type(() => TourCreateOrConnectWithoutTourLanguagesInput)
+    connectOrCreate?: InstanceType<typeof TourCreateOrConnectWithoutTourLanguagesInput>;
+    @Field(() => TourUpsertWithoutTourLanguagesInput, {nullable:true})
+    @Type(() => TourUpsertWithoutTourLanguagesInput)
+    upsert?: InstanceType<typeof TourUpsertWithoutTourLanguagesInput>;
+    @Field(() => Boolean, {nullable:true})
+    disconnect?: boolean;
+    @Field(() => Boolean, {nullable:true})
+    delete?: boolean;
+    @Field(() => TourWhereUniqueInput, {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    connect?: InstanceType<typeof TourWhereUniqueInput>;
+    @Field(() => TourUpdateWithoutTourLanguagesInput, {nullable:true})
+    @Type(() => TourUpdateWithoutTourLanguagesInput)
+    update?: InstanceType<typeof TourUpdateWithoutTourLanguagesInput>;
+}
+
+@InputType()
+export class TourUpdateOneWithoutTourTourCategoryInput {
+    @Field(() => TourCreateWithoutTourTourCategoryInput, {nullable:true})
+    @Type(() => TourCreateWithoutTourTourCategoryInput)
+    create?: InstanceType<typeof TourCreateWithoutTourTourCategoryInput>;
+    @Field(() => TourCreateOrConnectWithoutTourTourCategoryInput, {nullable:true})
+    @Type(() => TourCreateOrConnectWithoutTourTourCategoryInput)
+    connectOrCreate?: InstanceType<typeof TourCreateOrConnectWithoutTourTourCategoryInput>;
+    @Field(() => TourUpsertWithoutTourTourCategoryInput, {nullable:true})
+    @Type(() => TourUpsertWithoutTourTourCategoryInput)
+    upsert?: InstanceType<typeof TourUpsertWithoutTourTourCategoryInput>;
+    @Field(() => Boolean, {nullable:true})
+    disconnect?: boolean;
+    @Field(() => Boolean, {nullable:true})
+    delete?: boolean;
+    @Field(() => TourWhereUniqueInput, {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    connect?: InstanceType<typeof TourWhereUniqueInput>;
+    @Field(() => TourUpdateWithoutTourTourCategoryInput, {nullable:true})
+    @Type(() => TourUpdateWithoutTourTourCategoryInput)
+    update?: InstanceType<typeof TourUpdateWithoutTourTourCategoryInput>;
+}
+
+@InputType()
+export class TourUpdateWithWhereUniqueWithoutGuideInput {
+    @Field(() => TourWhereUniqueInput, {nullable:false})
+    @Type(() => TourWhereUniqueInput)
+    where!: InstanceType<typeof TourWhereUniqueInput>;
+    @Field(() => TourUpdateWithoutGuideInput, {nullable:false})
+    @Type(() => TourUpdateWithoutGuideInput)
+    data!: InstanceType<typeof TourUpdateWithoutGuideInput>;
+}
+
+@InputType()
+export class TourUpdateWithoutGuideInput {
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => TourTourCategoryUpdateManyWithoutTourInput, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryUpdateManyWithoutTourInput>;
+    @Field(() => TourCityUpdateManyWithoutTourInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityUpdateManyWithoutTourInput>;
+    @Field(() => TourLanguagesUpdateManyWithoutTourInput, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesUpdateManyWithoutTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourUpdateWithoutTourCityInput {
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => UserUpdateOneRequiredWithoutTourInput, {nullable:true})
+    guide?: InstanceType<typeof UserUpdateOneRequiredWithoutTourInput>;
+    @Field(() => TourTourCategoryUpdateManyWithoutTourInput, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryUpdateManyWithoutTourInput>;
+    @Field(() => TourLanguagesUpdateManyWithoutTourInput, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesUpdateManyWithoutTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourUpdateWithoutTourLanguagesInput {
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => UserUpdateOneRequiredWithoutTourInput, {nullable:true})
+    guide?: InstanceType<typeof UserUpdateOneRequiredWithoutTourInput>;
+    @Field(() => TourTourCategoryUpdateManyWithoutTourInput, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryUpdateManyWithoutTourInput>;
+    @Field(() => TourCityUpdateManyWithoutTourInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityUpdateManyWithoutTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourUpdateWithoutTourTourCategoryInput {
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => UserUpdateOneRequiredWithoutTourInput, {nullable:true})
+    guide?: InstanceType<typeof UserUpdateOneRequiredWithoutTourInput>;
+    @Field(() => TourCityUpdateManyWithoutTourInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityUpdateManyWithoutTourInput>;
+    @Field(() => TourLanguagesUpdateManyWithoutTourInput, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesUpdateManyWithoutTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourUpdateInput {
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => UserUpdateOneRequiredWithoutTourInput, {nullable:true})
+    guide?: InstanceType<typeof UserUpdateOneRequiredWithoutTourInput>;
+    @Field(() => TourTourCategoryUpdateManyWithoutTourInput, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryUpdateManyWithoutTourInput>;
+    @Field(() => TourCityUpdateManyWithoutTourInput, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityUpdateManyWithoutTourInput>;
+    @Field(() => TourLanguagesUpdateManyWithoutTourInput, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesUpdateManyWithoutTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourUpsertWithWhereUniqueWithoutGuideInput {
+    @Field(() => TourWhereUniqueInput, {nullable:false})
+    @Type(() => TourWhereUniqueInput)
+    where!: InstanceType<typeof TourWhereUniqueInput>;
+    @Field(() => TourUpdateWithoutGuideInput, {nullable:false})
+    @Type(() => TourUpdateWithoutGuideInput)
+    update!: InstanceType<typeof TourUpdateWithoutGuideInput>;
+    @Field(() => TourCreateWithoutGuideInput, {nullable:false})
+    @Type(() => TourCreateWithoutGuideInput)
+    create!: InstanceType<typeof TourCreateWithoutGuideInput>;
+}
+
+@InputType()
+export class TourUpsertWithoutTourCityInput {
+    @Field(() => TourUpdateWithoutTourCityInput, {nullable:false})
+    @Type(() => TourUpdateWithoutTourCityInput)
+    update!: InstanceType<typeof TourUpdateWithoutTourCityInput>;
+    @Field(() => TourCreateWithoutTourCityInput, {nullable:false})
+    @Type(() => TourCreateWithoutTourCityInput)
+    create!: InstanceType<typeof TourCreateWithoutTourCityInput>;
+}
+
+@InputType()
+export class TourUpsertWithoutTourLanguagesInput {
+    @Field(() => TourUpdateWithoutTourLanguagesInput, {nullable:false})
+    @Type(() => TourUpdateWithoutTourLanguagesInput)
+    update!: InstanceType<typeof TourUpdateWithoutTourLanguagesInput>;
+    @Field(() => TourCreateWithoutTourLanguagesInput, {nullable:false})
+    @Type(() => TourCreateWithoutTourLanguagesInput)
+    create!: InstanceType<typeof TourCreateWithoutTourLanguagesInput>;
+}
+
+@InputType()
+export class TourUpsertWithoutTourTourCategoryInput {
+    @Field(() => TourUpdateWithoutTourTourCategoryInput, {nullable:false})
+    @Type(() => TourUpdateWithoutTourTourCategoryInput)
+    update!: InstanceType<typeof TourUpdateWithoutTourTourCategoryInput>;
+    @Field(() => TourCreateWithoutTourTourCategoryInput, {nullable:false})
+    @Type(() => TourCreateWithoutTourTourCategoryInput)
+    create!: InstanceType<typeof TourCreateWithoutTourTourCategoryInput>;
+}
+
+@InputType()
+export class TourWhereUniqueInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+}
+
+@InputType()
+export class TourWhereInput {
+    @Field(() => [TourWhereInput], {nullable:true})
+    AND?: Array<TourWhereInput>;
+    @Field(() => [TourWhereInput], {nullable:true})
+    OR?: Array<TourWhereInput>;
+    @Field(() => [TourWhereInput], {nullable:true})
+    NOT?: Array<TourWhereInput>;
+    @Field(() => IntFilter, {nullable:true})
+    id?: InstanceType<typeof IntFilter>;
+    @Field(() => StringFilter, {nullable:true})
+    name?: InstanceType<typeof StringFilter>;
+    @Field(() => EnumStatusFilter, {nullable:true})
+    status?: InstanceType<typeof EnumStatusFilter>;
+    @Field(() => UserRelationFilter, {nullable:true})
+    guide?: InstanceType<typeof UserRelationFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    guideId?: InstanceType<typeof IntFilter>;
+    @Field(() => TourTourCategoryListRelationFilter, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryListRelationFilter>;
+    @Field(() => TourCityListRelationFilter, {nullable:true})
+    TourCity?: InstanceType<typeof TourCityListRelationFilter>;
+    @Field(() => TourLanguagesListRelationFilter, {nullable:true})
+    TourLanguages?: InstanceType<typeof TourLanguagesListRelationFilter>;
+    @Field(() => DateTimeFilter, {nullable:true})
+    createdAt?: InstanceType<typeof DateTimeFilter>;
+    @Field(() => DateTimeFilter, {nullable:true})
+    updatedAt?: InstanceType<typeof DateTimeFilter>;
+}
+
+@ObjectType()
+export class Tour {
+    @Field(() => ID, {nullable:false})
+    id!: number;
+    @Field(() => String, {nullable:false})
+    name!: string;
+    @Field(() => Status, {nullable:false,defaultValue:'ACTIVE'})
+    status!: keyof typeof Status;
+    @Field(() => User, {nullable:false})
+    guide?: InstanceType<typeof User>;
+    @Field(() => Int, {nullable:false})
+    guideId!: number;
+    @Field(() => [TourTourCategory], {nullable:true})
+    TourTourCategory?: Array<TourTourCategory>;
+    @Field(() => [TourCity], {nullable:true})
+    TourCity?: Array<TourCity>;
+    @Field(() => [TourLanguages], {nullable:true})
+    TourLanguages?: Array<TourLanguages>;
+    @Field(() => Date, {nullable:false})
+    createdAt!: Date;
+    @Field(() => Date, {nullable:false})
+    updatedAt!: Date;
+    @Field(() => TourCount, {nullable:false})
+    _count?: InstanceType<typeof TourCount>;
+}
+
+@ArgsType()
+export class UpdateManyTourArgs {
+    @Field(() => TourUpdateManyMutationInput, {nullable:false})
+    @Type(() => TourUpdateManyMutationInput)
+    @ValidateNested({ each: true })
+    data!: InstanceType<typeof TourUpdateManyMutationInput>;
+    @Field(() => TourWhereInput, {nullable:true})
+    @Type(() => TourWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourWhereInput>;
+}
+
+@ArgsType()
+export class UpdateOneTourArgs {
+    @Field(() => TourUpdateInput, {nullable:false})
+    @Type(() => TourUpdateInput)
+    @ValidateNested({ each: true })
+    data!: InstanceType<typeof TourUpdateInput>;
+    @Field(() => TourWhereUniqueInput, {nullable:false})
+    @Type(() => TourWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof TourWhereUniqueInput>;
+}
+
+@ArgsType()
+export class UpsertOneTourArgs {
+    @Field(() => TourWhereUniqueInput, {nullable:false})
+    @Type(() => TourWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof TourWhereUniqueInput>;
+    @Field(() => TourCreateInput, {nullable:false})
+    @Type(() => TourCreateInput)
+    create!: InstanceType<typeof TourCreateInput>;
+    @Field(() => TourUpdateInput, {nullable:false})
+    @Type(() => TourUpdateInput)
+    update!: InstanceType<typeof TourUpdateInput>;
+}
+
+@ObjectType()
+export class AggregateTourCategory {
+    @Field(() => TourCategoryCountAggregate, {nullable:true})
+    _count?: InstanceType<typeof TourCategoryCountAggregate>;
+    @Field(() => TourCategoryAvgAggregate, {nullable:true})
+    _avg?: InstanceType<typeof TourCategoryAvgAggregate>;
+    @Field(() => TourCategorySumAggregate, {nullable:true})
+    _sum?: InstanceType<typeof TourCategorySumAggregate>;
+    @Field(() => TourCategoryMinAggregate, {nullable:true})
+    _min?: InstanceType<typeof TourCategoryMinAggregate>;
+    @Field(() => TourCategoryMaxAggregate, {nullable:true})
+    _max?: InstanceType<typeof TourCategoryMaxAggregate>;
+}
+
+@ArgsType()
+export class CreateManyTourCategoryArgs {
+    @Field(() => [TourCategoryCreateManyInput], {nullable:false})
+    @Type(() => TourCategoryCreateManyInput)
+    @ValidateNested({ each: true })
+    data!: Array<TourCategoryCreateManyInput>;
+    @Field(() => Boolean, {nullable:true})
+    skipDuplicates?: boolean;
+}
+
+@ArgsType()
+export class CreateOneTourCategoryArgs {
+    @Field(() => TourCategoryCreateInput, {nullable:false})
+    @Type(() => TourCategoryCreateInput)
+    @ValidateNested({ each: true })
+    data!: InstanceType<typeof TourCategoryCreateInput>;
+}
+
+@ArgsType()
+export class DeleteManyTourCategoryArgs {
+    @Field(() => TourCategoryWhereInput, {nullable:true})
+    @Type(() => TourCategoryWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourCategoryWhereInput>;
+}
+
+@ArgsType()
+export class DeleteOneTourCategoryArgs {
+    @Field(() => TourCategoryWhereUniqueInput, {nullable:false})
+    @Type(() => TourCategoryWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof TourCategoryWhereUniqueInput>;
+}
+
+@ArgsType()
+export class FindFirstTourCategoryArgs {
+    @Field(() => TourCategoryWhereInput, {nullable:true})
+    @Type(() => TourCategoryWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourCategoryWhereInput>;
+    @Field(() => [TourCategoryOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<TourCategoryOrderByWithRelationInput>;
+    @Field(() => TourCategoryWhereUniqueInput, {nullable:true})
+    cursor?: InstanceType<typeof TourCategoryWhereUniqueInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => [TourCategoryScalarFieldEnum], {nullable:true})
+    distinct?: Array<keyof typeof TourCategoryScalarFieldEnum>;
+}
+
+@ArgsType()
+export class FindManyTourCategoryArgs {
+    @Field(() => TourCategoryWhereInput, {nullable:true})
+    @Type(() => TourCategoryWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourCategoryWhereInput>;
+    @Field(() => [TourCategoryOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<TourCategoryOrderByWithRelationInput>;
+    @Field(() => TourCategoryWhereUniqueInput, {nullable:true})
+    cursor?: InstanceType<typeof TourCategoryWhereUniqueInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => [TourCategoryScalarFieldEnum], {nullable:true})
+    distinct?: Array<keyof typeof TourCategoryScalarFieldEnum>;
+}
+
+@ArgsType()
+export class FindUniqueTourCategoryArgs {
+    @Field(() => TourCategoryWhereUniqueInput, {nullable:false})
+    @Type(() => TourCategoryWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof TourCategoryWhereUniqueInput>;
+}
+
+@ArgsType()
+export class TourCategoryAggregateArgs {
+    @Field(() => TourCategoryWhereInput, {nullable:true})
+    @Type(() => TourCategoryWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourCategoryWhereInput>;
+    @Field(() => [TourCategoryOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<TourCategoryOrderByWithRelationInput>;
+    @Field(() => TourCategoryWhereUniqueInput, {nullable:true})
+    cursor?: InstanceType<typeof TourCategoryWhereUniqueInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => TourCategoryCountAggregateInput, {nullable:true})
+    _count?: InstanceType<typeof TourCategoryCountAggregateInput>;
+    @Field(() => TourCategoryAvgAggregateInput, {nullable:true})
+    _avg?: InstanceType<typeof TourCategoryAvgAggregateInput>;
+    @Field(() => TourCategorySumAggregateInput, {nullable:true})
+    _sum?: InstanceType<typeof TourCategorySumAggregateInput>;
+    @Field(() => TourCategoryMinAggregateInput, {nullable:true})
+    _min?: InstanceType<typeof TourCategoryMinAggregateInput>;
+    @Field(() => TourCategoryMaxAggregateInput, {nullable:true})
+    _max?: InstanceType<typeof TourCategoryMaxAggregateInput>;
+}
+
+@InputType()
+export class TourCategoryAvgAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+}
+
+@ObjectType()
+export class TourCategoryAvgAggregate {
+    @Field(() => Float, {nullable:true})
+    id?: number;
+}
+
+@InputType()
+export class TourCategoryAvgOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourCategoryCountAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+    @Field(() => Boolean, {nullable:true})
+    name?: true;
+    @Field(() => Boolean, {nullable:true})
+    status?: true;
+    @Field(() => Boolean, {nullable:true})
+    createdAt?: true;
+    @Field(() => Boolean, {nullable:true})
+    updatedAt?: true;
+    @Field(() => Boolean, {nullable:true})
+    _all?: true;
+}
+
+@ObjectType()
+export class TourCategoryCountAggregate {
+    @Field(() => Int, {nullable:false})
+    id!: number;
+    @Field(() => Int, {nullable:false})
+    name!: number;
+    @Field(() => Int, {nullable:false})
+    status!: number;
+    @Field(() => Int, {nullable:false})
+    createdAt!: number;
+    @Field(() => Int, {nullable:false})
+    updatedAt!: number;
+    @Field(() => Int, {nullable:false})
+    _all!: number;
+}
+
+@InputType()
+export class TourCategoryCountOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    name?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourCategoryCreateManyInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourCategoryCreateNestedOneWithoutTourTourCategoryInput {
+    @Field(() => TourCategoryCreateWithoutTourTourCategoryInput, {nullable:true})
+    @Type(() => TourCategoryCreateWithoutTourTourCategoryInput)
+    create?: InstanceType<typeof TourCategoryCreateWithoutTourTourCategoryInput>;
+    @Field(() => TourCategoryCreateOrConnectWithoutTourTourCategoryInput, {nullable:true})
+    @Type(() => TourCategoryCreateOrConnectWithoutTourTourCategoryInput)
+    connectOrCreate?: InstanceType<typeof TourCategoryCreateOrConnectWithoutTourTourCategoryInput>;
+    @Field(() => TourCategoryWhereUniqueInput, {nullable:true})
+    @Type(() => TourCategoryWhereUniqueInput)
+    connect?: InstanceType<typeof TourCategoryWhereUniqueInput>;
+}
+
+@InputType()
+export class TourCategoryCreateOrConnectWithoutTourTourCategoryInput {
+    @Field(() => TourCategoryWhereUniqueInput, {nullable:false})
+    @Type(() => TourCategoryWhereUniqueInput)
+    where!: InstanceType<typeof TourCategoryWhereUniqueInput>;
+    @Field(() => TourCategoryCreateWithoutTourTourCategoryInput, {nullable:false})
+    @Type(() => TourCategoryCreateWithoutTourTourCategoryInput)
+    create!: InstanceType<typeof TourCategoryCreateWithoutTourTourCategoryInput>;
+}
+
+@InputType()
+export class TourCategoryCreateWithoutTourTourCategoryInput {
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourCategoryCreateInput {
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => TourTourCategoryCreateNestedManyWithoutTourCategoryInput, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryCreateNestedManyWithoutTourCategoryInput>;
+}
+
+@ArgsType()
+export class TourCategoryGroupByArgs {
+    @Field(() => TourCategoryWhereInput, {nullable:true})
+    @Type(() => TourCategoryWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourCategoryWhereInput>;
+    @Field(() => [TourCategoryOrderByWithAggregationInput], {nullable:true})
+    orderBy?: Array<TourCategoryOrderByWithAggregationInput>;
+    @Field(() => [TourCategoryScalarFieldEnum], {nullable:false})
+    by!: Array<keyof typeof TourCategoryScalarFieldEnum>;
+    @Field(() => TourCategoryScalarWhereWithAggregatesInput, {nullable:true})
+    having?: InstanceType<typeof TourCategoryScalarWhereWithAggregatesInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => TourCategoryCountAggregateInput, {nullable:true})
+    _count?: InstanceType<typeof TourCategoryCountAggregateInput>;
+    @Field(() => TourCategoryAvgAggregateInput, {nullable:true})
+    _avg?: InstanceType<typeof TourCategoryAvgAggregateInput>;
+    @Field(() => TourCategorySumAggregateInput, {nullable:true})
+    _sum?: InstanceType<typeof TourCategorySumAggregateInput>;
+    @Field(() => TourCategoryMinAggregateInput, {nullable:true})
+    _min?: InstanceType<typeof TourCategoryMinAggregateInput>;
+    @Field(() => TourCategoryMaxAggregateInput, {nullable:true})
+    _max?: InstanceType<typeof TourCategoryMaxAggregateInput>;
+}
+
+@ObjectType()
+export class TourCategoryGroupBy {
+    @Field(() => Int, {nullable:false})
+    id!: number;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:false})
+    status!: keyof typeof Status;
+    @Field(() => Date, {nullable:false})
+    createdAt!: Date | string;
+    @Field(() => Date, {nullable:false})
+    updatedAt!: Date | string;
+    @Field(() => TourCategoryCountAggregate, {nullable:true})
+    _count?: InstanceType<typeof TourCategoryCountAggregate>;
+    @Field(() => TourCategoryAvgAggregate, {nullable:true})
+    _avg?: InstanceType<typeof TourCategoryAvgAggregate>;
+    @Field(() => TourCategorySumAggregate, {nullable:true})
+    _sum?: InstanceType<typeof TourCategorySumAggregate>;
+    @Field(() => TourCategoryMinAggregate, {nullable:true})
+    _min?: InstanceType<typeof TourCategoryMinAggregate>;
+    @Field(() => TourCategoryMaxAggregate, {nullable:true})
+    _max?: InstanceType<typeof TourCategoryMaxAggregate>;
+}
+
+@InputType()
+export class TourCategoryMaxAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+    @Field(() => Boolean, {nullable:true})
+    name?: true;
+    @Field(() => Boolean, {nullable:true})
+    status?: true;
+    @Field(() => Boolean, {nullable:true})
+    createdAt?: true;
+    @Field(() => Boolean, {nullable:true})
+    updatedAt?: true;
+}
+
+@ObjectType()
+export class TourCategoryMaxAggregate {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourCategoryMaxOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    name?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourCategoryMinAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+    @Field(() => Boolean, {nullable:true})
+    name?: true;
+    @Field(() => Boolean, {nullable:true})
+    status?: true;
+    @Field(() => Boolean, {nullable:true})
+    createdAt?: true;
+    @Field(() => Boolean, {nullable:true})
+    updatedAt?: true;
+}
+
+@ObjectType()
+export class TourCategoryMinAggregate {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourCategoryMinOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    name?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourCategoryOrderByWithAggregationInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    name?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
+    @Field(() => TourCategoryCountOrderByAggregateInput, {nullable:true})
+    _count?: InstanceType<typeof TourCategoryCountOrderByAggregateInput>;
+    @Field(() => TourCategoryAvgOrderByAggregateInput, {nullable:true})
+    _avg?: InstanceType<typeof TourCategoryAvgOrderByAggregateInput>;
+    @Field(() => TourCategoryMaxOrderByAggregateInput, {nullable:true})
+    _max?: InstanceType<typeof TourCategoryMaxOrderByAggregateInput>;
+    @Field(() => TourCategoryMinOrderByAggregateInput, {nullable:true})
+    _min?: InstanceType<typeof TourCategoryMinOrderByAggregateInput>;
+    @Field(() => TourCategorySumOrderByAggregateInput, {nullable:true})
+    _sum?: InstanceType<typeof TourCategorySumOrderByAggregateInput>;
+}
+
+@InputType()
+export class TourCategoryOrderByWithRelationInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    name?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
+    @Field(() => TourTourCategoryOrderByRelationAggregateInput, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryOrderByRelationAggregateInput>;
+}
+
+@InputType()
+export class TourCategoryRelationFilter {
+    @Field(() => TourCategoryWhereInput, {nullable:true})
+    is?: InstanceType<typeof TourCategoryWhereInput>;
+    @Field(() => TourCategoryWhereInput, {nullable:true})
+    isNot?: InstanceType<typeof TourCategoryWhereInput>;
+}
+
+@InputType()
+export class TourCategoryScalarWhereWithAggregatesInput {
+    @Field(() => [TourCategoryScalarWhereWithAggregatesInput], {nullable:true})
+    AND?: Array<TourCategoryScalarWhereWithAggregatesInput>;
+    @Field(() => [TourCategoryScalarWhereWithAggregatesInput], {nullable:true})
+    OR?: Array<TourCategoryScalarWhereWithAggregatesInput>;
+    @Field(() => [TourCategoryScalarWhereWithAggregatesInput], {nullable:true})
+    NOT?: Array<TourCategoryScalarWhereWithAggregatesInput>;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    id?: InstanceType<typeof IntWithAggregatesFilter>;
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    name?: InstanceType<typeof StringWithAggregatesFilter>;
+    @Field(() => EnumStatusWithAggregatesFilter, {nullable:true})
+    status?: InstanceType<typeof EnumStatusWithAggregatesFilter>;
+    @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
+    createdAt?: InstanceType<typeof DateTimeWithAggregatesFilter>;
+    @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
+    updatedAt?: InstanceType<typeof DateTimeWithAggregatesFilter>;
+}
+
+@InputType()
+export class TourCategorySumAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+}
+
+@ObjectType()
+export class TourCategorySumAggregate {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+}
+
+@InputType()
+export class TourCategorySumOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourCategoryUncheckedCreateWithoutTourTourCategoryInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourCategoryUncheckedCreateInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => TourTourCategoryUncheckedCreateNestedManyWithoutTourCategoryInput, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryUncheckedCreateNestedManyWithoutTourCategoryInput>;
+}
+
+@InputType()
+export class TourCategoryUncheckedUpdateManyInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourCategoryUncheckedUpdateWithoutTourTourCategoryInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourCategoryUncheckedUpdateInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => TourTourCategoryUncheckedUpdateManyWithoutTourCategoryInput, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryUncheckedUpdateManyWithoutTourCategoryInput>;
+}
+
+@InputType()
+export class TourCategoryUpdateManyMutationInput {
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourCategoryUpdateOneRequiredWithoutTourTourCategoryInput {
+    @Field(() => TourCategoryCreateWithoutTourTourCategoryInput, {nullable:true})
+    @Type(() => TourCategoryCreateWithoutTourTourCategoryInput)
+    create?: InstanceType<typeof TourCategoryCreateWithoutTourTourCategoryInput>;
+    @Field(() => TourCategoryCreateOrConnectWithoutTourTourCategoryInput, {nullable:true})
+    @Type(() => TourCategoryCreateOrConnectWithoutTourTourCategoryInput)
+    connectOrCreate?: InstanceType<typeof TourCategoryCreateOrConnectWithoutTourTourCategoryInput>;
+    @Field(() => TourCategoryUpsertWithoutTourTourCategoryInput, {nullable:true})
+    @Type(() => TourCategoryUpsertWithoutTourTourCategoryInput)
+    upsert?: InstanceType<typeof TourCategoryUpsertWithoutTourTourCategoryInput>;
+    @Field(() => TourCategoryWhereUniqueInput, {nullable:true})
+    @Type(() => TourCategoryWhereUniqueInput)
+    connect?: InstanceType<typeof TourCategoryWhereUniqueInput>;
+    @Field(() => TourCategoryUpdateWithoutTourTourCategoryInput, {nullable:true})
+    @Type(() => TourCategoryUpdateWithoutTourTourCategoryInput)
+    update?: InstanceType<typeof TourCategoryUpdateWithoutTourTourCategoryInput>;
+}
+
+@InputType()
+export class TourCategoryUpdateWithoutTourTourCategoryInput {
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class TourCategoryUpdateInput {
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => TourTourCategoryUpdateManyWithoutTourCategoryInput, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryUpdateManyWithoutTourCategoryInput>;
+}
+
+@InputType()
+export class TourCategoryUpsertWithoutTourTourCategoryInput {
+    @Field(() => TourCategoryUpdateWithoutTourTourCategoryInput, {nullable:false})
+    @Type(() => TourCategoryUpdateWithoutTourTourCategoryInput)
+    update!: InstanceType<typeof TourCategoryUpdateWithoutTourTourCategoryInput>;
+    @Field(() => TourCategoryCreateWithoutTourTourCategoryInput, {nullable:false})
+    @Type(() => TourCategoryCreateWithoutTourTourCategoryInput)
+    create!: InstanceType<typeof TourCategoryCreateWithoutTourTourCategoryInput>;
+}
+
+@InputType()
+export class TourCategoryWhereUniqueInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+}
+
+@InputType()
+export class TourCategoryWhereInput {
+    @Field(() => [TourCategoryWhereInput], {nullable:true})
+    AND?: Array<TourCategoryWhereInput>;
+    @Field(() => [TourCategoryWhereInput], {nullable:true})
+    OR?: Array<TourCategoryWhereInput>;
+    @Field(() => [TourCategoryWhereInput], {nullable:true})
+    NOT?: Array<TourCategoryWhereInput>;
+    @Field(() => IntFilter, {nullable:true})
+    id?: InstanceType<typeof IntFilter>;
+    @Field(() => StringFilter, {nullable:true})
+    name?: InstanceType<typeof StringFilter>;
+    @Field(() => EnumStatusFilter, {nullable:true})
+    status?: InstanceType<typeof EnumStatusFilter>;
+    @Field(() => DateTimeFilter, {nullable:true})
+    createdAt?: InstanceType<typeof DateTimeFilter>;
+    @Field(() => DateTimeFilter, {nullable:true})
+    updatedAt?: InstanceType<typeof DateTimeFilter>;
+    @Field(() => TourTourCategoryListRelationFilter, {nullable:true})
+    TourTourCategory?: InstanceType<typeof TourTourCategoryListRelationFilter>;
+}
+
+@ObjectType()
+export class TourCategory {
+    @Field(() => ID, {nullable:false})
+    id!: number;
+    @Field(() => String, {nullable:false})
+    name!: string;
+    @Field(() => Status, {nullable:false,defaultValue:'ACTIVE'})
+    status!: keyof typeof Status;
+    @Field(() => Date, {nullable:false})
+    createdAt!: Date;
+    @Field(() => Date, {nullable:false})
+    updatedAt!: Date;
+    @Field(() => [TourTourCategory], {nullable:true})
+    TourTourCategory?: Array<TourTourCategory>;
+    @Field(() => TourCategoryCount, {nullable:false})
+    _count?: InstanceType<typeof TourCategoryCount>;
+}
+
+@ArgsType()
+export class UpdateManyTourCategoryArgs {
+    @Field(() => TourCategoryUpdateManyMutationInput, {nullable:false})
+    @Type(() => TourCategoryUpdateManyMutationInput)
+    @ValidateNested({ each: true })
+    data!: InstanceType<typeof TourCategoryUpdateManyMutationInput>;
+    @Field(() => TourCategoryWhereInput, {nullable:true})
+    @Type(() => TourCategoryWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourCategoryWhereInput>;
+}
+
+@ArgsType()
+export class UpdateOneTourCategoryArgs {
+    @Field(() => TourCategoryUpdateInput, {nullable:false})
+    @Type(() => TourCategoryUpdateInput)
+    @ValidateNested({ each: true })
+    data!: InstanceType<typeof TourCategoryUpdateInput>;
+    @Field(() => TourCategoryWhereUniqueInput, {nullable:false})
+    @Type(() => TourCategoryWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof TourCategoryWhereUniqueInput>;
+}
+
+@ArgsType()
+export class UpsertOneTourCategoryArgs {
+    @Field(() => TourCategoryWhereUniqueInput, {nullable:false})
+    @Type(() => TourCategoryWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof TourCategoryWhereUniqueInput>;
+    @Field(() => TourCategoryCreateInput, {nullable:false})
+    @Type(() => TourCategoryCreateInput)
+    create!: InstanceType<typeof TourCategoryCreateInput>;
+    @Field(() => TourCategoryUpdateInput, {nullable:false})
+    @Type(() => TourCategoryUpdateInput)
+    update!: InstanceType<typeof TourCategoryUpdateInput>;
+}
+
+@ObjectType()
+export class AggregateTourCity {
+    @Field(() => TourCityCountAggregate, {nullable:true})
+    _count?: InstanceType<typeof TourCityCountAggregate>;
+    @Field(() => TourCityAvgAggregate, {nullable:true})
+    _avg?: InstanceType<typeof TourCityAvgAggregate>;
+    @Field(() => TourCitySumAggregate, {nullable:true})
+    _sum?: InstanceType<typeof TourCitySumAggregate>;
+    @Field(() => TourCityMinAggregate, {nullable:true})
+    _min?: InstanceType<typeof TourCityMinAggregate>;
+    @Field(() => TourCityMaxAggregate, {nullable:true})
+    _max?: InstanceType<typeof TourCityMaxAggregate>;
+}
+
+@ArgsType()
+export class CreateManyTourCityArgs {
+    @Field(() => [TourCityCreateManyInput], {nullable:false})
+    @Type(() => TourCityCreateManyInput)
+    @ValidateNested({ each: true })
+    data!: Array<TourCityCreateManyInput>;
+    @Field(() => Boolean, {nullable:true})
+    skipDuplicates?: boolean;
+}
+
+@ArgsType()
+export class CreateOneTourCityArgs {
+    @Field(() => TourCityCreateInput, {nullable:false})
+    @Type(() => TourCityCreateInput)
+    @ValidateNested({ each: true })
+    data!: InstanceType<typeof TourCityCreateInput>;
+}
+
+@ArgsType()
+export class DeleteManyTourCityArgs {
+    @Field(() => TourCityWhereInput, {nullable:true})
+    @Type(() => TourCityWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourCityWhereInput>;
+}
+
+@ArgsType()
+export class DeleteOneTourCityArgs {
+    @Field(() => TourCityWhereUniqueInput, {nullable:false})
+    @Type(() => TourCityWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof TourCityWhereUniqueInput>;
+}
+
+@ArgsType()
+export class FindFirstTourCityArgs {
+    @Field(() => TourCityWhereInput, {nullable:true})
+    @Type(() => TourCityWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourCityWhereInput>;
+    @Field(() => [TourCityOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<TourCityOrderByWithRelationInput>;
+    @Field(() => TourCityWhereUniqueInput, {nullable:true})
+    cursor?: InstanceType<typeof TourCityWhereUniqueInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => [TourCityScalarFieldEnum], {nullable:true})
+    distinct?: Array<keyof typeof TourCityScalarFieldEnum>;
+}
+
+@ArgsType()
+export class FindManyTourCityArgs {
+    @Field(() => TourCityWhereInput, {nullable:true})
+    @Type(() => TourCityWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourCityWhereInput>;
+    @Field(() => [TourCityOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<TourCityOrderByWithRelationInput>;
+    @Field(() => TourCityWhereUniqueInput, {nullable:true})
+    cursor?: InstanceType<typeof TourCityWhereUniqueInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => [TourCityScalarFieldEnum], {nullable:true})
+    distinct?: Array<keyof typeof TourCityScalarFieldEnum>;
+}
+
+@ArgsType()
+export class FindUniqueTourCityArgs {
+    @Field(() => TourCityWhereUniqueInput, {nullable:false})
+    @Type(() => TourCityWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof TourCityWhereUniqueInput>;
+}
+
+@ArgsType()
+export class TourCityAggregateArgs {
+    @Field(() => TourCityWhereInput, {nullable:true})
+    @Type(() => TourCityWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourCityWhereInput>;
+    @Field(() => [TourCityOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<TourCityOrderByWithRelationInput>;
+    @Field(() => TourCityWhereUniqueInput, {nullable:true})
+    cursor?: InstanceType<typeof TourCityWhereUniqueInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => TourCityCountAggregateInput, {nullable:true})
+    _count?: InstanceType<typeof TourCityCountAggregateInput>;
+    @Field(() => TourCityAvgAggregateInput, {nullable:true})
+    _avg?: InstanceType<typeof TourCityAvgAggregateInput>;
+    @Field(() => TourCitySumAggregateInput, {nullable:true})
+    _sum?: InstanceType<typeof TourCitySumAggregateInput>;
+    @Field(() => TourCityMinAggregateInput, {nullable:true})
+    _min?: InstanceType<typeof TourCityMinAggregateInput>;
+    @Field(() => TourCityMaxAggregateInput, {nullable:true})
+    _max?: InstanceType<typeof TourCityMaxAggregateInput>;
+}
+
+@InputType()
+export class TourCityAvgAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    tourId?: true;
+    @Field(() => Boolean, {nullable:true})
+    cityId?: true;
+}
+
+@ObjectType()
+export class TourCityAvgAggregate {
+    @Field(() => Float, {nullable:true})
+    tourId?: number;
+    @Field(() => Float, {nullable:true})
+    cityId?: number;
+}
+
+@InputType()
+export class TourCityAvgOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    cityId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourCityCountAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    status?: true;
+    @Field(() => Boolean, {nullable:true})
+    tourId?: true;
+    @Field(() => Boolean, {nullable:true})
+    cityId?: true;
+    @Field(() => Boolean, {nullable:true})
+    _all?: true;
+}
+
+@ObjectType()
+export class TourCityCountAggregate {
+    @Field(() => Int, {nullable:false})
+    status!: number;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+    @Field(() => Int, {nullable:false})
+    cityId!: number;
+    @Field(() => Int, {nullable:false})
+    _all!: number;
+}
+
+@InputType()
+export class TourCityCountOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    cityId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourCityCreateManyCityInputEnvelope {
+    @Field(() => [TourCityCreateManyCityInput], {nullable:false})
+    @Type(() => TourCityCreateManyCityInput)
+    data!: Array<TourCityCreateManyCityInput>;
+    @Field(() => Boolean, {nullable:true})
+    skipDuplicates?: boolean;
+}
+
+@InputType()
+export class TourCityCreateManyCityInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+}
+
+@InputType()
+export class TourCityCreateManyTourInputEnvelope {
+    @Field(() => [TourCityCreateManyTourInput], {nullable:false})
+    @Type(() => TourCityCreateManyTourInput)
+    data!: Array<TourCityCreateManyTourInput>;
+    @Field(() => Boolean, {nullable:true})
+    skipDuplicates?: boolean;
+}
+
+@InputType()
+export class TourCityCreateManyTourInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    cityId!: number;
+}
+
+@InputType()
+export class TourCityCreateManyInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+    @Field(() => Int, {nullable:false})
+    cityId!: number;
+}
+
+@InputType()
+export class TourCityCreateNestedManyWithoutCityInput {
+    @Field(() => [TourCityCreateWithoutCityInput], {nullable:true})
+    @Type(() => TourCityCreateWithoutCityInput)
+    create?: Array<TourCityCreateWithoutCityInput>;
+    @Field(() => [TourCityCreateOrConnectWithoutCityInput], {nullable:true})
+    @Type(() => TourCityCreateOrConnectWithoutCityInput)
+    connectOrCreate?: Array<TourCityCreateOrConnectWithoutCityInput>;
+    @Field(() => TourCityCreateManyCityInputEnvelope, {nullable:true})
+    @Type(() => TourCityCreateManyCityInputEnvelope)
+    createMany?: InstanceType<typeof TourCityCreateManyCityInputEnvelope>;
+    @Field(() => [TourCityWhereUniqueInput], {nullable:true})
+    @Type(() => TourCityWhereUniqueInput)
+    connect?: Array<TourCityWhereUniqueInput>;
+}
+
+@InputType()
+export class TourCityCreateNestedManyWithoutTourInput {
+    @Field(() => [TourCityCreateWithoutTourInput], {nullable:true})
+    @Type(() => TourCityCreateWithoutTourInput)
+    create?: Array<TourCityCreateWithoutTourInput>;
+    @Field(() => [TourCityCreateOrConnectWithoutTourInput], {nullable:true})
+    @Type(() => TourCityCreateOrConnectWithoutTourInput)
+    connectOrCreate?: Array<TourCityCreateOrConnectWithoutTourInput>;
+    @Field(() => TourCityCreateManyTourInputEnvelope, {nullable:true})
+    @Type(() => TourCityCreateManyTourInputEnvelope)
+    createMany?: InstanceType<typeof TourCityCreateManyTourInputEnvelope>;
+    @Field(() => [TourCityWhereUniqueInput], {nullable:true})
+    @Type(() => TourCityWhereUniqueInput)
+    connect?: Array<TourCityWhereUniqueInput>;
+}
+
+@InputType()
+export class TourCityCreateOrConnectWithoutCityInput {
+    @Field(() => TourCityWhereUniqueInput, {nullable:false})
+    @Type(() => TourCityWhereUniqueInput)
+    where!: InstanceType<typeof TourCityWhereUniqueInput>;
+    @Field(() => TourCityCreateWithoutCityInput, {nullable:false})
+    @Type(() => TourCityCreateWithoutCityInput)
+    create!: InstanceType<typeof TourCityCreateWithoutCityInput>;
+}
+
+@InputType()
+export class TourCityCreateOrConnectWithoutTourInput {
+    @Field(() => TourCityWhereUniqueInput, {nullable:false})
+    @Type(() => TourCityWhereUniqueInput)
+    where!: InstanceType<typeof TourCityWhereUniqueInput>;
+    @Field(() => TourCityCreateWithoutTourInput, {nullable:false})
+    @Type(() => TourCityCreateWithoutTourInput)
+    create!: InstanceType<typeof TourCityCreateWithoutTourInput>;
+}
+
+@InputType()
+export class TourCityCreateWithoutCityInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => TourCreateNestedOneWithoutTourCityInput, {nullable:true})
+    tour?: InstanceType<typeof TourCreateNestedOneWithoutTourCityInput>;
+}
+
+@InputType()
+export class TourCityCreateWithoutTourInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => CityCreateNestedOneWithoutTourCityInput, {nullable:false})
+    city!: InstanceType<typeof CityCreateNestedOneWithoutTourCityInput>;
+}
+
+@InputType()
+export class TourCityCreateInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => TourCreateNestedOneWithoutTourCityInput, {nullable:true})
+    tour?: InstanceType<typeof TourCreateNestedOneWithoutTourCityInput>;
+    @Field(() => CityCreateNestedOneWithoutTourCityInput, {nullable:false})
+    city!: InstanceType<typeof CityCreateNestedOneWithoutTourCityInput>;
+}
+
+@ArgsType()
+export class TourCityGroupByArgs {
+    @Field(() => TourCityWhereInput, {nullable:true})
+    @Type(() => TourCityWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourCityWhereInput>;
+    @Field(() => [TourCityOrderByWithAggregationInput], {nullable:true})
+    orderBy?: Array<TourCityOrderByWithAggregationInput>;
+    @Field(() => [TourCityScalarFieldEnum], {nullable:false})
+    by!: Array<keyof typeof TourCityScalarFieldEnum>;
+    @Field(() => TourCityScalarWhereWithAggregatesInput, {nullable:true})
+    having?: InstanceType<typeof TourCityScalarWhereWithAggregatesInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => TourCityCountAggregateInput, {nullable:true})
+    _count?: InstanceType<typeof TourCityCountAggregateInput>;
+    @Field(() => TourCityAvgAggregateInput, {nullable:true})
+    _avg?: InstanceType<typeof TourCityAvgAggregateInput>;
+    @Field(() => TourCitySumAggregateInput, {nullable:true})
+    _sum?: InstanceType<typeof TourCitySumAggregateInput>;
+    @Field(() => TourCityMinAggregateInput, {nullable:true})
+    _min?: InstanceType<typeof TourCityMinAggregateInput>;
+    @Field(() => TourCityMaxAggregateInput, {nullable:true})
+    _max?: InstanceType<typeof TourCityMaxAggregateInput>;
+}
+
+@ObjectType()
+export class TourCityGroupBy {
+    @Field(() => Status, {nullable:false})
+    status!: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+    @Field(() => Int, {nullable:false})
+    cityId!: number;
+    @Field(() => TourCityCountAggregate, {nullable:true})
+    _count?: InstanceType<typeof TourCityCountAggregate>;
+    @Field(() => TourCityAvgAggregate, {nullable:true})
+    _avg?: InstanceType<typeof TourCityAvgAggregate>;
+    @Field(() => TourCitySumAggregate, {nullable:true})
+    _sum?: InstanceType<typeof TourCitySumAggregate>;
+    @Field(() => TourCityMinAggregate, {nullable:true})
+    _min?: InstanceType<typeof TourCityMinAggregate>;
+    @Field(() => TourCityMaxAggregate, {nullable:true})
+    _max?: InstanceType<typeof TourCityMaxAggregate>;
+}
+
+@InputType()
+export class TourCityListRelationFilter {
+    @Field(() => TourCityWhereInput, {nullable:true})
+    every?: InstanceType<typeof TourCityWhereInput>;
+    @Field(() => TourCityWhereInput, {nullable:true})
+    some?: InstanceType<typeof TourCityWhereInput>;
+    @Field(() => TourCityWhereInput, {nullable:true})
+    none?: InstanceType<typeof TourCityWhereInput>;
+}
+
+@InputType()
+export class TourCityMaxAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    status?: true;
+    @Field(() => Boolean, {nullable:true})
+    tourId?: true;
+    @Field(() => Boolean, {nullable:true})
+    cityId?: true;
+}
+
+@ObjectType()
+export class TourCityMaxAggregate {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    tourId?: number;
+    @Field(() => Int, {nullable:true})
+    cityId?: number;
+}
+
+@InputType()
+export class TourCityMaxOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    cityId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourCityMinAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    status?: true;
+    @Field(() => Boolean, {nullable:true})
+    tourId?: true;
+    @Field(() => Boolean, {nullable:true})
+    cityId?: true;
+}
+
+@ObjectType()
+export class TourCityMinAggregate {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    tourId?: number;
+    @Field(() => Int, {nullable:true})
+    cityId?: number;
+}
+
+@InputType()
+export class TourCityMinOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    cityId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourCityOrderByRelationAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    _count?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourCityOrderByWithAggregationInput {
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    cityId?: keyof typeof SortOrder;
+    @Field(() => TourCityCountOrderByAggregateInput, {nullable:true})
+    _count?: InstanceType<typeof TourCityCountOrderByAggregateInput>;
+    @Field(() => TourCityAvgOrderByAggregateInput, {nullable:true})
+    _avg?: InstanceType<typeof TourCityAvgOrderByAggregateInput>;
+    @Field(() => TourCityMaxOrderByAggregateInput, {nullable:true})
+    _max?: InstanceType<typeof TourCityMaxOrderByAggregateInput>;
+    @Field(() => TourCityMinOrderByAggregateInput, {nullable:true})
+    _min?: InstanceType<typeof TourCityMinOrderByAggregateInput>;
+    @Field(() => TourCitySumOrderByAggregateInput, {nullable:true})
+    _sum?: InstanceType<typeof TourCitySumOrderByAggregateInput>;
+}
+
+@InputType()
+export class TourCityOrderByWithRelationInput {
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => TourOrderByWithRelationInput, {nullable:true})
+    tour?: InstanceType<typeof TourOrderByWithRelationInput>;
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => CityOrderByWithRelationInput, {nullable:true})
+    city?: InstanceType<typeof CityOrderByWithRelationInput>;
+    @Field(() => SortOrder, {nullable:true})
+    cityId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourCityScalarWhereWithAggregatesInput {
+    @Field(() => [TourCityScalarWhereWithAggregatesInput], {nullable:true})
+    AND?: Array<TourCityScalarWhereWithAggregatesInput>;
+    @Field(() => [TourCityScalarWhereWithAggregatesInput], {nullable:true})
+    OR?: Array<TourCityScalarWhereWithAggregatesInput>;
+    @Field(() => [TourCityScalarWhereWithAggregatesInput], {nullable:true})
+    NOT?: Array<TourCityScalarWhereWithAggregatesInput>;
+    @Field(() => EnumStatusWithAggregatesFilter, {nullable:true})
+    status?: InstanceType<typeof EnumStatusWithAggregatesFilter>;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    tourId?: InstanceType<typeof IntWithAggregatesFilter>;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    cityId?: InstanceType<typeof IntWithAggregatesFilter>;
+}
+
+@InputType()
+export class TourCityScalarWhereInput {
+    @Field(() => [TourCityScalarWhereInput], {nullable:true})
+    AND?: Array<TourCityScalarWhereInput>;
+    @Field(() => [TourCityScalarWhereInput], {nullable:true})
+    OR?: Array<TourCityScalarWhereInput>;
+    @Field(() => [TourCityScalarWhereInput], {nullable:true})
+    NOT?: Array<TourCityScalarWhereInput>;
+    @Field(() => EnumStatusFilter, {nullable:true})
+    status?: InstanceType<typeof EnumStatusFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    tourId?: InstanceType<typeof IntFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    cityId?: InstanceType<typeof IntFilter>;
+}
+
+@InputType()
+export class TourCitySumAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    tourId?: true;
+    @Field(() => Boolean, {nullable:true})
+    cityId?: true;
+}
+
+@ObjectType()
+export class TourCitySumAggregate {
+    @Field(() => Int, {nullable:true})
+    tourId?: number;
+    @Field(() => Int, {nullable:true})
+    cityId?: number;
+}
+
+@InputType()
+export class TourCitySumOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    cityId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourCityTourIdCityIdCompoundUniqueInput {
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+    @Field(() => Int, {nullable:false})
+    cityId!: number;
+}
+
+@InputType()
+export class TourCityUncheckedCreateNestedManyWithoutCityInput {
+    @Field(() => [TourCityCreateWithoutCityInput], {nullable:true})
+    @Type(() => TourCityCreateWithoutCityInput)
+    create?: Array<TourCityCreateWithoutCityInput>;
+    @Field(() => [TourCityCreateOrConnectWithoutCityInput], {nullable:true})
+    @Type(() => TourCityCreateOrConnectWithoutCityInput)
+    connectOrCreate?: Array<TourCityCreateOrConnectWithoutCityInput>;
+    @Field(() => TourCityCreateManyCityInputEnvelope, {nullable:true})
+    @Type(() => TourCityCreateManyCityInputEnvelope)
+    createMany?: InstanceType<typeof TourCityCreateManyCityInputEnvelope>;
+    @Field(() => [TourCityWhereUniqueInput], {nullable:true})
+    @Type(() => TourCityWhereUniqueInput)
+    connect?: Array<TourCityWhereUniqueInput>;
+}
+
+@InputType()
+export class TourCityUncheckedCreateNestedManyWithoutTourInput {
+    @Field(() => [TourCityCreateWithoutTourInput], {nullable:true})
+    @Type(() => TourCityCreateWithoutTourInput)
+    create?: Array<TourCityCreateWithoutTourInput>;
+    @Field(() => [TourCityCreateOrConnectWithoutTourInput], {nullable:true})
+    @Type(() => TourCityCreateOrConnectWithoutTourInput)
+    connectOrCreate?: Array<TourCityCreateOrConnectWithoutTourInput>;
+    @Field(() => TourCityCreateManyTourInputEnvelope, {nullable:true})
+    @Type(() => TourCityCreateManyTourInputEnvelope)
+    createMany?: InstanceType<typeof TourCityCreateManyTourInputEnvelope>;
+    @Field(() => [TourCityWhereUniqueInput], {nullable:true})
+    @Type(() => TourCityWhereUniqueInput)
+    connect?: Array<TourCityWhereUniqueInput>;
+}
+
+@InputType()
+export class TourCityUncheckedCreateWithoutCityInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+}
+
+@InputType()
+export class TourCityUncheckedCreateWithoutTourInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    cityId!: number;
+}
+
+@InputType()
+export class TourCityUncheckedCreateInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+    @Field(() => Int, {nullable:false})
+    cityId!: number;
+}
+
+@InputType()
+export class TourCityUncheckedUpdateManyWithoutCityInput {
+    @Field(() => [TourCityCreateWithoutCityInput], {nullable:true})
+    @Type(() => TourCityCreateWithoutCityInput)
+    create?: Array<TourCityCreateWithoutCityInput>;
+    @Field(() => [TourCityCreateOrConnectWithoutCityInput], {nullable:true})
+    @Type(() => TourCityCreateOrConnectWithoutCityInput)
+    connectOrCreate?: Array<TourCityCreateOrConnectWithoutCityInput>;
+    @Field(() => [TourCityUpsertWithWhereUniqueWithoutCityInput], {nullable:true})
+    @Type(() => TourCityUpsertWithWhereUniqueWithoutCityInput)
+    upsert?: Array<TourCityUpsertWithWhereUniqueWithoutCityInput>;
+    @Field(() => TourCityCreateManyCityInputEnvelope, {nullable:true})
+    @Type(() => TourCityCreateManyCityInputEnvelope)
+    createMany?: InstanceType<typeof TourCityCreateManyCityInputEnvelope>;
+    @Field(() => [TourCityWhereUniqueInput], {nullable:true})
+    @Type(() => TourCityWhereUniqueInput)
+    set?: Array<TourCityWhereUniqueInput>;
+    @Field(() => [TourCityWhereUniqueInput], {nullable:true})
+    @Type(() => TourCityWhereUniqueInput)
+    disconnect?: Array<TourCityWhereUniqueInput>;
+    @Field(() => [TourCityWhereUniqueInput], {nullable:true})
+    @Type(() => TourCityWhereUniqueInput)
+    delete?: Array<TourCityWhereUniqueInput>;
+    @Field(() => [TourCityWhereUniqueInput], {nullable:true})
+    @Type(() => TourCityWhereUniqueInput)
+    connect?: Array<TourCityWhereUniqueInput>;
+    @Field(() => [TourCityUpdateWithWhereUniqueWithoutCityInput], {nullable:true})
+    @Type(() => TourCityUpdateWithWhereUniqueWithoutCityInput)
+    update?: Array<TourCityUpdateWithWhereUniqueWithoutCityInput>;
+    @Field(() => [TourCityUpdateManyWithWhereWithoutCityInput], {nullable:true})
+    @Type(() => TourCityUpdateManyWithWhereWithoutCityInput)
+    updateMany?: Array<TourCityUpdateManyWithWhereWithoutCityInput>;
+    @Field(() => [TourCityScalarWhereInput], {nullable:true})
+    @Type(() => TourCityScalarWhereInput)
+    deleteMany?: Array<TourCityScalarWhereInput>;
+}
+
+@InputType()
+export class TourCityUncheckedUpdateManyWithoutTourCityInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    cityId?: number;
+}
+
+@InputType()
+export class TourCityUncheckedUpdateManyWithoutTourInput {
+    @Field(() => [TourCityCreateWithoutTourInput], {nullable:true})
+    @Type(() => TourCityCreateWithoutTourInput)
+    create?: Array<TourCityCreateWithoutTourInput>;
+    @Field(() => [TourCityCreateOrConnectWithoutTourInput], {nullable:true})
+    @Type(() => TourCityCreateOrConnectWithoutTourInput)
+    connectOrCreate?: Array<TourCityCreateOrConnectWithoutTourInput>;
+    @Field(() => [TourCityUpsertWithWhereUniqueWithoutTourInput], {nullable:true})
+    @Type(() => TourCityUpsertWithWhereUniqueWithoutTourInput)
+    upsert?: Array<TourCityUpsertWithWhereUniqueWithoutTourInput>;
+    @Field(() => TourCityCreateManyTourInputEnvelope, {nullable:true})
+    @Type(() => TourCityCreateManyTourInputEnvelope)
+    createMany?: InstanceType<typeof TourCityCreateManyTourInputEnvelope>;
+    @Field(() => [TourCityWhereUniqueInput], {nullable:true})
+    @Type(() => TourCityWhereUniqueInput)
+    set?: Array<TourCityWhereUniqueInput>;
+    @Field(() => [TourCityWhereUniqueInput], {nullable:true})
+    @Type(() => TourCityWhereUniqueInput)
+    disconnect?: Array<TourCityWhereUniqueInput>;
+    @Field(() => [TourCityWhereUniqueInput], {nullable:true})
+    @Type(() => TourCityWhereUniqueInput)
+    delete?: Array<TourCityWhereUniqueInput>;
+    @Field(() => [TourCityWhereUniqueInput], {nullable:true})
+    @Type(() => TourCityWhereUniqueInput)
+    connect?: Array<TourCityWhereUniqueInput>;
+    @Field(() => [TourCityUpdateWithWhereUniqueWithoutTourInput], {nullable:true})
+    @Type(() => TourCityUpdateWithWhereUniqueWithoutTourInput)
+    update?: Array<TourCityUpdateWithWhereUniqueWithoutTourInput>;
+    @Field(() => [TourCityUpdateManyWithWhereWithoutTourInput], {nullable:true})
+    @Type(() => TourCityUpdateManyWithWhereWithoutTourInput)
+    updateMany?: Array<TourCityUpdateManyWithWhereWithoutTourInput>;
+    @Field(() => [TourCityScalarWhereInput], {nullable:true})
+    @Type(() => TourCityScalarWhereInput)
+    deleteMany?: Array<TourCityScalarWhereInput>;
+}
+
+@InputType()
+export class TourCityUncheckedUpdateManyInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    tourId?: number;
+    @Field(() => Int, {nullable:true})
+    cityId?: number;
+}
+
+@InputType()
+export class TourCityUncheckedUpdateWithoutCityInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    tourId?: number;
+}
+
+@InputType()
+export class TourCityUncheckedUpdateWithoutTourInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    cityId?: number;
+}
+
+@InputType()
+export class TourCityUncheckedUpdateInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    tourId?: number;
+    @Field(() => Int, {nullable:true})
+    cityId?: number;
+}
+
+@InputType()
+export class TourCityUpdateManyMutationInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+}
+
+@InputType()
+export class TourCityUpdateManyWithWhereWithoutCityInput {
+    @Field(() => TourCityScalarWhereInput, {nullable:false})
+    @Type(() => TourCityScalarWhereInput)
+    where!: InstanceType<typeof TourCityScalarWhereInput>;
+    @Field(() => TourCityUpdateManyMutationInput, {nullable:false})
+    @Type(() => TourCityUpdateManyMutationInput)
+    data!: InstanceType<typeof TourCityUpdateManyMutationInput>;
+}
+
+@InputType()
+export class TourCityUpdateManyWithWhereWithoutTourInput {
+    @Field(() => TourCityScalarWhereInput, {nullable:false})
+    @Type(() => TourCityScalarWhereInput)
+    where!: InstanceType<typeof TourCityScalarWhereInput>;
+    @Field(() => TourCityUpdateManyMutationInput, {nullable:false})
+    @Type(() => TourCityUpdateManyMutationInput)
+    data!: InstanceType<typeof TourCityUpdateManyMutationInput>;
+}
+
+@InputType()
+export class TourCityUpdateManyWithoutCityInput {
+    @Field(() => [TourCityCreateWithoutCityInput], {nullable:true})
+    @Type(() => TourCityCreateWithoutCityInput)
+    create?: Array<TourCityCreateWithoutCityInput>;
+    @Field(() => [TourCityCreateOrConnectWithoutCityInput], {nullable:true})
+    @Type(() => TourCityCreateOrConnectWithoutCityInput)
+    connectOrCreate?: Array<TourCityCreateOrConnectWithoutCityInput>;
+    @Field(() => [TourCityUpsertWithWhereUniqueWithoutCityInput], {nullable:true})
+    @Type(() => TourCityUpsertWithWhereUniqueWithoutCityInput)
+    upsert?: Array<TourCityUpsertWithWhereUniqueWithoutCityInput>;
+    @Field(() => TourCityCreateManyCityInputEnvelope, {nullable:true})
+    @Type(() => TourCityCreateManyCityInputEnvelope)
+    createMany?: InstanceType<typeof TourCityCreateManyCityInputEnvelope>;
+    @Field(() => [TourCityWhereUniqueInput], {nullable:true})
+    @Type(() => TourCityWhereUniqueInput)
+    set?: Array<TourCityWhereUniqueInput>;
+    @Field(() => [TourCityWhereUniqueInput], {nullable:true})
+    @Type(() => TourCityWhereUniqueInput)
+    disconnect?: Array<TourCityWhereUniqueInput>;
+    @Field(() => [TourCityWhereUniqueInput], {nullable:true})
+    @Type(() => TourCityWhereUniqueInput)
+    delete?: Array<TourCityWhereUniqueInput>;
+    @Field(() => [TourCityWhereUniqueInput], {nullable:true})
+    @Type(() => TourCityWhereUniqueInput)
+    connect?: Array<TourCityWhereUniqueInput>;
+    @Field(() => [TourCityUpdateWithWhereUniqueWithoutCityInput], {nullable:true})
+    @Type(() => TourCityUpdateWithWhereUniqueWithoutCityInput)
+    update?: Array<TourCityUpdateWithWhereUniqueWithoutCityInput>;
+    @Field(() => [TourCityUpdateManyWithWhereWithoutCityInput], {nullable:true})
+    @Type(() => TourCityUpdateManyWithWhereWithoutCityInput)
+    updateMany?: Array<TourCityUpdateManyWithWhereWithoutCityInput>;
+    @Field(() => [TourCityScalarWhereInput], {nullable:true})
+    @Type(() => TourCityScalarWhereInput)
+    deleteMany?: Array<TourCityScalarWhereInput>;
+}
+
+@InputType()
+export class TourCityUpdateManyWithoutTourInput {
+    @Field(() => [TourCityCreateWithoutTourInput], {nullable:true})
+    @Type(() => TourCityCreateWithoutTourInput)
+    create?: Array<TourCityCreateWithoutTourInput>;
+    @Field(() => [TourCityCreateOrConnectWithoutTourInput], {nullable:true})
+    @Type(() => TourCityCreateOrConnectWithoutTourInput)
+    connectOrCreate?: Array<TourCityCreateOrConnectWithoutTourInput>;
+    @Field(() => [TourCityUpsertWithWhereUniqueWithoutTourInput], {nullable:true})
+    @Type(() => TourCityUpsertWithWhereUniqueWithoutTourInput)
+    upsert?: Array<TourCityUpsertWithWhereUniqueWithoutTourInput>;
+    @Field(() => TourCityCreateManyTourInputEnvelope, {nullable:true})
+    @Type(() => TourCityCreateManyTourInputEnvelope)
+    createMany?: InstanceType<typeof TourCityCreateManyTourInputEnvelope>;
+    @Field(() => [TourCityWhereUniqueInput], {nullable:true})
+    @Type(() => TourCityWhereUniqueInput)
+    set?: Array<TourCityWhereUniqueInput>;
+    @Field(() => [TourCityWhereUniqueInput], {nullable:true})
+    @Type(() => TourCityWhereUniqueInput)
+    disconnect?: Array<TourCityWhereUniqueInput>;
+    @Field(() => [TourCityWhereUniqueInput], {nullable:true})
+    @Type(() => TourCityWhereUniqueInput)
+    delete?: Array<TourCityWhereUniqueInput>;
+    @Field(() => [TourCityWhereUniqueInput], {nullable:true})
+    @Type(() => TourCityWhereUniqueInput)
+    connect?: Array<TourCityWhereUniqueInput>;
+    @Field(() => [TourCityUpdateWithWhereUniqueWithoutTourInput], {nullable:true})
+    @Type(() => TourCityUpdateWithWhereUniqueWithoutTourInput)
+    update?: Array<TourCityUpdateWithWhereUniqueWithoutTourInput>;
+    @Field(() => [TourCityUpdateManyWithWhereWithoutTourInput], {nullable:true})
+    @Type(() => TourCityUpdateManyWithWhereWithoutTourInput)
+    updateMany?: Array<TourCityUpdateManyWithWhereWithoutTourInput>;
+    @Field(() => [TourCityScalarWhereInput], {nullable:true})
+    @Type(() => TourCityScalarWhereInput)
+    deleteMany?: Array<TourCityScalarWhereInput>;
+}
+
+@InputType()
+export class TourCityUpdateWithWhereUniqueWithoutCityInput {
+    @Field(() => TourCityWhereUniqueInput, {nullable:false})
+    @Type(() => TourCityWhereUniqueInput)
+    where!: InstanceType<typeof TourCityWhereUniqueInput>;
+    @Field(() => TourCityUpdateWithoutCityInput, {nullable:false})
+    @Type(() => TourCityUpdateWithoutCityInput)
+    data!: InstanceType<typeof TourCityUpdateWithoutCityInput>;
+}
+
+@InputType()
+export class TourCityUpdateWithWhereUniqueWithoutTourInput {
+    @Field(() => TourCityWhereUniqueInput, {nullable:false})
+    @Type(() => TourCityWhereUniqueInput)
+    where!: InstanceType<typeof TourCityWhereUniqueInput>;
+    @Field(() => TourCityUpdateWithoutTourInput, {nullable:false})
+    @Type(() => TourCityUpdateWithoutTourInput)
+    data!: InstanceType<typeof TourCityUpdateWithoutTourInput>;
+}
+
+@InputType()
+export class TourCityUpdateWithoutCityInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => TourUpdateOneWithoutTourCityInput, {nullable:true})
+    tour?: InstanceType<typeof TourUpdateOneWithoutTourCityInput>;
+}
+
+@InputType()
+export class TourCityUpdateWithoutTourInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => CityUpdateOneRequiredWithoutTourCityInput, {nullable:true})
+    city?: InstanceType<typeof CityUpdateOneRequiredWithoutTourCityInput>;
+}
+
+@InputType()
+export class TourCityUpdateInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => TourUpdateOneWithoutTourCityInput, {nullable:true})
+    tour?: InstanceType<typeof TourUpdateOneWithoutTourCityInput>;
+    @Field(() => CityUpdateOneRequiredWithoutTourCityInput, {nullable:true})
+    city?: InstanceType<typeof CityUpdateOneRequiredWithoutTourCityInput>;
+}
+
+@InputType()
+export class TourCityUpsertWithWhereUniqueWithoutCityInput {
+    @Field(() => TourCityWhereUniqueInput, {nullable:false})
+    @Type(() => TourCityWhereUniqueInput)
+    where!: InstanceType<typeof TourCityWhereUniqueInput>;
+    @Field(() => TourCityUpdateWithoutCityInput, {nullable:false})
+    @Type(() => TourCityUpdateWithoutCityInput)
+    update!: InstanceType<typeof TourCityUpdateWithoutCityInput>;
+    @Field(() => TourCityCreateWithoutCityInput, {nullable:false})
+    @Type(() => TourCityCreateWithoutCityInput)
+    create!: InstanceType<typeof TourCityCreateWithoutCityInput>;
+}
+
+@InputType()
+export class TourCityUpsertWithWhereUniqueWithoutTourInput {
+    @Field(() => TourCityWhereUniqueInput, {nullable:false})
+    @Type(() => TourCityWhereUniqueInput)
+    where!: InstanceType<typeof TourCityWhereUniqueInput>;
+    @Field(() => TourCityUpdateWithoutTourInput, {nullable:false})
+    @Type(() => TourCityUpdateWithoutTourInput)
+    update!: InstanceType<typeof TourCityUpdateWithoutTourInput>;
+    @Field(() => TourCityCreateWithoutTourInput, {nullable:false})
+    @Type(() => TourCityCreateWithoutTourInput)
+    create!: InstanceType<typeof TourCityCreateWithoutTourInput>;
+}
+
+@InputType()
+export class TourCityWhereUniqueInput {
+    @Field(() => TourCityTourIdCityIdCompoundUniqueInput, {nullable:true})
+    tourId_cityId?: InstanceType<typeof TourCityTourIdCityIdCompoundUniqueInput>;
+}
+
+@InputType()
+export class TourCityWhereInput {
+    @Field(() => [TourCityWhereInput], {nullable:true})
+    AND?: Array<TourCityWhereInput>;
+    @Field(() => [TourCityWhereInput], {nullable:true})
+    OR?: Array<TourCityWhereInput>;
+    @Field(() => [TourCityWhereInput], {nullable:true})
+    NOT?: Array<TourCityWhereInput>;
+    @Field(() => EnumStatusFilter, {nullable:true})
+    status?: InstanceType<typeof EnumStatusFilter>;
+    @Field(() => TourRelationFilter, {nullable:true})
+    tour?: InstanceType<typeof TourRelationFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    tourId?: InstanceType<typeof IntFilter>;
+    @Field(() => CityRelationFilter, {nullable:true})
+    city?: InstanceType<typeof CityRelationFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    cityId?: InstanceType<typeof IntFilter>;
+}
+
+@ObjectType()
+export class TourCity {
+    @Field(() => Status, {nullable:false,defaultValue:'ACTIVE'})
+    status!: keyof typeof Status;
+    @Field(() => Tour, {nullable:true})
+    tour?: InstanceType<typeof Tour> | null;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+    @Field(() => City, {nullable:false})
+    city?: InstanceType<typeof City>;
+    @Field(() => Int, {nullable:false})
+    cityId!: number;
+}
+
+@ArgsType()
+export class UpdateManyTourCityArgs {
+    @Field(() => TourCityUpdateManyMutationInput, {nullable:false})
+    @Type(() => TourCityUpdateManyMutationInput)
+    @ValidateNested({ each: true })
+    data!: InstanceType<typeof TourCityUpdateManyMutationInput>;
+    @Field(() => TourCityWhereInput, {nullable:true})
+    @Type(() => TourCityWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourCityWhereInput>;
+}
+
+@ArgsType()
+export class UpdateOneTourCityArgs {
+    @Field(() => TourCityUpdateInput, {nullable:false})
+    @Type(() => TourCityUpdateInput)
+    @ValidateNested({ each: true })
+    data!: InstanceType<typeof TourCityUpdateInput>;
+    @Field(() => TourCityWhereUniqueInput, {nullable:false})
+    @Type(() => TourCityWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof TourCityWhereUniqueInput>;
+}
+
+@ArgsType()
+export class UpsertOneTourCityArgs {
+    @Field(() => TourCityWhereUniqueInput, {nullable:false})
+    @Type(() => TourCityWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof TourCityWhereUniqueInput>;
+    @Field(() => TourCityCreateInput, {nullable:false})
+    @Type(() => TourCityCreateInput)
+    create!: InstanceType<typeof TourCityCreateInput>;
+    @Field(() => TourCityUpdateInput, {nullable:false})
+    @Type(() => TourCityUpdateInput)
+    update!: InstanceType<typeof TourCityUpdateInput>;
+}
+
+@ObjectType()
+export class AggregateTourLanguages {
+    @Field(() => TourLanguagesCountAggregate, {nullable:true})
+    _count?: InstanceType<typeof TourLanguagesCountAggregate>;
+    @Field(() => TourLanguagesAvgAggregate, {nullable:true})
+    _avg?: InstanceType<typeof TourLanguagesAvgAggregate>;
+    @Field(() => TourLanguagesSumAggregate, {nullable:true})
+    _sum?: InstanceType<typeof TourLanguagesSumAggregate>;
+    @Field(() => TourLanguagesMinAggregate, {nullable:true})
+    _min?: InstanceType<typeof TourLanguagesMinAggregate>;
+    @Field(() => TourLanguagesMaxAggregate, {nullable:true})
+    _max?: InstanceType<typeof TourLanguagesMaxAggregate>;
+}
+
+@ArgsType()
+export class CreateManyTourLanguagesArgs {
+    @Field(() => [TourLanguagesCreateManyInput], {nullable:false})
+    @Type(() => TourLanguagesCreateManyInput)
+    @ValidateNested({ each: true })
+    data!: Array<TourLanguagesCreateManyInput>;
+    @Field(() => Boolean, {nullable:true})
+    skipDuplicates?: boolean;
+}
+
+@ArgsType()
+export class CreateOneTourLanguagesArgs {
+    @Field(() => TourLanguagesCreateInput, {nullable:false})
+    @Type(() => TourLanguagesCreateInput)
+    @ValidateNested({ each: true })
+    data!: InstanceType<typeof TourLanguagesCreateInput>;
+}
+
+@ArgsType()
+export class DeleteManyTourLanguagesArgs {
+    @Field(() => TourLanguagesWhereInput, {nullable:true})
+    @Type(() => TourLanguagesWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourLanguagesWhereInput>;
+}
+
+@ArgsType()
+export class DeleteOneTourLanguagesArgs {
+    @Field(() => TourLanguagesWhereUniqueInput, {nullable:false})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof TourLanguagesWhereUniqueInput>;
+}
+
+@ArgsType()
+export class FindFirstTourLanguagesArgs {
+    @Field(() => TourLanguagesWhereInput, {nullable:true})
+    @Type(() => TourLanguagesWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourLanguagesWhereInput>;
+    @Field(() => [TourLanguagesOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<TourLanguagesOrderByWithRelationInput>;
+    @Field(() => TourLanguagesWhereUniqueInput, {nullable:true})
+    cursor?: InstanceType<typeof TourLanguagesWhereUniqueInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => [TourLanguagesScalarFieldEnum], {nullable:true})
+    distinct?: Array<keyof typeof TourLanguagesScalarFieldEnum>;
+}
+
+@ArgsType()
+export class FindManyTourLanguagesArgs {
+    @Field(() => TourLanguagesWhereInput, {nullable:true})
+    @Type(() => TourLanguagesWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourLanguagesWhereInput>;
+    @Field(() => [TourLanguagesOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<TourLanguagesOrderByWithRelationInput>;
+    @Field(() => TourLanguagesWhereUniqueInput, {nullable:true})
+    cursor?: InstanceType<typeof TourLanguagesWhereUniqueInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => [TourLanguagesScalarFieldEnum], {nullable:true})
+    distinct?: Array<keyof typeof TourLanguagesScalarFieldEnum>;
+}
+
+@ArgsType()
+export class FindUniqueTourLanguagesArgs {
+    @Field(() => TourLanguagesWhereUniqueInput, {nullable:false})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof TourLanguagesWhereUniqueInput>;
+}
+
+@ArgsType()
+export class TourLanguagesAggregateArgs {
+    @Field(() => TourLanguagesWhereInput, {nullable:true})
+    @Type(() => TourLanguagesWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourLanguagesWhereInput>;
+    @Field(() => [TourLanguagesOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<TourLanguagesOrderByWithRelationInput>;
+    @Field(() => TourLanguagesWhereUniqueInput, {nullable:true})
+    cursor?: InstanceType<typeof TourLanguagesWhereUniqueInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => TourLanguagesCountAggregateInput, {nullable:true})
+    _count?: InstanceType<typeof TourLanguagesCountAggregateInput>;
+    @Field(() => TourLanguagesAvgAggregateInput, {nullable:true})
+    _avg?: InstanceType<typeof TourLanguagesAvgAggregateInput>;
+    @Field(() => TourLanguagesSumAggregateInput, {nullable:true})
+    _sum?: InstanceType<typeof TourLanguagesSumAggregateInput>;
+    @Field(() => TourLanguagesMinAggregateInput, {nullable:true})
+    _min?: InstanceType<typeof TourLanguagesMinAggregateInput>;
+    @Field(() => TourLanguagesMaxAggregateInput, {nullable:true})
+    _max?: InstanceType<typeof TourLanguagesMaxAggregateInput>;
+}
+
+@InputType()
+export class TourLanguagesAvgAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    tourId?: true;
+    @Field(() => Boolean, {nullable:true})
+    languageId?: true;
+}
+
+@ObjectType()
+export class TourLanguagesAvgAggregate {
+    @Field(() => Float, {nullable:true})
+    tourId?: number;
+    @Field(() => Float, {nullable:true})
+    languageId?: number;
+}
+
+@InputType()
+export class TourLanguagesAvgOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    languageId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourLanguagesCountAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    status?: true;
+    @Field(() => Boolean, {nullable:true})
+    tourId?: true;
+    @Field(() => Boolean, {nullable:true})
+    languageId?: true;
+    @Field(() => Boolean, {nullable:true})
+    _all?: true;
+}
+
+@ObjectType()
+export class TourLanguagesCountAggregate {
+    @Field(() => Int, {nullable:false})
+    status!: number;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+    @Field(() => Int, {nullable:false})
+    languageId!: number;
+    @Field(() => Int, {nullable:false})
+    _all!: number;
+}
+
+@InputType()
+export class TourLanguagesCountOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    languageId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourLanguagesCreateManyLanguageInputEnvelope {
+    @Field(() => [TourLanguagesCreateManyLanguageInput], {nullable:false})
+    @Type(() => TourLanguagesCreateManyLanguageInput)
+    data!: Array<TourLanguagesCreateManyLanguageInput>;
+    @Field(() => Boolean, {nullable:true})
+    skipDuplicates?: boolean;
+}
+
+@InputType()
+export class TourLanguagesCreateManyLanguageInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+}
+
+@InputType()
+export class TourLanguagesCreateManyTourInputEnvelope {
+    @Field(() => [TourLanguagesCreateManyTourInput], {nullable:false})
+    @Type(() => TourLanguagesCreateManyTourInput)
+    data!: Array<TourLanguagesCreateManyTourInput>;
+    @Field(() => Boolean, {nullable:true})
+    skipDuplicates?: boolean;
+}
+
+@InputType()
+export class TourLanguagesCreateManyTourInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    languageId!: number;
+}
+
+@InputType()
+export class TourLanguagesCreateManyInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+    @Field(() => Int, {nullable:false})
+    languageId!: number;
+}
+
+@InputType()
+export class TourLanguagesCreateNestedManyWithoutLanguageInput {
+    @Field(() => [TourLanguagesCreateWithoutLanguageInput], {nullable:true})
+    @Type(() => TourLanguagesCreateWithoutLanguageInput)
+    create?: Array<TourLanguagesCreateWithoutLanguageInput>;
+    @Field(() => [TourLanguagesCreateOrConnectWithoutLanguageInput], {nullable:true})
+    @Type(() => TourLanguagesCreateOrConnectWithoutLanguageInput)
+    connectOrCreate?: Array<TourLanguagesCreateOrConnectWithoutLanguageInput>;
+    @Field(() => TourLanguagesCreateManyLanguageInputEnvelope, {nullable:true})
+    @Type(() => TourLanguagesCreateManyLanguageInputEnvelope)
+    createMany?: InstanceType<typeof TourLanguagesCreateManyLanguageInputEnvelope>;
+    @Field(() => [TourLanguagesWhereUniqueInput], {nullable:true})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    connect?: Array<TourLanguagesWhereUniqueInput>;
+}
+
+@InputType()
+export class TourLanguagesCreateNestedManyWithoutTourInput {
+    @Field(() => [TourLanguagesCreateWithoutTourInput], {nullable:true})
+    @Type(() => TourLanguagesCreateWithoutTourInput)
+    create?: Array<TourLanguagesCreateWithoutTourInput>;
+    @Field(() => [TourLanguagesCreateOrConnectWithoutTourInput], {nullable:true})
+    @Type(() => TourLanguagesCreateOrConnectWithoutTourInput)
+    connectOrCreate?: Array<TourLanguagesCreateOrConnectWithoutTourInput>;
+    @Field(() => TourLanguagesCreateManyTourInputEnvelope, {nullable:true})
+    @Type(() => TourLanguagesCreateManyTourInputEnvelope)
+    createMany?: InstanceType<typeof TourLanguagesCreateManyTourInputEnvelope>;
+    @Field(() => [TourLanguagesWhereUniqueInput], {nullable:true})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    connect?: Array<TourLanguagesWhereUniqueInput>;
+}
+
+@InputType()
+export class TourLanguagesCreateOrConnectWithoutLanguageInput {
+    @Field(() => TourLanguagesWhereUniqueInput, {nullable:false})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    where!: InstanceType<typeof TourLanguagesWhereUniqueInput>;
+    @Field(() => TourLanguagesCreateWithoutLanguageInput, {nullable:false})
+    @Type(() => TourLanguagesCreateWithoutLanguageInput)
+    create!: InstanceType<typeof TourLanguagesCreateWithoutLanguageInput>;
+}
+
+@InputType()
+export class TourLanguagesCreateOrConnectWithoutTourInput {
+    @Field(() => TourLanguagesWhereUniqueInput, {nullable:false})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    where!: InstanceType<typeof TourLanguagesWhereUniqueInput>;
+    @Field(() => TourLanguagesCreateWithoutTourInput, {nullable:false})
+    @Type(() => TourLanguagesCreateWithoutTourInput)
+    create!: InstanceType<typeof TourLanguagesCreateWithoutTourInput>;
+}
+
+@InputType()
+export class TourLanguagesCreateWithoutLanguageInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => TourCreateNestedOneWithoutTourLanguagesInput, {nullable:true})
+    tour?: InstanceType<typeof TourCreateNestedOneWithoutTourLanguagesInput>;
+}
+
+@InputType()
+export class TourLanguagesCreateWithoutTourInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => LanguagesCreateNestedOneWithoutTourLanguagesInput, {nullable:false})
+    language!: InstanceType<typeof LanguagesCreateNestedOneWithoutTourLanguagesInput>;
+}
+
+@InputType()
+export class TourLanguagesCreateInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => TourCreateNestedOneWithoutTourLanguagesInput, {nullable:true})
+    tour?: InstanceType<typeof TourCreateNestedOneWithoutTourLanguagesInput>;
+    @Field(() => LanguagesCreateNestedOneWithoutTourLanguagesInput, {nullable:false})
+    language!: InstanceType<typeof LanguagesCreateNestedOneWithoutTourLanguagesInput>;
+}
+
+@ArgsType()
+export class TourLanguagesGroupByArgs {
+    @Field(() => TourLanguagesWhereInput, {nullable:true})
+    @Type(() => TourLanguagesWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourLanguagesWhereInput>;
+    @Field(() => [TourLanguagesOrderByWithAggregationInput], {nullable:true})
+    orderBy?: Array<TourLanguagesOrderByWithAggregationInput>;
+    @Field(() => [TourLanguagesScalarFieldEnum], {nullable:false})
+    by!: Array<keyof typeof TourLanguagesScalarFieldEnum>;
+    @Field(() => TourLanguagesScalarWhereWithAggregatesInput, {nullable:true})
+    having?: InstanceType<typeof TourLanguagesScalarWhereWithAggregatesInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => TourLanguagesCountAggregateInput, {nullable:true})
+    _count?: InstanceType<typeof TourLanguagesCountAggregateInput>;
+    @Field(() => TourLanguagesAvgAggregateInput, {nullable:true})
+    _avg?: InstanceType<typeof TourLanguagesAvgAggregateInput>;
+    @Field(() => TourLanguagesSumAggregateInput, {nullable:true})
+    _sum?: InstanceType<typeof TourLanguagesSumAggregateInput>;
+    @Field(() => TourLanguagesMinAggregateInput, {nullable:true})
+    _min?: InstanceType<typeof TourLanguagesMinAggregateInput>;
+    @Field(() => TourLanguagesMaxAggregateInput, {nullable:true})
+    _max?: InstanceType<typeof TourLanguagesMaxAggregateInput>;
+}
+
+@ObjectType()
+export class TourLanguagesGroupBy {
+    @Field(() => Status, {nullable:false})
+    status!: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+    @Field(() => Int, {nullable:false})
+    languageId!: number;
+    @Field(() => TourLanguagesCountAggregate, {nullable:true})
+    _count?: InstanceType<typeof TourLanguagesCountAggregate>;
+    @Field(() => TourLanguagesAvgAggregate, {nullable:true})
+    _avg?: InstanceType<typeof TourLanguagesAvgAggregate>;
+    @Field(() => TourLanguagesSumAggregate, {nullable:true})
+    _sum?: InstanceType<typeof TourLanguagesSumAggregate>;
+    @Field(() => TourLanguagesMinAggregate, {nullable:true})
+    _min?: InstanceType<typeof TourLanguagesMinAggregate>;
+    @Field(() => TourLanguagesMaxAggregate, {nullable:true})
+    _max?: InstanceType<typeof TourLanguagesMaxAggregate>;
+}
+
+@InputType()
+export class TourLanguagesListRelationFilter {
+    @Field(() => TourLanguagesWhereInput, {nullable:true})
+    every?: InstanceType<typeof TourLanguagesWhereInput>;
+    @Field(() => TourLanguagesWhereInput, {nullable:true})
+    some?: InstanceType<typeof TourLanguagesWhereInput>;
+    @Field(() => TourLanguagesWhereInput, {nullable:true})
+    none?: InstanceType<typeof TourLanguagesWhereInput>;
+}
+
+@InputType()
+export class TourLanguagesMaxAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    status?: true;
+    @Field(() => Boolean, {nullable:true})
+    tourId?: true;
+    @Field(() => Boolean, {nullable:true})
+    languageId?: true;
+}
+
+@ObjectType()
+export class TourLanguagesMaxAggregate {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    tourId?: number;
+    @Field(() => Int, {nullable:true})
+    languageId?: number;
+}
+
+@InputType()
+export class TourLanguagesMaxOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    languageId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourLanguagesMinAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    status?: true;
+    @Field(() => Boolean, {nullable:true})
+    tourId?: true;
+    @Field(() => Boolean, {nullable:true})
+    languageId?: true;
+}
+
+@ObjectType()
+export class TourLanguagesMinAggregate {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    tourId?: number;
+    @Field(() => Int, {nullable:true})
+    languageId?: number;
+}
+
+@InputType()
+export class TourLanguagesMinOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    languageId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourLanguagesOrderByRelationAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    _count?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourLanguagesOrderByWithAggregationInput {
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    languageId?: keyof typeof SortOrder;
+    @Field(() => TourLanguagesCountOrderByAggregateInput, {nullable:true})
+    _count?: InstanceType<typeof TourLanguagesCountOrderByAggregateInput>;
+    @Field(() => TourLanguagesAvgOrderByAggregateInput, {nullable:true})
+    _avg?: InstanceType<typeof TourLanguagesAvgOrderByAggregateInput>;
+    @Field(() => TourLanguagesMaxOrderByAggregateInput, {nullable:true})
+    _max?: InstanceType<typeof TourLanguagesMaxOrderByAggregateInput>;
+    @Field(() => TourLanguagesMinOrderByAggregateInput, {nullable:true})
+    _min?: InstanceType<typeof TourLanguagesMinOrderByAggregateInput>;
+    @Field(() => TourLanguagesSumOrderByAggregateInput, {nullable:true})
+    _sum?: InstanceType<typeof TourLanguagesSumOrderByAggregateInput>;
+}
+
+@InputType()
+export class TourLanguagesOrderByWithRelationInput {
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => TourOrderByWithRelationInput, {nullable:true})
+    tour?: InstanceType<typeof TourOrderByWithRelationInput>;
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => LanguagesOrderByWithRelationInput, {nullable:true})
+    language?: InstanceType<typeof LanguagesOrderByWithRelationInput>;
+    @Field(() => SortOrder, {nullable:true})
+    languageId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourLanguagesScalarWhereWithAggregatesInput {
+    @Field(() => [TourLanguagesScalarWhereWithAggregatesInput], {nullable:true})
+    AND?: Array<TourLanguagesScalarWhereWithAggregatesInput>;
+    @Field(() => [TourLanguagesScalarWhereWithAggregatesInput], {nullable:true})
+    OR?: Array<TourLanguagesScalarWhereWithAggregatesInput>;
+    @Field(() => [TourLanguagesScalarWhereWithAggregatesInput], {nullable:true})
+    NOT?: Array<TourLanguagesScalarWhereWithAggregatesInput>;
+    @Field(() => EnumStatusWithAggregatesFilter, {nullable:true})
+    status?: InstanceType<typeof EnumStatusWithAggregatesFilter>;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    tourId?: InstanceType<typeof IntWithAggregatesFilter>;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    languageId?: InstanceType<typeof IntWithAggregatesFilter>;
+}
+
+@InputType()
+export class TourLanguagesScalarWhereInput {
+    @Field(() => [TourLanguagesScalarWhereInput], {nullable:true})
+    AND?: Array<TourLanguagesScalarWhereInput>;
+    @Field(() => [TourLanguagesScalarWhereInput], {nullable:true})
+    OR?: Array<TourLanguagesScalarWhereInput>;
+    @Field(() => [TourLanguagesScalarWhereInput], {nullable:true})
+    NOT?: Array<TourLanguagesScalarWhereInput>;
+    @Field(() => EnumStatusFilter, {nullable:true})
+    status?: InstanceType<typeof EnumStatusFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    tourId?: InstanceType<typeof IntFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    languageId?: InstanceType<typeof IntFilter>;
+}
+
+@InputType()
+export class TourLanguagesSumAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    tourId?: true;
+    @Field(() => Boolean, {nullable:true})
+    languageId?: true;
+}
+
+@ObjectType()
+export class TourLanguagesSumAggregate {
+    @Field(() => Int, {nullable:true})
+    tourId?: number;
+    @Field(() => Int, {nullable:true})
+    languageId?: number;
+}
+
+@InputType()
+export class TourLanguagesSumOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    languageId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourLanguagesTourIdLanguageIdCompoundUniqueInput {
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+    @Field(() => Int, {nullable:false})
+    languageId!: number;
+}
+
+@InputType()
+export class TourLanguagesUncheckedCreateNestedManyWithoutLanguageInput {
+    @Field(() => [TourLanguagesCreateWithoutLanguageInput], {nullable:true})
+    @Type(() => TourLanguagesCreateWithoutLanguageInput)
+    create?: Array<TourLanguagesCreateWithoutLanguageInput>;
+    @Field(() => [TourLanguagesCreateOrConnectWithoutLanguageInput], {nullable:true})
+    @Type(() => TourLanguagesCreateOrConnectWithoutLanguageInput)
+    connectOrCreate?: Array<TourLanguagesCreateOrConnectWithoutLanguageInput>;
+    @Field(() => TourLanguagesCreateManyLanguageInputEnvelope, {nullable:true})
+    @Type(() => TourLanguagesCreateManyLanguageInputEnvelope)
+    createMany?: InstanceType<typeof TourLanguagesCreateManyLanguageInputEnvelope>;
+    @Field(() => [TourLanguagesWhereUniqueInput], {nullable:true})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    connect?: Array<TourLanguagesWhereUniqueInput>;
+}
+
+@InputType()
+export class TourLanguagesUncheckedCreateNestedManyWithoutTourInput {
+    @Field(() => [TourLanguagesCreateWithoutTourInput], {nullable:true})
+    @Type(() => TourLanguagesCreateWithoutTourInput)
+    create?: Array<TourLanguagesCreateWithoutTourInput>;
+    @Field(() => [TourLanguagesCreateOrConnectWithoutTourInput], {nullable:true})
+    @Type(() => TourLanguagesCreateOrConnectWithoutTourInput)
+    connectOrCreate?: Array<TourLanguagesCreateOrConnectWithoutTourInput>;
+    @Field(() => TourLanguagesCreateManyTourInputEnvelope, {nullable:true})
+    @Type(() => TourLanguagesCreateManyTourInputEnvelope)
+    createMany?: InstanceType<typeof TourLanguagesCreateManyTourInputEnvelope>;
+    @Field(() => [TourLanguagesWhereUniqueInput], {nullable:true})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    connect?: Array<TourLanguagesWhereUniqueInput>;
+}
+
+@InputType()
+export class TourLanguagesUncheckedCreateWithoutLanguageInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+}
+
+@InputType()
+export class TourLanguagesUncheckedCreateWithoutTourInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    languageId!: number;
+}
+
+@InputType()
+export class TourLanguagesUncheckedCreateInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+    @Field(() => Int, {nullable:false})
+    languageId!: number;
+}
+
+@InputType()
+export class TourLanguagesUncheckedUpdateManyWithoutLanguageInput {
+    @Field(() => [TourLanguagesCreateWithoutLanguageInput], {nullable:true})
+    @Type(() => TourLanguagesCreateWithoutLanguageInput)
+    create?: Array<TourLanguagesCreateWithoutLanguageInput>;
+    @Field(() => [TourLanguagesCreateOrConnectWithoutLanguageInput], {nullable:true})
+    @Type(() => TourLanguagesCreateOrConnectWithoutLanguageInput)
+    connectOrCreate?: Array<TourLanguagesCreateOrConnectWithoutLanguageInput>;
+    @Field(() => [TourLanguagesUpsertWithWhereUniqueWithoutLanguageInput], {nullable:true})
+    @Type(() => TourLanguagesUpsertWithWhereUniqueWithoutLanguageInput)
+    upsert?: Array<TourLanguagesUpsertWithWhereUniqueWithoutLanguageInput>;
+    @Field(() => TourLanguagesCreateManyLanguageInputEnvelope, {nullable:true})
+    @Type(() => TourLanguagesCreateManyLanguageInputEnvelope)
+    createMany?: InstanceType<typeof TourLanguagesCreateManyLanguageInputEnvelope>;
+    @Field(() => [TourLanguagesWhereUniqueInput], {nullable:true})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    set?: Array<TourLanguagesWhereUniqueInput>;
+    @Field(() => [TourLanguagesWhereUniqueInput], {nullable:true})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    disconnect?: Array<TourLanguagesWhereUniqueInput>;
+    @Field(() => [TourLanguagesWhereUniqueInput], {nullable:true})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    delete?: Array<TourLanguagesWhereUniqueInput>;
+    @Field(() => [TourLanguagesWhereUniqueInput], {nullable:true})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    connect?: Array<TourLanguagesWhereUniqueInput>;
+    @Field(() => [TourLanguagesUpdateWithWhereUniqueWithoutLanguageInput], {nullable:true})
+    @Type(() => TourLanguagesUpdateWithWhereUniqueWithoutLanguageInput)
+    update?: Array<TourLanguagesUpdateWithWhereUniqueWithoutLanguageInput>;
+    @Field(() => [TourLanguagesUpdateManyWithWhereWithoutLanguageInput], {nullable:true})
+    @Type(() => TourLanguagesUpdateManyWithWhereWithoutLanguageInput)
+    updateMany?: Array<TourLanguagesUpdateManyWithWhereWithoutLanguageInput>;
+    @Field(() => [TourLanguagesScalarWhereInput], {nullable:true})
+    @Type(() => TourLanguagesScalarWhereInput)
+    deleteMany?: Array<TourLanguagesScalarWhereInput>;
+}
+
+@InputType()
+export class TourLanguagesUncheckedUpdateManyWithoutTourLanguagesInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    languageId?: number;
+}
+
+@InputType()
+export class TourLanguagesUncheckedUpdateManyWithoutTourInput {
+    @Field(() => [TourLanguagesCreateWithoutTourInput], {nullable:true})
+    @Type(() => TourLanguagesCreateWithoutTourInput)
+    create?: Array<TourLanguagesCreateWithoutTourInput>;
+    @Field(() => [TourLanguagesCreateOrConnectWithoutTourInput], {nullable:true})
+    @Type(() => TourLanguagesCreateOrConnectWithoutTourInput)
+    connectOrCreate?: Array<TourLanguagesCreateOrConnectWithoutTourInput>;
+    @Field(() => [TourLanguagesUpsertWithWhereUniqueWithoutTourInput], {nullable:true})
+    @Type(() => TourLanguagesUpsertWithWhereUniqueWithoutTourInput)
+    upsert?: Array<TourLanguagesUpsertWithWhereUniqueWithoutTourInput>;
+    @Field(() => TourLanguagesCreateManyTourInputEnvelope, {nullable:true})
+    @Type(() => TourLanguagesCreateManyTourInputEnvelope)
+    createMany?: InstanceType<typeof TourLanguagesCreateManyTourInputEnvelope>;
+    @Field(() => [TourLanguagesWhereUniqueInput], {nullable:true})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    set?: Array<TourLanguagesWhereUniqueInput>;
+    @Field(() => [TourLanguagesWhereUniqueInput], {nullable:true})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    disconnect?: Array<TourLanguagesWhereUniqueInput>;
+    @Field(() => [TourLanguagesWhereUniqueInput], {nullable:true})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    delete?: Array<TourLanguagesWhereUniqueInput>;
+    @Field(() => [TourLanguagesWhereUniqueInput], {nullable:true})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    connect?: Array<TourLanguagesWhereUniqueInput>;
+    @Field(() => [TourLanguagesUpdateWithWhereUniqueWithoutTourInput], {nullable:true})
+    @Type(() => TourLanguagesUpdateWithWhereUniqueWithoutTourInput)
+    update?: Array<TourLanguagesUpdateWithWhereUniqueWithoutTourInput>;
+    @Field(() => [TourLanguagesUpdateManyWithWhereWithoutTourInput], {nullable:true})
+    @Type(() => TourLanguagesUpdateManyWithWhereWithoutTourInput)
+    updateMany?: Array<TourLanguagesUpdateManyWithWhereWithoutTourInput>;
+    @Field(() => [TourLanguagesScalarWhereInput], {nullable:true})
+    @Type(() => TourLanguagesScalarWhereInput)
+    deleteMany?: Array<TourLanguagesScalarWhereInput>;
+}
+
+@InputType()
+export class TourLanguagesUncheckedUpdateManyInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    tourId?: number;
+    @Field(() => Int, {nullable:true})
+    languageId?: number;
+}
+
+@InputType()
+export class TourLanguagesUncheckedUpdateWithoutLanguageInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    tourId?: number;
+}
+
+@InputType()
+export class TourLanguagesUncheckedUpdateWithoutTourInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    languageId?: number;
+}
+
+@InputType()
+export class TourLanguagesUncheckedUpdateInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    tourId?: number;
+    @Field(() => Int, {nullable:true})
+    languageId?: number;
+}
+
+@InputType()
+export class TourLanguagesUpdateManyMutationInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+}
+
+@InputType()
+export class TourLanguagesUpdateManyWithWhereWithoutLanguageInput {
+    @Field(() => TourLanguagesScalarWhereInput, {nullable:false})
+    @Type(() => TourLanguagesScalarWhereInput)
+    where!: InstanceType<typeof TourLanguagesScalarWhereInput>;
+    @Field(() => TourLanguagesUpdateManyMutationInput, {nullable:false})
+    @Type(() => TourLanguagesUpdateManyMutationInput)
+    data!: InstanceType<typeof TourLanguagesUpdateManyMutationInput>;
+}
+
+@InputType()
+export class TourLanguagesUpdateManyWithWhereWithoutTourInput {
+    @Field(() => TourLanguagesScalarWhereInput, {nullable:false})
+    @Type(() => TourLanguagesScalarWhereInput)
+    where!: InstanceType<typeof TourLanguagesScalarWhereInput>;
+    @Field(() => TourLanguagesUpdateManyMutationInput, {nullable:false})
+    @Type(() => TourLanguagesUpdateManyMutationInput)
+    data!: InstanceType<typeof TourLanguagesUpdateManyMutationInput>;
+}
+
+@InputType()
+export class TourLanguagesUpdateManyWithoutLanguageInput {
+    @Field(() => [TourLanguagesCreateWithoutLanguageInput], {nullable:true})
+    @Type(() => TourLanguagesCreateWithoutLanguageInput)
+    create?: Array<TourLanguagesCreateWithoutLanguageInput>;
+    @Field(() => [TourLanguagesCreateOrConnectWithoutLanguageInput], {nullable:true})
+    @Type(() => TourLanguagesCreateOrConnectWithoutLanguageInput)
+    connectOrCreate?: Array<TourLanguagesCreateOrConnectWithoutLanguageInput>;
+    @Field(() => [TourLanguagesUpsertWithWhereUniqueWithoutLanguageInput], {nullable:true})
+    @Type(() => TourLanguagesUpsertWithWhereUniqueWithoutLanguageInput)
+    upsert?: Array<TourLanguagesUpsertWithWhereUniqueWithoutLanguageInput>;
+    @Field(() => TourLanguagesCreateManyLanguageInputEnvelope, {nullable:true})
+    @Type(() => TourLanguagesCreateManyLanguageInputEnvelope)
+    createMany?: InstanceType<typeof TourLanguagesCreateManyLanguageInputEnvelope>;
+    @Field(() => [TourLanguagesWhereUniqueInput], {nullable:true})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    set?: Array<TourLanguagesWhereUniqueInput>;
+    @Field(() => [TourLanguagesWhereUniqueInput], {nullable:true})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    disconnect?: Array<TourLanguagesWhereUniqueInput>;
+    @Field(() => [TourLanguagesWhereUniqueInput], {nullable:true})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    delete?: Array<TourLanguagesWhereUniqueInput>;
+    @Field(() => [TourLanguagesWhereUniqueInput], {nullable:true})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    connect?: Array<TourLanguagesWhereUniqueInput>;
+    @Field(() => [TourLanguagesUpdateWithWhereUniqueWithoutLanguageInput], {nullable:true})
+    @Type(() => TourLanguagesUpdateWithWhereUniqueWithoutLanguageInput)
+    update?: Array<TourLanguagesUpdateWithWhereUniqueWithoutLanguageInput>;
+    @Field(() => [TourLanguagesUpdateManyWithWhereWithoutLanguageInput], {nullable:true})
+    @Type(() => TourLanguagesUpdateManyWithWhereWithoutLanguageInput)
+    updateMany?: Array<TourLanguagesUpdateManyWithWhereWithoutLanguageInput>;
+    @Field(() => [TourLanguagesScalarWhereInput], {nullable:true})
+    @Type(() => TourLanguagesScalarWhereInput)
+    deleteMany?: Array<TourLanguagesScalarWhereInput>;
+}
+
+@InputType()
+export class TourLanguagesUpdateManyWithoutTourInput {
+    @Field(() => [TourLanguagesCreateWithoutTourInput], {nullable:true})
+    @Type(() => TourLanguagesCreateWithoutTourInput)
+    create?: Array<TourLanguagesCreateWithoutTourInput>;
+    @Field(() => [TourLanguagesCreateOrConnectWithoutTourInput], {nullable:true})
+    @Type(() => TourLanguagesCreateOrConnectWithoutTourInput)
+    connectOrCreate?: Array<TourLanguagesCreateOrConnectWithoutTourInput>;
+    @Field(() => [TourLanguagesUpsertWithWhereUniqueWithoutTourInput], {nullable:true})
+    @Type(() => TourLanguagesUpsertWithWhereUniqueWithoutTourInput)
+    upsert?: Array<TourLanguagesUpsertWithWhereUniqueWithoutTourInput>;
+    @Field(() => TourLanguagesCreateManyTourInputEnvelope, {nullable:true})
+    @Type(() => TourLanguagesCreateManyTourInputEnvelope)
+    createMany?: InstanceType<typeof TourLanguagesCreateManyTourInputEnvelope>;
+    @Field(() => [TourLanguagesWhereUniqueInput], {nullable:true})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    set?: Array<TourLanguagesWhereUniqueInput>;
+    @Field(() => [TourLanguagesWhereUniqueInput], {nullable:true})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    disconnect?: Array<TourLanguagesWhereUniqueInput>;
+    @Field(() => [TourLanguagesWhereUniqueInput], {nullable:true})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    delete?: Array<TourLanguagesWhereUniqueInput>;
+    @Field(() => [TourLanguagesWhereUniqueInput], {nullable:true})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    connect?: Array<TourLanguagesWhereUniqueInput>;
+    @Field(() => [TourLanguagesUpdateWithWhereUniqueWithoutTourInput], {nullable:true})
+    @Type(() => TourLanguagesUpdateWithWhereUniqueWithoutTourInput)
+    update?: Array<TourLanguagesUpdateWithWhereUniqueWithoutTourInput>;
+    @Field(() => [TourLanguagesUpdateManyWithWhereWithoutTourInput], {nullable:true})
+    @Type(() => TourLanguagesUpdateManyWithWhereWithoutTourInput)
+    updateMany?: Array<TourLanguagesUpdateManyWithWhereWithoutTourInput>;
+    @Field(() => [TourLanguagesScalarWhereInput], {nullable:true})
+    @Type(() => TourLanguagesScalarWhereInput)
+    deleteMany?: Array<TourLanguagesScalarWhereInput>;
+}
+
+@InputType()
+export class TourLanguagesUpdateWithWhereUniqueWithoutLanguageInput {
+    @Field(() => TourLanguagesWhereUniqueInput, {nullable:false})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    where!: InstanceType<typeof TourLanguagesWhereUniqueInput>;
+    @Field(() => TourLanguagesUpdateWithoutLanguageInput, {nullable:false})
+    @Type(() => TourLanguagesUpdateWithoutLanguageInput)
+    data!: InstanceType<typeof TourLanguagesUpdateWithoutLanguageInput>;
+}
+
+@InputType()
+export class TourLanguagesUpdateWithWhereUniqueWithoutTourInput {
+    @Field(() => TourLanguagesWhereUniqueInput, {nullable:false})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    where!: InstanceType<typeof TourLanguagesWhereUniqueInput>;
+    @Field(() => TourLanguagesUpdateWithoutTourInput, {nullable:false})
+    @Type(() => TourLanguagesUpdateWithoutTourInput)
+    data!: InstanceType<typeof TourLanguagesUpdateWithoutTourInput>;
+}
+
+@InputType()
+export class TourLanguagesUpdateWithoutLanguageInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => TourUpdateOneWithoutTourLanguagesInput, {nullable:true})
+    tour?: InstanceType<typeof TourUpdateOneWithoutTourLanguagesInput>;
+}
+
+@InputType()
+export class TourLanguagesUpdateWithoutTourInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => LanguagesUpdateOneRequiredWithoutTourLanguagesInput, {nullable:true})
+    language?: InstanceType<typeof LanguagesUpdateOneRequiredWithoutTourLanguagesInput>;
+}
+
+@InputType()
+export class TourLanguagesUpdateInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => TourUpdateOneWithoutTourLanguagesInput, {nullable:true})
+    tour?: InstanceType<typeof TourUpdateOneWithoutTourLanguagesInput>;
+    @Field(() => LanguagesUpdateOneRequiredWithoutTourLanguagesInput, {nullable:true})
+    language?: InstanceType<typeof LanguagesUpdateOneRequiredWithoutTourLanguagesInput>;
+}
+
+@InputType()
+export class TourLanguagesUpsertWithWhereUniqueWithoutLanguageInput {
+    @Field(() => TourLanguagesWhereUniqueInput, {nullable:false})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    where!: InstanceType<typeof TourLanguagesWhereUniqueInput>;
+    @Field(() => TourLanguagesUpdateWithoutLanguageInput, {nullable:false})
+    @Type(() => TourLanguagesUpdateWithoutLanguageInput)
+    update!: InstanceType<typeof TourLanguagesUpdateWithoutLanguageInput>;
+    @Field(() => TourLanguagesCreateWithoutLanguageInput, {nullable:false})
+    @Type(() => TourLanguagesCreateWithoutLanguageInput)
+    create!: InstanceType<typeof TourLanguagesCreateWithoutLanguageInput>;
+}
+
+@InputType()
+export class TourLanguagesUpsertWithWhereUniqueWithoutTourInput {
+    @Field(() => TourLanguagesWhereUniqueInput, {nullable:false})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    where!: InstanceType<typeof TourLanguagesWhereUniqueInput>;
+    @Field(() => TourLanguagesUpdateWithoutTourInput, {nullable:false})
+    @Type(() => TourLanguagesUpdateWithoutTourInput)
+    update!: InstanceType<typeof TourLanguagesUpdateWithoutTourInput>;
+    @Field(() => TourLanguagesCreateWithoutTourInput, {nullable:false})
+    @Type(() => TourLanguagesCreateWithoutTourInput)
+    create!: InstanceType<typeof TourLanguagesCreateWithoutTourInput>;
+}
+
+@InputType()
+export class TourLanguagesWhereUniqueInput {
+    @Field(() => TourLanguagesTourIdLanguageIdCompoundUniqueInput, {nullable:true})
+    tourId_languageId?: InstanceType<typeof TourLanguagesTourIdLanguageIdCompoundUniqueInput>;
+}
+
+@InputType()
+export class TourLanguagesWhereInput {
+    @Field(() => [TourLanguagesWhereInput], {nullable:true})
+    AND?: Array<TourLanguagesWhereInput>;
+    @Field(() => [TourLanguagesWhereInput], {nullable:true})
+    OR?: Array<TourLanguagesWhereInput>;
+    @Field(() => [TourLanguagesWhereInput], {nullable:true})
+    NOT?: Array<TourLanguagesWhereInput>;
+    @Field(() => EnumStatusFilter, {nullable:true})
+    status?: InstanceType<typeof EnumStatusFilter>;
+    @Field(() => TourRelationFilter, {nullable:true})
+    tour?: InstanceType<typeof TourRelationFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    tourId?: InstanceType<typeof IntFilter>;
+    @Field(() => LanguagesRelationFilter, {nullable:true})
+    language?: InstanceType<typeof LanguagesRelationFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    languageId?: InstanceType<typeof IntFilter>;
+}
+
+@ObjectType()
+export class TourLanguages {
+    @Field(() => Status, {nullable:false,defaultValue:'ACTIVE'})
+    status!: keyof typeof Status;
+    @Field(() => Tour, {nullable:true})
+    tour?: InstanceType<typeof Tour> | null;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+    @Field(() => Languages, {nullable:false})
+    language?: InstanceType<typeof Languages>;
+    @Field(() => Int, {nullable:false})
+    languageId!: number;
+}
+
+@ArgsType()
+export class UpdateManyTourLanguagesArgs {
+    @Field(() => TourLanguagesUpdateManyMutationInput, {nullable:false})
+    @Type(() => TourLanguagesUpdateManyMutationInput)
+    @ValidateNested({ each: true })
+    data!: InstanceType<typeof TourLanguagesUpdateManyMutationInput>;
+    @Field(() => TourLanguagesWhereInput, {nullable:true})
+    @Type(() => TourLanguagesWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourLanguagesWhereInput>;
+}
+
+@ArgsType()
+export class UpdateOneTourLanguagesArgs {
+    @Field(() => TourLanguagesUpdateInput, {nullable:false})
+    @Type(() => TourLanguagesUpdateInput)
+    @ValidateNested({ each: true })
+    data!: InstanceType<typeof TourLanguagesUpdateInput>;
+    @Field(() => TourLanguagesWhereUniqueInput, {nullable:false})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof TourLanguagesWhereUniqueInput>;
+}
+
+@ArgsType()
+export class UpsertOneTourLanguagesArgs {
+    @Field(() => TourLanguagesWhereUniqueInput, {nullable:false})
+    @Type(() => TourLanguagesWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof TourLanguagesWhereUniqueInput>;
+    @Field(() => TourLanguagesCreateInput, {nullable:false})
+    @Type(() => TourLanguagesCreateInput)
+    create!: InstanceType<typeof TourLanguagesCreateInput>;
+    @Field(() => TourLanguagesUpdateInput, {nullable:false})
+    @Type(() => TourLanguagesUpdateInput)
+    update!: InstanceType<typeof TourLanguagesUpdateInput>;
+}
+
+@ObjectType()
+export class AggregateTourTourCategory {
+    @Field(() => TourTourCategoryCountAggregate, {nullable:true})
+    _count?: InstanceType<typeof TourTourCategoryCountAggregate>;
+    @Field(() => TourTourCategoryAvgAggregate, {nullable:true})
+    _avg?: InstanceType<typeof TourTourCategoryAvgAggregate>;
+    @Field(() => TourTourCategorySumAggregate, {nullable:true})
+    _sum?: InstanceType<typeof TourTourCategorySumAggregate>;
+    @Field(() => TourTourCategoryMinAggregate, {nullable:true})
+    _min?: InstanceType<typeof TourTourCategoryMinAggregate>;
+    @Field(() => TourTourCategoryMaxAggregate, {nullable:true})
+    _max?: InstanceType<typeof TourTourCategoryMaxAggregate>;
+}
+
+@ArgsType()
+export class CreateManyTourTourCategoryArgs {
+    @Field(() => [TourTourCategoryCreateManyInput], {nullable:false})
+    @Type(() => TourTourCategoryCreateManyInput)
+    @ValidateNested({ each: true })
+    data!: Array<TourTourCategoryCreateManyInput>;
+    @Field(() => Boolean, {nullable:true})
+    skipDuplicates?: boolean;
+}
+
+@ArgsType()
+export class CreateOneTourTourCategoryArgs {
+    @Field(() => TourTourCategoryCreateInput, {nullable:false})
+    @Type(() => TourTourCategoryCreateInput)
+    @ValidateNested({ each: true })
+    data!: InstanceType<typeof TourTourCategoryCreateInput>;
+}
+
+@ArgsType()
+export class DeleteManyTourTourCategoryArgs {
+    @Field(() => TourTourCategoryWhereInput, {nullable:true})
+    @Type(() => TourTourCategoryWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourTourCategoryWhereInput>;
+}
+
+@ArgsType()
+export class DeleteOneTourTourCategoryArgs {
+    @Field(() => TourTourCategoryWhereUniqueInput, {nullable:false})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof TourTourCategoryWhereUniqueInput>;
+}
+
+@ArgsType()
+export class FindFirstTourTourCategoryArgs {
+    @Field(() => TourTourCategoryWhereInput, {nullable:true})
+    @Type(() => TourTourCategoryWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourTourCategoryWhereInput>;
+    @Field(() => [TourTourCategoryOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<TourTourCategoryOrderByWithRelationInput>;
+    @Field(() => TourTourCategoryWhereUniqueInput, {nullable:true})
+    cursor?: InstanceType<typeof TourTourCategoryWhereUniqueInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => [TourTourCategoryScalarFieldEnum], {nullable:true})
+    distinct?: Array<keyof typeof TourTourCategoryScalarFieldEnum>;
+}
+
+@ArgsType()
+export class FindManyTourTourCategoryArgs {
+    @Field(() => TourTourCategoryWhereInput, {nullable:true})
+    @Type(() => TourTourCategoryWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourTourCategoryWhereInput>;
+    @Field(() => [TourTourCategoryOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<TourTourCategoryOrderByWithRelationInput>;
+    @Field(() => TourTourCategoryWhereUniqueInput, {nullable:true})
+    cursor?: InstanceType<typeof TourTourCategoryWhereUniqueInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => [TourTourCategoryScalarFieldEnum], {nullable:true})
+    distinct?: Array<keyof typeof TourTourCategoryScalarFieldEnum>;
+}
+
+@ArgsType()
+export class FindUniqueTourTourCategoryArgs {
+    @Field(() => TourTourCategoryWhereUniqueInput, {nullable:false})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof TourTourCategoryWhereUniqueInput>;
+}
+
+@ArgsType()
+export class TourTourCategoryAggregateArgs {
+    @Field(() => TourTourCategoryWhereInput, {nullable:true})
+    @Type(() => TourTourCategoryWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourTourCategoryWhereInput>;
+    @Field(() => [TourTourCategoryOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<TourTourCategoryOrderByWithRelationInput>;
+    @Field(() => TourTourCategoryWhereUniqueInput, {nullable:true})
+    cursor?: InstanceType<typeof TourTourCategoryWhereUniqueInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => TourTourCategoryCountAggregateInput, {nullable:true})
+    _count?: InstanceType<typeof TourTourCategoryCountAggregateInput>;
+    @Field(() => TourTourCategoryAvgAggregateInput, {nullable:true})
+    _avg?: InstanceType<typeof TourTourCategoryAvgAggregateInput>;
+    @Field(() => TourTourCategorySumAggregateInput, {nullable:true})
+    _sum?: InstanceType<typeof TourTourCategorySumAggregateInput>;
+    @Field(() => TourTourCategoryMinAggregateInput, {nullable:true})
+    _min?: InstanceType<typeof TourTourCategoryMinAggregateInput>;
+    @Field(() => TourTourCategoryMaxAggregateInput, {nullable:true})
+    _max?: InstanceType<typeof TourTourCategoryMaxAggregateInput>;
+}
+
+@InputType()
+export class TourTourCategoryAvgAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    tourId?: true;
+    @Field(() => Boolean, {nullable:true})
+    tourCategoryId?: true;
+}
+
+@ObjectType()
+export class TourTourCategoryAvgAggregate {
+    @Field(() => Float, {nullable:true})
+    tourId?: number;
+    @Field(() => Float, {nullable:true})
+    tourCategoryId?: number;
+}
+
+@InputType()
+export class TourTourCategoryAvgOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    tourCategoryId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourTourCategoryCountAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    status?: true;
+    @Field(() => Boolean, {nullable:true})
+    tourId?: true;
+    @Field(() => Boolean, {nullable:true})
+    tourCategoryId?: true;
+    @Field(() => Boolean, {nullable:true})
+    _all?: true;
+}
+
+@ObjectType()
+export class TourTourCategoryCountAggregate {
+    @Field(() => Int, {nullable:false})
+    status!: number;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+    @Field(() => Int, {nullable:false})
+    tourCategoryId!: number;
+    @Field(() => Int, {nullable:false})
+    _all!: number;
+}
+
+@InputType()
+export class TourTourCategoryCountOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    tourCategoryId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourTourCategoryCreateManyTourCategoryInputEnvelope {
+    @Field(() => [TourTourCategoryCreateManyTourCategoryInput], {nullable:false})
+    @Type(() => TourTourCategoryCreateManyTourCategoryInput)
+    data!: Array<TourTourCategoryCreateManyTourCategoryInput>;
+    @Field(() => Boolean, {nullable:true})
+    skipDuplicates?: boolean;
+}
+
+@InputType()
+export class TourTourCategoryCreateManyTourCategoryInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+}
+
+@InputType()
+export class TourTourCategoryCreateManyTourInputEnvelope {
+    @Field(() => [TourTourCategoryCreateManyTourInput], {nullable:false})
+    @Type(() => TourTourCategoryCreateManyTourInput)
+    data!: Array<TourTourCategoryCreateManyTourInput>;
+    @Field(() => Boolean, {nullable:true})
+    skipDuplicates?: boolean;
+}
+
+@InputType()
+export class TourTourCategoryCreateManyTourInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    tourCategoryId!: number;
+}
+
+@InputType()
+export class TourTourCategoryCreateManyInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+    @Field(() => Int, {nullable:false})
+    tourCategoryId!: number;
+}
+
+@InputType()
+export class TourTourCategoryCreateNestedManyWithoutTourCategoryInput {
+    @Field(() => [TourTourCategoryCreateWithoutTourCategoryInput], {nullable:true})
+    @Type(() => TourTourCategoryCreateWithoutTourCategoryInput)
+    create?: Array<TourTourCategoryCreateWithoutTourCategoryInput>;
+    @Field(() => [TourTourCategoryCreateOrConnectWithoutTourCategoryInput], {nullable:true})
+    @Type(() => TourTourCategoryCreateOrConnectWithoutTourCategoryInput)
+    connectOrCreate?: Array<TourTourCategoryCreateOrConnectWithoutTourCategoryInput>;
+    @Field(() => TourTourCategoryCreateManyTourCategoryInputEnvelope, {nullable:true})
+    @Type(() => TourTourCategoryCreateManyTourCategoryInputEnvelope)
+    createMany?: InstanceType<typeof TourTourCategoryCreateManyTourCategoryInputEnvelope>;
+    @Field(() => [TourTourCategoryWhereUniqueInput], {nullable:true})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    connect?: Array<TourTourCategoryWhereUniqueInput>;
+}
+
+@InputType()
+export class TourTourCategoryCreateNestedManyWithoutTourInput {
+    @Field(() => [TourTourCategoryCreateWithoutTourInput], {nullable:true})
+    @Type(() => TourTourCategoryCreateWithoutTourInput)
+    create?: Array<TourTourCategoryCreateWithoutTourInput>;
+    @Field(() => [TourTourCategoryCreateOrConnectWithoutTourInput], {nullable:true})
+    @Type(() => TourTourCategoryCreateOrConnectWithoutTourInput)
+    connectOrCreate?: Array<TourTourCategoryCreateOrConnectWithoutTourInput>;
+    @Field(() => TourTourCategoryCreateManyTourInputEnvelope, {nullable:true})
+    @Type(() => TourTourCategoryCreateManyTourInputEnvelope)
+    createMany?: InstanceType<typeof TourTourCategoryCreateManyTourInputEnvelope>;
+    @Field(() => [TourTourCategoryWhereUniqueInput], {nullable:true})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    connect?: Array<TourTourCategoryWhereUniqueInput>;
+}
+
+@InputType()
+export class TourTourCategoryCreateOrConnectWithoutTourCategoryInput {
+    @Field(() => TourTourCategoryWhereUniqueInput, {nullable:false})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    where!: InstanceType<typeof TourTourCategoryWhereUniqueInput>;
+    @Field(() => TourTourCategoryCreateWithoutTourCategoryInput, {nullable:false})
+    @Type(() => TourTourCategoryCreateWithoutTourCategoryInput)
+    create!: InstanceType<typeof TourTourCategoryCreateWithoutTourCategoryInput>;
+}
+
+@InputType()
+export class TourTourCategoryCreateOrConnectWithoutTourInput {
+    @Field(() => TourTourCategoryWhereUniqueInput, {nullable:false})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    where!: InstanceType<typeof TourTourCategoryWhereUniqueInput>;
+    @Field(() => TourTourCategoryCreateWithoutTourInput, {nullable:false})
+    @Type(() => TourTourCategoryCreateWithoutTourInput)
+    create!: InstanceType<typeof TourTourCategoryCreateWithoutTourInput>;
+}
+
+@InputType()
+export class TourTourCategoryCreateWithoutTourCategoryInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => TourCreateNestedOneWithoutTourTourCategoryInput, {nullable:true})
+    tour?: InstanceType<typeof TourCreateNestedOneWithoutTourTourCategoryInput>;
+}
+
+@InputType()
+export class TourTourCategoryCreateWithoutTourInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => TourCategoryCreateNestedOneWithoutTourTourCategoryInput, {nullable:false})
+    tourCategory!: InstanceType<typeof TourCategoryCreateNestedOneWithoutTourTourCategoryInput>;
+}
+
+@InputType()
+export class TourTourCategoryCreateInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => TourCreateNestedOneWithoutTourTourCategoryInput, {nullable:true})
+    tour?: InstanceType<typeof TourCreateNestedOneWithoutTourTourCategoryInput>;
+    @Field(() => TourCategoryCreateNestedOneWithoutTourTourCategoryInput, {nullable:false})
+    tourCategory!: InstanceType<typeof TourCategoryCreateNestedOneWithoutTourTourCategoryInput>;
+}
+
+@ArgsType()
+export class TourTourCategoryGroupByArgs {
+    @Field(() => TourTourCategoryWhereInput, {nullable:true})
+    @Type(() => TourTourCategoryWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourTourCategoryWhereInput>;
+    @Field(() => [TourTourCategoryOrderByWithAggregationInput], {nullable:true})
+    orderBy?: Array<TourTourCategoryOrderByWithAggregationInput>;
+    @Field(() => [TourTourCategoryScalarFieldEnum], {nullable:false})
+    by!: Array<keyof typeof TourTourCategoryScalarFieldEnum>;
+    @Field(() => TourTourCategoryScalarWhereWithAggregatesInput, {nullable:true})
+    having?: InstanceType<typeof TourTourCategoryScalarWhereWithAggregatesInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => TourTourCategoryCountAggregateInput, {nullable:true})
+    _count?: InstanceType<typeof TourTourCategoryCountAggregateInput>;
+    @Field(() => TourTourCategoryAvgAggregateInput, {nullable:true})
+    _avg?: InstanceType<typeof TourTourCategoryAvgAggregateInput>;
+    @Field(() => TourTourCategorySumAggregateInput, {nullable:true})
+    _sum?: InstanceType<typeof TourTourCategorySumAggregateInput>;
+    @Field(() => TourTourCategoryMinAggregateInput, {nullable:true})
+    _min?: InstanceType<typeof TourTourCategoryMinAggregateInput>;
+    @Field(() => TourTourCategoryMaxAggregateInput, {nullable:true})
+    _max?: InstanceType<typeof TourTourCategoryMaxAggregateInput>;
+}
+
+@ObjectType()
+export class TourTourCategoryGroupBy {
+    @Field(() => Status, {nullable:false})
+    status!: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+    @Field(() => Int, {nullable:false})
+    tourCategoryId!: number;
+    @Field(() => TourTourCategoryCountAggregate, {nullable:true})
+    _count?: InstanceType<typeof TourTourCategoryCountAggregate>;
+    @Field(() => TourTourCategoryAvgAggregate, {nullable:true})
+    _avg?: InstanceType<typeof TourTourCategoryAvgAggregate>;
+    @Field(() => TourTourCategorySumAggregate, {nullable:true})
+    _sum?: InstanceType<typeof TourTourCategorySumAggregate>;
+    @Field(() => TourTourCategoryMinAggregate, {nullable:true})
+    _min?: InstanceType<typeof TourTourCategoryMinAggregate>;
+    @Field(() => TourTourCategoryMaxAggregate, {nullable:true})
+    _max?: InstanceType<typeof TourTourCategoryMaxAggregate>;
+}
+
+@InputType()
+export class TourTourCategoryListRelationFilter {
+    @Field(() => TourTourCategoryWhereInput, {nullable:true})
+    every?: InstanceType<typeof TourTourCategoryWhereInput>;
+    @Field(() => TourTourCategoryWhereInput, {nullable:true})
+    some?: InstanceType<typeof TourTourCategoryWhereInput>;
+    @Field(() => TourTourCategoryWhereInput, {nullable:true})
+    none?: InstanceType<typeof TourTourCategoryWhereInput>;
+}
+
+@InputType()
+export class TourTourCategoryMaxAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    status?: true;
+    @Field(() => Boolean, {nullable:true})
+    tourId?: true;
+    @Field(() => Boolean, {nullable:true})
+    tourCategoryId?: true;
+}
+
+@ObjectType()
+export class TourTourCategoryMaxAggregate {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    tourId?: number;
+    @Field(() => Int, {nullable:true})
+    tourCategoryId?: number;
+}
+
+@InputType()
+export class TourTourCategoryMaxOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    tourCategoryId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourTourCategoryMinAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    status?: true;
+    @Field(() => Boolean, {nullable:true})
+    tourId?: true;
+    @Field(() => Boolean, {nullable:true})
+    tourCategoryId?: true;
+}
+
+@ObjectType()
+export class TourTourCategoryMinAggregate {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    tourId?: number;
+    @Field(() => Int, {nullable:true})
+    tourCategoryId?: number;
+}
+
+@InputType()
+export class TourTourCategoryMinOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    tourCategoryId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourTourCategoryOrderByRelationAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    _count?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourTourCategoryOrderByWithAggregationInput {
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    tourCategoryId?: keyof typeof SortOrder;
+    @Field(() => TourTourCategoryCountOrderByAggregateInput, {nullable:true})
+    _count?: InstanceType<typeof TourTourCategoryCountOrderByAggregateInput>;
+    @Field(() => TourTourCategoryAvgOrderByAggregateInput, {nullable:true})
+    _avg?: InstanceType<typeof TourTourCategoryAvgOrderByAggregateInput>;
+    @Field(() => TourTourCategoryMaxOrderByAggregateInput, {nullable:true})
+    _max?: InstanceType<typeof TourTourCategoryMaxOrderByAggregateInput>;
+    @Field(() => TourTourCategoryMinOrderByAggregateInput, {nullable:true})
+    _min?: InstanceType<typeof TourTourCategoryMinOrderByAggregateInput>;
+    @Field(() => TourTourCategorySumOrderByAggregateInput, {nullable:true})
+    _sum?: InstanceType<typeof TourTourCategorySumOrderByAggregateInput>;
+}
+
+@InputType()
+export class TourTourCategoryOrderByWithRelationInput {
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => TourOrderByWithRelationInput, {nullable:true})
+    tour?: InstanceType<typeof TourOrderByWithRelationInput>;
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => TourCategoryOrderByWithRelationInput, {nullable:true})
+    tourCategory?: InstanceType<typeof TourCategoryOrderByWithRelationInput>;
+    @Field(() => SortOrder, {nullable:true})
+    tourCategoryId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourTourCategoryScalarWhereWithAggregatesInput {
+    @Field(() => [TourTourCategoryScalarWhereWithAggregatesInput], {nullable:true})
+    AND?: Array<TourTourCategoryScalarWhereWithAggregatesInput>;
+    @Field(() => [TourTourCategoryScalarWhereWithAggregatesInput], {nullable:true})
+    OR?: Array<TourTourCategoryScalarWhereWithAggregatesInput>;
+    @Field(() => [TourTourCategoryScalarWhereWithAggregatesInput], {nullable:true})
+    NOT?: Array<TourTourCategoryScalarWhereWithAggregatesInput>;
+    @Field(() => EnumStatusWithAggregatesFilter, {nullable:true})
+    status?: InstanceType<typeof EnumStatusWithAggregatesFilter>;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    tourId?: InstanceType<typeof IntWithAggregatesFilter>;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    tourCategoryId?: InstanceType<typeof IntWithAggregatesFilter>;
+}
+
+@InputType()
+export class TourTourCategoryScalarWhereInput {
+    @Field(() => [TourTourCategoryScalarWhereInput], {nullable:true})
+    AND?: Array<TourTourCategoryScalarWhereInput>;
+    @Field(() => [TourTourCategoryScalarWhereInput], {nullable:true})
+    OR?: Array<TourTourCategoryScalarWhereInput>;
+    @Field(() => [TourTourCategoryScalarWhereInput], {nullable:true})
+    NOT?: Array<TourTourCategoryScalarWhereInput>;
+    @Field(() => EnumStatusFilter, {nullable:true})
+    status?: InstanceType<typeof EnumStatusFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    tourId?: InstanceType<typeof IntFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    tourCategoryId?: InstanceType<typeof IntFilter>;
+}
+
+@InputType()
+export class TourTourCategorySumAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    tourId?: true;
+    @Field(() => Boolean, {nullable:true})
+    tourCategoryId?: true;
+}
+
+@ObjectType()
+export class TourTourCategorySumAggregate {
+    @Field(() => Int, {nullable:true})
+    tourId?: number;
+    @Field(() => Int, {nullable:true})
+    tourCategoryId?: number;
+}
+
+@InputType()
+export class TourTourCategorySumOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    tourCategoryId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class TourTourCategoryTourIdTourCategoryIdCompoundUniqueInput {
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+    @Field(() => Int, {nullable:false})
+    tourCategoryId!: number;
+}
+
+@InputType()
+export class TourTourCategoryUncheckedCreateNestedManyWithoutTourCategoryInput {
+    @Field(() => [TourTourCategoryCreateWithoutTourCategoryInput], {nullable:true})
+    @Type(() => TourTourCategoryCreateWithoutTourCategoryInput)
+    create?: Array<TourTourCategoryCreateWithoutTourCategoryInput>;
+    @Field(() => [TourTourCategoryCreateOrConnectWithoutTourCategoryInput], {nullable:true})
+    @Type(() => TourTourCategoryCreateOrConnectWithoutTourCategoryInput)
+    connectOrCreate?: Array<TourTourCategoryCreateOrConnectWithoutTourCategoryInput>;
+    @Field(() => TourTourCategoryCreateManyTourCategoryInputEnvelope, {nullable:true})
+    @Type(() => TourTourCategoryCreateManyTourCategoryInputEnvelope)
+    createMany?: InstanceType<typeof TourTourCategoryCreateManyTourCategoryInputEnvelope>;
+    @Field(() => [TourTourCategoryWhereUniqueInput], {nullable:true})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    connect?: Array<TourTourCategoryWhereUniqueInput>;
+}
+
+@InputType()
+export class TourTourCategoryUncheckedCreateNestedManyWithoutTourInput {
+    @Field(() => [TourTourCategoryCreateWithoutTourInput], {nullable:true})
+    @Type(() => TourTourCategoryCreateWithoutTourInput)
+    create?: Array<TourTourCategoryCreateWithoutTourInput>;
+    @Field(() => [TourTourCategoryCreateOrConnectWithoutTourInput], {nullable:true})
+    @Type(() => TourTourCategoryCreateOrConnectWithoutTourInput)
+    connectOrCreate?: Array<TourTourCategoryCreateOrConnectWithoutTourInput>;
+    @Field(() => TourTourCategoryCreateManyTourInputEnvelope, {nullable:true})
+    @Type(() => TourTourCategoryCreateManyTourInputEnvelope)
+    createMany?: InstanceType<typeof TourTourCategoryCreateManyTourInputEnvelope>;
+    @Field(() => [TourTourCategoryWhereUniqueInput], {nullable:true})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    connect?: Array<TourTourCategoryWhereUniqueInput>;
+}
+
+@InputType()
+export class TourTourCategoryUncheckedCreateWithoutTourCategoryInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+}
+
+@InputType()
+export class TourTourCategoryUncheckedCreateWithoutTourInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    tourCategoryId!: number;
+}
+
+@InputType()
+export class TourTourCategoryUncheckedCreateInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+    @Field(() => Int, {nullable:false})
+    tourCategoryId!: number;
+}
+
+@InputType()
+export class TourTourCategoryUncheckedUpdateManyWithoutTourCategoryInput {
+    @Field(() => [TourTourCategoryCreateWithoutTourCategoryInput], {nullable:true})
+    @Type(() => TourTourCategoryCreateWithoutTourCategoryInput)
+    create?: Array<TourTourCategoryCreateWithoutTourCategoryInput>;
+    @Field(() => [TourTourCategoryCreateOrConnectWithoutTourCategoryInput], {nullable:true})
+    @Type(() => TourTourCategoryCreateOrConnectWithoutTourCategoryInput)
+    connectOrCreate?: Array<TourTourCategoryCreateOrConnectWithoutTourCategoryInput>;
+    @Field(() => [TourTourCategoryUpsertWithWhereUniqueWithoutTourCategoryInput], {nullable:true})
+    @Type(() => TourTourCategoryUpsertWithWhereUniqueWithoutTourCategoryInput)
+    upsert?: Array<TourTourCategoryUpsertWithWhereUniqueWithoutTourCategoryInput>;
+    @Field(() => TourTourCategoryCreateManyTourCategoryInputEnvelope, {nullable:true})
+    @Type(() => TourTourCategoryCreateManyTourCategoryInputEnvelope)
+    createMany?: InstanceType<typeof TourTourCategoryCreateManyTourCategoryInputEnvelope>;
+    @Field(() => [TourTourCategoryWhereUniqueInput], {nullable:true})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    set?: Array<TourTourCategoryWhereUniqueInput>;
+    @Field(() => [TourTourCategoryWhereUniqueInput], {nullable:true})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    disconnect?: Array<TourTourCategoryWhereUniqueInput>;
+    @Field(() => [TourTourCategoryWhereUniqueInput], {nullable:true})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    delete?: Array<TourTourCategoryWhereUniqueInput>;
+    @Field(() => [TourTourCategoryWhereUniqueInput], {nullable:true})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    connect?: Array<TourTourCategoryWhereUniqueInput>;
+    @Field(() => [TourTourCategoryUpdateWithWhereUniqueWithoutTourCategoryInput], {nullable:true})
+    @Type(() => TourTourCategoryUpdateWithWhereUniqueWithoutTourCategoryInput)
+    update?: Array<TourTourCategoryUpdateWithWhereUniqueWithoutTourCategoryInput>;
+    @Field(() => [TourTourCategoryUpdateManyWithWhereWithoutTourCategoryInput], {nullable:true})
+    @Type(() => TourTourCategoryUpdateManyWithWhereWithoutTourCategoryInput)
+    updateMany?: Array<TourTourCategoryUpdateManyWithWhereWithoutTourCategoryInput>;
+    @Field(() => [TourTourCategoryScalarWhereInput], {nullable:true})
+    @Type(() => TourTourCategoryScalarWhereInput)
+    deleteMany?: Array<TourTourCategoryScalarWhereInput>;
+}
+
+@InputType()
+export class TourTourCategoryUncheckedUpdateManyWithoutTourTourCategoryInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    tourCategoryId?: number;
+}
+
+@InputType()
+export class TourTourCategoryUncheckedUpdateManyWithoutTourInput {
+    @Field(() => [TourTourCategoryCreateWithoutTourInput], {nullable:true})
+    @Type(() => TourTourCategoryCreateWithoutTourInput)
+    create?: Array<TourTourCategoryCreateWithoutTourInput>;
+    @Field(() => [TourTourCategoryCreateOrConnectWithoutTourInput], {nullable:true})
+    @Type(() => TourTourCategoryCreateOrConnectWithoutTourInput)
+    connectOrCreate?: Array<TourTourCategoryCreateOrConnectWithoutTourInput>;
+    @Field(() => [TourTourCategoryUpsertWithWhereUniqueWithoutTourInput], {nullable:true})
+    @Type(() => TourTourCategoryUpsertWithWhereUniqueWithoutTourInput)
+    upsert?: Array<TourTourCategoryUpsertWithWhereUniqueWithoutTourInput>;
+    @Field(() => TourTourCategoryCreateManyTourInputEnvelope, {nullable:true})
+    @Type(() => TourTourCategoryCreateManyTourInputEnvelope)
+    createMany?: InstanceType<typeof TourTourCategoryCreateManyTourInputEnvelope>;
+    @Field(() => [TourTourCategoryWhereUniqueInput], {nullable:true})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    set?: Array<TourTourCategoryWhereUniqueInput>;
+    @Field(() => [TourTourCategoryWhereUniqueInput], {nullable:true})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    disconnect?: Array<TourTourCategoryWhereUniqueInput>;
+    @Field(() => [TourTourCategoryWhereUniqueInput], {nullable:true})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    delete?: Array<TourTourCategoryWhereUniqueInput>;
+    @Field(() => [TourTourCategoryWhereUniqueInput], {nullable:true})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    connect?: Array<TourTourCategoryWhereUniqueInput>;
+    @Field(() => [TourTourCategoryUpdateWithWhereUniqueWithoutTourInput], {nullable:true})
+    @Type(() => TourTourCategoryUpdateWithWhereUniqueWithoutTourInput)
+    update?: Array<TourTourCategoryUpdateWithWhereUniqueWithoutTourInput>;
+    @Field(() => [TourTourCategoryUpdateManyWithWhereWithoutTourInput], {nullable:true})
+    @Type(() => TourTourCategoryUpdateManyWithWhereWithoutTourInput)
+    updateMany?: Array<TourTourCategoryUpdateManyWithWhereWithoutTourInput>;
+    @Field(() => [TourTourCategoryScalarWhereInput], {nullable:true})
+    @Type(() => TourTourCategoryScalarWhereInput)
+    deleteMany?: Array<TourTourCategoryScalarWhereInput>;
+}
+
+@InputType()
+export class TourTourCategoryUncheckedUpdateManyInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    tourId?: number;
+    @Field(() => Int, {nullable:true})
+    tourCategoryId?: number;
+}
+
+@InputType()
+export class TourTourCategoryUncheckedUpdateWithoutTourCategoryInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    tourId?: number;
+}
+
+@InputType()
+export class TourTourCategoryUncheckedUpdateWithoutTourInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    tourCategoryId?: number;
+}
+
+@InputType()
+export class TourTourCategoryUncheckedUpdateInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => Int, {nullable:true})
+    tourId?: number;
+    @Field(() => Int, {nullable:true})
+    tourCategoryId?: number;
+}
+
+@InputType()
+export class TourTourCategoryUpdateManyMutationInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+}
+
+@InputType()
+export class TourTourCategoryUpdateManyWithWhereWithoutTourCategoryInput {
+    @Field(() => TourTourCategoryScalarWhereInput, {nullable:false})
+    @Type(() => TourTourCategoryScalarWhereInput)
+    where!: InstanceType<typeof TourTourCategoryScalarWhereInput>;
+    @Field(() => TourTourCategoryUpdateManyMutationInput, {nullable:false})
+    @Type(() => TourTourCategoryUpdateManyMutationInput)
+    data!: InstanceType<typeof TourTourCategoryUpdateManyMutationInput>;
+}
+
+@InputType()
+export class TourTourCategoryUpdateManyWithWhereWithoutTourInput {
+    @Field(() => TourTourCategoryScalarWhereInput, {nullable:false})
+    @Type(() => TourTourCategoryScalarWhereInput)
+    where!: InstanceType<typeof TourTourCategoryScalarWhereInput>;
+    @Field(() => TourTourCategoryUpdateManyMutationInput, {nullable:false})
+    @Type(() => TourTourCategoryUpdateManyMutationInput)
+    data!: InstanceType<typeof TourTourCategoryUpdateManyMutationInput>;
+}
+
+@InputType()
+export class TourTourCategoryUpdateManyWithoutTourCategoryInput {
+    @Field(() => [TourTourCategoryCreateWithoutTourCategoryInput], {nullable:true})
+    @Type(() => TourTourCategoryCreateWithoutTourCategoryInput)
+    create?: Array<TourTourCategoryCreateWithoutTourCategoryInput>;
+    @Field(() => [TourTourCategoryCreateOrConnectWithoutTourCategoryInput], {nullable:true})
+    @Type(() => TourTourCategoryCreateOrConnectWithoutTourCategoryInput)
+    connectOrCreate?: Array<TourTourCategoryCreateOrConnectWithoutTourCategoryInput>;
+    @Field(() => [TourTourCategoryUpsertWithWhereUniqueWithoutTourCategoryInput], {nullable:true})
+    @Type(() => TourTourCategoryUpsertWithWhereUniqueWithoutTourCategoryInput)
+    upsert?: Array<TourTourCategoryUpsertWithWhereUniqueWithoutTourCategoryInput>;
+    @Field(() => TourTourCategoryCreateManyTourCategoryInputEnvelope, {nullable:true})
+    @Type(() => TourTourCategoryCreateManyTourCategoryInputEnvelope)
+    createMany?: InstanceType<typeof TourTourCategoryCreateManyTourCategoryInputEnvelope>;
+    @Field(() => [TourTourCategoryWhereUniqueInput], {nullable:true})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    set?: Array<TourTourCategoryWhereUniqueInput>;
+    @Field(() => [TourTourCategoryWhereUniqueInput], {nullable:true})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    disconnect?: Array<TourTourCategoryWhereUniqueInput>;
+    @Field(() => [TourTourCategoryWhereUniqueInput], {nullable:true})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    delete?: Array<TourTourCategoryWhereUniqueInput>;
+    @Field(() => [TourTourCategoryWhereUniqueInput], {nullable:true})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    connect?: Array<TourTourCategoryWhereUniqueInput>;
+    @Field(() => [TourTourCategoryUpdateWithWhereUniqueWithoutTourCategoryInput], {nullable:true})
+    @Type(() => TourTourCategoryUpdateWithWhereUniqueWithoutTourCategoryInput)
+    update?: Array<TourTourCategoryUpdateWithWhereUniqueWithoutTourCategoryInput>;
+    @Field(() => [TourTourCategoryUpdateManyWithWhereWithoutTourCategoryInput], {nullable:true})
+    @Type(() => TourTourCategoryUpdateManyWithWhereWithoutTourCategoryInput)
+    updateMany?: Array<TourTourCategoryUpdateManyWithWhereWithoutTourCategoryInput>;
+    @Field(() => [TourTourCategoryScalarWhereInput], {nullable:true})
+    @Type(() => TourTourCategoryScalarWhereInput)
+    deleteMany?: Array<TourTourCategoryScalarWhereInput>;
+}
+
+@InputType()
+export class TourTourCategoryUpdateManyWithoutTourInput {
+    @Field(() => [TourTourCategoryCreateWithoutTourInput], {nullable:true})
+    @Type(() => TourTourCategoryCreateWithoutTourInput)
+    create?: Array<TourTourCategoryCreateWithoutTourInput>;
+    @Field(() => [TourTourCategoryCreateOrConnectWithoutTourInput], {nullable:true})
+    @Type(() => TourTourCategoryCreateOrConnectWithoutTourInput)
+    connectOrCreate?: Array<TourTourCategoryCreateOrConnectWithoutTourInput>;
+    @Field(() => [TourTourCategoryUpsertWithWhereUniqueWithoutTourInput], {nullable:true})
+    @Type(() => TourTourCategoryUpsertWithWhereUniqueWithoutTourInput)
+    upsert?: Array<TourTourCategoryUpsertWithWhereUniqueWithoutTourInput>;
+    @Field(() => TourTourCategoryCreateManyTourInputEnvelope, {nullable:true})
+    @Type(() => TourTourCategoryCreateManyTourInputEnvelope)
+    createMany?: InstanceType<typeof TourTourCategoryCreateManyTourInputEnvelope>;
+    @Field(() => [TourTourCategoryWhereUniqueInput], {nullable:true})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    set?: Array<TourTourCategoryWhereUniqueInput>;
+    @Field(() => [TourTourCategoryWhereUniqueInput], {nullable:true})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    disconnect?: Array<TourTourCategoryWhereUniqueInput>;
+    @Field(() => [TourTourCategoryWhereUniqueInput], {nullable:true})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    delete?: Array<TourTourCategoryWhereUniqueInput>;
+    @Field(() => [TourTourCategoryWhereUniqueInput], {nullable:true})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    connect?: Array<TourTourCategoryWhereUniqueInput>;
+    @Field(() => [TourTourCategoryUpdateWithWhereUniqueWithoutTourInput], {nullable:true})
+    @Type(() => TourTourCategoryUpdateWithWhereUniqueWithoutTourInput)
+    update?: Array<TourTourCategoryUpdateWithWhereUniqueWithoutTourInput>;
+    @Field(() => [TourTourCategoryUpdateManyWithWhereWithoutTourInput], {nullable:true})
+    @Type(() => TourTourCategoryUpdateManyWithWhereWithoutTourInput)
+    updateMany?: Array<TourTourCategoryUpdateManyWithWhereWithoutTourInput>;
+    @Field(() => [TourTourCategoryScalarWhereInput], {nullable:true})
+    @Type(() => TourTourCategoryScalarWhereInput)
+    deleteMany?: Array<TourTourCategoryScalarWhereInput>;
+}
+
+@InputType()
+export class TourTourCategoryUpdateWithWhereUniqueWithoutTourCategoryInput {
+    @Field(() => TourTourCategoryWhereUniqueInput, {nullable:false})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    where!: InstanceType<typeof TourTourCategoryWhereUniqueInput>;
+    @Field(() => TourTourCategoryUpdateWithoutTourCategoryInput, {nullable:false})
+    @Type(() => TourTourCategoryUpdateWithoutTourCategoryInput)
+    data!: InstanceType<typeof TourTourCategoryUpdateWithoutTourCategoryInput>;
+}
+
+@InputType()
+export class TourTourCategoryUpdateWithWhereUniqueWithoutTourInput {
+    @Field(() => TourTourCategoryWhereUniqueInput, {nullable:false})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    where!: InstanceType<typeof TourTourCategoryWhereUniqueInput>;
+    @Field(() => TourTourCategoryUpdateWithoutTourInput, {nullable:false})
+    @Type(() => TourTourCategoryUpdateWithoutTourInput)
+    data!: InstanceType<typeof TourTourCategoryUpdateWithoutTourInput>;
+}
+
+@InputType()
+export class TourTourCategoryUpdateWithoutTourCategoryInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => TourUpdateOneWithoutTourTourCategoryInput, {nullable:true})
+    tour?: InstanceType<typeof TourUpdateOneWithoutTourTourCategoryInput>;
+}
+
+@InputType()
+export class TourTourCategoryUpdateWithoutTourInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => TourCategoryUpdateOneRequiredWithoutTourTourCategoryInput, {nullable:true})
+    tourCategory?: InstanceType<typeof TourCategoryUpdateOneRequiredWithoutTourTourCategoryInput>;
+}
+
+@InputType()
+export class TourTourCategoryUpdateInput {
+    @Field(() => Status, {nullable:true})
+    status?: keyof typeof Status;
+    @Field(() => TourUpdateOneWithoutTourTourCategoryInput, {nullable:true})
+    tour?: InstanceType<typeof TourUpdateOneWithoutTourTourCategoryInput>;
+    @Field(() => TourCategoryUpdateOneRequiredWithoutTourTourCategoryInput, {nullable:true})
+    tourCategory?: InstanceType<typeof TourCategoryUpdateOneRequiredWithoutTourTourCategoryInput>;
+}
+
+@InputType()
+export class TourTourCategoryUpsertWithWhereUniqueWithoutTourCategoryInput {
+    @Field(() => TourTourCategoryWhereUniqueInput, {nullable:false})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    where!: InstanceType<typeof TourTourCategoryWhereUniqueInput>;
+    @Field(() => TourTourCategoryUpdateWithoutTourCategoryInput, {nullable:false})
+    @Type(() => TourTourCategoryUpdateWithoutTourCategoryInput)
+    update!: InstanceType<typeof TourTourCategoryUpdateWithoutTourCategoryInput>;
+    @Field(() => TourTourCategoryCreateWithoutTourCategoryInput, {nullable:false})
+    @Type(() => TourTourCategoryCreateWithoutTourCategoryInput)
+    create!: InstanceType<typeof TourTourCategoryCreateWithoutTourCategoryInput>;
+}
+
+@InputType()
+export class TourTourCategoryUpsertWithWhereUniqueWithoutTourInput {
+    @Field(() => TourTourCategoryWhereUniqueInput, {nullable:false})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    where!: InstanceType<typeof TourTourCategoryWhereUniqueInput>;
+    @Field(() => TourTourCategoryUpdateWithoutTourInput, {nullable:false})
+    @Type(() => TourTourCategoryUpdateWithoutTourInput)
+    update!: InstanceType<typeof TourTourCategoryUpdateWithoutTourInput>;
+    @Field(() => TourTourCategoryCreateWithoutTourInput, {nullable:false})
+    @Type(() => TourTourCategoryCreateWithoutTourInput)
+    create!: InstanceType<typeof TourTourCategoryCreateWithoutTourInput>;
+}
+
+@InputType()
+export class TourTourCategoryWhereUniqueInput {
+    @Field(() => TourTourCategoryTourIdTourCategoryIdCompoundUniqueInput, {nullable:true})
+    tourId_tourCategoryId?: InstanceType<typeof TourTourCategoryTourIdTourCategoryIdCompoundUniqueInput>;
+}
+
+@InputType()
+export class TourTourCategoryWhereInput {
+    @Field(() => [TourTourCategoryWhereInput], {nullable:true})
+    AND?: Array<TourTourCategoryWhereInput>;
+    @Field(() => [TourTourCategoryWhereInput], {nullable:true})
+    OR?: Array<TourTourCategoryWhereInput>;
+    @Field(() => [TourTourCategoryWhereInput], {nullable:true})
+    NOT?: Array<TourTourCategoryWhereInput>;
+    @Field(() => EnumStatusFilter, {nullable:true})
+    status?: InstanceType<typeof EnumStatusFilter>;
+    @Field(() => TourRelationFilter, {nullable:true})
+    tour?: InstanceType<typeof TourRelationFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    tourId?: InstanceType<typeof IntFilter>;
+    @Field(() => TourCategoryRelationFilter, {nullable:true})
+    tourCategory?: InstanceType<typeof TourCategoryRelationFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    tourCategoryId?: InstanceType<typeof IntFilter>;
+}
+
+@ObjectType()
+export class TourTourCategory {
+    @Field(() => Status, {nullable:false,defaultValue:'ACTIVE'})
+    status!: keyof typeof Status;
+    @Field(() => Tour, {nullable:true})
+    tour?: InstanceType<typeof Tour> | null;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+    @Field(() => TourCategory, {nullable:false})
+    tourCategory?: InstanceType<typeof TourCategory>;
+    @Field(() => Int, {nullable:false})
+    tourCategoryId!: number;
+}
+
+@ArgsType()
+export class UpdateManyTourTourCategoryArgs {
+    @Field(() => TourTourCategoryUpdateManyMutationInput, {nullable:false})
+    @Type(() => TourTourCategoryUpdateManyMutationInput)
+    @ValidateNested({ each: true })
+    data!: InstanceType<typeof TourTourCategoryUpdateManyMutationInput>;
+    @Field(() => TourTourCategoryWhereInput, {nullable:true})
+    @Type(() => TourTourCategoryWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof TourTourCategoryWhereInput>;
+}
+
+@ArgsType()
+export class UpdateOneTourTourCategoryArgs {
+    @Field(() => TourTourCategoryUpdateInput, {nullable:false})
+    @Type(() => TourTourCategoryUpdateInput)
+    @ValidateNested({ each: true })
+    data!: InstanceType<typeof TourTourCategoryUpdateInput>;
+    @Field(() => TourTourCategoryWhereUniqueInput, {nullable:false})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof TourTourCategoryWhereUniqueInput>;
+}
+
+@ArgsType()
+export class UpsertOneTourTourCategoryArgs {
+    @Field(() => TourTourCategoryWhereUniqueInput, {nullable:false})
+    @Type(() => TourTourCategoryWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof TourTourCategoryWhereUniqueInput>;
+    @Field(() => TourTourCategoryCreateInput, {nullable:false})
+    @Type(() => TourTourCategoryCreateInput)
+    create!: InstanceType<typeof TourTourCategoryCreateInput>;
+    @Field(() => TourTourCategoryUpdateInput, {nullable:false})
+    @Type(() => TourTourCategoryUpdateInput)
+    update!: InstanceType<typeof TourTourCategoryUpdateInput>;
+}
+
+@ObjectType()
 export class AggregateUser {
     @Field(() => UserCountAggregate, {nullable:true})
     _count?: InstanceType<typeof UserCountAggregate>;
@@ -7422,11 +8413,7 @@ export class UserCountOrderByAggregateInput {
 @ObjectType()
 export class UserCount {
     @Field(() => Int, {nullable:false})
-    GuideGuideCategory?: number;
-    @Field(() => Int, {nullable:false})
-    GuideCity?: number;
-    @Field(() => Int, {nullable:false})
-    GuideLanguages?: number;
+    Tour?: number;
 }
 
 @InputType()
@@ -7443,19 +8430,23 @@ export class UserCreateManyCountryInput {
     @Field(() => Int, {nullable:true})
     id?: number;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsEmail()
     email!: string;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     firstName!: string;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     lastName!: string;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
@@ -7493,19 +8484,23 @@ export class UserCreateManyInput {
     @Field(() => Int, {nullable:true})
     id?: number;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsEmail()
     email!: string;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     firstName!: string;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     lastName!: string;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
@@ -7557,39 +8552,13 @@ export class UserCreateNestedManyWithoutCountryInput {
 }
 
 @InputType()
-export class UserCreateNestedOneWithoutGuideCityInput {
-    @Field(() => UserCreateWithoutGuideCityInput, {nullable:true})
-    @Type(() => UserCreateWithoutGuideCityInput)
-    create?: InstanceType<typeof UserCreateWithoutGuideCityInput>;
-    @Field(() => UserCreateOrConnectWithoutGuideCityInput, {nullable:true})
-    @Type(() => UserCreateOrConnectWithoutGuideCityInput)
-    connectOrCreate?: InstanceType<typeof UserCreateOrConnectWithoutGuideCityInput>;
-    @Field(() => UserWhereUniqueInput, {nullable:true})
-    @Type(() => UserWhereUniqueInput)
-    connect?: InstanceType<typeof UserWhereUniqueInput>;
-}
-
-@InputType()
-export class UserCreateNestedOneWithoutGuideGuideCategoryInput {
-    @Field(() => UserCreateWithoutGuideGuideCategoryInput, {nullable:true})
-    @Type(() => UserCreateWithoutGuideGuideCategoryInput)
-    create?: InstanceType<typeof UserCreateWithoutGuideGuideCategoryInput>;
-    @Field(() => UserCreateOrConnectWithoutGuideGuideCategoryInput, {nullable:true})
-    @Type(() => UserCreateOrConnectWithoutGuideGuideCategoryInput)
-    connectOrCreate?: InstanceType<typeof UserCreateOrConnectWithoutGuideGuideCategoryInput>;
-    @Field(() => UserWhereUniqueInput, {nullable:true})
-    @Type(() => UserWhereUniqueInput)
-    connect?: InstanceType<typeof UserWhereUniqueInput>;
-}
-
-@InputType()
-export class UserCreateNestedOneWithoutGuideLanguagesInput {
-    @Field(() => UserCreateWithoutGuideLanguagesInput, {nullable:true})
-    @Type(() => UserCreateWithoutGuideLanguagesInput)
-    create?: InstanceType<typeof UserCreateWithoutGuideLanguagesInput>;
-    @Field(() => UserCreateOrConnectWithoutGuideLanguagesInput, {nullable:true})
-    @Type(() => UserCreateOrConnectWithoutGuideLanguagesInput)
-    connectOrCreate?: InstanceType<typeof UserCreateOrConnectWithoutGuideLanguagesInput>;
+export class UserCreateNestedOneWithoutTourInput {
+    @Field(() => UserCreateWithoutTourInput, {nullable:true})
+    @Type(() => UserCreateWithoutTourInput)
+    create?: InstanceType<typeof UserCreateWithoutTourInput>;
+    @Field(() => UserCreateOrConnectWithoutTourInput, {nullable:true})
+    @Type(() => UserCreateOrConnectWithoutTourInput)
+    connectOrCreate?: InstanceType<typeof UserCreateOrConnectWithoutTourInput>;
     @Field(() => UserWhereUniqueInput, {nullable:true})
     @Type(() => UserWhereUniqueInput)
     connect?: InstanceType<typeof UserWhereUniqueInput>;
@@ -7606,51 +8575,35 @@ export class UserCreateOrConnectWithoutCountryInput {
 }
 
 @InputType()
-export class UserCreateOrConnectWithoutGuideCityInput {
+export class UserCreateOrConnectWithoutTourInput {
     @Field(() => UserWhereUniqueInput, {nullable:false})
     @Type(() => UserWhereUniqueInput)
     where!: InstanceType<typeof UserWhereUniqueInput>;
-    @Field(() => UserCreateWithoutGuideCityInput, {nullable:false})
-    @Type(() => UserCreateWithoutGuideCityInput)
-    create!: InstanceType<typeof UserCreateWithoutGuideCityInput>;
-}
-
-@InputType()
-export class UserCreateOrConnectWithoutGuideGuideCategoryInput {
-    @Field(() => UserWhereUniqueInput, {nullable:false})
-    @Type(() => UserWhereUniqueInput)
-    where!: InstanceType<typeof UserWhereUniqueInput>;
-    @Field(() => UserCreateWithoutGuideGuideCategoryInput, {nullable:false})
-    @Type(() => UserCreateWithoutGuideGuideCategoryInput)
-    create!: InstanceType<typeof UserCreateWithoutGuideGuideCategoryInput>;
-}
-
-@InputType()
-export class UserCreateOrConnectWithoutGuideLanguagesInput {
-    @Field(() => UserWhereUniqueInput, {nullable:false})
-    @Type(() => UserWhereUniqueInput)
-    where!: InstanceType<typeof UserWhereUniqueInput>;
-    @Field(() => UserCreateWithoutGuideLanguagesInput, {nullable:false})
-    @Type(() => UserCreateWithoutGuideLanguagesInput)
-    create!: InstanceType<typeof UserCreateWithoutGuideLanguagesInput>;
+    @Field(() => UserCreateWithoutTourInput, {nullable:false})
+    @Type(() => UserCreateWithoutTourInput)
+    create!: InstanceType<typeof UserCreateWithoutTourInput>;
 }
 
 @InputType()
 export class UserCreateWithoutCountryInput {
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsEmail()
     email!: string;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     firstName!: string;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     lastName!: string;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
@@ -7681,30 +8634,30 @@ export class UserCreateWithoutCountryInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideGuideCategoryCreateNestedManyWithoutUserInput, {nullable:true})
-    GuideGuideCategory?: InstanceType<typeof GuideGuideCategoryCreateNestedManyWithoutUserInput>;
-    @Field(() => GuideCityCreateNestedManyWithoutUserInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityCreateNestedManyWithoutUserInput>;
-    @Field(() => GuideLanguagesCreateNestedManyWithoutUserInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesCreateNestedManyWithoutUserInput>;
+    @Field(() => TourCreateNestedManyWithoutGuideInput, {nullable:true})
+    Tour?: InstanceType<typeof TourCreateNestedManyWithoutGuideInput>;
 }
 
 @InputType()
-export class UserCreateWithoutGuideCityInput {
+export class UserCreateWithoutTourInput {
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsEmail()
     email!: string;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     firstName!: string;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     lastName!: string;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
@@ -7737,136 +8690,28 @@ export class UserCreateWithoutGuideCityInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideGuideCategoryCreateNestedManyWithoutUserInput, {nullable:true})
-    GuideGuideCategory?: InstanceType<typeof GuideGuideCategoryCreateNestedManyWithoutUserInput>;
-    @Field(() => GuideLanguagesCreateNestedManyWithoutUserInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesCreateNestedManyWithoutUserInput>;
-}
-
-@InputType()
-export class UserCreateWithoutGuideGuideCategoryInput {
-    @Field(() => String, {nullable:false})
-    @Validator.IsEmail()
-    email!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(3)
-    firstName!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(3)
-    lastName!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(8)
-    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
-    password!: string;
-    @Field(() => Status, {nullable:true})
-    @Validator.IsString()
-    status?: keyof typeof Status;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    image?: string;
-    @Field(() => CountryCreateNestedOneWithoutUserInput, {nullable:true})
-    country?: InstanceType<typeof CountryCreateNestedOneWithoutUserInput>;
-    @Field(() => UserRole, {nullable:false})
-    @Validator.IsString()
-    role!: keyof typeof UserRole;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    bio?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    hash?: string;
-    @Field(() => Date, {nullable:true})
-    hashExpiredAt?: Date | string;
-    @Field(() => Float, {nullable:true})
-    rating?: number;
-    @Field(() => YesNo, {nullable:true})
-    isVerified?: keyof typeof YesNo;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => GuideCityCreateNestedManyWithoutUserInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityCreateNestedManyWithoutUserInput>;
-    @Field(() => GuideLanguagesCreateNestedManyWithoutUserInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesCreateNestedManyWithoutUserInput>;
-}
-
-@InputType()
-export class UserCreateWithoutGuideLanguagesInput {
-    @Field(() => String, {nullable:false})
-    @Validator.IsEmail()
-    email!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(3)
-    firstName!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(3)
-    lastName!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(8)
-    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
-    password!: string;
-    @Field(() => Status, {nullable:true})
-    @Validator.IsString()
-    status?: keyof typeof Status;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    image?: string;
-    @Field(() => CountryCreateNestedOneWithoutUserInput, {nullable:true})
-    country?: InstanceType<typeof CountryCreateNestedOneWithoutUserInput>;
-    @Field(() => UserRole, {nullable:false})
-    @Validator.IsString()
-    role!: keyof typeof UserRole;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    bio?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    hash?: string;
-    @Field(() => Date, {nullable:true})
-    hashExpiredAt?: Date | string;
-    @Field(() => Float, {nullable:true})
-    rating?: number;
-    @Field(() => YesNo, {nullable:true})
-    isVerified?: keyof typeof YesNo;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => GuideGuideCategoryCreateNestedManyWithoutUserInput, {nullable:true})
-    GuideGuideCategory?: InstanceType<typeof GuideGuideCategoryCreateNestedManyWithoutUserInput>;
-    @Field(() => GuideCityCreateNestedManyWithoutUserInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityCreateNestedManyWithoutUserInput>;
 }
 
 @InputType()
 export class UserCreateInput {
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsEmail()
     email!: string;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     firstName!: string;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     lastName!: string;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
@@ -7899,12 +8744,8 @@ export class UserCreateInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideGuideCategoryCreateNestedManyWithoutUserInput, {nullable:true})
-    GuideGuideCategory?: InstanceType<typeof GuideGuideCategoryCreateNestedManyWithoutUserInput>;
-    @Field(() => GuideCityCreateNestedManyWithoutUserInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityCreateNestedManyWithoutUserInput>;
-    @Field(() => GuideLanguagesCreateNestedManyWithoutUserInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesCreateNestedManyWithoutUserInput>;
+    @Field(() => TourCreateNestedManyWithoutGuideInput, {nullable:true})
+    Tour?: InstanceType<typeof TourCreateNestedManyWithoutGuideInput>;
 }
 
 @ArgsType()
@@ -7940,17 +8781,20 @@ export class UserGroupBy {
     @Field(() => Int, {nullable:false})
     id!: number;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsEmail()
     email!: string;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     firstName!: string;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     lastName!: string;
     @HideField()
     password!: string;
@@ -8044,17 +8888,20 @@ export class UserMaxAggregate {
     @Field(() => Int, {nullable:true})
     id?: number;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsEmail()
     email?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     firstName?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     lastName?: string;
     @HideField()
     password?: string;
@@ -8164,17 +9011,20 @@ export class UserMinAggregate {
     @Field(() => Int, {nullable:true})
     id?: number;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsEmail()
     email?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     firstName?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     lastName?: string;
     @HideField()
     password?: string;
@@ -8331,12 +9181,8 @@ export class UserOrderByWithRelationInput {
     createdAt?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     updatedAt?: keyof typeof SortOrder;
-    @Field(() => GuideGuideCategoryOrderByRelationAggregateInput, {nullable:true})
-    GuideGuideCategory?: InstanceType<typeof GuideGuideCategoryOrderByRelationAggregateInput>;
-    @Field(() => GuideCityOrderByRelationAggregateInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityOrderByRelationAggregateInput>;
-    @Field(() => GuideLanguagesOrderByRelationAggregateInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesOrderByRelationAggregateInput>;
+    @Field(() => TourOrderByRelationAggregateInput, {nullable:true})
+    Tour?: InstanceType<typeof TourOrderByRelationAggregateInput>;
 }
 
 @InputType()
@@ -8482,19 +9328,23 @@ export class UserUncheckedCreateWithoutCountryInput {
     @Field(() => Int, {nullable:true})
     id?: number;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsEmail()
     email!: string;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     firstName!: string;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     lastName!: string;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
@@ -8525,32 +9375,32 @@ export class UserUncheckedCreateWithoutCountryInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideGuideCategoryUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
-    GuideGuideCategory?: InstanceType<typeof GuideGuideCategoryUncheckedCreateNestedManyWithoutUserInput>;
-    @Field(() => GuideCityUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityUncheckedCreateNestedManyWithoutUserInput>;
-    @Field(() => GuideLanguagesUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesUncheckedCreateNestedManyWithoutUserInput>;
+    @Field(() => TourUncheckedCreateNestedManyWithoutGuideInput, {nullable:true})
+    Tour?: InstanceType<typeof TourUncheckedCreateNestedManyWithoutGuideInput>;
 }
 
 @InputType()
-export class UserUncheckedCreateWithoutGuideCityInput {
+export class UserUncheckedCreateWithoutTourInput {
     @Field(() => Int, {nullable:true})
     id?: number;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsEmail()
     email!: string;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     firstName!: string;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     lastName!: string;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
@@ -8583,122 +9433,6 @@ export class UserUncheckedCreateWithoutGuideCityInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideGuideCategoryUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
-    GuideGuideCategory?: InstanceType<typeof GuideGuideCategoryUncheckedCreateNestedManyWithoutUserInput>;
-    @Field(() => GuideLanguagesUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesUncheckedCreateNestedManyWithoutUserInput>;
-}
-
-@InputType()
-export class UserUncheckedCreateWithoutGuideGuideCategoryInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:false})
-    @Validator.IsEmail()
-    email!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(3)
-    firstName!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(3)
-    lastName!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(8)
-    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
-    password!: string;
-    @Field(() => Status, {nullable:true})
-    @Validator.IsString()
-    status?: keyof typeof Status;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    image?: string;
-    @Field(() => Int, {nullable:true})
-    countryId?: number;
-    @Field(() => UserRole, {nullable:false})
-    @Validator.IsString()
-    role!: keyof typeof UserRole;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    bio?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    hash?: string;
-    @Field(() => Date, {nullable:true})
-    hashExpiredAt?: Date | string;
-    @Field(() => Float, {nullable:true})
-    rating?: number;
-    @Field(() => YesNo, {nullable:true})
-    isVerified?: keyof typeof YesNo;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => GuideCityUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityUncheckedCreateNestedManyWithoutUserInput>;
-    @Field(() => GuideLanguagesUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesUncheckedCreateNestedManyWithoutUserInput>;
-}
-
-@InputType()
-export class UserUncheckedCreateWithoutGuideLanguagesInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:false})
-    @Validator.IsEmail()
-    email!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(3)
-    firstName!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(3)
-    lastName!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(8)
-    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
-    password!: string;
-    @Field(() => Status, {nullable:true})
-    @Validator.IsString()
-    status?: keyof typeof Status;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    image?: string;
-    @Field(() => Int, {nullable:true})
-    countryId?: number;
-    @Field(() => UserRole, {nullable:false})
-    @Validator.IsString()
-    role!: keyof typeof UserRole;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    bio?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    hash?: string;
-    @Field(() => Date, {nullable:true})
-    hashExpiredAt?: Date | string;
-    @Field(() => Float, {nullable:true})
-    rating?: number;
-    @Field(() => YesNo, {nullable:true})
-    isVerified?: keyof typeof YesNo;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => GuideGuideCategoryUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
-    GuideGuideCategory?: InstanceType<typeof GuideGuideCategoryUncheckedCreateNestedManyWithoutUserInput>;
-    @Field(() => GuideCityUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityUncheckedCreateNestedManyWithoutUserInput>;
 }
 
 @InputType()
@@ -8706,19 +9440,23 @@ export class UserUncheckedCreateInput {
     @Field(() => Int, {nullable:true})
     id?: number;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsEmail()
     email!: string;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     firstName!: string;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     lastName!: string;
     @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
@@ -8751,12 +9489,8 @@ export class UserUncheckedCreateInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideGuideCategoryUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
-    GuideGuideCategory?: InstanceType<typeof GuideGuideCategoryUncheckedCreateNestedManyWithoutUserInput>;
-    @Field(() => GuideCityUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityUncheckedCreateNestedManyWithoutUserInput>;
-    @Field(() => GuideLanguagesUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesUncheckedCreateNestedManyWithoutUserInput>;
+    @Field(() => TourUncheckedCreateNestedManyWithoutGuideInput, {nullable:true})
+    Tour?: InstanceType<typeof TourUncheckedCreateNestedManyWithoutGuideInput>;
 }
 
 @InputType()
@@ -8801,19 +9535,23 @@ export class UserUncheckedUpdateManyWithoutUserInput {
     @Field(() => Int, {nullable:true})
     id?: number;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsEmail()
     email?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     firstName?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     lastName?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
@@ -8851,19 +9589,23 @@ export class UserUncheckedUpdateManyInput {
     @Field(() => Int, {nullable:true})
     id?: number;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsEmail()
     email?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     firstName?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     lastName?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
@@ -8903,19 +9645,23 @@ export class UserUncheckedUpdateWithoutCountryInput {
     @Field(() => Int, {nullable:true})
     id?: number;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsEmail()
     email?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     firstName?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     lastName?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
@@ -8946,32 +9692,32 @@ export class UserUncheckedUpdateWithoutCountryInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideGuideCategoryUncheckedUpdateManyWithoutUserInput, {nullable:true})
-    GuideGuideCategory?: InstanceType<typeof GuideGuideCategoryUncheckedUpdateManyWithoutUserInput>;
-    @Field(() => GuideCityUncheckedUpdateManyWithoutUserInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityUncheckedUpdateManyWithoutUserInput>;
-    @Field(() => GuideLanguagesUncheckedUpdateManyWithoutUserInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesUncheckedUpdateManyWithoutUserInput>;
+    @Field(() => TourUncheckedUpdateManyWithoutGuideInput, {nullable:true})
+    Tour?: InstanceType<typeof TourUncheckedUpdateManyWithoutGuideInput>;
 }
 
 @InputType()
-export class UserUncheckedUpdateWithoutGuideCityInput {
+export class UserUncheckedUpdateWithoutTourInput {
     @Field(() => Int, {nullable:true})
     id?: number;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsEmail()
     email?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     firstName?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     lastName?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
@@ -9004,122 +9750,6 @@ export class UserUncheckedUpdateWithoutGuideCityInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideGuideCategoryUncheckedUpdateManyWithoutUserInput, {nullable:true})
-    GuideGuideCategory?: InstanceType<typeof GuideGuideCategoryUncheckedUpdateManyWithoutUserInput>;
-    @Field(() => GuideLanguagesUncheckedUpdateManyWithoutUserInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesUncheckedUpdateManyWithoutUserInput>;
-}
-
-@InputType()
-export class UserUncheckedUpdateWithoutGuideGuideCategoryInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:true})
-    @Validator.IsEmail()
-    email?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(3)
-    firstName?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(3)
-    lastName?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(8)
-    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
-    password?: string;
-    @Field(() => Status, {nullable:true})
-    @Validator.IsString()
-    status?: keyof typeof Status;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    image?: string;
-    @Field(() => Int, {nullable:true})
-    countryId?: number;
-    @Field(() => UserRole, {nullable:true})
-    @Validator.IsString()
-    role?: keyof typeof UserRole;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    bio?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    hash?: string;
-    @Field(() => Date, {nullable:true})
-    hashExpiredAt?: Date | string;
-    @Field(() => Float, {nullable:true})
-    rating?: number;
-    @Field(() => YesNo, {nullable:true})
-    isVerified?: keyof typeof YesNo;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => GuideCityUncheckedUpdateManyWithoutUserInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityUncheckedUpdateManyWithoutUserInput>;
-    @Field(() => GuideLanguagesUncheckedUpdateManyWithoutUserInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesUncheckedUpdateManyWithoutUserInput>;
-}
-
-@InputType()
-export class UserUncheckedUpdateWithoutGuideLanguagesInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:true})
-    @Validator.IsEmail()
-    email?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(3)
-    firstName?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(3)
-    lastName?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(8)
-    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
-    password?: string;
-    @Field(() => Status, {nullable:true})
-    @Validator.IsString()
-    status?: keyof typeof Status;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    image?: string;
-    @Field(() => Int, {nullable:true})
-    countryId?: number;
-    @Field(() => UserRole, {nullable:true})
-    @Validator.IsString()
-    role?: keyof typeof UserRole;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    bio?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    hash?: string;
-    @Field(() => Date, {nullable:true})
-    hashExpiredAt?: Date | string;
-    @Field(() => Float, {nullable:true})
-    rating?: number;
-    @Field(() => YesNo, {nullable:true})
-    isVerified?: keyof typeof YesNo;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => GuideGuideCategoryUncheckedUpdateManyWithoutUserInput, {nullable:true})
-    GuideGuideCategory?: InstanceType<typeof GuideGuideCategoryUncheckedUpdateManyWithoutUserInput>;
-    @Field(() => GuideCityUncheckedUpdateManyWithoutUserInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityUncheckedUpdateManyWithoutUserInput>;
 }
 
 @InputType()
@@ -9127,19 +9757,23 @@ export class UserUncheckedUpdateInput {
     @Field(() => Int, {nullable:true})
     id?: number;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsEmail()
     email?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     firstName?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     lastName?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
@@ -9172,30 +9806,30 @@ export class UserUncheckedUpdateInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideGuideCategoryUncheckedUpdateManyWithoutUserInput, {nullable:true})
-    GuideGuideCategory?: InstanceType<typeof GuideGuideCategoryUncheckedUpdateManyWithoutUserInput>;
-    @Field(() => GuideCityUncheckedUpdateManyWithoutUserInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityUncheckedUpdateManyWithoutUserInput>;
-    @Field(() => GuideLanguagesUncheckedUpdateManyWithoutUserInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesUncheckedUpdateManyWithoutUserInput>;
+    @Field(() => TourUncheckedUpdateManyWithoutGuideInput, {nullable:true})
+    Tour?: InstanceType<typeof TourUncheckedUpdateManyWithoutGuideInput>;
 }
 
 @InputType()
 export class UserUpdateManyMutationInput {
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsEmail()
     email?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     firstName?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     lastName?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
@@ -9276,60 +9910,22 @@ export class UserUpdateManyWithoutCountryInput {
 }
 
 @InputType()
-export class UserUpdateOneRequiredWithoutGuideCityInput {
-    @Field(() => UserCreateWithoutGuideCityInput, {nullable:true})
-    @Type(() => UserCreateWithoutGuideCityInput)
-    create?: InstanceType<typeof UserCreateWithoutGuideCityInput>;
-    @Field(() => UserCreateOrConnectWithoutGuideCityInput, {nullable:true})
-    @Type(() => UserCreateOrConnectWithoutGuideCityInput)
-    connectOrCreate?: InstanceType<typeof UserCreateOrConnectWithoutGuideCityInput>;
-    @Field(() => UserUpsertWithoutGuideCityInput, {nullable:true})
-    @Type(() => UserUpsertWithoutGuideCityInput)
-    upsert?: InstanceType<typeof UserUpsertWithoutGuideCityInput>;
+export class UserUpdateOneRequiredWithoutTourInput {
+    @Field(() => UserCreateWithoutTourInput, {nullable:true})
+    @Type(() => UserCreateWithoutTourInput)
+    create?: InstanceType<typeof UserCreateWithoutTourInput>;
+    @Field(() => UserCreateOrConnectWithoutTourInput, {nullable:true})
+    @Type(() => UserCreateOrConnectWithoutTourInput)
+    connectOrCreate?: InstanceType<typeof UserCreateOrConnectWithoutTourInput>;
+    @Field(() => UserUpsertWithoutTourInput, {nullable:true})
+    @Type(() => UserUpsertWithoutTourInput)
+    upsert?: InstanceType<typeof UserUpsertWithoutTourInput>;
     @Field(() => UserWhereUniqueInput, {nullable:true})
     @Type(() => UserWhereUniqueInput)
     connect?: InstanceType<typeof UserWhereUniqueInput>;
-    @Field(() => UserUpdateWithoutGuideCityInput, {nullable:true})
-    @Type(() => UserUpdateWithoutGuideCityInput)
-    update?: InstanceType<typeof UserUpdateWithoutGuideCityInput>;
-}
-
-@InputType()
-export class UserUpdateOneRequiredWithoutGuideGuideCategoryInput {
-    @Field(() => UserCreateWithoutGuideGuideCategoryInput, {nullable:true})
-    @Type(() => UserCreateWithoutGuideGuideCategoryInput)
-    create?: InstanceType<typeof UserCreateWithoutGuideGuideCategoryInput>;
-    @Field(() => UserCreateOrConnectWithoutGuideGuideCategoryInput, {nullable:true})
-    @Type(() => UserCreateOrConnectWithoutGuideGuideCategoryInput)
-    connectOrCreate?: InstanceType<typeof UserCreateOrConnectWithoutGuideGuideCategoryInput>;
-    @Field(() => UserUpsertWithoutGuideGuideCategoryInput, {nullable:true})
-    @Type(() => UserUpsertWithoutGuideGuideCategoryInput)
-    upsert?: InstanceType<typeof UserUpsertWithoutGuideGuideCategoryInput>;
-    @Field(() => UserWhereUniqueInput, {nullable:true})
-    @Type(() => UserWhereUniqueInput)
-    connect?: InstanceType<typeof UserWhereUniqueInput>;
-    @Field(() => UserUpdateWithoutGuideGuideCategoryInput, {nullable:true})
-    @Type(() => UserUpdateWithoutGuideGuideCategoryInput)
-    update?: InstanceType<typeof UserUpdateWithoutGuideGuideCategoryInput>;
-}
-
-@InputType()
-export class UserUpdateOneRequiredWithoutGuideLanguagesInput {
-    @Field(() => UserCreateWithoutGuideLanguagesInput, {nullable:true})
-    @Type(() => UserCreateWithoutGuideLanguagesInput)
-    create?: InstanceType<typeof UserCreateWithoutGuideLanguagesInput>;
-    @Field(() => UserCreateOrConnectWithoutGuideLanguagesInput, {nullable:true})
-    @Type(() => UserCreateOrConnectWithoutGuideLanguagesInput)
-    connectOrCreate?: InstanceType<typeof UserCreateOrConnectWithoutGuideLanguagesInput>;
-    @Field(() => UserUpsertWithoutGuideLanguagesInput, {nullable:true})
-    @Type(() => UserUpsertWithoutGuideLanguagesInput)
-    upsert?: InstanceType<typeof UserUpsertWithoutGuideLanguagesInput>;
-    @Field(() => UserWhereUniqueInput, {nullable:true})
-    @Type(() => UserWhereUniqueInput)
-    connect?: InstanceType<typeof UserWhereUniqueInput>;
-    @Field(() => UserUpdateWithoutGuideLanguagesInput, {nullable:true})
-    @Type(() => UserUpdateWithoutGuideLanguagesInput)
-    update?: InstanceType<typeof UserUpdateWithoutGuideLanguagesInput>;
+    @Field(() => UserUpdateWithoutTourInput, {nullable:true})
+    @Type(() => UserUpdateWithoutTourInput)
+    update?: InstanceType<typeof UserUpdateWithoutTourInput>;
 }
 
 @InputType()
@@ -9345,19 +9941,23 @@ export class UserUpdateWithWhereUniqueWithoutCountryInput {
 @InputType()
 export class UserUpdateWithoutCountryInput {
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsEmail()
     email?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     firstName?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     lastName?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
@@ -9388,30 +9988,30 @@ export class UserUpdateWithoutCountryInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideGuideCategoryUpdateManyWithoutUserInput, {nullable:true})
-    GuideGuideCategory?: InstanceType<typeof GuideGuideCategoryUpdateManyWithoutUserInput>;
-    @Field(() => GuideCityUpdateManyWithoutUserInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityUpdateManyWithoutUserInput>;
-    @Field(() => GuideLanguagesUpdateManyWithoutUserInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesUpdateManyWithoutUserInput>;
+    @Field(() => TourUpdateManyWithoutGuideInput, {nullable:true})
+    Tour?: InstanceType<typeof TourUpdateManyWithoutGuideInput>;
 }
 
 @InputType()
-export class UserUpdateWithoutGuideCityInput {
+export class UserUpdateWithoutTourInput {
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsEmail()
     email?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     firstName?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     lastName?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
@@ -9444,136 +10044,28 @@ export class UserUpdateWithoutGuideCityInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideGuideCategoryUpdateManyWithoutUserInput, {nullable:true})
-    GuideGuideCategory?: InstanceType<typeof GuideGuideCategoryUpdateManyWithoutUserInput>;
-    @Field(() => GuideLanguagesUpdateManyWithoutUserInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesUpdateManyWithoutUserInput>;
-}
-
-@InputType()
-export class UserUpdateWithoutGuideGuideCategoryInput {
-    @Field(() => String, {nullable:true})
-    @Validator.IsEmail()
-    email?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(3)
-    firstName?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(3)
-    lastName?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(8)
-    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
-    password?: string;
-    @Field(() => Status, {nullable:true})
-    @Validator.IsString()
-    status?: keyof typeof Status;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    image?: string;
-    @Field(() => CountryUpdateOneWithoutUserInput, {nullable:true})
-    country?: InstanceType<typeof CountryUpdateOneWithoutUserInput>;
-    @Field(() => UserRole, {nullable:true})
-    @Validator.IsString()
-    role?: keyof typeof UserRole;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    bio?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    hash?: string;
-    @Field(() => Date, {nullable:true})
-    hashExpiredAt?: Date | string;
-    @Field(() => Float, {nullable:true})
-    rating?: number;
-    @Field(() => YesNo, {nullable:true})
-    isVerified?: keyof typeof YesNo;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => GuideCityUpdateManyWithoutUserInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityUpdateManyWithoutUserInput>;
-    @Field(() => GuideLanguagesUpdateManyWithoutUserInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesUpdateManyWithoutUserInput>;
-}
-
-@InputType()
-export class UserUpdateWithoutGuideLanguagesInput {
-    @Field(() => String, {nullable:true})
-    @Validator.IsEmail()
-    email?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(3)
-    firstName?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(3)
-    lastName?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(8)
-    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
-    password?: string;
-    @Field(() => Status, {nullable:true})
-    @Validator.IsString()
-    status?: keyof typeof Status;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    image?: string;
-    @Field(() => CountryUpdateOneWithoutUserInput, {nullable:true})
-    country?: InstanceType<typeof CountryUpdateOneWithoutUserInput>;
-    @Field(() => UserRole, {nullable:true})
-    @Validator.IsString()
-    role?: keyof typeof UserRole;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    bio?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    hash?: string;
-    @Field(() => Date, {nullable:true})
-    hashExpiredAt?: Date | string;
-    @Field(() => Float, {nullable:true})
-    rating?: number;
-    @Field(() => YesNo, {nullable:true})
-    isVerified?: keyof typeof YesNo;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => GuideGuideCategoryUpdateManyWithoutUserInput, {nullable:true})
-    GuideGuideCategory?: InstanceType<typeof GuideGuideCategoryUpdateManyWithoutUserInput>;
-    @Field(() => GuideCityUpdateManyWithoutUserInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityUpdateManyWithoutUserInput>;
 }
 
 @InputType()
 export class UserUpdateInput {
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsEmail()
     email?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     firstName?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
-    @Validator.MinLength(3)
+    @Validator.MinLength(2)
     lastName?: string;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsString()
     @Validator.MaxLength(100)
     @Validator.MinLength(8)
@@ -9606,12 +10098,8 @@ export class UserUpdateInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => GuideGuideCategoryUpdateManyWithoutUserInput, {nullable:true})
-    GuideGuideCategory?: InstanceType<typeof GuideGuideCategoryUpdateManyWithoutUserInput>;
-    @Field(() => GuideCityUpdateManyWithoutUserInput, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityUpdateManyWithoutUserInput>;
-    @Field(() => GuideLanguagesUpdateManyWithoutUserInput, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesUpdateManyWithoutUserInput>;
+    @Field(() => TourUpdateManyWithoutGuideInput, {nullable:true})
+    Tour?: InstanceType<typeof TourUpdateManyWithoutGuideInput>;
 }
 
 @InputType()
@@ -9628,33 +10116,13 @@ export class UserUpsertWithWhereUniqueWithoutCountryInput {
 }
 
 @InputType()
-export class UserUpsertWithoutGuideCityInput {
-    @Field(() => UserUpdateWithoutGuideCityInput, {nullable:false})
-    @Type(() => UserUpdateWithoutGuideCityInput)
-    update!: InstanceType<typeof UserUpdateWithoutGuideCityInput>;
-    @Field(() => UserCreateWithoutGuideCityInput, {nullable:false})
-    @Type(() => UserCreateWithoutGuideCityInput)
-    create!: InstanceType<typeof UserCreateWithoutGuideCityInput>;
-}
-
-@InputType()
-export class UserUpsertWithoutGuideGuideCategoryInput {
-    @Field(() => UserUpdateWithoutGuideGuideCategoryInput, {nullable:false})
-    @Type(() => UserUpdateWithoutGuideGuideCategoryInput)
-    update!: InstanceType<typeof UserUpdateWithoutGuideGuideCategoryInput>;
-    @Field(() => UserCreateWithoutGuideGuideCategoryInput, {nullable:false})
-    @Type(() => UserCreateWithoutGuideGuideCategoryInput)
-    create!: InstanceType<typeof UserCreateWithoutGuideGuideCategoryInput>;
-}
-
-@InputType()
-export class UserUpsertWithoutGuideLanguagesInput {
-    @Field(() => UserUpdateWithoutGuideLanguagesInput, {nullable:false})
-    @Type(() => UserUpdateWithoutGuideLanguagesInput)
-    update!: InstanceType<typeof UserUpdateWithoutGuideLanguagesInput>;
-    @Field(() => UserCreateWithoutGuideLanguagesInput, {nullable:false})
-    @Type(() => UserCreateWithoutGuideLanguagesInput)
-    create!: InstanceType<typeof UserCreateWithoutGuideLanguagesInput>;
+export class UserUpsertWithoutTourInput {
+    @Field(() => UserUpdateWithoutTourInput, {nullable:false})
+    @Type(() => UserUpdateWithoutTourInput)
+    update!: InstanceType<typeof UserUpdateWithoutTourInput>;
+    @Field(() => UserCreateWithoutTourInput, {nullable:false})
+    @Type(() => UserCreateWithoutTourInput)
+    create!: InstanceType<typeof UserCreateWithoutTourInput>;
 }
 
 @InputType()
@@ -9662,6 +10130,7 @@ export class UserWhereUniqueInput {
     @Field(() => Int, {nullable:true})
     id?: number;
     @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
     @Validator.IsEmail()
     email?: string;
 }
@@ -9708,12 +10177,8 @@ export class UserWhereInput {
     createdAt?: InstanceType<typeof DateTimeFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
     updatedAt?: InstanceType<typeof DateTimeFilter>;
-    @Field(() => GuideGuideCategoryListRelationFilter, {nullable:true})
-    GuideGuideCategory?: InstanceType<typeof GuideGuideCategoryListRelationFilter>;
-    @Field(() => GuideCityListRelationFilter, {nullable:true})
-    GuideCity?: InstanceType<typeof GuideCityListRelationFilter>;
-    @Field(() => GuideLanguagesListRelationFilter, {nullable:true})
-    GuideLanguages?: InstanceType<typeof GuideLanguagesListRelationFilter>;
+    @Field(() => TourListRelationFilter, {nullable:true})
+    Tour?: InstanceType<typeof TourListRelationFilter>;
 }
 
 @ObjectType()
@@ -9752,12 +10217,8 @@ export class User {
     createdAt!: Date;
     @Field(() => Date, {nullable:false})
     updatedAt!: Date;
-    @Field(() => [GuideGuideCategory], {nullable:true})
-    GuideGuideCategory?: Array<GuideGuideCategory>;
-    @Field(() => [GuideCity], {nullable:true})
-    GuideCity?: Array<GuideCity>;
-    @Field(() => [GuideLanguages], {nullable:true})
-    GuideLanguages?: Array<GuideLanguages>;
+    @Field(() => [Tour], {nullable:true})
+    Tour?: Array<Tour>;
     @Field(() => UserCount, {nullable:false})
     _count?: InstanceType<typeof UserCount>;
 }

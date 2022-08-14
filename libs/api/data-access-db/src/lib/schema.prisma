@@ -49,19 +49,23 @@ enum YesNo {
 model User {
   id Int @id @default(autoincrement())
 
+  /// @Validator.IsNotEmpty()
   /// @Validator.IsEmail()
   email String @unique
 
+  /// @Validator.IsNotEmpty()
   /// @Validator.IsString()
   /// @Validator.MaxLength(100)
-  /// @Validator.MinLength(3)
+  /// @Validator.MinLength(2)
   firstName String
 
+  /// @Validator.IsNotEmpty()
   /// @Validator.IsString()
   /// @Validator.MaxLength(100)
-  /// @Validator.MinLength(3)
+  /// @Validator.MinLength(2)
   lastName String
 
+  /// @Validator.IsNotEmpty()
   /// @Validator.IsString()
   /// @Validator.MaxLength(100)
   /// @Validator.MinLength(8)
@@ -95,10 +99,26 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Tour      Tour[]
+}
 
-  GuideGuideCategory GuideGuideCategory[]
-  GuideCity          GuideCity[]
-  GuideLanguages     GuideLanguages[]
+model Tour {
+  id Int @id @default(autoincrement())
+
+  /// @Validator.IsString()
+  name String
+
+  /// @Validator.IsString()
+  status Status @default(ACTIVE)
+
+  guide            User               @relation(fields: [guideId], references: [id])
+  guideId          Int
+  TourTourCategory TourTourCategory[]
+  TourCity         TourCity[]
+  TourLanguages    TourLanguages[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model City {
@@ -110,12 +130,11 @@ model City {
   /// @Validator.IsString()
   status Status @default(ACTIVE)
 
-  country        Country          @relation(fields: [countryId], references: [id])
-  countryId      Int
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
-  GuideCity      GuideCity[]
-  GuideLanguages GuideLanguages[]
+  country   Country    @relation(fields: [countryId], references: [id])
+  countryId Int
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  TourCity  TourCity[]
 }
 
 model Country {
@@ -133,7 +152,7 @@ model Country {
   City      City[]
 }
 
-model GuideCategory {
+model TourCategory {
   id Int @id @default(autoincrement())
 
   /// @Validator.IsString()
@@ -143,27 +162,28 @@ model GuideCategory {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  GuideGuideCategory GuideGuideCategory[]
+  TourTourCategory TourTourCategory[]
 }
 
-model GuideGuideCategory {
-  status          Status        @default(ACTIVE)
-  user            User          @relation(fields: [userId], references: [id])
-  userId          Int
-  guideCategory   GuideCategory @relation(fields: [guideCategoryId], references: [id])
-  guideCategoryId Int
-
-  @@id([userId, guideCategoryId])
-}
-
-model GuideCity {
+model TourTourCategory {
   status Status @default(ACTIVE)
-  user   User   @relation(fields: [userId], references: [id])
-  userId Int
+  tour   Tour?  @relation(fields: [tourId], references: [id])
+  tourId Int
+
+  tourCategory   TourCategory @relation(fields: [tourCategoryId], references: [id])
+  tourCategoryId Int
+
+  @@id([tourId, tourCategoryId])
+}
+
+model TourCity {
+  status Status @default(ACTIVE)
+  tour   Tour?  @relation(fields: [tourId], references: [id])
+  tourId Int
   city   City   @relation(fields: [cityId], references: [id])
   cityId Int
 
-  @@id([userId, cityId])
+  @@id([tourId, cityId])
 }
 
 model Languages {
@@ -175,20 +195,17 @@ model Languages {
   /// @Validator.IsString()
   status Status @default(ACTIVE)
 
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
-  GuideLanguages GuideLanguages[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  TourLanguages TourLanguages[]
 }
 
-model GuideLanguages {
+model TourLanguages {
   status     Status    @default(ACTIVE)
-  user       User      @relation(fields: [userId], references: [id])
-  userId     Int
+  tour       Tour?     @relation(fields: [tourId], references: [id])
+  tourId     Int
   language   Languages @relation(fields: [languageId], references: [id])
   languageId Int
 
-  City   City? @relation(fields: [cityId], references: [id])
-  cityId Int?
-
-  @@id([userId, languageId])
+  @@id([tourId, languageId])
 }
