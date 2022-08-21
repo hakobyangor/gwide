@@ -8,7 +8,7 @@ import { randomBytes } from 'node:crypto'
 import moment = require('moment')
 import { resetPassword } from './dto/reset-password.input'
 import { SendgridService } from '../sendgrid/sendgrid.service'
-import { YesNo } from '@prisma/client'
+import { Status, YesNo } from '@prisma/client'
 
 @Injectable()
 export class AuthenticationService {
@@ -121,7 +121,7 @@ export class AuthenticationService {
       return this.userService.update({
         where: { id: user.id },
         data: {
-          isVerified: YesNo.YES,
+          status: Status.ACTIVE,
           hash: null,
           hashExpiredAt: null
         }
