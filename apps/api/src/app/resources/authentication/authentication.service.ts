@@ -8,6 +8,7 @@ import { randomBytes } from 'node:crypto'
 import moment = require('moment')
 import { resetPassword } from './dto/reset-password.input'
 import { SendgridService } from '../sendgrid/sendgrid.service'
+import { YesNo } from '@prisma/client'
 
 @Injectable()
 export class AuthenticationService {
@@ -39,7 +40,32 @@ export class AuthenticationService {
     if (userCheck) {
       throw new Error('User Exist with provided email')
     }
-    return this.userService.create({ data: { email, password, firstName, lastName, role } })
+
+    const hash = await bcrypt.hash(randomBytes(16), 10)
+
+    const user = await this.userService.create({
+      data: {
+        email,
+        password,
+        firstName,
+        lastName,
+        role,
+        hash,
+        hashExpiredAt: moment().add(1, 'hour').toDate()
+      }
+    })
+
+    const mail = {
+      to: user.email,
+      subject: 'Verify Email',
+      from: process.env.SEND_GRID_MAIL_FROM_NO_REPLY,
+      text: 'Verify Email',
+      html: `<h1>verify Email</h1> for verify Email use this <a href="${process.env.FRONT_URL}reset-password/${hash}"> link </a>`
+    }
+
+    await this.sendgridService.send(mail)
+
+    return user
   }
 
   async resetPasswordEmail(userEmail: FindUniqueUserArgs) {
@@ -87,5 +113,21 @@ export class AuthenticationService {
     })
 
     return user
+  }
+
+  async verifyEmail(hash: string) {
+    const user = await this.userService.findByHash(hash)
+    if (user) {
+      return this.userService.update({
+        where: { id: user.id },
+        data: {
+          isVerified: YesNo.YES,
+          hash: null,
+          hashExpiredAt: null
+        }
+      })
+    } else {
+      throw new Error('Invalid or expired hash')
+    }
   }
 }

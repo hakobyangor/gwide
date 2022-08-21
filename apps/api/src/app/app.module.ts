@@ -4,6 +4,7 @@ import { GraphQLModule } from '@nestjs/graphql'
 import { MercuriusDriver, MercuriusDriverConfig } from '@nestjs/mercurius'
 import { UserModule } from './resources/user/user.module'
 import { AuthenticationModule } from './resources/authentication/authentication.module'
+import { TourModule } from './resources/tour/tour.module'
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { AuthenticationModule } from './resources/authentication/authentication.
       graphiql: true
     }),
     UserModule,
+    TourModule,
     AuthenticationModule
   ],
   controllers: [],

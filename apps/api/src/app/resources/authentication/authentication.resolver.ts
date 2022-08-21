@@ -7,6 +7,7 @@ import { UseGuards } from '@nestjs/common'
 import { IUserContext } from '../../guards/auth-guards/types'
 import { RegisterInput } from './dto/register.input'
 import { resetPassword } from './dto/reset-password.input'
+import { verifyEmail } from './dto/verify-email.input'
 
 @Resolver(() => User)
 export class AuthenticationResolver {
@@ -23,6 +24,11 @@ export class AuthenticationResolver {
   @Mutation(() => User)
   signUp(@Args('signUpInput') signUpInput: RegisterInput) {
     return this.authenticationService.signUp(signUpInput)
+  }
+
+  @Mutation(() => User)
+  verifyEmail(@Args('verifyEmail') verifyEmail: verifyEmail) {
+    return this.authenticationService.verifyEmail(verifyEmail.hash)
   }
 
   @Query(() => User)

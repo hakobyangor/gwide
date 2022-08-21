@@ -114,12 +114,12 @@ model Tour {
   guide            User               @relation(fields: [guideId], references: [id])
   guideId          Int
   currency         Currency           @relation(fields: [currencyId], references: [id])
-  currencyId       Int                @default(1)
-  maxCapacity      Int                @default(2)
-  price            Float              @default(2)
-  TourTourCategory TourTourCategory[]
-  TourCity         TourCity[]
-  TourLanguages    TourLanguages[]
+  currencyId       Int
+  maxCapacity      Int
+  price            Float
+  tourTourCategory TourTourCategory[]
+  tourCity         TourCity[]
+  tourLanguage     TourLanguage[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -138,7 +138,7 @@ model City {
   countryId Int
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
-  TourCity  TourCity[]
+  tourCity  TourCity[]
 }
 
 model Currency {
@@ -152,7 +152,7 @@ model Currency {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Tour      Tour[]
+  tour      Tour[]
 }
 
 model Country {
@@ -180,7 +180,7 @@ model TourCategory {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  TourTourCategory TourTourCategory[]
+  tourTourCategory TourTourCategory[]
 }
 
 model TourTourCategory {
@@ -204,7 +204,7 @@ model TourCity {
   @@id([tourId, cityId])
 }
 
-model Languages {
+model Language {
   id Int @id @default(autoincrement())
 
   /// @Validator.IsString()
@@ -213,16 +213,16 @@ model Languages {
   /// @Validator.IsString()
   status Status @default(ACTIVE)
 
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  TourLanguages TourLanguages[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  tourLanguage TourLanguage[]
 }
 
-model TourLanguages {
-  status     Status    @default(ACTIVE)
-  tour       Tour?     @relation(fields: [tourId], references: [id])
+model TourLanguage {
+  status     Status   @default(ACTIVE)
+  tour       Tour?    @relation(fields: [tourId], references: [id])
   tourId     Int
-  language   Languages @relation(fields: [languageId], references: [id])
+  language   Language @relation(fields: [languageId], references: [id])
   languageId Int
 
   @@id([tourId, languageId])

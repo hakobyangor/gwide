@@ -3,6 +3,7 @@ import { PassportStrategy } from '@nestjs/passport'
 import { Injectable } from '@nestjs/common'
 import { FastifyRequest } from 'fastify'
 import { UserJwtPayload } from '../types'
+import { UserRole } from '@prisma/client'
 
 // some jwt best practices https://www.rfc-editor.org/rfc/rfc8725.html
 
@@ -17,10 +18,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     })
   }
 
-  async validate(payload: { sub?: string }): Promise<UserJwtPayload> {
+  async validate(payload: { sub?: { id: string; role: UserRole } }): Promise<UserJwtPayload> {
     if (!payload.sub) return false
 
-    return { id: payload.sub }
+    return { id: payload.sub.id, role: payload.sub.role }
   }
 }
 
