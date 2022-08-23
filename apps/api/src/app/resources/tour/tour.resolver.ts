@@ -19,10 +19,25 @@ export class TourResolver {
     @Args('createTourInput') createTourInput: CreateTourInput,
     @CurrentUser() currentUser: User
   ) {
-    if (currentUser.id !== createTourInput.guide.connect.id) {
+    if (currentUser.id !== createTourInput.guideId) {
       throw new UnauthorizedException()
     }
-    return this.tourService.create({ data: createTourInput })
+
+    const createData = {
+      ...createTourInput,
+      guide: { connect: { id: createTourInput.guideId } },
+      currency: { connect: { id: createTourInput.currencyId } },
+      tourCity: { createMany: { data: createTourInput.tourCity } },
+      tourTourCategory: { createMany: { data: createTourInput.tourTourCategory } },
+      tourLanguage: { createMany: { data: createTourInput.tourLanguage } }
+    }
+
+    delete createData.guideId
+    delete createData.currencyId
+
+    return this.tourService.create({
+      data: createData
+    })
   }
 
   @Query(() => [Tour])
@@ -48,7 +63,14 @@ export class TourResolver {
       throw new UnauthorizedException()
     }
 
-    return this.tourService.update(id, updateTourInput)
+    const updateData = {
+      ...updateTourInput,
+      tourCity: { createMany: { data: updateTourInput.tourCity } },
+      tourTourCategory: { createMany: { data: updateTourInput.tourTourCategory } },
+      tourLanguage: { createMany: { data: updateTourInput.tourLanguage } }
+    }
+
+    return this.tourService.update(id, updateData)
   }
 
   @Mutation(() => Tour)

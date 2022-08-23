@@ -1,4 +1,4 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { UserService } from './user.service'
 import {
   CreateOneUserArgs,
@@ -37,13 +37,14 @@ export class UserResolver {
   @UseGuards(CheckAuthGuard)
   @Mutation(() => User)
   async updateUser(
-    @Args('where') where: UserWhereUniqueInput,
+    @Args('id', { type: () => Int }) id: number,
     @Args('data') data: UpdateUserInput
   ) {
     if (data.password) {
       data.password = await bcrypt.hash(data.password, 10)
     }
-    return this.userService.update({ data, where })
+
+    return this.userService.update({ data, where: { id } })
   }
 
   @UseGuards(CheckAuthGuard)
