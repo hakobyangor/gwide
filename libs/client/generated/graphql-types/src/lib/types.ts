@@ -805,6 +805,7 @@ export type MutationVerifyEmailArgs = {
 export type Query = {
   __typename?: 'Query';
   getGuides: Array<User>;
+  getTour: Tour;
   getTours: Array<Tour>;
   resetPasswordEmail: User;
   user: User;
@@ -819,6 +820,11 @@ export type QueryGetGuidesArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   take?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<UserWhereInput>;
+};
+
+
+export type QueryGetTourArgs = {
+  id: Scalars['Int'];
 };
 
 

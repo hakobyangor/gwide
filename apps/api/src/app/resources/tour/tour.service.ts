@@ -57,7 +57,38 @@ export class TourService {
 
   findOne(id: number) {
     return this.database.tour.findUnique({
-      where: { id }
+      where: { id },
+      include: {
+        currency: true,
+        tourCity: {
+          include: { city: true }
+        },
+        tourLanguage: {
+          include: {
+            language: true
+          }
+        },
+        tourTourCategory: {
+          include: {
+            tourCategory: true
+          }
+        },
+        tourReview: true,
+        tourImage: {},
+        guide: {
+          include: {
+            country: {},
+            tour: {
+              include: {
+                currency: {},
+                _count: {
+                  select: { tourCity: true, tourLanguage: true, tourTourCategory: true }
+                }
+              }
+            }
+          }
+        }
+      }
     })
   }
 

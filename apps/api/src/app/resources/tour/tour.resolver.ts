@@ -78,10 +78,11 @@ export class TourResolver {
     return this.tourService.findAllByFilter(where)
   }
 
-  // @Query(() => Tour, { name: 'tour' })
-  // findOne(@Args('id', { type: () => Int }) id: number) {
-  //   return this.tourService.findOne(id)
-  // }
+  @Query(() => Tour, { name: 'getTour' })
+  @UseGuards(CheckAuthGuard)
+  getTourById(@Args('id', { type: () => Int }) id: number) {
+    return this.tourService.findOne(id)
+  }
 
   @Mutation(() => Tour)
   @UseGuards(CheckGuideAuthGuard)
