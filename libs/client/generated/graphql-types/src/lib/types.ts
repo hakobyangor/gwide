@@ -410,14 +410,21 @@ export type CountryWhereUniqueInput = {
 
 export type CreateTourInput = {
   currencyId: Scalars['Int'];
+  description: Scalars['String'];
+  durationHours: Scalars['Int'];
+  durationMinutes: Scalars['Int'];
+  format: TourFormat;
   guideId: Scalars['Int'];
+  image: Scalars['String'];
   maxCapacity: Scalars['Int'];
   name: Scalars['String'];
   price: Scalars['Float'];
   status?: InputMaybe<Status>;
   tourCity?: InputMaybe<Array<TourCityCreateManyTourInput>>;
+  tourImage?: InputMaybe<Array<TourImageCreateManyTourInput>>;
   tourLanguage?: InputMaybe<Array<TourLanguageCreateManyTourInput>>;
   tourTourCategory?: InputMaybe<Array<TourTourCategoryCreateManyTourInput>>;
+  type: TourType;
 };
 
 export type Currency = {
@@ -487,15 +494,6 @@ export type CurrencyMinAggregate = {
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
-export type CurrencyOrderByWithRelationInput = {
-  createdAt?: InputMaybe<SortOrder>;
-  id?: InputMaybe<SortOrder>;
-  name?: InputMaybe<SortOrder>;
-  status?: InputMaybe<SortOrder>;
-  tour?: InputMaybe<TourOrderByRelationAggregateInput>;
-  updatedAt?: InputMaybe<SortOrder>;
-};
-
 export type CurrencyRelationFilter = {
   is?: InputMaybe<CurrencyWhereInput>;
   isNot?: InputMaybe<CurrencyWhereInput>;
@@ -560,6 +558,20 @@ export type EnumStatusFilter = {
   notIn?: InputMaybe<Array<Status>>;
 };
 
+export type EnumTourFormatFilter = {
+  equals?: InputMaybe<TourFormat>;
+  in?: InputMaybe<Array<TourFormat>>;
+  not?: InputMaybe<EnumTourFormatFilter>;
+  notIn?: InputMaybe<Array<TourFormat>>;
+};
+
+export type EnumTourTypeFilter = {
+  equals?: InputMaybe<TourType>;
+  in?: InputMaybe<Array<TourType>>;
+  not?: InputMaybe<EnumTourTypeFilter>;
+  notIn?: InputMaybe<Array<TourType>>;
+};
+
 export type EnumUserRoleFilter = {
   equals?: InputMaybe<UserRole>;
   in?: InputMaybe<Array<UserRole>>;
@@ -583,6 +595,17 @@ export type FloatFilter = {
   lte?: InputMaybe<Scalars['Float']>;
   not?: InputMaybe<FloatFilter>;
   notIn?: InputMaybe<Array<Scalars['Float']>>;
+};
+
+export type GetToursInput = {
+  priceMax?: InputMaybe<Scalars['Float']>;
+  priceMin?: InputMaybe<Scalars['Float']>;
+  showOnlyTopRated?: InputMaybe<Scalars['Boolean']>;
+  tourCategory?: InputMaybe<Array<Scalars['Int']>>;
+  tourCity?: InputMaybe<Array<Scalars['Int']>>;
+  tourFormat?: InputMaybe<Array<TourFormat>>;
+  tourLanguage?: InputMaybe<Array<Scalars['Int']>>;
+  tourType?: InputMaybe<Array<TourType>>;
 };
 
 export type IntFilter = {
@@ -772,7 +795,6 @@ export type MutationUpdateTourArgs = {
 
 export type MutationUpdateUserArgs = {
   data: UpdateUserInput;
-  id: Scalars['Int'];
 };
 
 
@@ -785,7 +807,6 @@ export type Query = {
   getGuides: Array<User>;
   getTours: Array<Tour>;
   resetPasswordEmail: User;
-  tour: Tour;
   user: User;
   users: Array<User>;
 };
@@ -802,22 +823,12 @@ export type QueryGetGuidesArgs = {
 
 
 export type QueryGetToursArgs = {
-  cursor?: InputMaybe<TourWhereUniqueInput>;
-  distinct?: InputMaybe<Array<TourScalarFieldEnum>>;
-  orderBy?: InputMaybe<Array<TourOrderByWithRelationInput>>;
-  skip?: InputMaybe<Scalars['Int']>;
-  take?: InputMaybe<Scalars['Int']>;
-  where?: InputMaybe<TourWhereInput>;
+  getToursInput: GetToursInput;
 };
 
 
 export type QueryResetPasswordEmailArgs = {
   where: UserWhereUniqueInput;
-};
-
-
-export type QueryTourArgs = {
-  id: Scalars['Int'];
 };
 
 
@@ -867,26 +878,38 @@ export type Tour = {
   createdAt: Scalars['DateTime'];
   currency: Currency;
   currencyId: Scalars['Int'];
+  description: Scalars['String'];
+  durationHours: Scalars['Int'];
+  durationMinutes: Scalars['Int'];
+  format: TourFormat;
   guide: User;
   guideId: Scalars['Int'];
   id: Scalars['ID'];
+  image: Scalars['String'];
   maxCapacity: Scalars['Int'];
   name: Scalars['String'];
   price: Scalars['Float'];
+  rating?: Maybe<Scalars['Float']>;
   status: Status;
   tourCity?: Maybe<Array<TourCity>>;
+  tourImage?: Maybe<Array<TourImage>>;
   tourLanguage?: Maybe<Array<TourLanguage>>;
+  tourReview?: Maybe<Array<TourReview>>;
   tourTourCategory?: Maybe<Array<TourTourCategory>>;
+  type: TourType;
   updatedAt: Scalars['DateTime'];
 };
 
 export type TourAvgAggregate = {
   __typename?: 'TourAvgAggregate';
   currencyId?: Maybe<Scalars['Float']>;
+  durationHours?: Maybe<Scalars['Float']>;
+  durationMinutes?: Maybe<Scalars['Float']>;
   guideId?: Maybe<Scalars['Float']>;
   id?: Maybe<Scalars['Float']>;
   maxCapacity?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
+  rating?: Maybe<Scalars['Float']>;
 };
 
 export type TourCategory = {
@@ -1099,10 +1122,6 @@ export type TourCityMinAggregate = {
   tourId?: Maybe<Scalars['Int']>;
 };
 
-export type TourCityOrderByRelationAggregateInput = {
-  _count?: InputMaybe<SortOrder>;
-};
-
 export type TourCityScalarWhereInput = {
   AND?: InputMaybe<Array<TourCityScalarWhereInput>>;
   NOT?: InputMaybe<Array<TourCityScalarWhereInput>>;
@@ -1215,7 +1234,9 @@ export type TourCityWhereUniqueInput = {
 export type TourCount = {
   __typename?: 'TourCount';
   tourCity: Scalars['Int'];
+  tourImage: Scalars['Int'];
   tourLanguage: Scalars['Int'];
+  tourReview: Scalars['Int'];
   tourTourCategory: Scalars['Int'];
 };
 
@@ -1224,23 +1245,37 @@ export type TourCountAggregate = {
   _all: Scalars['Int'];
   createdAt: Scalars['Int'];
   currencyId: Scalars['Int'];
+  description: Scalars['Int'];
+  durationHours: Scalars['Int'];
+  durationMinutes: Scalars['Int'];
+  format: Scalars['Int'];
   guideId: Scalars['Int'];
   id: Scalars['Int'];
+  image: Scalars['Int'];
   maxCapacity: Scalars['Int'];
   name: Scalars['Int'];
   price: Scalars['Int'];
+  rating: Scalars['Int'];
   status: Scalars['Int'];
+  type: Scalars['Int'];
   updatedAt: Scalars['Int'];
 };
 
 export type TourCreateManyGuideInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   currencyId: Scalars['Int'];
+  description: Scalars['String'];
+  durationHours: Scalars['Int'];
+  durationMinutes: Scalars['Int'];
+  format?: InputMaybe<TourFormat>;
   id?: InputMaybe<Scalars['Int']>;
+  image: Scalars['String'];
   maxCapacity: Scalars['Int'];
   name: Scalars['String'];
   price: Scalars['Float'];
+  rating?: InputMaybe<Scalars['Float']>;
   status?: InputMaybe<Status>;
+  type?: InputMaybe<TourType>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -1262,6 +1297,12 @@ export type TourCreateNestedOneWithoutTourCityInput = {
   create?: InputMaybe<TourCreateWithoutTourCityInput>;
 };
 
+export type TourCreateNestedOneWithoutTourReviewInput = {
+  connect?: InputMaybe<TourWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<TourCreateOrConnectWithoutTourReviewInput>;
+  create?: InputMaybe<TourCreateWithoutTourReviewInput>;
+};
+
 export type TourCreateOrConnectWithoutGuideInput = {
   create: TourCreateWithoutGuideInput;
   where: TourWhereUniqueInput;
@@ -1272,30 +1313,267 @@ export type TourCreateOrConnectWithoutTourCityInput = {
   where: TourWhereUniqueInput;
 };
 
+export type TourCreateOrConnectWithoutTourReviewInput = {
+  create: TourCreateWithoutTourReviewInput;
+  where: TourWhereUniqueInput;
+};
+
 export type TourCreateWithoutGuideInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   currency: CurrencyCreateNestedOneWithoutTourInput;
+  description: Scalars['String'];
+  durationHours: Scalars['Int'];
+  durationMinutes: Scalars['Int'];
+  format?: InputMaybe<TourFormat>;
+  image: Scalars['String'];
   maxCapacity: Scalars['Int'];
   name: Scalars['String'];
   price: Scalars['Float'];
+  rating?: InputMaybe<Scalars['Float']>;
   status?: InputMaybe<Status>;
   tourCity?: InputMaybe<TourCityCreateNestedManyWithoutTourInput>;
+  tourImage?: InputMaybe<TourImageCreateNestedManyWithoutTourInput>;
   tourLanguage?: InputMaybe<TourLanguageCreateNestedManyWithoutTourInput>;
+  tourReview?: InputMaybe<TourReviewCreateNestedManyWithoutTourInput>;
   tourTourCategory?: InputMaybe<TourTourCategoryCreateNestedManyWithoutTourInput>;
+  type?: InputMaybe<TourType>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type TourCreateWithoutTourCityInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   currency: CurrencyCreateNestedOneWithoutTourInput;
+  description: Scalars['String'];
+  durationHours: Scalars['Int'];
+  durationMinutes: Scalars['Int'];
+  format?: InputMaybe<TourFormat>;
   guide: UserCreateNestedOneWithoutTourInput;
+  image: Scalars['String'];
   maxCapacity: Scalars['Int'];
   name: Scalars['String'];
   price: Scalars['Float'];
+  rating?: InputMaybe<Scalars['Float']>;
   status?: InputMaybe<Status>;
+  tourImage?: InputMaybe<TourImageCreateNestedManyWithoutTourInput>;
+  tourLanguage?: InputMaybe<TourLanguageCreateNestedManyWithoutTourInput>;
+  tourReview?: InputMaybe<TourReviewCreateNestedManyWithoutTourInput>;
+  tourTourCategory?: InputMaybe<TourTourCategoryCreateNestedManyWithoutTourInput>;
+  type?: InputMaybe<TourType>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type TourCreateWithoutTourReviewInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  currency: CurrencyCreateNestedOneWithoutTourInput;
+  description: Scalars['String'];
+  durationHours: Scalars['Int'];
+  durationMinutes: Scalars['Int'];
+  format?: InputMaybe<TourFormat>;
+  guide: UserCreateNestedOneWithoutTourInput;
+  image: Scalars['String'];
+  maxCapacity: Scalars['Int'];
+  name: Scalars['String'];
+  price: Scalars['Float'];
+  rating?: InputMaybe<Scalars['Float']>;
+  status?: InputMaybe<Status>;
+  tourCity?: InputMaybe<TourCityCreateNestedManyWithoutTourInput>;
+  tourImage?: InputMaybe<TourImageCreateNestedManyWithoutTourInput>;
   tourLanguage?: InputMaybe<TourLanguageCreateNestedManyWithoutTourInput>;
   tourTourCategory?: InputMaybe<TourTourCategoryCreateNestedManyWithoutTourInput>;
+  type?: InputMaybe<TourType>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export enum TourFormat {
+  ByCar = 'BY_CAR',
+  OnFoot = 'ON_FOOT'
+}
+
+export type TourImage = {
+  __typename?: 'TourImage';
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  image: Scalars['String'];
+  name: Scalars['String'];
+  sortOrder: Scalars['Int'];
+  status: Status;
+  tour?: Maybe<Tour>;
+  tourId?: Maybe<Scalars['Int']>;
+  updatedAt: Scalars['DateTime'];
+};
+
+export type TourImageAvgAggregate = {
+  __typename?: 'TourImageAvgAggregate';
+  id?: Maybe<Scalars['Float']>;
+  sortOrder?: Maybe<Scalars['Float']>;
+  tourId?: Maybe<Scalars['Float']>;
+};
+
+export type TourImageCountAggregate = {
+  __typename?: 'TourImageCountAggregate';
+  _all: Scalars['Int'];
+  createdAt: Scalars['Int'];
+  id: Scalars['Int'];
+  image: Scalars['Int'];
+  name: Scalars['Int'];
+  sortOrder: Scalars['Int'];
+  status: Scalars['Int'];
+  tourId: Scalars['Int'];
+  updatedAt: Scalars['Int'];
+};
+
+export type TourImageCreateManyTourInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  id?: InputMaybe<Scalars['Int']>;
+  image: Scalars['String'];
+  name: Scalars['String'];
+  sortOrder: Scalars['Int'];
+  status?: InputMaybe<Status>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type TourImageCreateManyTourInputEnvelope = {
+  data: Array<TourImageCreateManyTourInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type TourImageCreateNestedManyWithoutTourInput = {
+  connect?: InputMaybe<Array<TourImageWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<TourImageCreateOrConnectWithoutTourInput>>;
+  create?: InputMaybe<Array<TourImageCreateWithoutTourInput>>;
+  createMany?: InputMaybe<TourImageCreateManyTourInputEnvelope>;
+};
+
+export type TourImageCreateOrConnectWithoutTourInput = {
+  create: TourImageCreateWithoutTourInput;
+  where: TourImageWhereUniqueInput;
+};
+
+export type TourImageCreateWithoutTourInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  image: Scalars['String'];
+  name: Scalars['String'];
+  sortOrder: Scalars['Int'];
+  status?: InputMaybe<Status>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type TourImageListRelationFilter = {
+  every?: InputMaybe<TourImageWhereInput>;
+  none?: InputMaybe<TourImageWhereInput>;
+  some?: InputMaybe<TourImageWhereInput>;
+};
+
+export type TourImageMaxAggregate = {
+  __typename?: 'TourImageMaxAggregate';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  id?: Maybe<Scalars['Int']>;
+  image?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  sortOrder?: Maybe<Scalars['Int']>;
+  status?: Maybe<Status>;
+  tourId?: Maybe<Scalars['Int']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type TourImageMinAggregate = {
+  __typename?: 'TourImageMinAggregate';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  id?: Maybe<Scalars['Int']>;
+  image?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  sortOrder?: Maybe<Scalars['Int']>;
+  status?: Maybe<Status>;
+  tourId?: Maybe<Scalars['Int']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type TourImageScalarWhereInput = {
+  AND?: InputMaybe<Array<TourImageScalarWhereInput>>;
+  NOT?: InputMaybe<Array<TourImageScalarWhereInput>>;
+  OR?: InputMaybe<Array<TourImageScalarWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<IntFilter>;
+  image?: InputMaybe<StringFilter>;
+  name?: InputMaybe<StringFilter>;
+  sortOrder?: InputMaybe<IntFilter>;
+  status?: InputMaybe<EnumStatusFilter>;
+  tourId?: InputMaybe<IntFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+};
+
+export type TourImageSumAggregate = {
+  __typename?: 'TourImageSumAggregate';
+  id?: Maybe<Scalars['Int']>;
+  sortOrder?: Maybe<Scalars['Int']>;
+  tourId?: Maybe<Scalars['Int']>;
+};
+
+export type TourImageUpdateManyMutationInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  image?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  sortOrder?: InputMaybe<Scalars['Int']>;
+  status?: InputMaybe<Status>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type TourImageUpdateManyWithWhereWithoutTourInput = {
+  data: TourImageUpdateManyMutationInput;
+  where: TourImageScalarWhereInput;
+};
+
+export type TourImageUpdateManyWithoutTourInput = {
+  connect?: InputMaybe<Array<TourImageWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<TourImageCreateOrConnectWithoutTourInput>>;
+  create?: InputMaybe<Array<TourImageCreateWithoutTourInput>>;
+  createMany?: InputMaybe<TourImageCreateManyTourInputEnvelope>;
+  delete?: InputMaybe<Array<TourImageWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<TourImageScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<TourImageWhereUniqueInput>>;
+  set?: InputMaybe<Array<TourImageWhereUniqueInput>>;
+  update?: InputMaybe<Array<TourImageUpdateWithWhereUniqueWithoutTourInput>>;
+  updateMany?: InputMaybe<Array<TourImageUpdateManyWithWhereWithoutTourInput>>;
+  upsert?: InputMaybe<Array<TourImageUpsertWithWhereUniqueWithoutTourInput>>;
+};
+
+export type TourImageUpdateWithWhereUniqueWithoutTourInput = {
+  data: TourImageUpdateWithoutTourInput;
+  where: TourImageWhereUniqueInput;
+};
+
+export type TourImageUpdateWithoutTourInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  image?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  sortOrder?: InputMaybe<Scalars['Int']>;
+  status?: InputMaybe<Status>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type TourImageUpsertWithWhereUniqueWithoutTourInput = {
+  create: TourImageCreateWithoutTourInput;
+  update: TourImageUpdateWithoutTourInput;
+  where: TourImageWhereUniqueInput;
+};
+
+export type TourImageWhereInput = {
+  AND?: InputMaybe<Array<TourImageWhereInput>>;
+  NOT?: InputMaybe<Array<TourImageWhereInput>>;
+  OR?: InputMaybe<Array<TourImageWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<IntFilter>;
+  image?: InputMaybe<StringFilter>;
+  name?: InputMaybe<StringFilter>;
+  sortOrder?: InputMaybe<IntFilter>;
+  status?: InputMaybe<EnumStatusFilter>;
+  tour?: InputMaybe<TourRelationFilter>;
+  tourId?: InputMaybe<IntFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+};
+
+export type TourImageWhereUniqueInput = {
+  id?: InputMaybe<Scalars['Int']>;
 };
 
 export type TourLanguage = {
@@ -1366,10 +1644,6 @@ export type TourLanguageMinAggregate = {
   languageId?: Maybe<Scalars['Int']>;
   status?: Maybe<Status>;
   tourId?: Maybe<Scalars['Int']>;
-};
-
-export type TourLanguageOrderByRelationAggregateInput = {
-  _count?: InputMaybe<SortOrder>;
 };
 
 export type TourLanguageScalarWhereInput = {
@@ -1456,12 +1730,19 @@ export type TourMaxAggregate = {
   __typename?: 'TourMaxAggregate';
   createdAt?: Maybe<Scalars['DateTime']>;
   currencyId?: Maybe<Scalars['Int']>;
+  description?: Maybe<Scalars['String']>;
+  durationHours?: Maybe<Scalars['Int']>;
+  durationMinutes?: Maybe<Scalars['Int']>;
+  format?: Maybe<TourFormat>;
   guideId?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
+  image?: Maybe<Scalars['String']>;
   maxCapacity?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['Float']>;
+  rating?: Maybe<Scalars['Float']>;
   status?: Maybe<Status>;
+  type?: Maybe<TourType>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
@@ -1469,12 +1750,19 @@ export type TourMinAggregate = {
   __typename?: 'TourMinAggregate';
   createdAt?: Maybe<Scalars['DateTime']>;
   currencyId?: Maybe<Scalars['Int']>;
+  description?: Maybe<Scalars['String']>;
+  durationHours?: Maybe<Scalars['Int']>;
+  durationMinutes?: Maybe<Scalars['Int']>;
+  format?: Maybe<TourFormat>;
   guideId?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
+  image?: Maybe<Scalars['String']>;
   maxCapacity?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['Float']>;
+  rating?: Maybe<Scalars['Float']>;
   status?: Maybe<Status>;
+  type?: Maybe<TourType>;
   updatedAt?: Maybe<Scalars['DateTime']>;
 };
 
@@ -1482,39 +1770,292 @@ export type TourOrderByRelationAggregateInput = {
   _count?: InputMaybe<SortOrder>;
 };
 
-export type TourOrderByWithRelationInput = {
-  createdAt?: InputMaybe<SortOrder>;
-  currency?: InputMaybe<CurrencyOrderByWithRelationInput>;
-  currencyId?: InputMaybe<SortOrder>;
-  guide?: InputMaybe<UserOrderByWithRelationInput>;
-  guideId?: InputMaybe<SortOrder>;
-  id?: InputMaybe<SortOrder>;
-  maxCapacity?: InputMaybe<SortOrder>;
-  name?: InputMaybe<SortOrder>;
-  price?: InputMaybe<SortOrder>;
-  status?: InputMaybe<SortOrder>;
-  tourCity?: InputMaybe<TourCityOrderByRelationAggregateInput>;
-  tourLanguage?: InputMaybe<TourLanguageOrderByRelationAggregateInput>;
-  tourTourCategory?: InputMaybe<TourTourCategoryOrderByRelationAggregateInput>;
-  updatedAt?: InputMaybe<SortOrder>;
-};
-
 export type TourRelationFilter = {
   is?: InputMaybe<TourWhereInput>;
   isNot?: InputMaybe<TourWhereInput>;
 };
 
-export enum TourScalarFieldEnum {
-  CreatedAt = 'createdAt',
-  CurrencyId = 'currencyId',
-  GuideId = 'guideId',
-  Id = 'id',
-  MaxCapacity = 'maxCapacity',
-  Name = 'name',
-  Price = 'price',
-  Status = 'status',
-  UpdatedAt = 'updatedAt'
-}
+export type TourReview = {
+  __typename?: 'TourReview';
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  rate: Scalars['Int'];
+  review: Scalars['String'];
+  status: Status;
+  tour?: Maybe<Tour>;
+  tourId?: Maybe<Scalars['Int']>;
+  updatedAt: Scalars['DateTime'];
+  user?: Maybe<User>;
+  userId?: Maybe<Scalars['Int']>;
+};
+
+export type TourReviewAvgAggregate = {
+  __typename?: 'TourReviewAvgAggregate';
+  id?: Maybe<Scalars['Float']>;
+  rate?: Maybe<Scalars['Float']>;
+  tourId?: Maybe<Scalars['Float']>;
+  userId?: Maybe<Scalars['Float']>;
+};
+
+export type TourReviewCountAggregate = {
+  __typename?: 'TourReviewCountAggregate';
+  _all: Scalars['Int'];
+  createdAt: Scalars['Int'];
+  id: Scalars['Int'];
+  name: Scalars['Int'];
+  rate: Scalars['Int'];
+  review: Scalars['Int'];
+  status: Scalars['Int'];
+  tourId: Scalars['Int'];
+  updatedAt: Scalars['Int'];
+  userId: Scalars['Int'];
+};
+
+export type TourReviewCreateManyTourInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  id?: InputMaybe<Scalars['Int']>;
+  name: Scalars['String'];
+  rate: Scalars['Int'];
+  review: Scalars['String'];
+  status?: InputMaybe<Status>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  userId?: InputMaybe<Scalars['Int']>;
+};
+
+export type TourReviewCreateManyTourInputEnvelope = {
+  data: Array<TourReviewCreateManyTourInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type TourReviewCreateManyUserInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  id?: InputMaybe<Scalars['Int']>;
+  name: Scalars['String'];
+  rate: Scalars['Int'];
+  review: Scalars['String'];
+  status?: InputMaybe<Status>;
+  tourId?: InputMaybe<Scalars['Int']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type TourReviewCreateManyUserInputEnvelope = {
+  data: Array<TourReviewCreateManyUserInput>;
+  skipDuplicates?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type TourReviewCreateNestedManyWithoutTourInput = {
+  connect?: InputMaybe<Array<TourReviewWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<TourReviewCreateOrConnectWithoutTourInput>>;
+  create?: InputMaybe<Array<TourReviewCreateWithoutTourInput>>;
+  createMany?: InputMaybe<TourReviewCreateManyTourInputEnvelope>;
+};
+
+export type TourReviewCreateNestedManyWithoutUserInput = {
+  connect?: InputMaybe<Array<TourReviewWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<TourReviewCreateOrConnectWithoutUserInput>>;
+  create?: InputMaybe<Array<TourReviewCreateWithoutUserInput>>;
+  createMany?: InputMaybe<TourReviewCreateManyUserInputEnvelope>;
+};
+
+export type TourReviewCreateOrConnectWithoutTourInput = {
+  create: TourReviewCreateWithoutTourInput;
+  where: TourReviewWhereUniqueInput;
+};
+
+export type TourReviewCreateOrConnectWithoutUserInput = {
+  create: TourReviewCreateWithoutUserInput;
+  where: TourReviewWhereUniqueInput;
+};
+
+export type TourReviewCreateWithoutTourInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  name: Scalars['String'];
+  rate: Scalars['Int'];
+  review: Scalars['String'];
+  status?: InputMaybe<Status>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  user?: InputMaybe<UserCreateNestedOneWithoutTourReviewInput>;
+};
+
+export type TourReviewCreateWithoutUserInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  name: Scalars['String'];
+  rate: Scalars['Int'];
+  review: Scalars['String'];
+  status?: InputMaybe<Status>;
+  tour?: InputMaybe<TourCreateNestedOneWithoutTourReviewInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type TourReviewListRelationFilter = {
+  every?: InputMaybe<TourReviewWhereInput>;
+  none?: InputMaybe<TourReviewWhereInput>;
+  some?: InputMaybe<TourReviewWhereInput>;
+};
+
+export type TourReviewMaxAggregate = {
+  __typename?: 'TourReviewMaxAggregate';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  id?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  rate?: Maybe<Scalars['Int']>;
+  review?: Maybe<Scalars['String']>;
+  status?: Maybe<Status>;
+  tourId?: Maybe<Scalars['Int']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  userId?: Maybe<Scalars['Int']>;
+};
+
+export type TourReviewMinAggregate = {
+  __typename?: 'TourReviewMinAggregate';
+  createdAt?: Maybe<Scalars['DateTime']>;
+  id?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  rate?: Maybe<Scalars['Int']>;
+  review?: Maybe<Scalars['String']>;
+  status?: Maybe<Status>;
+  tourId?: Maybe<Scalars['Int']>;
+  updatedAt?: Maybe<Scalars['DateTime']>;
+  userId?: Maybe<Scalars['Int']>;
+};
+
+export type TourReviewOrderByRelationAggregateInput = {
+  _count?: InputMaybe<SortOrder>;
+};
+
+export type TourReviewScalarWhereInput = {
+  AND?: InputMaybe<Array<TourReviewScalarWhereInput>>;
+  NOT?: InputMaybe<Array<TourReviewScalarWhereInput>>;
+  OR?: InputMaybe<Array<TourReviewScalarWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<IntFilter>;
+  name?: InputMaybe<StringFilter>;
+  rate?: InputMaybe<IntFilter>;
+  review?: InputMaybe<StringFilter>;
+  status?: InputMaybe<EnumStatusFilter>;
+  tourId?: InputMaybe<IntFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  userId?: InputMaybe<IntFilter>;
+};
+
+export type TourReviewSumAggregate = {
+  __typename?: 'TourReviewSumAggregate';
+  id?: Maybe<Scalars['Int']>;
+  rate?: Maybe<Scalars['Int']>;
+  tourId?: Maybe<Scalars['Int']>;
+  userId?: Maybe<Scalars['Int']>;
+};
+
+export type TourReviewUpdateManyMutationInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  name?: InputMaybe<Scalars['String']>;
+  rate?: InputMaybe<Scalars['Int']>;
+  review?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Status>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type TourReviewUpdateManyWithWhereWithoutTourInput = {
+  data: TourReviewUpdateManyMutationInput;
+  where: TourReviewScalarWhereInput;
+};
+
+export type TourReviewUpdateManyWithWhereWithoutUserInput = {
+  data: TourReviewUpdateManyMutationInput;
+  where: TourReviewScalarWhereInput;
+};
+
+export type TourReviewUpdateManyWithoutTourInput = {
+  connect?: InputMaybe<Array<TourReviewWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<TourReviewCreateOrConnectWithoutTourInput>>;
+  create?: InputMaybe<Array<TourReviewCreateWithoutTourInput>>;
+  createMany?: InputMaybe<TourReviewCreateManyTourInputEnvelope>;
+  delete?: InputMaybe<Array<TourReviewWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<TourReviewScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<TourReviewWhereUniqueInput>>;
+  set?: InputMaybe<Array<TourReviewWhereUniqueInput>>;
+  update?: InputMaybe<Array<TourReviewUpdateWithWhereUniqueWithoutTourInput>>;
+  updateMany?: InputMaybe<Array<TourReviewUpdateManyWithWhereWithoutTourInput>>;
+  upsert?: InputMaybe<Array<TourReviewUpsertWithWhereUniqueWithoutTourInput>>;
+};
+
+export type TourReviewUpdateManyWithoutUserInput = {
+  connect?: InputMaybe<Array<TourReviewWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<TourReviewCreateOrConnectWithoutUserInput>>;
+  create?: InputMaybe<Array<TourReviewCreateWithoutUserInput>>;
+  createMany?: InputMaybe<TourReviewCreateManyUserInputEnvelope>;
+  delete?: InputMaybe<Array<TourReviewWhereUniqueInput>>;
+  deleteMany?: InputMaybe<Array<TourReviewScalarWhereInput>>;
+  disconnect?: InputMaybe<Array<TourReviewWhereUniqueInput>>;
+  set?: InputMaybe<Array<TourReviewWhereUniqueInput>>;
+  update?: InputMaybe<Array<TourReviewUpdateWithWhereUniqueWithoutUserInput>>;
+  updateMany?: InputMaybe<Array<TourReviewUpdateManyWithWhereWithoutUserInput>>;
+  upsert?: InputMaybe<Array<TourReviewUpsertWithWhereUniqueWithoutUserInput>>;
+};
+
+export type TourReviewUpdateWithWhereUniqueWithoutTourInput = {
+  data: TourReviewUpdateWithoutTourInput;
+  where: TourReviewWhereUniqueInput;
+};
+
+export type TourReviewUpdateWithWhereUniqueWithoutUserInput = {
+  data: TourReviewUpdateWithoutUserInput;
+  where: TourReviewWhereUniqueInput;
+};
+
+export type TourReviewUpdateWithoutTourInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  name?: InputMaybe<Scalars['String']>;
+  rate?: InputMaybe<Scalars['Int']>;
+  review?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Status>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+  user?: InputMaybe<UserUpdateOneWithoutTourReviewInput>;
+};
+
+export type TourReviewUpdateWithoutUserInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  name?: InputMaybe<Scalars['String']>;
+  rate?: InputMaybe<Scalars['Int']>;
+  review?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Status>;
+  tour?: InputMaybe<TourUpdateOneWithoutTourReviewInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type TourReviewUpsertWithWhereUniqueWithoutTourInput = {
+  create: TourReviewCreateWithoutTourInput;
+  update: TourReviewUpdateWithoutTourInput;
+  where: TourReviewWhereUniqueInput;
+};
+
+export type TourReviewUpsertWithWhereUniqueWithoutUserInput = {
+  create: TourReviewCreateWithoutUserInput;
+  update: TourReviewUpdateWithoutUserInput;
+  where: TourReviewWhereUniqueInput;
+};
+
+export type TourReviewWhereInput = {
+  AND?: InputMaybe<Array<TourReviewWhereInput>>;
+  NOT?: InputMaybe<Array<TourReviewWhereInput>>;
+  OR?: InputMaybe<Array<TourReviewWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<IntFilter>;
+  name?: InputMaybe<StringFilter>;
+  rate?: InputMaybe<IntFilter>;
+  review?: InputMaybe<StringFilter>;
+  status?: InputMaybe<EnumStatusFilter>;
+  tour?: InputMaybe<TourRelationFilter>;
+  tourId?: InputMaybe<IntFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  user?: InputMaybe<UserRelationFilter>;
+  userId?: InputMaybe<IntFilter>;
+};
+
+export type TourReviewWhereUniqueInput = {
+  id?: InputMaybe<Scalars['Int']>;
+};
 
 export type TourScalarWhereInput = {
   AND?: InputMaybe<Array<TourScalarWhereInput>>;
@@ -1522,22 +2063,32 @@ export type TourScalarWhereInput = {
   OR?: InputMaybe<Array<TourScalarWhereInput>>;
   createdAt?: InputMaybe<DateTimeFilter>;
   currencyId?: InputMaybe<IntFilter>;
+  description?: InputMaybe<StringFilter>;
+  durationHours?: InputMaybe<IntFilter>;
+  durationMinutes?: InputMaybe<IntFilter>;
+  format?: InputMaybe<EnumTourFormatFilter>;
   guideId?: InputMaybe<IntFilter>;
   id?: InputMaybe<IntFilter>;
+  image?: InputMaybe<StringFilter>;
   maxCapacity?: InputMaybe<IntFilter>;
   name?: InputMaybe<StringFilter>;
   price?: InputMaybe<FloatFilter>;
+  rating?: InputMaybe<FloatFilter>;
   status?: InputMaybe<EnumStatusFilter>;
+  type?: InputMaybe<EnumTourTypeFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
 };
 
 export type TourSumAggregate = {
   __typename?: 'TourSumAggregate';
   currencyId?: Maybe<Scalars['Int']>;
+  durationHours?: Maybe<Scalars['Int']>;
+  durationMinutes?: Maybe<Scalars['Int']>;
   guideId?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['Int']>;
   maxCapacity?: Maybe<Scalars['Int']>;
   price?: Maybe<Scalars['Float']>;
+  rating?: Maybe<Scalars['Float']>;
 };
 
 export type TourTourCategory = {
@@ -1608,10 +2159,6 @@ export type TourTourCategoryMinAggregate = {
   status?: Maybe<Status>;
   tourCategoryId?: Maybe<Scalars['Int']>;
   tourId?: Maybe<Scalars['Int']>;
-};
-
-export type TourTourCategoryOrderByRelationAggregateInput = {
-  _count?: InputMaybe<SortOrder>;
 };
 
 export type TourTourCategoryScalarWhereInput = {
@@ -1688,12 +2235,24 @@ export type TourTourCategoryWhereUniqueInput = {
   tourId_tourCategoryId?: InputMaybe<TourTourCategoryTourIdTourCategoryIdCompoundUniqueInput>;
 };
 
+export enum TourType {
+  Group = 'GROUP',
+  Individual = 'INDIVIDUAL'
+}
+
 export type TourUpdateManyMutationInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
+  description?: InputMaybe<Scalars['String']>;
+  durationHours?: InputMaybe<Scalars['Int']>;
+  durationMinutes?: InputMaybe<Scalars['Int']>;
+  format?: InputMaybe<TourFormat>;
+  image?: InputMaybe<Scalars['String']>;
   maxCapacity?: InputMaybe<Scalars['Int']>;
   name?: InputMaybe<Scalars['String']>;
   price?: InputMaybe<Scalars['Float']>;
+  rating?: InputMaybe<Scalars['Float']>;
   status?: InputMaybe<Status>;
+  type?: InputMaybe<TourType>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -1726,6 +2285,16 @@ export type TourUpdateOneWithoutTourCityInput = {
   upsert?: InputMaybe<TourUpsertWithoutTourCityInput>;
 };
 
+export type TourUpdateOneWithoutTourReviewInput = {
+  connect?: InputMaybe<TourWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<TourCreateOrConnectWithoutTourReviewInput>;
+  create?: InputMaybe<TourCreateWithoutTourReviewInput>;
+  delete?: InputMaybe<Scalars['Boolean']>;
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  update?: InputMaybe<TourUpdateWithoutTourReviewInput>;
+  upsert?: InputMaybe<TourUpsertWithoutTourReviewInput>;
+};
+
 export type TourUpdateWithWhereUniqueWithoutGuideInput = {
   data: TourUpdateWithoutGuideInput;
   where: TourWhereUniqueInput;
@@ -1734,26 +2303,66 @@ export type TourUpdateWithWhereUniqueWithoutGuideInput = {
 export type TourUpdateWithoutGuideInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   currency?: InputMaybe<CurrencyUpdateOneRequiredWithoutTourInput>;
+  description?: InputMaybe<Scalars['String']>;
+  durationHours?: InputMaybe<Scalars['Int']>;
+  durationMinutes?: InputMaybe<Scalars['Int']>;
+  format?: InputMaybe<TourFormat>;
+  image?: InputMaybe<Scalars['String']>;
   maxCapacity?: InputMaybe<Scalars['Int']>;
   name?: InputMaybe<Scalars['String']>;
   price?: InputMaybe<Scalars['Float']>;
+  rating?: InputMaybe<Scalars['Float']>;
   status?: InputMaybe<Status>;
   tourCity?: InputMaybe<TourCityUpdateManyWithoutTourInput>;
+  tourImage?: InputMaybe<TourImageUpdateManyWithoutTourInput>;
   tourLanguage?: InputMaybe<TourLanguageUpdateManyWithoutTourInput>;
+  tourReview?: InputMaybe<TourReviewUpdateManyWithoutTourInput>;
   tourTourCategory?: InputMaybe<TourTourCategoryUpdateManyWithoutTourInput>;
+  type?: InputMaybe<TourType>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type TourUpdateWithoutTourCityInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   currency?: InputMaybe<CurrencyUpdateOneRequiredWithoutTourInput>;
+  description?: InputMaybe<Scalars['String']>;
+  durationHours?: InputMaybe<Scalars['Int']>;
+  durationMinutes?: InputMaybe<Scalars['Int']>;
+  format?: InputMaybe<TourFormat>;
   guide?: InputMaybe<UserUpdateOneRequiredWithoutTourInput>;
+  image?: InputMaybe<Scalars['String']>;
   maxCapacity?: InputMaybe<Scalars['Int']>;
   name?: InputMaybe<Scalars['String']>;
   price?: InputMaybe<Scalars['Float']>;
+  rating?: InputMaybe<Scalars['Float']>;
   status?: InputMaybe<Status>;
+  tourImage?: InputMaybe<TourImageUpdateManyWithoutTourInput>;
+  tourLanguage?: InputMaybe<TourLanguageUpdateManyWithoutTourInput>;
+  tourReview?: InputMaybe<TourReviewUpdateManyWithoutTourInput>;
+  tourTourCategory?: InputMaybe<TourTourCategoryUpdateManyWithoutTourInput>;
+  type?: InputMaybe<TourType>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type TourUpdateWithoutTourReviewInput = {
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  currency?: InputMaybe<CurrencyUpdateOneRequiredWithoutTourInput>;
+  description?: InputMaybe<Scalars['String']>;
+  durationHours?: InputMaybe<Scalars['Int']>;
+  durationMinutes?: InputMaybe<Scalars['Int']>;
+  format?: InputMaybe<TourFormat>;
+  guide?: InputMaybe<UserUpdateOneRequiredWithoutTourInput>;
+  image?: InputMaybe<Scalars['String']>;
+  maxCapacity?: InputMaybe<Scalars['Int']>;
+  name?: InputMaybe<Scalars['String']>;
+  price?: InputMaybe<Scalars['Float']>;
+  rating?: InputMaybe<Scalars['Float']>;
+  status?: InputMaybe<Status>;
+  tourCity?: InputMaybe<TourCityUpdateManyWithoutTourInput>;
+  tourImage?: InputMaybe<TourImageUpdateManyWithoutTourInput>;
   tourLanguage?: InputMaybe<TourLanguageUpdateManyWithoutTourInput>;
   tourTourCategory?: InputMaybe<TourTourCategoryUpdateManyWithoutTourInput>;
+  type?: InputMaybe<TourType>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -1768,6 +2377,11 @@ export type TourUpsertWithoutTourCityInput = {
   update: TourUpdateWithoutTourCityInput;
 };
 
+export type TourUpsertWithoutTourReviewInput = {
+  create: TourCreateWithoutTourReviewInput;
+  update: TourUpdateWithoutTourReviewInput;
+};
+
 export type TourWhereInput = {
   AND?: InputMaybe<Array<TourWhereInput>>;
   NOT?: InputMaybe<Array<TourWhereInput>>;
@@ -1775,16 +2389,25 @@ export type TourWhereInput = {
   createdAt?: InputMaybe<DateTimeFilter>;
   currency?: InputMaybe<CurrencyRelationFilter>;
   currencyId?: InputMaybe<IntFilter>;
+  description?: InputMaybe<StringFilter>;
+  durationHours?: InputMaybe<IntFilter>;
+  durationMinutes?: InputMaybe<IntFilter>;
+  format?: InputMaybe<EnumTourFormatFilter>;
   guide?: InputMaybe<UserRelationFilter>;
   guideId?: InputMaybe<IntFilter>;
   id?: InputMaybe<IntFilter>;
+  image?: InputMaybe<StringFilter>;
   maxCapacity?: InputMaybe<IntFilter>;
   name?: InputMaybe<StringFilter>;
   price?: InputMaybe<FloatFilter>;
+  rating?: InputMaybe<FloatFilter>;
   status?: InputMaybe<EnumStatusFilter>;
   tourCity?: InputMaybe<TourCityListRelationFilter>;
+  tourImage?: InputMaybe<TourImageListRelationFilter>;
   tourLanguage?: InputMaybe<TourLanguageListRelationFilter>;
+  tourReview?: InputMaybe<TourReviewListRelationFilter>;
   tourTourCategory?: InputMaybe<TourTourCategoryListRelationFilter>;
+  type?: InputMaybe<EnumTourTypeFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
 };
 
@@ -1794,18 +2417,24 @@ export type TourWhereUniqueInput = {
 
 export type UpdateTourInput = {
   currencyId: Scalars['Int'];
+  description: Scalars['String'];
+  durationHours: Scalars['Int'];
+  durationMinutes: Scalars['Int'];
+  format: TourFormat;
   guideId: Scalars['Int'];
+  image: Scalars['String'];
   maxCapacity: Scalars['Int'];
   name: Scalars['String'];
   price: Scalars['Float'];
   status?: InputMaybe<Status>;
   tourCity: Array<TourCityCreateManyTourInput>;
+  tourImage?: InputMaybe<Array<TourImageCreateManyTourInput>>;
   tourLanguage?: InputMaybe<Array<TourLanguageCreateManyTourInput>>;
   tourTourCategory?: InputMaybe<Array<TourTourCategoryCreateManyTourInput>>;
+  type: TourType;
 };
 
 export type UpdateUserInput = {
-  Tour?: InputMaybe<TourUpdateManyWithoutGuideInput>;
   bio?: InputMaybe<Scalars['String']>;
   country?: InputMaybe<CountryUpdateOneWithoutUserInput>;
   countryId: Scalars['Float'];
@@ -1821,12 +2450,13 @@ export type UpdateUserInput = {
   rating?: InputMaybe<Scalars['Float']>;
   role?: InputMaybe<UserRole>;
   status?: InputMaybe<Status>;
+  tour?: InputMaybe<TourUpdateManyWithoutGuideInput>;
+  tourReview?: InputMaybe<TourReviewUpdateManyWithoutUserInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
 export type User = {
   __typename?: 'User';
-  Tour?: Maybe<Array<Tour>>;
   _count: UserCount;
   bio?: Maybe<Scalars['String']>;
   country?: Maybe<Country>;
@@ -1843,6 +2473,8 @@ export type User = {
   rating?: Maybe<Scalars['Float']>;
   role: UserRole;
   status: Status;
+  tour?: Maybe<Array<Tour>>;
+  tourReview?: Maybe<Array<TourReview>>;
   updatedAt: Scalars['DateTime'];
 };
 
@@ -1855,7 +2487,8 @@ export type UserAvgAggregate = {
 
 export type UserCount = {
   __typename?: 'UserCount';
-  Tour: Scalars['Int'];
+  tour: Scalars['Int'];
+  tourReview: Scalars['Int'];
 };
 
 export type UserCountAggregate = {
@@ -1879,7 +2512,6 @@ export type UserCountAggregate = {
 };
 
 export type UserCreateInput = {
-  Tour?: InputMaybe<TourCreateNestedManyWithoutGuideInput>;
   bio?: InputMaybe<Scalars['String']>;
   country?: InputMaybe<CountryCreateNestedOneWithoutUserInput>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
@@ -1894,6 +2526,8 @@ export type UserCreateInput = {
   rating?: InputMaybe<Scalars['Float']>;
   role: UserRole;
   status?: InputMaybe<Status>;
+  tour?: InputMaybe<TourCreateNestedManyWithoutGuideInput>;
+  tourReview?: InputMaybe<TourReviewCreateNestedManyWithoutUserInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -1933,6 +2567,12 @@ export type UserCreateNestedOneWithoutTourInput = {
   create?: InputMaybe<UserCreateWithoutTourInput>;
 };
 
+export type UserCreateNestedOneWithoutTourReviewInput = {
+  connect?: InputMaybe<UserWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutTourReviewInput>;
+  create?: InputMaybe<UserCreateWithoutTourReviewInput>;
+};
+
 export type UserCreateOrConnectWithoutCountryInput = {
   create: UserCreateWithoutCountryInput;
   where: UserWhereUniqueInput;
@@ -1943,8 +2583,12 @@ export type UserCreateOrConnectWithoutTourInput = {
   where: UserWhereUniqueInput;
 };
 
+export type UserCreateOrConnectWithoutTourReviewInput = {
+  create: UserCreateWithoutTourReviewInput;
+  where: UserWhereUniqueInput;
+};
+
 export type UserCreateWithoutCountryInput = {
-  Tour?: InputMaybe<TourCreateNestedManyWithoutGuideInput>;
   bio?: InputMaybe<Scalars['String']>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   email: Scalars['String'];
@@ -1958,6 +2602,8 @@ export type UserCreateWithoutCountryInput = {
   rating?: InputMaybe<Scalars['Float']>;
   role: UserRole;
   status?: InputMaybe<Status>;
+  tour?: InputMaybe<TourCreateNestedManyWithoutGuideInput>;
+  tourReview?: InputMaybe<TourReviewCreateNestedManyWithoutUserInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -1976,6 +2622,26 @@ export type UserCreateWithoutTourInput = {
   rating?: InputMaybe<Scalars['Float']>;
   role: UserRole;
   status?: InputMaybe<Status>;
+  tourReview?: InputMaybe<TourReviewCreateNestedManyWithoutUserInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type UserCreateWithoutTourReviewInput = {
+  bio?: InputMaybe<Scalars['String']>;
+  country?: InputMaybe<CountryCreateNestedOneWithoutUserInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  email: Scalars['String'];
+  firstName: Scalars['String'];
+  hash?: InputMaybe<Scalars['String']>;
+  hashExpiredAt?: InputMaybe<Scalars['DateTime']>;
+  image?: InputMaybe<Scalars['String']>;
+  isVerified?: InputMaybe<YesNo>;
+  lastName: Scalars['String'];
+  password: Scalars['String'];
+  rating?: InputMaybe<Scalars['Float']>;
+  role: UserRole;
+  status?: InputMaybe<Status>;
+  tour?: InputMaybe<TourCreateNestedManyWithoutGuideInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -2028,7 +2694,6 @@ export type UserOrderByRelationAggregateInput = {
 };
 
 export type UserOrderByWithRelationInput = {
-  Tour?: InputMaybe<TourOrderByRelationAggregateInput>;
   bio?: InputMaybe<SortOrder>;
   country?: InputMaybe<CountryOrderByWithRelationInput>;
   countryId?: InputMaybe<SortOrder>;
@@ -2045,6 +2710,8 @@ export type UserOrderByWithRelationInput = {
   rating?: InputMaybe<SortOrder>;
   role?: InputMaybe<SortOrder>;
   status?: InputMaybe<SortOrder>;
+  tour?: InputMaybe<TourOrderByRelationAggregateInput>;
+  tourReview?: InputMaybe<TourReviewOrderByRelationAggregateInput>;
   updatedAt?: InputMaybe<SortOrder>;
 };
 
@@ -2151,13 +2818,22 @@ export type UserUpdateOneRequiredWithoutTourInput = {
   upsert?: InputMaybe<UserUpsertWithoutTourInput>;
 };
 
+export type UserUpdateOneWithoutTourReviewInput = {
+  connect?: InputMaybe<UserWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutTourReviewInput>;
+  create?: InputMaybe<UserCreateWithoutTourReviewInput>;
+  delete?: InputMaybe<Scalars['Boolean']>;
+  disconnect?: InputMaybe<Scalars['Boolean']>;
+  update?: InputMaybe<UserUpdateWithoutTourReviewInput>;
+  upsert?: InputMaybe<UserUpsertWithoutTourReviewInput>;
+};
+
 export type UserUpdateWithWhereUniqueWithoutCountryInput = {
   data: UserUpdateWithoutCountryInput;
   where: UserWhereUniqueInput;
 };
 
 export type UserUpdateWithoutCountryInput = {
-  Tour?: InputMaybe<TourUpdateManyWithoutGuideInput>;
   bio?: InputMaybe<Scalars['String']>;
   createdAt?: InputMaybe<Scalars['DateTime']>;
   email?: InputMaybe<Scalars['String']>;
@@ -2171,6 +2847,8 @@ export type UserUpdateWithoutCountryInput = {
   rating?: InputMaybe<Scalars['Float']>;
   role?: InputMaybe<UserRole>;
   status?: InputMaybe<Status>;
+  tour?: InputMaybe<TourUpdateManyWithoutGuideInput>;
+  tourReview?: InputMaybe<TourReviewUpdateManyWithoutUserInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -2189,6 +2867,26 @@ export type UserUpdateWithoutTourInput = {
   rating?: InputMaybe<Scalars['Float']>;
   role?: InputMaybe<UserRole>;
   status?: InputMaybe<Status>;
+  tourReview?: InputMaybe<TourReviewUpdateManyWithoutUserInput>;
+  updatedAt?: InputMaybe<Scalars['DateTime']>;
+};
+
+export type UserUpdateWithoutTourReviewInput = {
+  bio?: InputMaybe<Scalars['String']>;
+  country?: InputMaybe<CountryUpdateOneWithoutUserInput>;
+  createdAt?: InputMaybe<Scalars['DateTime']>;
+  email?: InputMaybe<Scalars['String']>;
+  firstName?: InputMaybe<Scalars['String']>;
+  hash?: InputMaybe<Scalars['String']>;
+  hashExpiredAt?: InputMaybe<Scalars['DateTime']>;
+  image?: InputMaybe<Scalars['String']>;
+  isVerified?: InputMaybe<YesNo>;
+  lastName?: InputMaybe<Scalars['String']>;
+  password?: InputMaybe<Scalars['String']>;
+  rating?: InputMaybe<Scalars['Float']>;
+  role?: InputMaybe<UserRole>;
+  status?: InputMaybe<Status>;
+  tour?: InputMaybe<TourUpdateManyWithoutGuideInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -2203,11 +2901,15 @@ export type UserUpsertWithoutTourInput = {
   update: UserUpdateWithoutTourInput;
 };
 
+export type UserUpsertWithoutTourReviewInput = {
+  create: UserCreateWithoutTourReviewInput;
+  update: UserUpdateWithoutTourReviewInput;
+};
+
 export type UserWhereInput = {
   AND?: InputMaybe<Array<UserWhereInput>>;
   NOT?: InputMaybe<Array<UserWhereInput>>;
   OR?: InputMaybe<Array<UserWhereInput>>;
-  Tour?: InputMaybe<TourListRelationFilter>;
   bio?: InputMaybe<StringFilter>;
   country?: InputMaybe<CountryRelationFilter>;
   countryId?: InputMaybe<IntFilter>;
@@ -2224,6 +2926,8 @@ export type UserWhereInput = {
   rating?: InputMaybe<FloatFilter>;
   role?: InputMaybe<EnumUserRoleFilter>;
   status?: InputMaybe<EnumStatusFilter>;
+  tour?: InputMaybe<TourListRelationFilter>;
+  tourReview?: InputMaybe<TourReviewListRelationFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
 };
 

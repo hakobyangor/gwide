@@ -18,7 +18,7 @@ export class TourService {
     })
   }
 
-  findAll(where: TourWhereInput) {
+  findAllByFilter(where: TourWhereInput) {
     return this.database.tour.findMany({
       where,
       include: {
@@ -36,10 +36,12 @@ export class TourService {
             tourCategory: true
           }
         },
+        tourReview: true,
+        tourImage: {},
         guide: {
           include: {
             country: {},
-            Tour: {
+            tour: {
               include: {
                 currency: {},
                 _count: {
@@ -69,6 +71,10 @@ export class TourService {
     if (updateTourInput.tourTourCategory) {
       await this.database.tourTourCategory.deleteMany({ where: { tourId: id } })
     }
+    if (updateTourInput.tourImage) {
+      await this.database.tourImage.deleteMany({ where: { tourId: id } })
+    }
+
     return this.database.tour.update({
       where: { id },
       include: {
@@ -87,7 +93,9 @@ export class TourService {
           include: {
             tourCategory: true
           }
-        }
+        },
+        tourImage: true,
+        tourReview: true
       },
       data: updateTourInput
     })
@@ -97,6 +105,8 @@ export class TourService {
     await this.database.tourCity.deleteMany({ where: { tourId: id } })
     await this.database.tourLanguage.deleteMany({ where: { tourId: id } })
     await this.database.tourTourCategory.deleteMany({ where: { tourId: id } })
+    await this.database.tourImage.deleteMany({ where: { tourId: id } })
+    await this.database.tourReview.deleteMany({ where: { tourId: id } })
 
     return this.database.tour.delete({
       where: { id }

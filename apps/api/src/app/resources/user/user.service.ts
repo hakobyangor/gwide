@@ -21,7 +21,7 @@ export class UserService {
     return this.database.user.findMany({
       include: {
         country: true,
-        Tour: {
+        tour: {
           include: {
             tourCity: {
               include: { city: {} }
@@ -42,7 +42,7 @@ export class UserService {
     return this.database.user.findMany({
       include: {
         country: true,
-        Tour: {
+        tour: {
           include: {
             tourCity: {
               include: { city: {} }

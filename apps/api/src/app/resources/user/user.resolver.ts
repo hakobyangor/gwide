@@ -1,16 +1,17 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { UserService } from './user.service'
 import {
   CreateOneUserArgs,
   FindManyUserArgs,
   FindUniqueUserArgs,
-  User,
-  UserWhereUniqueInput
+  User
 } from '@gwide/api/generated/db-types'
 import { UseGuards } from '@nestjs/common'
 import { CheckAuthGuard } from '../../guards/auth-guards/check-auth.guard'
 import { UpdateUserInput } from './dto/update-user.input'
 import * as bcrypt from 'bcrypt'
+import { CheckAdminAuthGuard } from '../../guards/auth-guards/check-admin-auth.guard'
+import { CurrentUser } from '../../decorators/current-user.decorator'
 
 @Resolver(() => User)
 export class UserResolver {
@@ -22,13 +23,13 @@ export class UserResolver {
     return this.userService.findOne(findUserArguments)
   }
 
-  @UseGuards(CheckAuthGuard)
+  @UseGuards(CheckAdminAuthGuard)
   @Query(() => [User])
   users() {
     return this.userService.findAll()
   }
 
-  @UseGuards(CheckAuthGuard)
+  @UseGuards(CheckAdminAuthGuard)
   @Mutation(() => User)
   createUser(@Args() userCreateArguments: CreateOneUserArgs) {
     return this.userService.create(userCreateArguments)
@@ -36,24 +37,21 @@ export class UserResolver {
 
   @UseGuards(CheckAuthGuard)
   @Mutation(() => User)
-  async updateUser(
-    @Args('id', { type: () => Int }) id: number,
-    @Args('data') data: UpdateUserInput
-  ) {
+  async updateUser(@Args('data') data: UpdateUserInput, @CurrentUser() currentUser: User) {
     if (data.password) {
       data.password = await bcrypt.hash(data.password, 10)
     }
 
-    return this.userService.update({ data, where: { id } })
+    return this.userService.update({ data, where: { id: currentUser.id } })
   }
 
-  @UseGuards(CheckAuthGuard)
+  @UseGuards(CheckAdminAuthGuard)
   @Mutation(() => User)
   removeUser(@Args() removeUserArguments: FindUniqueUserArgs) {
     return this.userService.remove(removeUserArguments)
   }
 
-  @UseGuards(CheckAuthGuard)
+  @UseGuards(CheckAdminAuthGuard)
   @Query(() => [User])
   getGuides(@Args() findUserArguments: FindManyUserArgs) {
     return this.userService.findGuides(findUserArguments.where)

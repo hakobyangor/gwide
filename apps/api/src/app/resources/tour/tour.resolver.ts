@@ -3,11 +3,12 @@ import { TourService } from './tour.service'
 import { CreateTourInput } from './dto/create-tour.input'
 import { UpdateTourInput } from './dto/update-tour.input'
 import { UnauthorizedException, UseGuards } from '@nestjs/common'
-import { FindManyTourArgs, Tour } from '@gwide/api/generated/db-types'
+import { Tour } from '@gwide/api/generated/db-types'
 import { CheckGuideAuthGuard } from '../../guards/auth-guards/check-guide-auth.guard'
 import { CurrentUser } from '../../decorators/current-user.decorator'
 import { User } from '@prisma/client'
 import { CheckAuthGuard } from '../../guards/auth-guards/check-auth.guard'
+import { GetToursInput } from './dto/get-tours.input'
 
 @Resolver(() => Tour)
 export class TourResolver {
@@ -29,7 +30,8 @@ export class TourResolver {
       currency: { connect: { id: createTourInput.currencyId } },
       tourCity: { createMany: { data: createTourInput.tourCity } },
       tourTourCategory: { createMany: { data: createTourInput.tourTourCategory } },
-      tourLanguage: { createMany: { data: createTourInput.tourLanguage } }
+      tourLanguage: { createMany: { data: createTourInput.tourLanguage } },
+      tourImage: { createMany: { data: createTourInput.tourImage } }
     }
 
     delete createData.guideId
@@ -42,14 +44,44 @@ export class TourResolver {
 
   @Query(() => [Tour])
   @UseGuards(CheckAuthGuard)
-  getTours(@Args() findTourArguments: FindManyTourArgs) {
-    return this.tourService.findAll(findTourArguments.where)
+  getTours(@Args('getToursInput') getToursInput: GetToursInput) {
+    const where: { [k: string]: any } = {}
+
+    if (getToursInput.tourType) {
+      where.type = { in: getToursInput.tourType }
+    }
+
+    if (getToursInput.tourFormat) {
+      where.format = { in: getToursInput.tourFormat }
+    }
+
+    if (getToursInput.showOnlyTopRated) {
+      where.rating = { gte: 4 }
+    }
+
+    if (getToursInput.priceMin && getToursInput.priceMax) {
+      where.price = { gte: getToursInput.priceMin, lte: getToursInput.priceMax }
+    }
+
+    if (getToursInput.tourCity) {
+      where.tourCity = { some: { cityId: { in: getToursInput.tourCity } } }
+    }
+
+    if (getToursInput.tourCategory) {
+      where.tourTourCategory = { some: { tourCategoryId: { in: getToursInput.tourCategory } } }
+    }
+
+    if (getToursInput.tourLanguage) {
+      where.tourLanguage = { some: { languageId: { in: getToursInput.tourLanguage } } }
+    }
+
+    return this.tourService.findAllByFilter(where)
   }
 
-  @Query(() => Tour, { name: 'tour' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.tourService.findOne(id)
-  }
+  // @Query(() => Tour, { name: 'tour' })
+  // findOne(@Args('id', { type: () => Int }) id: number) {
+  //   return this.tourService.findOne(id)
+  // }
 
   @Mutation(() => Tour)
   @UseGuards(CheckGuideAuthGuard)
@@ -67,7 +99,8 @@ export class TourResolver {
       ...updateTourInput,
       tourCity: { createMany: { data: updateTourInput.tourCity } },
       tourTourCategory: { createMany: { data: updateTourInput.tourTourCategory } },
-      tourLanguage: { createMany: { data: updateTourInput.tourLanguage } }
+      tourLanguage: { createMany: { data: updateTourInput.tourLanguage } },
+      tourImage: { createMany: { data: updateTourInput.tourImage } }
     }
 
     return this.tourService.update(id, updateData)
@@ -75,7 +108,11 @@ export class TourResolver {
 
   @Mutation(() => Tour)
   @UseGuards(CheckGuideAuthGuard)
-  removeTour(@Args('id', { type: () => Int }) id: number) {
+  async removeTour(@Args('id', { type: () => Int }) id: number, @CurrentUser() currentUser: User) {
+    const tour = await this.tourService.findOne(id)
+    if (!tour || currentUser.id !== tour.guideId) {
+      throw new UnauthorizedException()
+    }
     return this.tourService.remove(id)
   }
 }

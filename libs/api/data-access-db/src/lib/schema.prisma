@@ -46,6 +46,16 @@ enum YesNo {
   NO
 }
 
+enum TourType {
+  INDIVIDUAL
+  GROUP
+}
+
+enum TourFormat {
+  ON_FOOT
+  BY_CAR
+}
+
 model User {
   id Int @id @default(autoincrement())
 
@@ -97,9 +107,10 @@ model User {
 
   isVerified YesNo @default(NO)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Tour      Tour[]
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  tour       Tour[]
+  tourReview TourReview[]
 }
 
 model Tour {
@@ -109,20 +120,33 @@ model Tour {
   name String
 
   /// @Validator.IsString()
+  description String
+
+  /// @Validator.IsString()
   status Status @default(ACTIVE)
 
+  type TourType @default(INDIVIDUAL)
+
+  format TourFormat @default(ON_FOOT)
+
+  image            String
   guide            User               @relation(fields: [guideId], references: [id])
   guideId          Int
   currency         Currency           @relation(fields: [currencyId], references: [id])
   currencyId       Int
   maxCapacity      Int
+  rating           Float?             @default(5)
   price            Float
   tourTourCategory TourTourCategory[]
   tourCity         TourCity[]
   tourLanguage     TourLanguage[]
+  durationHours    Int
+  durationMinutes  Int
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  tourReview TourReview[]
+  tourImage  TourImage[]
 }
 
 model City {
@@ -181,6 +205,42 @@ model TourCategory {
   updatedAt DateTime @updatedAt
 
   tourTourCategory TourTourCategory[]
+}
+
+model TourReview {
+  id Int @id @default(autoincrement())
+
+  /// @Validator.IsString()
+  name   String
+  status Status @default(ACTIVE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  rate   Int
+  review String
+
+  tour   Tour? @relation(fields: [tourId], references: [id])
+  tourId Int?
+
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int?
+}
+
+model TourImage {
+  id Int @id @default(autoincrement())
+
+  /// @Validator.IsString()
+  name   String
+  status Status @default(ACTIVE)
+
+  image     String
+  sortOrder Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tour   Tour? @relation(fields: [tourId], references: [id])
+  tourId Int?
 }
 
 model TourTourCategory {
