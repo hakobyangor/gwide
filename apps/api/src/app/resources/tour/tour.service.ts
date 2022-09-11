@@ -1,6 +1,7 @@
 import { DbService } from '@gwide/api/data-access-db'
 import { CreateOneTourArgs, TourUpdateInput, TourWhereInput } from '@gwide/api/generated/db-types'
 import { Injectable } from '@nestjs/common'
+import { Status } from '@prisma/client'
 
 @Injectable()
 export class TourService {
@@ -21,6 +22,43 @@ export class TourService {
   findAllByFilter(where: TourWhereInput) {
     return this.database.tour.findMany({
       where,
+      include: {
+        currency: true,
+        tourCity: {
+          include: { city: true }
+        },
+        tourLanguage: {
+          include: {
+            language: true
+          }
+        },
+        tourTourCategory: {
+          include: {
+            tourCategory: true
+          }
+        },
+        tourReview: true,
+        tourImage: {},
+        guide: {
+          include: {
+            country: {},
+            tour: {
+              include: {
+                currency: {},
+                _count: {
+                  select: { tourCity: true, tourLanguage: true, tourTourCategory: true }
+                }
+              }
+            }
+          }
+        }
+      }
+    })
+  }
+
+  getById(id: number) {
+    return this.database.tour.findFirst({
+      where: { id, status: Status.ACTIVE },
       include: {
         currency: true,
         tourCity: {

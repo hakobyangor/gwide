@@ -11,7 +11,7 @@ export class CheckGuideAuthGuard extends AuthGuard('jwt') {
   }
 
   handleRequest(error, user, info, context) {
-    if (!user || info || error || user.role !== UserRole.GUIDE) {
+    if (!user || info || error || (user.role !== UserRole.GUIDE && user.role !== UserRole.ADMIN)) {
       const context_ = GqlExecutionContext.create(context)
       const reply = context_.getContext().reply
 

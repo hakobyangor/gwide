@@ -41,6 +41,14 @@ enum Status {
   BLOCKED
 }
 
+enum BookingStatus {
+  ACTIVE
+  PENDING
+  DRAFT
+  APPROVED
+  REJECTED
+}
+
 enum YesNo {
   YES
   NO
@@ -111,6 +119,7 @@ model User {
   updatedAt  DateTime     @updatedAt
   tour       Tour[]
   tourReview TourReview[]
+  booking    Booking[]
 }
 
 model Tour {
@@ -147,6 +156,7 @@ model Tour {
   updatedAt  DateTime     @updatedAt
   tourReview TourReview[]
   tourImage  TourImage[]
+  booking    Booking[]
 }
 
 model City {
@@ -276,6 +286,7 @@ model Language {
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
   tourLanguage TourLanguage[]
+  booking      Booking[]
 }
 
 model TourLanguage {
@@ -286,4 +297,28 @@ model TourLanguage {
   languageId Int
 
   @@id([tourId, languageId])
+}
+
+model Booking {
+  id Int @id @default(autoincrement())
+
+  language   Language @relation(fields: [languageId], references: [id])
+  languageId Int
+
+  /// @Validator.IsString()
+  status BookingStatus @default(PENDING)
+
+  /// @Validator.IsString()
+  userComment String?
+
+  tour   Tour? @relation(fields: [tourId], references: [id])
+  tourId Int
+
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int
+
+  date DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

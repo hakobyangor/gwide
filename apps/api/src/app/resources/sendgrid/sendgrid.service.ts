@@ -10,6 +10,7 @@ export class SendgridService {
 
   // test as
   async send(mail: SendGrid.MailDataRequired) {
+    console.log(`sending email to ${mail.to}`)
     const transport = await SendGrid.send(mail)
 
     return transport

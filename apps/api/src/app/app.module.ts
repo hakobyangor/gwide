@@ -5,6 +5,7 @@ import { MercuriusDriver, MercuriusDriverConfig } from '@nestjs/mercurius'
 import { UserModule } from './resources/user/user.module'
 import { AuthenticationModule } from './resources/authentication/authentication.module'
 import { TourModule } from './resources/tour/tour.module'
+import { BookingModule } from './resources/booking/booking.module'
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { TourModule } from './resources/tour/tour.module'
     }),
     UserModule,
     TourModule,
+    BookingModule,
     AuthenticationModule
   ],
   controllers: [],

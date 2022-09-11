@@ -6,7 +6,7 @@ import { UnauthorizedException, UseGuards } from '@nestjs/common'
 import { Tour } from '@gwide/api/generated/db-types'
 import { CheckGuideAuthGuard } from '../../guards/auth-guards/check-guide-auth.guard'
 import { CurrentUser } from '../../decorators/current-user.decorator'
-import { User } from '@prisma/client'
+import { Status, User } from '@prisma/client'
 import { CheckAuthGuard } from '../../guards/auth-guards/check-auth.guard'
 import { GetToursInput } from './dto/get-tours.input'
 
@@ -75,13 +75,15 @@ export class TourResolver {
       where.tourLanguage = { some: { languageId: { in: getToursInput.tourLanguage } } }
     }
 
+    where.status === Status.ACTIVE
+
     return this.tourService.findAllByFilter(where)
   }
 
   @Query(() => Tour, { name: 'getTour' })
   @UseGuards(CheckAuthGuard)
   getTourById(@Args('id', { type: () => Int }) id: number) {
-    return this.tourService.findOne(id)
+    return this.tourService.getById(id)
   }
 
   @Mutation(() => Tour)
