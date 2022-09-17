@@ -17,10 +17,11 @@ export type Scalars = {
 export type Booking = {
   __typename?: 'Booking';
   createdAt: Scalars['DateTime'];
-  date: Scalars['DateTime'];
+  date?: Maybe<Scalars['DateTime']>;
   id: Scalars['ID'];
   language: Language;
   languageId: Scalars['Int'];
+  numberOfPeople?: Maybe<Scalars['Int']>;
   status: BookingStatus;
   tour?: Maybe<Tour>;
   tourId: Scalars['Int'];
@@ -34,6 +35,7 @@ export type BookingAvgAggregate = {
   __typename?: 'BookingAvgAggregate';
   id?: Maybe<Scalars['Float']>;
   languageId?: Maybe<Scalars['Float']>;
+  numberOfPeople?: Maybe<Scalars['Float']>;
   tourId?: Maybe<Scalars['Float']>;
   userId?: Maybe<Scalars['Float']>;
 };
@@ -45,6 +47,7 @@ export type BookingCountAggregate = {
   date: Scalars['Int'];
   id: Scalars['Int'];
   languageId: Scalars['Int'];
+  numberOfPeople: Scalars['Int'];
   status: Scalars['Int'];
   tourId: Scalars['Int'];
   updatedAt: Scalars['Int'];
@@ -54,8 +57,9 @@ export type BookingCountAggregate = {
 
 export type BookingCreateManyLanguageInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
-  date: Scalars['DateTime'];
+  date?: InputMaybe<Scalars['DateTime']>;
   id?: InputMaybe<Scalars['Int']>;
+  numberOfPeople?: InputMaybe<Scalars['Int']>;
   status?: InputMaybe<BookingStatus>;
   tourId: Scalars['Int'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -70,9 +74,10 @@ export type BookingCreateManyLanguageInputEnvelope = {
 
 export type BookingCreateManyTourInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
-  date: Scalars['DateTime'];
+  date?: InputMaybe<Scalars['DateTime']>;
   id?: InputMaybe<Scalars['Int']>;
   languageId: Scalars['Int'];
+  numberOfPeople?: InputMaybe<Scalars['Int']>;
   status?: InputMaybe<BookingStatus>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   userComment?: InputMaybe<Scalars['String']>;
@@ -86,9 +91,10 @@ export type BookingCreateManyTourInputEnvelope = {
 
 export type BookingCreateManyUserInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
-  date: Scalars['DateTime'];
+  date?: InputMaybe<Scalars['DateTime']>;
   id?: InputMaybe<Scalars['Int']>;
   languageId: Scalars['Int'];
+  numberOfPeople?: InputMaybe<Scalars['Int']>;
   status?: InputMaybe<BookingStatus>;
   tourId: Scalars['Int'];
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -138,7 +144,8 @@ export type BookingCreateOrConnectWithoutUserInput = {
 
 export type BookingCreateWithoutLanguageInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
-  date: Scalars['DateTime'];
+  date?: InputMaybe<Scalars['DateTime']>;
+  numberOfPeople?: InputMaybe<Scalars['Int']>;
   status?: InputMaybe<BookingStatus>;
   tour?: InputMaybe<TourCreateNestedOneWithoutBookingInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -148,8 +155,9 @@ export type BookingCreateWithoutLanguageInput = {
 
 export type BookingCreateWithoutTourInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
-  date: Scalars['DateTime'];
+  date?: InputMaybe<Scalars['DateTime']>;
   language: LanguageCreateNestedOneWithoutBookingInput;
+  numberOfPeople?: InputMaybe<Scalars['Int']>;
   status?: InputMaybe<BookingStatus>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   user?: InputMaybe<UserCreateNestedOneWithoutBookingInput>;
@@ -158,8 +166,9 @@ export type BookingCreateWithoutTourInput = {
 
 export type BookingCreateWithoutUserInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
-  date: Scalars['DateTime'];
+  date?: InputMaybe<Scalars['DateTime']>;
   language: LanguageCreateNestedOneWithoutBookingInput;
+  numberOfPeople?: InputMaybe<Scalars['Int']>;
   status?: InputMaybe<BookingStatus>;
   tour?: InputMaybe<TourCreateNestedOneWithoutBookingInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -178,6 +187,7 @@ export type BookingMaxAggregate = {
   date?: Maybe<Scalars['DateTime']>;
   id?: Maybe<Scalars['Int']>;
   languageId?: Maybe<Scalars['Int']>;
+  numberOfPeople?: Maybe<Scalars['Int']>;
   status?: Maybe<BookingStatus>;
   tourId?: Maybe<Scalars['Int']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -191,6 +201,7 @@ export type BookingMinAggregate = {
   date?: Maybe<Scalars['DateTime']>;
   id?: Maybe<Scalars['Int']>;
   languageId?: Maybe<Scalars['Int']>;
+  numberOfPeople?: Maybe<Scalars['Int']>;
   status?: Maybe<BookingStatus>;
   tourId?: Maybe<Scalars['Int']>;
   updatedAt?: Maybe<Scalars['DateTime']>;
@@ -210,6 +221,7 @@ export type BookingScalarWhereInput = {
   date?: InputMaybe<DateTimeFilter>;
   id?: InputMaybe<IntFilter>;
   languageId?: InputMaybe<IntFilter>;
+  numberOfPeople?: InputMaybe<IntFilter>;
   status?: InputMaybe<EnumBookingStatusFilter>;
   tourId?: InputMaybe<IntFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
@@ -220,6 +232,7 @@ export type BookingScalarWhereInput = {
 export enum BookingStatus {
   Active = 'ACTIVE',
   Approved = 'APPROVED',
+  Cencelled = 'CENCELLED',
   Draft = 'DRAFT',
   Pending = 'PENDING',
   Rejected = 'REJECTED'
@@ -229,6 +242,7 @@ export type BookingSumAggregate = {
   __typename?: 'BookingSumAggregate';
   id?: Maybe<Scalars['Int']>;
   languageId?: Maybe<Scalars['Int']>;
+  numberOfPeople?: Maybe<Scalars['Int']>;
   tourId?: Maybe<Scalars['Int']>;
   userId?: Maybe<Scalars['Int']>;
 };
@@ -236,6 +250,7 @@ export type BookingSumAggregate = {
 export type BookingUpdateManyMutationInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   date?: InputMaybe<Scalars['DateTime']>;
+  numberOfPeople?: InputMaybe<Scalars['Int']>;
   status?: InputMaybe<BookingStatus>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   userComment?: InputMaybe<Scalars['String']>;
@@ -316,6 +331,7 @@ export type BookingUpdateWithWhereUniqueWithoutUserInput = {
 export type BookingUpdateWithoutLanguageInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   date?: InputMaybe<Scalars['DateTime']>;
+  numberOfPeople?: InputMaybe<Scalars['Int']>;
   status?: InputMaybe<BookingStatus>;
   tour?: InputMaybe<TourUpdateOneWithoutBookingInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -327,6 +343,7 @@ export type BookingUpdateWithoutTourInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   date?: InputMaybe<Scalars['DateTime']>;
   language?: InputMaybe<LanguageUpdateOneRequiredWithoutBookingInput>;
+  numberOfPeople?: InputMaybe<Scalars['Int']>;
   status?: InputMaybe<BookingStatus>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
   user?: InputMaybe<UserUpdateOneWithoutBookingInput>;
@@ -337,6 +354,7 @@ export type BookingUpdateWithoutUserInput = {
   createdAt?: InputMaybe<Scalars['DateTime']>;
   date?: InputMaybe<Scalars['DateTime']>;
   language?: InputMaybe<LanguageUpdateOneRequiredWithoutBookingInput>;
+  numberOfPeople?: InputMaybe<Scalars['Int']>;
   status?: InputMaybe<BookingStatus>;
   tour?: InputMaybe<TourUpdateOneWithoutBookingInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']>;
@@ -370,6 +388,7 @@ export type BookingWhereInput = {
   id?: InputMaybe<IntFilter>;
   language?: InputMaybe<LanguageRelationFilter>;
   languageId?: InputMaybe<IntFilter>;
+  numberOfPeople?: InputMaybe<IntFilter>;
   status?: InputMaybe<EnumBookingStatusFilter>;
   tour?: InputMaybe<TourRelationFilter>;
   tourId?: InputMaybe<IntFilter>;
@@ -777,9 +796,18 @@ export type CountryWhereUniqueInput = {
   id?: InputMaybe<Scalars['Int']>;
 };
 
-export type CreateBookingInput = {
+export type CreateDraftBookingInput = {
   date?: InputMaybe<Scalars['DateTime']>;
   languageId: Scalars['Int'];
+  numberOfPeople?: InputMaybe<Scalars['Int']>;
+  tourId: Scalars['Int'];
+  userComment: Scalars['String'];
+};
+
+export type CreatePendingBookingInput = {
+  date: Scalars['DateTime'];
+  languageId: Scalars['Int'];
+  numberOfPeople: Scalars['Int'];
   tourId: Scalars['Int'];
   userComment?: InputMaybe<Scalars['String']>;
 };
@@ -1168,14 +1196,14 @@ export type LoginInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   approveBooking: Booking;
-  createBooking: Booking;
+  createDraftBooking: Booking;
+  createPendingBooking: Booking;
   createTour: Tour;
   createUser: User;
   login: User;
   rejectBooking: Booking;
   removeTour: Tour;
   removeUser: User;
-  requestBookingAvailability: Tour;
   resetPassword: User;
   signUp: User;
   updatePendingBooking: Booking;
@@ -1190,8 +1218,13 @@ export type MutationApproveBookingArgs = {
 };
 
 
-export type MutationCreateBookingArgs = {
-  createBookingInput: CreateBookingInput;
+export type MutationCreateDraftBookingArgs = {
+  createBookingInput: CreateDraftBookingInput;
+};
+
+
+export type MutationCreatePendingBookingArgs = {
+  createBookingInput: CreatePendingBookingInput;
 };
 
 
@@ -1222,11 +1255,6 @@ export type MutationRemoveTourArgs = {
 
 export type MutationRemoveUserArgs = {
   where: UserWhereUniqueInput;
-};
-
-
-export type MutationRequestBookingAvailabilityArgs = {
-  createBookingInput: CreateBookingInput;
 };
 
 
@@ -3100,7 +3128,6 @@ export type UpdateBookingInput = {
   date?: InputMaybe<Scalars['DateTime']>;
   id: Scalars['Int'];
   languageId: Scalars['Int'];
-  tourId?: InputMaybe<Scalars['Int']>;
   userComment?: InputMaybe<Scalars['String']>;
 };
 

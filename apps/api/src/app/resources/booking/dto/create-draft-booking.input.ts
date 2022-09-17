@@ -3,7 +3,7 @@ import { IsDate, MinDate } from 'class-validator'
 import moment = require('moment')
 
 @InputType()
-export class CreateBookingInput {
+export class CreateDraftBookingInput {
   @Field(() => Int, { nullable: false })
   languageId!: number
 
@@ -13,8 +13,11 @@ export class CreateBookingInput {
   @Field(() => Date, { nullable: true })
   @IsDate()
   @MinDate(moment().add('1', 'day').toDate())
-  date: Date | string
+  date?: Date | string
 
-  @Field(() => String, { nullable: true })
-  userComment?: string
+  @Field(() => String, { nullable: false })
+  userComment!: string
+
+  @Field(() => Int, { nullable: true })
+  numberOfPeople?: number
 }

@@ -1,14 +1,13 @@
 import { DbService } from '@gwide/api/data-access-db'
 import { BookingStatus } from '@gwide/api/generated/db-types'
 import { Injectable } from '@nestjs/common'
-import { CreateBookingInput } from './dto/create-booking.input'
 import { UpdateBookingInput } from './dto/update-booking.input'
 
 @Injectable()
 export class BookingService {
   constructor(private database: DbService) {}
 
-  create(createBookingInput: CreateBookingInput, currentUserId: number) {
+  create(createBookingInput, currentUserId: number) {
     return this.database.booking.create({
       data: { ...createBookingInput, userId: currentUserId },
       include: {

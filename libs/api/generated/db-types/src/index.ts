@@ -142,7 +142,8 @@ export enum BookingStatus {
     PENDING = "PENDING",
     DRAFT = "DRAFT",
     APPROVED = "APPROVED",
-    REJECTED = "REJECTED"
+    REJECTED = "REJECTED",
+    CENCELLED = "CENCELLED"
 }
 
 export enum LanguageScalarFieldEnum {
@@ -181,6 +182,7 @@ export enum CityScalarFieldEnum {
 export enum BookingScalarFieldEnum {
     id = "id",
     languageId = "languageId",
+    numberOfPeople = "numberOfPeople",
     status = "status",
     userComment = "userComment",
     tourId = "tourId",
@@ -259,6 +261,8 @@ export class BookingAvgAggregateInput {
     @Field(() => Boolean, {nullable:true})
     languageId?: true;
     @Field(() => Boolean, {nullable:true})
+    numberOfPeople?: true;
+    @Field(() => Boolean, {nullable:true})
     tourId?: true;
     @Field(() => Boolean, {nullable:true})
     userId?: true;
@@ -270,6 +274,8 @@ export class BookingAvgAggregate {
     id?: number;
     @Field(() => Float, {nullable:true})
     languageId?: number;
+    @Field(() => Float, {nullable:true})
+    numberOfPeople?: number;
     @Field(() => Float, {nullable:true})
     tourId?: number;
     @Field(() => Float, {nullable:true})
@@ -283,6 +289,8 @@ export class BookingAvgOrderByAggregateInput {
     @Field(() => SortOrder, {nullable:true})
     languageId?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
+    numberOfPeople?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
     tourId?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     userId?: keyof typeof SortOrder;
@@ -294,6 +302,8 @@ export class BookingCountAggregateInput {
     id?: true;
     @Field(() => Boolean, {nullable:true})
     languageId?: true;
+    @Field(() => Boolean, {nullable:true})
+    numberOfPeople?: true;
     @Field(() => Boolean, {nullable:true})
     status?: true;
     @Field(() => Boolean, {nullable:true})
@@ -319,6 +329,8 @@ export class BookingCountAggregate {
     @Field(() => Int, {nullable:false})
     languageId!: number;
     @Field(() => Int, {nullable:false})
+    numberOfPeople!: number;
+    @Field(() => Int, {nullable:false})
     status!: number;
     @Field(() => Int, {nullable:false})
     userComment!: number;
@@ -342,6 +354,8 @@ export class BookingCountOrderByAggregateInput {
     id?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     languageId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    numberOfPeople?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     status?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
@@ -371,6 +385,8 @@ export class BookingCreateManyLanguageInputEnvelope {
 export class BookingCreateManyLanguageInput {
     @Field(() => Int, {nullable:true})
     id?: number;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
     @Field(() => BookingStatus, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof BookingStatus;
@@ -381,8 +397,8 @@ export class BookingCreateManyLanguageInput {
     tourId!: number;
     @Field(() => Int, {nullable:false})
     userId!: number;
-    @Field(() => Date, {nullable:false})
-    date!: Date | string;
+    @Field(() => Date, {nullable:true})
+    date?: Date | string;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -404,6 +420,8 @@ export class BookingCreateManyTourInput {
     id?: number;
     @Field(() => Int, {nullable:false})
     languageId!: number;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
     @Field(() => BookingStatus, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof BookingStatus;
@@ -412,8 +430,8 @@ export class BookingCreateManyTourInput {
     userComment?: string;
     @Field(() => Int, {nullable:false})
     userId!: number;
-    @Field(() => Date, {nullable:false})
-    date!: Date | string;
+    @Field(() => Date, {nullable:true})
+    date?: Date | string;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -435,6 +453,8 @@ export class BookingCreateManyUserInput {
     id?: number;
     @Field(() => Int, {nullable:false})
     languageId!: number;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
     @Field(() => BookingStatus, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof BookingStatus;
@@ -443,8 +463,8 @@ export class BookingCreateManyUserInput {
     userComment?: string;
     @Field(() => Int, {nullable:false})
     tourId!: number;
-    @Field(() => Date, {nullable:false})
-    date!: Date | string;
+    @Field(() => Date, {nullable:true})
+    date?: Date | string;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -457,6 +477,8 @@ export class BookingCreateManyInput {
     id?: number;
     @Field(() => Int, {nullable:false})
     languageId!: number;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
     @Field(() => BookingStatus, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof BookingStatus;
@@ -467,8 +489,8 @@ export class BookingCreateManyInput {
     tourId!: number;
     @Field(() => Int, {nullable:false})
     userId!: number;
-    @Field(() => Date, {nullable:false})
-    date!: Date | string;
+    @Field(() => Date, {nullable:true})
+    date?: Date | string;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -555,6 +577,8 @@ export class BookingCreateOrConnectWithoutUserInput {
 
 @InputType()
 export class BookingCreateWithoutLanguageInput {
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
     @Field(() => BookingStatus, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof BookingStatus;
@@ -565,8 +589,8 @@ export class BookingCreateWithoutLanguageInput {
     tour?: InstanceType<typeof TourCreateNestedOneWithoutBookingInput>;
     @Field(() => UserCreateNestedOneWithoutBookingInput, {nullable:true})
     user?: InstanceType<typeof UserCreateNestedOneWithoutBookingInput>;
-    @Field(() => Date, {nullable:false})
-    date!: Date | string;
+    @Field(() => Date, {nullable:true})
+    date?: Date | string;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -577,6 +601,8 @@ export class BookingCreateWithoutLanguageInput {
 export class BookingCreateWithoutTourInput {
     @Field(() => LanguageCreateNestedOneWithoutBookingInput, {nullable:false})
     language!: InstanceType<typeof LanguageCreateNestedOneWithoutBookingInput>;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
     @Field(() => BookingStatus, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof BookingStatus;
@@ -585,8 +611,8 @@ export class BookingCreateWithoutTourInput {
     userComment?: string;
     @Field(() => UserCreateNestedOneWithoutBookingInput, {nullable:true})
     user?: InstanceType<typeof UserCreateNestedOneWithoutBookingInput>;
-    @Field(() => Date, {nullable:false})
-    date!: Date | string;
+    @Field(() => Date, {nullable:true})
+    date?: Date | string;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -597,6 +623,8 @@ export class BookingCreateWithoutTourInput {
 export class BookingCreateWithoutUserInput {
     @Field(() => LanguageCreateNestedOneWithoutBookingInput, {nullable:false})
     language!: InstanceType<typeof LanguageCreateNestedOneWithoutBookingInput>;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
     @Field(() => BookingStatus, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof BookingStatus;
@@ -605,8 +633,8 @@ export class BookingCreateWithoutUserInput {
     userComment?: string;
     @Field(() => TourCreateNestedOneWithoutBookingInput, {nullable:true})
     tour?: InstanceType<typeof TourCreateNestedOneWithoutBookingInput>;
-    @Field(() => Date, {nullable:false})
-    date!: Date | string;
+    @Field(() => Date, {nullable:true})
+    date?: Date | string;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -617,6 +645,8 @@ export class BookingCreateWithoutUserInput {
 export class BookingCreateInput {
     @Field(() => LanguageCreateNestedOneWithoutBookingInput, {nullable:false})
     language!: InstanceType<typeof LanguageCreateNestedOneWithoutBookingInput>;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
     @Field(() => BookingStatus, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof BookingStatus;
@@ -627,8 +657,8 @@ export class BookingCreateInput {
     tour?: InstanceType<typeof TourCreateNestedOneWithoutBookingInput>;
     @Field(() => UserCreateNestedOneWithoutBookingInput, {nullable:true})
     user?: InstanceType<typeof UserCreateNestedOneWithoutBookingInput>;
-    @Field(() => Date, {nullable:false})
-    date!: Date | string;
+    @Field(() => Date, {nullable:true})
+    date?: Date | string;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -669,6 +699,8 @@ export class BookingGroupBy {
     id!: number;
     @Field(() => Int, {nullable:false})
     languageId!: number;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
     @Field(() => BookingStatus, {nullable:false})
     @Validator.IsString()
     status!: keyof typeof BookingStatus;
@@ -679,8 +711,8 @@ export class BookingGroupBy {
     tourId!: number;
     @Field(() => Int, {nullable:false})
     userId!: number;
-    @Field(() => Date, {nullable:false})
-    date!: Date | string;
+    @Field(() => Date, {nullable:true})
+    date?: Date | string;
     @Field(() => Date, {nullable:false})
     createdAt!: Date | string;
     @Field(() => Date, {nullable:false})
@@ -714,6 +746,8 @@ export class BookingMaxAggregateInput {
     @Field(() => Boolean, {nullable:true})
     languageId?: true;
     @Field(() => Boolean, {nullable:true})
+    numberOfPeople?: true;
+    @Field(() => Boolean, {nullable:true})
     status?: true;
     @Field(() => Boolean, {nullable:true})
     userComment?: true;
@@ -735,6 +769,8 @@ export class BookingMaxAggregate {
     id?: number;
     @Field(() => Int, {nullable:true})
     languageId?: number;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
     @Field(() => BookingStatus, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof BookingStatus;
@@ -760,6 +796,8 @@ export class BookingMaxOrderByAggregateInput {
     @Field(() => SortOrder, {nullable:true})
     languageId?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
+    numberOfPeople?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
     status?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     userComment?: keyof typeof SortOrder;
@@ -782,6 +820,8 @@ export class BookingMinAggregateInput {
     @Field(() => Boolean, {nullable:true})
     languageId?: true;
     @Field(() => Boolean, {nullable:true})
+    numberOfPeople?: true;
+    @Field(() => Boolean, {nullable:true})
     status?: true;
     @Field(() => Boolean, {nullable:true})
     userComment?: true;
@@ -803,6 +843,8 @@ export class BookingMinAggregate {
     id?: number;
     @Field(() => Int, {nullable:true})
     languageId?: number;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
     @Field(() => BookingStatus, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof BookingStatus;
@@ -827,6 +869,8 @@ export class BookingMinOrderByAggregateInput {
     id?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     languageId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    numberOfPeople?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     status?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
@@ -855,6 +899,8 @@ export class BookingOrderByWithAggregationInput {
     id?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     languageId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    numberOfPeople?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     status?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
@@ -890,6 +936,8 @@ export class BookingOrderByWithRelationInput {
     @Field(() => SortOrder, {nullable:true})
     languageId?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
+    numberOfPeople?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
     status?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     userComment?: keyof typeof SortOrder;
@@ -921,6 +969,8 @@ export class BookingScalarWhereWithAggregatesInput {
     id?: InstanceType<typeof IntWithAggregatesFilter>;
     @Field(() => IntWithAggregatesFilter, {nullable:true})
     languageId?: InstanceType<typeof IntWithAggregatesFilter>;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    numberOfPeople?: InstanceType<typeof IntWithAggregatesFilter>;
     @Field(() => EnumBookingStatusWithAggregatesFilter, {nullable:true})
     status?: InstanceType<typeof EnumBookingStatusWithAggregatesFilter>;
     @Field(() => StringWithAggregatesFilter, {nullable:true})
@@ -949,6 +999,8 @@ export class BookingScalarWhereInput {
     id?: InstanceType<typeof IntFilter>;
     @Field(() => IntFilter, {nullable:true})
     languageId?: InstanceType<typeof IntFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    numberOfPeople?: InstanceType<typeof IntFilter>;
     @Field(() => EnumBookingStatusFilter, {nullable:true})
     status?: InstanceType<typeof EnumBookingStatusFilter>;
     @Field(() => StringFilter, {nullable:true})
@@ -972,6 +1024,8 @@ export class BookingSumAggregateInput {
     @Field(() => Boolean, {nullable:true})
     languageId?: true;
     @Field(() => Boolean, {nullable:true})
+    numberOfPeople?: true;
+    @Field(() => Boolean, {nullable:true})
     tourId?: true;
     @Field(() => Boolean, {nullable:true})
     userId?: true;
@@ -984,6 +1038,8 @@ export class BookingSumAggregate {
     @Field(() => Int, {nullable:true})
     languageId?: number;
     @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
+    @Field(() => Int, {nullable:true})
     tourId?: number;
     @Field(() => Int, {nullable:true})
     userId?: number;
@@ -995,6 +1051,8 @@ export class BookingSumOrderByAggregateInput {
     id?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     languageId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    numberOfPeople?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     tourId?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
@@ -1053,6 +1111,8 @@ export class BookingUncheckedCreateNestedManyWithoutUserInput {
 export class BookingUncheckedCreateWithoutLanguageInput {
     @Field(() => Int, {nullable:true})
     id?: number;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
     @Field(() => BookingStatus, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof BookingStatus;
@@ -1063,8 +1123,8 @@ export class BookingUncheckedCreateWithoutLanguageInput {
     tourId!: number;
     @Field(() => Int, {nullable:false})
     userId!: number;
-    @Field(() => Date, {nullable:false})
-    date!: Date | string;
+    @Field(() => Date, {nullable:true})
+    date?: Date | string;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -1077,6 +1137,8 @@ export class BookingUncheckedCreateWithoutTourInput {
     id?: number;
     @Field(() => Int, {nullable:false})
     languageId!: number;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
     @Field(() => BookingStatus, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof BookingStatus;
@@ -1085,8 +1147,8 @@ export class BookingUncheckedCreateWithoutTourInput {
     userComment?: string;
     @Field(() => Int, {nullable:false})
     userId!: number;
-    @Field(() => Date, {nullable:false})
-    date!: Date | string;
+    @Field(() => Date, {nullable:true})
+    date?: Date | string;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -1099,6 +1161,8 @@ export class BookingUncheckedCreateWithoutUserInput {
     id?: number;
     @Field(() => Int, {nullable:false})
     languageId!: number;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
     @Field(() => BookingStatus, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof BookingStatus;
@@ -1107,8 +1171,8 @@ export class BookingUncheckedCreateWithoutUserInput {
     userComment?: string;
     @Field(() => Int, {nullable:false})
     tourId!: number;
-    @Field(() => Date, {nullable:false})
-    date!: Date | string;
+    @Field(() => Date, {nullable:true})
+    date?: Date | string;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -1121,6 +1185,8 @@ export class BookingUncheckedCreateInput {
     id?: number;
     @Field(() => Int, {nullable:false})
     languageId!: number;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
     @Field(() => BookingStatus, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof BookingStatus;
@@ -1131,8 +1197,8 @@ export class BookingUncheckedCreateInput {
     tourId!: number;
     @Field(() => Int, {nullable:false})
     userId!: number;
-    @Field(() => Date, {nullable:false})
-    date!: Date | string;
+    @Field(() => Date, {nullable:true})
+    date?: Date | string;
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
@@ -1145,6 +1211,8 @@ export class BookingUncheckedUpdateManyWithoutBookingInput {
     id?: number;
     @Field(() => Int, {nullable:true})
     languageId?: number;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
     @Field(() => BookingStatus, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof BookingStatus;
@@ -1278,6 +1346,8 @@ export class BookingUncheckedUpdateManyInput {
     id?: number;
     @Field(() => Int, {nullable:true})
     languageId?: number;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
     @Field(() => BookingStatus, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof BookingStatus;
@@ -1300,6 +1370,8 @@ export class BookingUncheckedUpdateManyInput {
 export class BookingUncheckedUpdateWithoutLanguageInput {
     @Field(() => Int, {nullable:true})
     id?: number;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
     @Field(() => BookingStatus, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof BookingStatus;
@@ -1324,6 +1396,8 @@ export class BookingUncheckedUpdateWithoutTourInput {
     id?: number;
     @Field(() => Int, {nullable:true})
     languageId?: number;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
     @Field(() => BookingStatus, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof BookingStatus;
@@ -1346,6 +1420,8 @@ export class BookingUncheckedUpdateWithoutUserInput {
     id?: number;
     @Field(() => Int, {nullable:true})
     languageId?: number;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
     @Field(() => BookingStatus, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof BookingStatus;
@@ -1368,6 +1444,8 @@ export class BookingUncheckedUpdateInput {
     id?: number;
     @Field(() => Int, {nullable:true})
     languageId?: number;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
     @Field(() => BookingStatus, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof BookingStatus;
@@ -1388,6 +1466,8 @@ export class BookingUncheckedUpdateInput {
 
 @InputType()
 export class BookingUpdateManyMutationInput {
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
     @Field(() => BookingStatus, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof BookingStatus;
@@ -1575,6 +1655,8 @@ export class BookingUpdateWithWhereUniqueWithoutUserInput {
 
 @InputType()
 export class BookingUpdateWithoutLanguageInput {
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
     @Field(() => BookingStatus, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof BookingStatus;
@@ -1597,6 +1679,8 @@ export class BookingUpdateWithoutLanguageInput {
 export class BookingUpdateWithoutTourInput {
     @Field(() => LanguageUpdateOneRequiredWithoutBookingInput, {nullable:true})
     language?: InstanceType<typeof LanguageUpdateOneRequiredWithoutBookingInput>;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
     @Field(() => BookingStatus, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof BookingStatus;
@@ -1617,6 +1701,8 @@ export class BookingUpdateWithoutTourInput {
 export class BookingUpdateWithoutUserInput {
     @Field(() => LanguageUpdateOneRequiredWithoutBookingInput, {nullable:true})
     language?: InstanceType<typeof LanguageUpdateOneRequiredWithoutBookingInput>;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
     @Field(() => BookingStatus, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof BookingStatus;
@@ -1637,6 +1723,8 @@ export class BookingUpdateWithoutUserInput {
 export class BookingUpdateInput {
     @Field(() => LanguageUpdateOneRequiredWithoutBookingInput, {nullable:true})
     language?: InstanceType<typeof LanguageUpdateOneRequiredWithoutBookingInput>;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
     @Field(() => BookingStatus, {nullable:true})
     @Validator.IsString()
     status?: keyof typeof BookingStatus;
@@ -1714,6 +1802,8 @@ export class BookingWhereInput {
     language?: InstanceType<typeof LanguageRelationFilter>;
     @Field(() => IntFilter, {nullable:true})
     languageId?: InstanceType<typeof IntFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    numberOfPeople?: InstanceType<typeof IntFilter>;
     @Field(() => EnumBookingStatusFilter, {nullable:true})
     status?: InstanceType<typeof EnumBookingStatusFilter>;
     @Field(() => StringFilter, {nullable:true})
@@ -1742,6 +1832,8 @@ export class Booking {
     language?: InstanceType<typeof Language>;
     @Field(() => Int, {nullable:false})
     languageId!: number;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople!: number | null;
     @Field(() => BookingStatus, {nullable:false,defaultValue:'PENDING'})
     status!: keyof typeof BookingStatus;
     @Field(() => String, {nullable:true})
@@ -1754,8 +1846,8 @@ export class Booking {
     user?: InstanceType<typeof User> | null;
     @Field(() => Int, {nullable:false})
     userId!: number;
-    @Field(() => Date, {nullable:false})
-    date!: Date;
+    @Field(() => Date, {nullable:true})
+    date!: Date | null;
     @Field(() => Date, {nullable:false})
     createdAt!: Date;
     @Field(() => Date, {nullable:false})

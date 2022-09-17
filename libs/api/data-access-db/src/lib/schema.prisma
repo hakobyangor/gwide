@@ -47,6 +47,7 @@ enum BookingStatus {
   DRAFT
   APPROVED
   REJECTED
+  CENCELLED
 }
 
 enum YesNo {
@@ -305,6 +306,8 @@ model Booking {
   language   Language @relation(fields: [languageId], references: [id])
   languageId Int
 
+  numberOfPeople Int?
+
   /// @Validator.IsString()
   status BookingStatus @default(PENDING)
 
@@ -317,7 +320,7 @@ model Booking {
   user   User? @relation(fields: [userId], references: [id])
   userId Int
 
-  date DateTime
+  date DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

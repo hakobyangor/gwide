@@ -1,14 +1,15 @@
 import { Booking, Tour } from '@gwide/api/generated/db-types'
 import { UseGuards } from '@nestjs/common'
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql'
-import { User } from '@prisma/client'
+import { BookingStatus, User } from '@prisma/client'
 import { CurrentUser } from '../../decorators/current-user.decorator'
 import { CheckGuideAuthGuard } from '../../guards/auth-guards/check-guide-auth.guard'
 import { CheckUserAuthGuard } from '../../guards/auth-guards/check-user-auth.guard'
 import { SendgridService } from '../sendgrid/sendgrid.service'
 import { TourService } from '../tour/tour.service'
 import { BookingService } from './booking.service'
-import { CreateBookingInput } from './dto/create-booking.input'
+import { CreateDraftBookingInput } from './dto/create-draft-booking.input'
+import { CreatePendingBookingInput } from './dto/create-pending-booking.input'
 import { UpdateBookingInput } from './dto/update-booking.input'
 
 @Resolver(() => Booking)
@@ -21,8 +22,8 @@ export class BookingResolver {
 
   @Mutation(() => Booking)
   @UseGuards(CheckUserAuthGuard)
-  async createBooking(
-    @Args('createBookingInput') createBookingInput: CreateBookingInput,
+  async createPendingBooking(
+    @Args('createBookingInput') createBookingInput: CreatePendingBookingInput,
     @CurrentUser() currentUser: User
   ) {
     const tour = await this.tourService.getById(createBookingInput.tourId)
@@ -43,10 +44,11 @@ export class BookingResolver {
     return this.bookingService.create(createBookingInput, currentUser.id)
   }
 
-  @Mutation(() => Tour)
+  @Mutation(() => Booking)
   @UseGuards(CheckUserAuthGuard)
-  async requestBookingAvailability(
-    @Args('createBookingInput') createBookingInput: CreateBookingInput
+  async createDraftBooking(
+    @Args('createBookingInput') createBookingInput: CreateDraftBookingInput,
+    @CurrentUser() currentUser: User
   ) {
     const tour = await this.tourService.getById(createBookingInput.tourId)
 
@@ -64,6 +66,10 @@ export class BookingResolver {
     }
 
     await this.sendgridService.send(mail)
+    return this.bookingService.create(
+      { ...createBookingInput, status: BookingStatus.DRAFT },
+      currentUser.id
+    )
 
     return tour
   }
@@ -95,7 +101,6 @@ export class BookingResolver {
   @Query(() => [Booking])
   @UseGuards(CheckUserAuthGuard)
   getUserBookings(@CurrentUser() currentUser: User) {
-    console.log('🚀 ~ getUserBookings ~ currentUser', currentUser)
     return this.bookingService.getUserBookings(currentUser.id)
   }
 }
