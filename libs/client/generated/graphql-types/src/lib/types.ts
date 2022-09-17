@@ -1290,14 +1290,21 @@ export type MutationVerifyEmailArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  getCities: Array<City>;
   getGuideBookings: Array<Booking>;
   getGuides: Array<User>;
   getTour: Tour;
   getTours: Array<Tour>;
+  getToursByCountry: Array<Tour>;
   getUserBookings: Array<Booking>;
   resetPasswordEmail: User;
   user: User;
   users: Array<User>;
+};
+
+
+export type QueryGetCitiesArgs = {
+  countryId: Scalars['Float'];
 };
 
 
@@ -1318,6 +1325,11 @@ export type QueryGetTourArgs = {
 
 export type QueryGetToursArgs = {
   getToursInput: GetToursInput;
+};
+
+
+export type QueryGetToursByCountryArgs = {
+  countryId: Scalars['Float'];
 };
 
 

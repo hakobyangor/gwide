@@ -6,6 +6,7 @@ import { UserModule } from './resources/user/user.module'
 import { AuthenticationModule } from './resources/authentication/authentication.module'
 import { TourModule } from './resources/tour/tour.module'
 import { BookingModule } from './resources/booking/booking.module'
+import { CountryModule } from './resources/country/country.module'
 
 @Module({
   imports: [
@@ -17,7 +18,8 @@ import { BookingModule } from './resources/booking/booking.module'
     UserModule,
     TourModule,
     BookingModule,
-    AuthenticationModule
+    AuthenticationModule,
+    CountryModule
   ],
   controllers: [],
   providers: []

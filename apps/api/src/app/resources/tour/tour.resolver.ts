@@ -9,10 +9,14 @@ import { CurrentUser } from '../../decorators/current-user.decorator'
 import { Status, User } from '@prisma/client'
 import { CheckAuthGuard } from '../../guards/auth-guards/check-auth.guard'
 import { GetToursInput } from './dto/get-tours.input'
+import { CountryService } from '../country/country.service'
 
 @Resolver(() => Tour)
 export class TourResolver {
-  constructor(private readonly tourService: TourService) {}
+  constructor(
+    private readonly tourService: TourService,
+    private readonly countryService: CountryService
+  ) {}
 
   @UseGuards(CheckGuideAuthGuard)
   @Mutation(() => Tour)
@@ -40,6 +44,23 @@ export class TourResolver {
     return this.tourService.create({
       data: createData
     })
+  }
+
+  @Query(() => [Tour])
+  @UseGuards(CheckAuthGuard)
+  async getToursByCountry(@Args('countryId') countryId: number) {
+    const where: { [k: string]: any } = {}
+
+    where.status === Status.ACTIVE
+    where.tourCity = {
+      some: {
+        city: {
+          countryId
+        }
+      }
+    }
+
+    return this.tourService.findAllByFilter(where)
   }
 
   @Query(() => [Tour])

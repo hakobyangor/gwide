@@ -25,7 +25,13 @@ export class TourService {
       include: {
         currency: true,
         tourCity: {
-          include: { city: true }
+          include: {
+            city: {
+              include: {
+                country: true
+              }
+            }
+          }
         },
         tourLanguage: {
           include: {

@@ -1,6 +1,6 @@
-import { Booking, Tour } from '@gwide/api/generated/db-types'
+import { Booking } from '@gwide/api/generated/db-types'
 import { UseGuards } from '@nestjs/common'
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql'
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql'
 import { BookingStatus, User } from '@prisma/client'
 import { CurrentUser } from '../../decorators/current-user.decorator'
 import { CheckGuideAuthGuard } from '../../guards/auth-guards/check-guide-auth.guard'
