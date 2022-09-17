@@ -91,4 +91,18 @@ export class BookingService {
       }
     })
   }
+
+  getById(bookingId: number) {
+    return this.database.booking.findUnique({
+      where: { id: bookingId },
+      include: {
+        user: true,
+        bookingReview: true,
+        tour: {
+          include: { guide: {} }
+        },
+        language: true
+      }
+    })
+  }
 }

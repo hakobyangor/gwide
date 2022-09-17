@@ -1,13 +1,16 @@
-import { Booking } from '@gwide/api/generated/db-types'
+import { Booking, BookingReview } from '@gwide/api/generated/db-types'
 import { UseGuards } from '@nestjs/common'
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql'
 import { BookingStatus, User } from '@prisma/client'
+import moment = require('moment')
 import { CurrentUser } from '../../decorators/current-user.decorator'
 import { CheckGuideAuthGuard } from '../../guards/auth-guards/check-guide-auth.guard'
 import { CheckUserAuthGuard } from '../../guards/auth-guards/check-user-auth.guard'
+import { BookingReviewService } from '../booking-review/booking-review.service'
 import { SendgridService } from '../sendgrid/sendgrid.service'
 import { TourService } from '../tour/tour.service'
 import { BookingService } from './booking.service'
+import { CreateBookingReviewInput } from './dto/create-booking-review.input'
 import { CreateDraftBookingInput } from './dto/create-draft-booking.input'
 import { CreatePendingBookingInput } from './dto/create-pending-booking.input'
 import { UpdateBookingInput } from './dto/update-booking.input'
@@ -17,7 +20,8 @@ export class BookingResolver {
   constructor(
     private readonly bookingService: BookingService,
     private sendgridService: SendgridService,
-    private tourService: TourService
+    private tourService: TourService,
+    private bookingReview: BookingReviewService
   ) {}
 
   @Mutation(() => Booking)
@@ -102,5 +106,35 @@ export class BookingResolver {
   @UseGuards(CheckUserAuthGuard)
   getUserBookings(@CurrentUser() currentUser: User) {
     return this.bookingService.getUserBookings(currentUser.id)
+  }
+
+  @Mutation(() => BookingReview)
+  @UseGuards(CheckUserAuthGuard)
+  async createBookingReview(
+    @Args('createBookingReviewInput') createBookingReviewInput: CreateBookingReviewInput,
+    @CurrentUser() currentUser: User
+  ) {
+    const booking = await this.bookingService.getById(createBookingReviewInput.bookingId)
+
+    if (
+      !booking ||
+      booking?.status != BookingStatus.APPROVED ||
+      moment(booking.date) > moment() ||
+      booking.user.id != currentUser.id
+    ) {
+      throw new Error('Invalid booking id')
+    }
+
+    if (booking.bookingReview.length > 0) {
+      throw new Error('Already Rated')
+    }
+
+    const review = await this.bookingReview.createReview(createBookingReviewInput)
+
+    const avgRate = await this.bookingReview.calculateAvgRate(booking.tour.id)
+
+    await this.tourService.updateRate(booking.tour.id, avgRate)
+    review.booking.tour.rating = avgRate
+    return review
   }
 }

@@ -36,18 +36,6 @@ export enum TourTourCategoryScalarFieldEnum {
     tourCategoryId = "tourCategoryId"
 }
 
-export enum TourReviewScalarFieldEnum {
-    id = "id",
-    name = "name",
-    status = "status",
-    createdAt = "createdAt",
-    updatedAt = "updatedAt",
-    rate = "rate",
-    review = "review",
-    tourId = "tourId",
-    userId = "userId"
-}
-
 export enum TourLanguageScalarFieldEnum {
     status = "status",
     tourId = "tourId",
@@ -179,6 +167,16 @@ export enum CityScalarFieldEnum {
     updatedAt = "updatedAt"
 }
 
+export enum BookingReviewScalarFieldEnum {
+    id = "id",
+    status = "status",
+    createdAt = "createdAt",
+    updatedAt = "updatedAt",
+    rate = "rate",
+    review = "review",
+    bookingId = "bookingId"
+}
+
 export enum BookingScalarFieldEnum {
     id = "id",
     languageId = "languageId",
@@ -193,6 +191,7 @@ export enum BookingScalarFieldEnum {
 }
 
 registerEnumType(BookingScalarFieldEnum, { name: 'BookingScalarFieldEnum', description: undefined })
+registerEnumType(BookingReviewScalarFieldEnum, { name: 'BookingReviewScalarFieldEnum', description: undefined })
 registerEnumType(CityScalarFieldEnum, { name: 'CityScalarFieldEnum', description: undefined })
 registerEnumType(CountryScalarFieldEnum, { name: 'CountryScalarFieldEnum', description: undefined })
 registerEnumType(CurrencyScalarFieldEnum, { name: 'CurrencyScalarFieldEnum', description: undefined })
@@ -210,7 +209,6 @@ registerEnumType(TourCategoryScalarFieldEnum, { name: 'TourCategoryScalarFieldEn
 registerEnumType(TourCityScalarFieldEnum, { name: 'TourCityScalarFieldEnum', description: undefined })
 registerEnumType(TourImageScalarFieldEnum, { name: 'TourImageScalarFieldEnum', description: undefined })
 registerEnumType(TourLanguageScalarFieldEnum, { name: 'TourLanguageScalarFieldEnum', description: undefined })
-registerEnumType(TourReviewScalarFieldEnum, { name: 'TourReviewScalarFieldEnum', description: undefined })
 registerEnumType(TourTourCategoryScalarFieldEnum, { name: 'TourTourCategoryScalarFieldEnum', description: undefined })
 registerEnumType(UserScalarFieldEnum, { name: 'UserScalarFieldEnum', description: undefined })
 
@@ -370,6 +368,12 @@ export class BookingCountOrderByAggregateInput {
     createdAt?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     updatedAt?: keyof typeof SortOrder;
+}
+
+@ObjectType()
+export class BookingCount {
+    @Field(() => Int, {nullable:false})
+    bookingReview?: number;
 }
 
 @InputType()
@@ -546,6 +550,29 @@ export class BookingCreateNestedManyWithoutUserInput {
 }
 
 @InputType()
+export class BookingCreateNestedOneWithoutBookingReviewInput {
+    @Field(() => BookingCreateWithoutBookingReviewInput, {nullable:true})
+    @Type(() => BookingCreateWithoutBookingReviewInput)
+    create?: InstanceType<typeof BookingCreateWithoutBookingReviewInput>;
+    @Field(() => BookingCreateOrConnectWithoutBookingReviewInput, {nullable:true})
+    @Type(() => BookingCreateOrConnectWithoutBookingReviewInput)
+    connectOrCreate?: InstanceType<typeof BookingCreateOrConnectWithoutBookingReviewInput>;
+    @Field(() => BookingWhereUniqueInput, {nullable:true})
+    @Type(() => BookingWhereUniqueInput)
+    connect?: InstanceType<typeof BookingWhereUniqueInput>;
+}
+
+@InputType()
+export class BookingCreateOrConnectWithoutBookingReviewInput {
+    @Field(() => BookingWhereUniqueInput, {nullable:false})
+    @Type(() => BookingWhereUniqueInput)
+    where!: InstanceType<typeof BookingWhereUniqueInput>;
+    @Field(() => BookingCreateWithoutBookingReviewInput, {nullable:false})
+    @Type(() => BookingCreateWithoutBookingReviewInput)
+    create!: InstanceType<typeof BookingCreateWithoutBookingReviewInput>;
+}
+
+@InputType()
 export class BookingCreateOrConnectWithoutLanguageInput {
     @Field(() => BookingWhereUniqueInput, {nullable:false})
     @Type(() => BookingWhereUniqueInput)
@@ -576,6 +603,30 @@ export class BookingCreateOrConnectWithoutUserInput {
 }
 
 @InputType()
+export class BookingCreateWithoutBookingReviewInput {
+    @Field(() => LanguageCreateNestedOneWithoutBookingInput, {nullable:false})
+    language!: InstanceType<typeof LanguageCreateNestedOneWithoutBookingInput>;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
+    @Field(() => BookingStatus, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof BookingStatus;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    userComment?: string;
+    @Field(() => TourCreateNestedOneWithoutBookingInput, {nullable:true})
+    tour?: InstanceType<typeof TourCreateNestedOneWithoutBookingInput>;
+    @Field(() => UserCreateNestedOneWithoutBookingInput, {nullable:true})
+    user?: InstanceType<typeof UserCreateNestedOneWithoutBookingInput>;
+    @Field(() => Date, {nullable:true})
+    date?: Date | string;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
 export class BookingCreateWithoutLanguageInput {
     @Field(() => Int, {nullable:true})
     numberOfPeople?: number;
@@ -595,6 +646,8 @@ export class BookingCreateWithoutLanguageInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+    @Field(() => BookingReviewCreateNestedManyWithoutBookingInput, {nullable:true})
+    bookingReview?: InstanceType<typeof BookingReviewCreateNestedManyWithoutBookingInput>;
 }
 
 @InputType()
@@ -617,6 +670,8 @@ export class BookingCreateWithoutTourInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+    @Field(() => BookingReviewCreateNestedManyWithoutBookingInput, {nullable:true})
+    bookingReview?: InstanceType<typeof BookingReviewCreateNestedManyWithoutBookingInput>;
 }
 
 @InputType()
@@ -639,6 +694,8 @@ export class BookingCreateWithoutUserInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+    @Field(() => BookingReviewCreateNestedManyWithoutBookingInput, {nullable:true})
+    bookingReview?: InstanceType<typeof BookingReviewCreateNestedManyWithoutBookingInput>;
 }
 
 @InputType()
@@ -663,6 +720,8 @@ export class BookingCreateInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+    @Field(() => BookingReviewCreateNestedManyWithoutBookingInput, {nullable:true})
+    bookingReview?: InstanceType<typeof BookingReviewCreateNestedManyWithoutBookingInput>;
 }
 
 @ArgsType()
@@ -955,6 +1014,16 @@ export class BookingOrderByWithRelationInput {
     createdAt?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     updatedAt?: keyof typeof SortOrder;
+    @Field(() => BookingReviewOrderByRelationAggregateInput, {nullable:true})
+    bookingReview?: InstanceType<typeof BookingReviewOrderByRelationAggregateInput>;
+}
+
+@InputType()
+export class BookingRelationFilter {
+    @Field(() => BookingWhereInput, {nullable:true})
+    is?: InstanceType<typeof BookingWhereInput>;
+    @Field(() => BookingWhereInput, {nullable:true})
+    isNot?: InstanceType<typeof BookingWhereInput>;
 }
 
 @InputType()
@@ -1108,6 +1177,32 @@ export class BookingUncheckedCreateNestedManyWithoutUserInput {
 }
 
 @InputType()
+export class BookingUncheckedCreateWithoutBookingReviewInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Int, {nullable:false})
+    languageId!: number;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
+    @Field(() => BookingStatus, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof BookingStatus;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    userComment?: string;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+    @Field(() => Int, {nullable:false})
+    userId!: number;
+    @Field(() => Date, {nullable:true})
+    date?: Date | string;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
 export class BookingUncheckedCreateWithoutLanguageInput {
     @Field(() => Int, {nullable:true})
     id?: number;
@@ -1129,6 +1224,8 @@ export class BookingUncheckedCreateWithoutLanguageInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+    @Field(() => BookingReviewUncheckedCreateNestedManyWithoutBookingInput, {nullable:true})
+    bookingReview?: InstanceType<typeof BookingReviewUncheckedCreateNestedManyWithoutBookingInput>;
 }
 
 @InputType()
@@ -1153,6 +1250,8 @@ export class BookingUncheckedCreateWithoutTourInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+    @Field(() => BookingReviewUncheckedCreateNestedManyWithoutBookingInput, {nullable:true})
+    bookingReview?: InstanceType<typeof BookingReviewUncheckedCreateNestedManyWithoutBookingInput>;
 }
 
 @InputType()
@@ -1177,6 +1276,8 @@ export class BookingUncheckedCreateWithoutUserInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+    @Field(() => BookingReviewUncheckedCreateNestedManyWithoutBookingInput, {nullable:true})
+    bookingReview?: InstanceType<typeof BookingReviewUncheckedCreateNestedManyWithoutBookingInput>;
 }
 
 @InputType()
@@ -1203,6 +1304,8 @@ export class BookingUncheckedCreateInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+    @Field(() => BookingReviewUncheckedCreateNestedManyWithoutBookingInput, {nullable:true})
+    bookingReview?: InstanceType<typeof BookingReviewUncheckedCreateNestedManyWithoutBookingInput>;
 }
 
 @InputType()
@@ -1367,6 +1470,32 @@ export class BookingUncheckedUpdateManyInput {
 }
 
 @InputType()
+export class BookingUncheckedUpdateWithoutBookingReviewInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Int, {nullable:true})
+    languageId?: number;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
+    @Field(() => BookingStatus, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof BookingStatus;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    userComment?: string;
+    @Field(() => Int, {nullable:true})
+    tourId?: number;
+    @Field(() => Int, {nullable:true})
+    userId?: number;
+    @Field(() => Date, {nullable:true})
+    date?: Date | string;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
 export class BookingUncheckedUpdateWithoutLanguageInput {
     @Field(() => Int, {nullable:true})
     id?: number;
@@ -1388,6 +1517,8 @@ export class BookingUncheckedUpdateWithoutLanguageInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+    @Field(() => BookingReviewUncheckedUpdateManyWithoutBookingInput, {nullable:true})
+    bookingReview?: InstanceType<typeof BookingReviewUncheckedUpdateManyWithoutBookingInput>;
 }
 
 @InputType()
@@ -1412,6 +1543,8 @@ export class BookingUncheckedUpdateWithoutTourInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+    @Field(() => BookingReviewUncheckedUpdateManyWithoutBookingInput, {nullable:true})
+    bookingReview?: InstanceType<typeof BookingReviewUncheckedUpdateManyWithoutBookingInput>;
 }
 
 @InputType()
@@ -1436,6 +1569,8 @@ export class BookingUncheckedUpdateWithoutUserInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+    @Field(() => BookingReviewUncheckedUpdateManyWithoutBookingInput, {nullable:true})
+    bookingReview?: InstanceType<typeof BookingReviewUncheckedUpdateManyWithoutBookingInput>;
 }
 
 @InputType()
@@ -1462,6 +1597,8 @@ export class BookingUncheckedUpdateInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+    @Field(() => BookingReviewUncheckedUpdateManyWithoutBookingInput, {nullable:true})
+    bookingReview?: InstanceType<typeof BookingReviewUncheckedUpdateManyWithoutBookingInput>;
 }
 
 @InputType()
@@ -1624,6 +1761,29 @@ export class BookingUpdateManyWithoutUserInput {
 }
 
 @InputType()
+export class BookingUpdateOneWithoutBookingReviewInput {
+    @Field(() => BookingCreateWithoutBookingReviewInput, {nullable:true})
+    @Type(() => BookingCreateWithoutBookingReviewInput)
+    create?: InstanceType<typeof BookingCreateWithoutBookingReviewInput>;
+    @Field(() => BookingCreateOrConnectWithoutBookingReviewInput, {nullable:true})
+    @Type(() => BookingCreateOrConnectWithoutBookingReviewInput)
+    connectOrCreate?: InstanceType<typeof BookingCreateOrConnectWithoutBookingReviewInput>;
+    @Field(() => BookingUpsertWithoutBookingReviewInput, {nullable:true})
+    @Type(() => BookingUpsertWithoutBookingReviewInput)
+    upsert?: InstanceType<typeof BookingUpsertWithoutBookingReviewInput>;
+    @Field(() => Boolean, {nullable:true})
+    disconnect?: boolean;
+    @Field(() => Boolean, {nullable:true})
+    delete?: boolean;
+    @Field(() => BookingWhereUniqueInput, {nullable:true})
+    @Type(() => BookingWhereUniqueInput)
+    connect?: InstanceType<typeof BookingWhereUniqueInput>;
+    @Field(() => BookingUpdateWithoutBookingReviewInput, {nullable:true})
+    @Type(() => BookingUpdateWithoutBookingReviewInput)
+    update?: InstanceType<typeof BookingUpdateWithoutBookingReviewInput>;
+}
+
+@InputType()
 export class BookingUpdateWithWhereUniqueWithoutLanguageInput {
     @Field(() => BookingWhereUniqueInput, {nullable:false})
     @Type(() => BookingWhereUniqueInput)
@@ -1654,6 +1814,30 @@ export class BookingUpdateWithWhereUniqueWithoutUserInput {
 }
 
 @InputType()
+export class BookingUpdateWithoutBookingReviewInput {
+    @Field(() => LanguageUpdateOneRequiredWithoutBookingInput, {nullable:true})
+    language?: InstanceType<typeof LanguageUpdateOneRequiredWithoutBookingInput>;
+    @Field(() => Int, {nullable:true})
+    numberOfPeople?: number;
+    @Field(() => BookingStatus, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof BookingStatus;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    userComment?: string;
+    @Field(() => TourUpdateOneWithoutBookingInput, {nullable:true})
+    tour?: InstanceType<typeof TourUpdateOneWithoutBookingInput>;
+    @Field(() => UserUpdateOneWithoutBookingInput, {nullable:true})
+    user?: InstanceType<typeof UserUpdateOneWithoutBookingInput>;
+    @Field(() => Date, {nullable:true})
+    date?: Date | string;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
 export class BookingUpdateWithoutLanguageInput {
     @Field(() => Int, {nullable:true})
     numberOfPeople?: number;
@@ -1673,6 +1857,8 @@ export class BookingUpdateWithoutLanguageInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+    @Field(() => BookingReviewUpdateManyWithoutBookingInput, {nullable:true})
+    bookingReview?: InstanceType<typeof BookingReviewUpdateManyWithoutBookingInput>;
 }
 
 @InputType()
@@ -1695,6 +1881,8 @@ export class BookingUpdateWithoutTourInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+    @Field(() => BookingReviewUpdateManyWithoutBookingInput, {nullable:true})
+    bookingReview?: InstanceType<typeof BookingReviewUpdateManyWithoutBookingInput>;
 }
 
 @InputType()
@@ -1717,6 +1905,8 @@ export class BookingUpdateWithoutUserInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+    @Field(() => BookingReviewUpdateManyWithoutBookingInput, {nullable:true})
+    bookingReview?: InstanceType<typeof BookingReviewUpdateManyWithoutBookingInput>;
 }
 
 @InputType()
@@ -1741,6 +1931,8 @@ export class BookingUpdateInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+    @Field(() => BookingReviewUpdateManyWithoutBookingInput, {nullable:true})
+    bookingReview?: InstanceType<typeof BookingReviewUpdateManyWithoutBookingInput>;
 }
 
 @InputType()
@@ -1783,6 +1975,16 @@ export class BookingUpsertWithWhereUniqueWithoutUserInput {
 }
 
 @InputType()
+export class BookingUpsertWithoutBookingReviewInput {
+    @Field(() => BookingUpdateWithoutBookingReviewInput, {nullable:false})
+    @Type(() => BookingUpdateWithoutBookingReviewInput)
+    update!: InstanceType<typeof BookingUpdateWithoutBookingReviewInput>;
+    @Field(() => BookingCreateWithoutBookingReviewInput, {nullable:false})
+    @Type(() => BookingCreateWithoutBookingReviewInput)
+    create!: InstanceType<typeof BookingCreateWithoutBookingReviewInput>;
+}
+
+@InputType()
 export class BookingWhereUniqueInput {
     @Field(() => Int, {nullable:true})
     id?: number;
@@ -1822,6 +2024,8 @@ export class BookingWhereInput {
     createdAt?: InstanceType<typeof DateTimeFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
     updatedAt?: InstanceType<typeof DateTimeFilter>;
+    @Field(() => BookingReviewListRelationFilter, {nullable:true})
+    bookingReview?: InstanceType<typeof BookingReviewListRelationFilter>;
 }
 
 @ObjectType()
@@ -1852,6 +2056,10 @@ export class Booking {
     createdAt!: Date;
     @Field(() => Date, {nullable:false})
     updatedAt!: Date;
+    @Field(() => [BookingReview], {nullable:true})
+    bookingReview?: Array<BookingReview>;
+    @Field(() => BookingCount, {nullable:false})
+    _count?: InstanceType<typeof BookingCount>;
 }
 
 @ArgsType()
@@ -1968,6 +2176,992 @@ export class UpsertOneBookingArgs {
     @Field(() => BookingUpdateInput, {nullable:false})
     @Type(() => BookingUpdateInput)
     update!: InstanceType<typeof BookingUpdateInput>;
+}
+
+@ObjectType()
+export class AggregateBookingReview {
+    @Field(() => BookingReviewCountAggregate, {nullable:true})
+    _count?: InstanceType<typeof BookingReviewCountAggregate>;
+    @Field(() => BookingReviewAvgAggregate, {nullable:true})
+    _avg?: InstanceType<typeof BookingReviewAvgAggregate>;
+    @Field(() => BookingReviewSumAggregate, {nullable:true})
+    _sum?: InstanceType<typeof BookingReviewSumAggregate>;
+    @Field(() => BookingReviewMinAggregate, {nullable:true})
+    _min?: InstanceType<typeof BookingReviewMinAggregate>;
+    @Field(() => BookingReviewMaxAggregate, {nullable:true})
+    _max?: InstanceType<typeof BookingReviewMaxAggregate>;
+}
+
+@ArgsType()
+export class BookingReviewAggregateArgs {
+    @Field(() => BookingReviewWhereInput, {nullable:true})
+    @Type(() => BookingReviewWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof BookingReviewWhereInput>;
+    @Field(() => [BookingReviewOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<BookingReviewOrderByWithRelationInput>;
+    @Field(() => BookingReviewWhereUniqueInput, {nullable:true})
+    cursor?: InstanceType<typeof BookingReviewWhereUniqueInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => BookingReviewCountAggregateInput, {nullable:true})
+    _count?: InstanceType<typeof BookingReviewCountAggregateInput>;
+    @Field(() => BookingReviewAvgAggregateInput, {nullable:true})
+    _avg?: InstanceType<typeof BookingReviewAvgAggregateInput>;
+    @Field(() => BookingReviewSumAggregateInput, {nullable:true})
+    _sum?: InstanceType<typeof BookingReviewSumAggregateInput>;
+    @Field(() => BookingReviewMinAggregateInput, {nullable:true})
+    _min?: InstanceType<typeof BookingReviewMinAggregateInput>;
+    @Field(() => BookingReviewMaxAggregateInput, {nullable:true})
+    _max?: InstanceType<typeof BookingReviewMaxAggregateInput>;
+}
+
+@InputType()
+export class BookingReviewAvgAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+    @Field(() => Boolean, {nullable:true})
+    rate?: true;
+    @Field(() => Boolean, {nullable:true})
+    bookingId?: true;
+}
+
+@ObjectType()
+export class BookingReviewAvgAggregate {
+    @Field(() => Float, {nullable:true})
+    id?: number;
+    @Field(() => Float, {nullable:true})
+    rate?: number;
+    @Field(() => Float, {nullable:true})
+    bookingId?: number;
+}
+
+@InputType()
+export class BookingReviewAvgOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    rate?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    bookingId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class BookingReviewCountAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+    @Field(() => Boolean, {nullable:true})
+    status?: true;
+    @Field(() => Boolean, {nullable:true})
+    createdAt?: true;
+    @Field(() => Boolean, {nullable:true})
+    updatedAt?: true;
+    @Field(() => Boolean, {nullable:true})
+    rate?: true;
+    @Field(() => Boolean, {nullable:true})
+    review?: true;
+    @Field(() => Boolean, {nullable:true})
+    bookingId?: true;
+    @Field(() => Boolean, {nullable:true})
+    _all?: true;
+}
+
+@ObjectType()
+export class BookingReviewCountAggregate {
+    @Field(() => Int, {nullable:false})
+    id!: number;
+    @Field(() => Int, {nullable:false})
+    status!: number;
+    @Field(() => Int, {nullable:false})
+    createdAt!: number;
+    @Field(() => Int, {nullable:false})
+    updatedAt!: number;
+    @Field(() => Int, {nullable:false})
+    rate!: number;
+    @Field(() => Int, {nullable:false})
+    review!: number;
+    @Field(() => Int, {nullable:false})
+    bookingId!: number;
+    @Field(() => Int, {nullable:false})
+    _all!: number;
+}
+
+@InputType()
+export class BookingReviewCountOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    rate?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    review?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    bookingId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class BookingReviewCreateManyBookingInputEnvelope {
+    @Field(() => [BookingReviewCreateManyBookingInput], {nullable:false})
+    @Type(() => BookingReviewCreateManyBookingInput)
+    data!: Array<BookingReviewCreateManyBookingInput>;
+    @Field(() => Boolean, {nullable:true})
+    skipDuplicates?: boolean;
+}
+
+@InputType()
+export class BookingReviewCreateManyBookingInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => Int, {nullable:false})
+    rate!: number;
+    @Field(() => String, {nullable:false})
+    review!: string;
+}
+
+@InputType()
+export class BookingReviewCreateManyInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => Int, {nullable:false})
+    rate!: number;
+    @Field(() => String, {nullable:false})
+    review!: string;
+    @Field(() => Int, {nullable:true})
+    bookingId?: number;
+}
+
+@InputType()
+export class BookingReviewCreateNestedManyWithoutBookingInput {
+    @Field(() => [BookingReviewCreateWithoutBookingInput], {nullable:true})
+    @Type(() => BookingReviewCreateWithoutBookingInput)
+    create?: Array<BookingReviewCreateWithoutBookingInput>;
+    @Field(() => [BookingReviewCreateOrConnectWithoutBookingInput], {nullable:true})
+    @Type(() => BookingReviewCreateOrConnectWithoutBookingInput)
+    connectOrCreate?: Array<BookingReviewCreateOrConnectWithoutBookingInput>;
+    @Field(() => BookingReviewCreateManyBookingInputEnvelope, {nullable:true})
+    @Type(() => BookingReviewCreateManyBookingInputEnvelope)
+    createMany?: InstanceType<typeof BookingReviewCreateManyBookingInputEnvelope>;
+    @Field(() => [BookingReviewWhereUniqueInput], {nullable:true})
+    @Type(() => BookingReviewWhereUniqueInput)
+    connect?: Array<BookingReviewWhereUniqueInput>;
+}
+
+@InputType()
+export class BookingReviewCreateOrConnectWithoutBookingInput {
+    @Field(() => BookingReviewWhereUniqueInput, {nullable:false})
+    @Type(() => BookingReviewWhereUniqueInput)
+    where!: InstanceType<typeof BookingReviewWhereUniqueInput>;
+    @Field(() => BookingReviewCreateWithoutBookingInput, {nullable:false})
+    @Type(() => BookingReviewCreateWithoutBookingInput)
+    create!: InstanceType<typeof BookingReviewCreateWithoutBookingInput>;
+}
+
+@InputType()
+export class BookingReviewCreateWithoutBookingInput {
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => Int, {nullable:false})
+    rate!: number;
+    @Field(() => String, {nullable:false})
+    review!: string;
+}
+
+@InputType()
+export class BookingReviewCreateInput {
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => Int, {nullable:false})
+    rate!: number;
+    @Field(() => String, {nullable:false})
+    review!: string;
+    @Field(() => BookingCreateNestedOneWithoutBookingReviewInput, {nullable:true})
+    booking?: InstanceType<typeof BookingCreateNestedOneWithoutBookingReviewInput>;
+}
+
+@ArgsType()
+export class BookingReviewGroupByArgs {
+    @Field(() => BookingReviewWhereInput, {nullable:true})
+    @Type(() => BookingReviewWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof BookingReviewWhereInput>;
+    @Field(() => [BookingReviewOrderByWithAggregationInput], {nullable:true})
+    orderBy?: Array<BookingReviewOrderByWithAggregationInput>;
+    @Field(() => [BookingReviewScalarFieldEnum], {nullable:false})
+    by!: Array<keyof typeof BookingReviewScalarFieldEnum>;
+    @Field(() => BookingReviewScalarWhereWithAggregatesInput, {nullable:true})
+    having?: InstanceType<typeof BookingReviewScalarWhereWithAggregatesInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => BookingReviewCountAggregateInput, {nullable:true})
+    _count?: InstanceType<typeof BookingReviewCountAggregateInput>;
+    @Field(() => BookingReviewAvgAggregateInput, {nullable:true})
+    _avg?: InstanceType<typeof BookingReviewAvgAggregateInput>;
+    @Field(() => BookingReviewSumAggregateInput, {nullable:true})
+    _sum?: InstanceType<typeof BookingReviewSumAggregateInput>;
+    @Field(() => BookingReviewMinAggregateInput, {nullable:true})
+    _min?: InstanceType<typeof BookingReviewMinAggregateInput>;
+    @Field(() => BookingReviewMaxAggregateInput, {nullable:true})
+    _max?: InstanceType<typeof BookingReviewMaxAggregateInput>;
+}
+
+@ObjectType()
+export class BookingReviewGroupBy {
+    @Field(() => Int, {nullable:false})
+    id!: number;
+    @Field(() => Status, {nullable:false})
+    @Validator.IsString()
+    status!: keyof typeof Status;
+    @Field(() => Date, {nullable:false})
+    createdAt!: Date | string;
+    @Field(() => Date, {nullable:false})
+    updatedAt!: Date | string;
+    @Field(() => Int, {nullable:false})
+    rate!: number;
+    @Field(() => String, {nullable:false})
+    review!: string;
+    @Field(() => Int, {nullable:true})
+    bookingId?: number;
+    @Field(() => BookingReviewCountAggregate, {nullable:true})
+    _count?: InstanceType<typeof BookingReviewCountAggregate>;
+    @Field(() => BookingReviewAvgAggregate, {nullable:true})
+    _avg?: InstanceType<typeof BookingReviewAvgAggregate>;
+    @Field(() => BookingReviewSumAggregate, {nullable:true})
+    _sum?: InstanceType<typeof BookingReviewSumAggregate>;
+    @Field(() => BookingReviewMinAggregate, {nullable:true})
+    _min?: InstanceType<typeof BookingReviewMinAggregate>;
+    @Field(() => BookingReviewMaxAggregate, {nullable:true})
+    _max?: InstanceType<typeof BookingReviewMaxAggregate>;
+}
+
+@InputType()
+export class BookingReviewListRelationFilter {
+    @Field(() => BookingReviewWhereInput, {nullable:true})
+    every?: InstanceType<typeof BookingReviewWhereInput>;
+    @Field(() => BookingReviewWhereInput, {nullable:true})
+    some?: InstanceType<typeof BookingReviewWhereInput>;
+    @Field(() => BookingReviewWhereInput, {nullable:true})
+    none?: InstanceType<typeof BookingReviewWhereInput>;
+}
+
+@InputType()
+export class BookingReviewMaxAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+    @Field(() => Boolean, {nullable:true})
+    status?: true;
+    @Field(() => Boolean, {nullable:true})
+    createdAt?: true;
+    @Field(() => Boolean, {nullable:true})
+    updatedAt?: true;
+    @Field(() => Boolean, {nullable:true})
+    rate?: true;
+    @Field(() => Boolean, {nullable:true})
+    review?: true;
+    @Field(() => Boolean, {nullable:true})
+    bookingId?: true;
+}
+
+@ObjectType()
+export class BookingReviewMaxAggregate {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => Int, {nullable:true})
+    rate?: number;
+    @Field(() => String, {nullable:true})
+    review?: string;
+    @Field(() => Int, {nullable:true})
+    bookingId?: number;
+}
+
+@InputType()
+export class BookingReviewMaxOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    rate?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    review?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    bookingId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class BookingReviewMinAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+    @Field(() => Boolean, {nullable:true})
+    status?: true;
+    @Field(() => Boolean, {nullable:true})
+    createdAt?: true;
+    @Field(() => Boolean, {nullable:true})
+    updatedAt?: true;
+    @Field(() => Boolean, {nullable:true})
+    rate?: true;
+    @Field(() => Boolean, {nullable:true})
+    review?: true;
+    @Field(() => Boolean, {nullable:true})
+    bookingId?: true;
+}
+
+@ObjectType()
+export class BookingReviewMinAggregate {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => Int, {nullable:true})
+    rate?: number;
+    @Field(() => String, {nullable:true})
+    review?: string;
+    @Field(() => Int, {nullable:true})
+    bookingId?: number;
+}
+
+@InputType()
+export class BookingReviewMinOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    rate?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    review?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    bookingId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class BookingReviewOrderByRelationAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    _count?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class BookingReviewOrderByWithAggregationInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    rate?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    review?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    bookingId?: keyof typeof SortOrder;
+    @Field(() => BookingReviewCountOrderByAggregateInput, {nullable:true})
+    _count?: InstanceType<typeof BookingReviewCountOrderByAggregateInput>;
+    @Field(() => BookingReviewAvgOrderByAggregateInput, {nullable:true})
+    _avg?: InstanceType<typeof BookingReviewAvgOrderByAggregateInput>;
+    @Field(() => BookingReviewMaxOrderByAggregateInput, {nullable:true})
+    _max?: InstanceType<typeof BookingReviewMaxOrderByAggregateInput>;
+    @Field(() => BookingReviewMinOrderByAggregateInput, {nullable:true})
+    _min?: InstanceType<typeof BookingReviewMinOrderByAggregateInput>;
+    @Field(() => BookingReviewSumOrderByAggregateInput, {nullable:true})
+    _sum?: InstanceType<typeof BookingReviewSumOrderByAggregateInput>;
+}
+
+@InputType()
+export class BookingReviewOrderByWithRelationInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    rate?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    review?: keyof typeof SortOrder;
+    @Field(() => BookingOrderByWithRelationInput, {nullable:true})
+    booking?: InstanceType<typeof BookingOrderByWithRelationInput>;
+    @Field(() => SortOrder, {nullable:true})
+    bookingId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class BookingReviewScalarWhereWithAggregatesInput {
+    @Field(() => [BookingReviewScalarWhereWithAggregatesInput], {nullable:true})
+    AND?: Array<BookingReviewScalarWhereWithAggregatesInput>;
+    @Field(() => [BookingReviewScalarWhereWithAggregatesInput], {nullable:true})
+    OR?: Array<BookingReviewScalarWhereWithAggregatesInput>;
+    @Field(() => [BookingReviewScalarWhereWithAggregatesInput], {nullable:true})
+    NOT?: Array<BookingReviewScalarWhereWithAggregatesInput>;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    id?: InstanceType<typeof IntWithAggregatesFilter>;
+    @Field(() => EnumStatusWithAggregatesFilter, {nullable:true})
+    status?: InstanceType<typeof EnumStatusWithAggregatesFilter>;
+    @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
+    createdAt?: InstanceType<typeof DateTimeWithAggregatesFilter>;
+    @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
+    updatedAt?: InstanceType<typeof DateTimeWithAggregatesFilter>;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    rate?: InstanceType<typeof IntWithAggregatesFilter>;
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    review?: InstanceType<typeof StringWithAggregatesFilter>;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    bookingId?: InstanceType<typeof IntWithAggregatesFilter>;
+}
+
+@InputType()
+export class BookingReviewScalarWhereInput {
+    @Field(() => [BookingReviewScalarWhereInput], {nullable:true})
+    AND?: Array<BookingReviewScalarWhereInput>;
+    @Field(() => [BookingReviewScalarWhereInput], {nullable:true})
+    OR?: Array<BookingReviewScalarWhereInput>;
+    @Field(() => [BookingReviewScalarWhereInput], {nullable:true})
+    NOT?: Array<BookingReviewScalarWhereInput>;
+    @Field(() => IntFilter, {nullable:true})
+    id?: InstanceType<typeof IntFilter>;
+    @Field(() => EnumStatusFilter, {nullable:true})
+    status?: InstanceType<typeof EnumStatusFilter>;
+    @Field(() => DateTimeFilter, {nullable:true})
+    createdAt?: InstanceType<typeof DateTimeFilter>;
+    @Field(() => DateTimeFilter, {nullable:true})
+    updatedAt?: InstanceType<typeof DateTimeFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    rate?: InstanceType<typeof IntFilter>;
+    @Field(() => StringFilter, {nullable:true})
+    review?: InstanceType<typeof StringFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    bookingId?: InstanceType<typeof IntFilter>;
+}
+
+@InputType()
+export class BookingReviewSumAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+    @Field(() => Boolean, {nullable:true})
+    rate?: true;
+    @Field(() => Boolean, {nullable:true})
+    bookingId?: true;
+}
+
+@ObjectType()
+export class BookingReviewSumAggregate {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Int, {nullable:true})
+    rate?: number;
+    @Field(() => Int, {nullable:true})
+    bookingId?: number;
+}
+
+@InputType()
+export class BookingReviewSumOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    rate?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    bookingId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class BookingReviewUncheckedCreateNestedManyWithoutBookingInput {
+    @Field(() => [BookingReviewCreateWithoutBookingInput], {nullable:true})
+    @Type(() => BookingReviewCreateWithoutBookingInput)
+    create?: Array<BookingReviewCreateWithoutBookingInput>;
+    @Field(() => [BookingReviewCreateOrConnectWithoutBookingInput], {nullable:true})
+    @Type(() => BookingReviewCreateOrConnectWithoutBookingInput)
+    connectOrCreate?: Array<BookingReviewCreateOrConnectWithoutBookingInput>;
+    @Field(() => BookingReviewCreateManyBookingInputEnvelope, {nullable:true})
+    @Type(() => BookingReviewCreateManyBookingInputEnvelope)
+    createMany?: InstanceType<typeof BookingReviewCreateManyBookingInputEnvelope>;
+    @Field(() => [BookingReviewWhereUniqueInput], {nullable:true})
+    @Type(() => BookingReviewWhereUniqueInput)
+    connect?: Array<BookingReviewWhereUniqueInput>;
+}
+
+@InputType()
+export class BookingReviewUncheckedCreateWithoutBookingInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => Int, {nullable:false})
+    rate!: number;
+    @Field(() => String, {nullable:false})
+    review!: string;
+}
+
+@InputType()
+export class BookingReviewUncheckedCreateInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => Int, {nullable:false})
+    rate!: number;
+    @Field(() => String, {nullable:false})
+    review!: string;
+    @Field(() => Int, {nullable:true})
+    bookingId?: number;
+}
+
+@InputType()
+export class BookingReviewUncheckedUpdateManyWithoutBookingReviewInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => Int, {nullable:true})
+    rate?: number;
+    @Field(() => String, {nullable:true})
+    review?: string;
+}
+
+@InputType()
+export class BookingReviewUncheckedUpdateManyWithoutBookingInput {
+    @Field(() => [BookingReviewCreateWithoutBookingInput], {nullable:true})
+    @Type(() => BookingReviewCreateWithoutBookingInput)
+    create?: Array<BookingReviewCreateWithoutBookingInput>;
+    @Field(() => [BookingReviewCreateOrConnectWithoutBookingInput], {nullable:true})
+    @Type(() => BookingReviewCreateOrConnectWithoutBookingInput)
+    connectOrCreate?: Array<BookingReviewCreateOrConnectWithoutBookingInput>;
+    @Field(() => [BookingReviewUpsertWithWhereUniqueWithoutBookingInput], {nullable:true})
+    @Type(() => BookingReviewUpsertWithWhereUniqueWithoutBookingInput)
+    upsert?: Array<BookingReviewUpsertWithWhereUniqueWithoutBookingInput>;
+    @Field(() => BookingReviewCreateManyBookingInputEnvelope, {nullable:true})
+    @Type(() => BookingReviewCreateManyBookingInputEnvelope)
+    createMany?: InstanceType<typeof BookingReviewCreateManyBookingInputEnvelope>;
+    @Field(() => [BookingReviewWhereUniqueInput], {nullable:true})
+    @Type(() => BookingReviewWhereUniqueInput)
+    set?: Array<BookingReviewWhereUniqueInput>;
+    @Field(() => [BookingReviewWhereUniqueInput], {nullable:true})
+    @Type(() => BookingReviewWhereUniqueInput)
+    disconnect?: Array<BookingReviewWhereUniqueInput>;
+    @Field(() => [BookingReviewWhereUniqueInput], {nullable:true})
+    @Type(() => BookingReviewWhereUniqueInput)
+    delete?: Array<BookingReviewWhereUniqueInput>;
+    @Field(() => [BookingReviewWhereUniqueInput], {nullable:true})
+    @Type(() => BookingReviewWhereUniqueInput)
+    connect?: Array<BookingReviewWhereUniqueInput>;
+    @Field(() => [BookingReviewUpdateWithWhereUniqueWithoutBookingInput], {nullable:true})
+    @Type(() => BookingReviewUpdateWithWhereUniqueWithoutBookingInput)
+    update?: Array<BookingReviewUpdateWithWhereUniqueWithoutBookingInput>;
+    @Field(() => [BookingReviewUpdateManyWithWhereWithoutBookingInput], {nullable:true})
+    @Type(() => BookingReviewUpdateManyWithWhereWithoutBookingInput)
+    updateMany?: Array<BookingReviewUpdateManyWithWhereWithoutBookingInput>;
+    @Field(() => [BookingReviewScalarWhereInput], {nullable:true})
+    @Type(() => BookingReviewScalarWhereInput)
+    deleteMany?: Array<BookingReviewScalarWhereInput>;
+}
+
+@InputType()
+export class BookingReviewUncheckedUpdateManyInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => Int, {nullable:true})
+    rate?: number;
+    @Field(() => String, {nullable:true})
+    review?: string;
+    @Field(() => Int, {nullable:true})
+    bookingId?: number;
+}
+
+@InputType()
+export class BookingReviewUncheckedUpdateWithoutBookingInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => Int, {nullable:true})
+    rate?: number;
+    @Field(() => String, {nullable:true})
+    review?: string;
+}
+
+@InputType()
+export class BookingReviewUncheckedUpdateInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => Int, {nullable:true})
+    rate?: number;
+    @Field(() => String, {nullable:true})
+    review?: string;
+    @Field(() => Int, {nullable:true})
+    bookingId?: number;
+}
+
+@InputType()
+export class BookingReviewUpdateManyMutationInput {
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => Int, {nullable:true})
+    rate?: number;
+    @Field(() => String, {nullable:true})
+    review?: string;
+}
+
+@InputType()
+export class BookingReviewUpdateManyWithWhereWithoutBookingInput {
+    @Field(() => BookingReviewScalarWhereInput, {nullable:false})
+    @Type(() => BookingReviewScalarWhereInput)
+    where!: InstanceType<typeof BookingReviewScalarWhereInput>;
+    @Field(() => BookingReviewUpdateManyMutationInput, {nullable:false})
+    @Type(() => BookingReviewUpdateManyMutationInput)
+    data!: InstanceType<typeof BookingReviewUpdateManyMutationInput>;
+}
+
+@InputType()
+export class BookingReviewUpdateManyWithoutBookingInput {
+    @Field(() => [BookingReviewCreateWithoutBookingInput], {nullable:true})
+    @Type(() => BookingReviewCreateWithoutBookingInput)
+    create?: Array<BookingReviewCreateWithoutBookingInput>;
+    @Field(() => [BookingReviewCreateOrConnectWithoutBookingInput], {nullable:true})
+    @Type(() => BookingReviewCreateOrConnectWithoutBookingInput)
+    connectOrCreate?: Array<BookingReviewCreateOrConnectWithoutBookingInput>;
+    @Field(() => [BookingReviewUpsertWithWhereUniqueWithoutBookingInput], {nullable:true})
+    @Type(() => BookingReviewUpsertWithWhereUniqueWithoutBookingInput)
+    upsert?: Array<BookingReviewUpsertWithWhereUniqueWithoutBookingInput>;
+    @Field(() => BookingReviewCreateManyBookingInputEnvelope, {nullable:true})
+    @Type(() => BookingReviewCreateManyBookingInputEnvelope)
+    createMany?: InstanceType<typeof BookingReviewCreateManyBookingInputEnvelope>;
+    @Field(() => [BookingReviewWhereUniqueInput], {nullable:true})
+    @Type(() => BookingReviewWhereUniqueInput)
+    set?: Array<BookingReviewWhereUniqueInput>;
+    @Field(() => [BookingReviewWhereUniqueInput], {nullable:true})
+    @Type(() => BookingReviewWhereUniqueInput)
+    disconnect?: Array<BookingReviewWhereUniqueInput>;
+    @Field(() => [BookingReviewWhereUniqueInput], {nullable:true})
+    @Type(() => BookingReviewWhereUniqueInput)
+    delete?: Array<BookingReviewWhereUniqueInput>;
+    @Field(() => [BookingReviewWhereUniqueInput], {nullable:true})
+    @Type(() => BookingReviewWhereUniqueInput)
+    connect?: Array<BookingReviewWhereUniqueInput>;
+    @Field(() => [BookingReviewUpdateWithWhereUniqueWithoutBookingInput], {nullable:true})
+    @Type(() => BookingReviewUpdateWithWhereUniqueWithoutBookingInput)
+    update?: Array<BookingReviewUpdateWithWhereUniqueWithoutBookingInput>;
+    @Field(() => [BookingReviewUpdateManyWithWhereWithoutBookingInput], {nullable:true})
+    @Type(() => BookingReviewUpdateManyWithWhereWithoutBookingInput)
+    updateMany?: Array<BookingReviewUpdateManyWithWhereWithoutBookingInput>;
+    @Field(() => [BookingReviewScalarWhereInput], {nullable:true})
+    @Type(() => BookingReviewScalarWhereInput)
+    deleteMany?: Array<BookingReviewScalarWhereInput>;
+}
+
+@InputType()
+export class BookingReviewUpdateWithWhereUniqueWithoutBookingInput {
+    @Field(() => BookingReviewWhereUniqueInput, {nullable:false})
+    @Type(() => BookingReviewWhereUniqueInput)
+    where!: InstanceType<typeof BookingReviewWhereUniqueInput>;
+    @Field(() => BookingReviewUpdateWithoutBookingInput, {nullable:false})
+    @Type(() => BookingReviewUpdateWithoutBookingInput)
+    data!: InstanceType<typeof BookingReviewUpdateWithoutBookingInput>;
+}
+
+@InputType()
+export class BookingReviewUpdateWithoutBookingInput {
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => Int, {nullable:true})
+    rate?: number;
+    @Field(() => String, {nullable:true})
+    review?: string;
+}
+
+@InputType()
+export class BookingReviewUpdateInput {
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => Int, {nullable:true})
+    rate?: number;
+    @Field(() => String, {nullable:true})
+    review?: string;
+    @Field(() => BookingUpdateOneWithoutBookingReviewInput, {nullable:true})
+    booking?: InstanceType<typeof BookingUpdateOneWithoutBookingReviewInput>;
+}
+
+@InputType()
+export class BookingReviewUpsertWithWhereUniqueWithoutBookingInput {
+    @Field(() => BookingReviewWhereUniqueInput, {nullable:false})
+    @Type(() => BookingReviewWhereUniqueInput)
+    where!: InstanceType<typeof BookingReviewWhereUniqueInput>;
+    @Field(() => BookingReviewUpdateWithoutBookingInput, {nullable:false})
+    @Type(() => BookingReviewUpdateWithoutBookingInput)
+    update!: InstanceType<typeof BookingReviewUpdateWithoutBookingInput>;
+    @Field(() => BookingReviewCreateWithoutBookingInput, {nullable:false})
+    @Type(() => BookingReviewCreateWithoutBookingInput)
+    create!: InstanceType<typeof BookingReviewCreateWithoutBookingInput>;
+}
+
+@InputType()
+export class BookingReviewWhereUniqueInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+}
+
+@InputType()
+export class BookingReviewWhereInput {
+    @Field(() => [BookingReviewWhereInput], {nullable:true})
+    AND?: Array<BookingReviewWhereInput>;
+    @Field(() => [BookingReviewWhereInput], {nullable:true})
+    OR?: Array<BookingReviewWhereInput>;
+    @Field(() => [BookingReviewWhereInput], {nullable:true})
+    NOT?: Array<BookingReviewWhereInput>;
+    @Field(() => IntFilter, {nullable:true})
+    id?: InstanceType<typeof IntFilter>;
+    @Field(() => EnumStatusFilter, {nullable:true})
+    status?: InstanceType<typeof EnumStatusFilter>;
+    @Field(() => DateTimeFilter, {nullable:true})
+    createdAt?: InstanceType<typeof DateTimeFilter>;
+    @Field(() => DateTimeFilter, {nullable:true})
+    updatedAt?: InstanceType<typeof DateTimeFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    rate?: InstanceType<typeof IntFilter>;
+    @Field(() => StringFilter, {nullable:true})
+    review?: InstanceType<typeof StringFilter>;
+    @Field(() => BookingRelationFilter, {nullable:true})
+    booking?: InstanceType<typeof BookingRelationFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    bookingId?: InstanceType<typeof IntFilter>;
+}
+
+@ObjectType()
+export class BookingReview {
+    @Field(() => ID, {nullable:false})
+    id!: number;
+    @Field(() => Status, {nullable:false,defaultValue:'ACTIVE'})
+    status!: keyof typeof Status;
+    @Field(() => Date, {nullable:false})
+    createdAt!: Date;
+    @Field(() => Date, {nullable:false})
+    updatedAt!: Date;
+    @Field(() => Int, {nullable:false})
+    rate!: number;
+    @Field(() => String, {nullable:false})
+    review!: string;
+    @Field(() => Booking, {nullable:true})
+    booking?: InstanceType<typeof Booking> | null;
+    @Field(() => Int, {nullable:true})
+    bookingId!: number | null;
+}
+
+@ArgsType()
+export class CreateManyBookingReviewArgs {
+    @Field(() => [BookingReviewCreateManyInput], {nullable:false})
+    @Type(() => BookingReviewCreateManyInput)
+    @ValidateNested({ each: true })
+    data!: Array<BookingReviewCreateManyInput>;
+    @Field(() => Boolean, {nullable:true})
+    skipDuplicates?: boolean;
+}
+
+@ArgsType()
+export class CreateOneBookingReviewArgs {
+    @Field(() => BookingReviewCreateInput, {nullable:false})
+    @Type(() => BookingReviewCreateInput)
+    @ValidateNested({ each: true })
+    data!: InstanceType<typeof BookingReviewCreateInput>;
+}
+
+@ArgsType()
+export class DeleteManyBookingReviewArgs {
+    @Field(() => BookingReviewWhereInput, {nullable:true})
+    @Type(() => BookingReviewWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof BookingReviewWhereInput>;
+}
+
+@ArgsType()
+export class DeleteOneBookingReviewArgs {
+    @Field(() => BookingReviewWhereUniqueInput, {nullable:false})
+    @Type(() => BookingReviewWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof BookingReviewWhereUniqueInput>;
+}
+
+@ArgsType()
+export class FindFirstBookingReviewArgs {
+    @Field(() => BookingReviewWhereInput, {nullable:true})
+    @Type(() => BookingReviewWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof BookingReviewWhereInput>;
+    @Field(() => [BookingReviewOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<BookingReviewOrderByWithRelationInput>;
+    @Field(() => BookingReviewWhereUniqueInput, {nullable:true})
+    cursor?: InstanceType<typeof BookingReviewWhereUniqueInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => [BookingReviewScalarFieldEnum], {nullable:true})
+    distinct?: Array<keyof typeof BookingReviewScalarFieldEnum>;
+}
+
+@ArgsType()
+export class FindManyBookingReviewArgs {
+    @Field(() => BookingReviewWhereInput, {nullable:true})
+    @Type(() => BookingReviewWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof BookingReviewWhereInput>;
+    @Field(() => [BookingReviewOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<BookingReviewOrderByWithRelationInput>;
+    @Field(() => BookingReviewWhereUniqueInput, {nullable:true})
+    cursor?: InstanceType<typeof BookingReviewWhereUniqueInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => [BookingReviewScalarFieldEnum], {nullable:true})
+    distinct?: Array<keyof typeof BookingReviewScalarFieldEnum>;
+}
+
+@ArgsType()
+export class FindUniqueBookingReviewArgs {
+    @Field(() => BookingReviewWhereUniqueInput, {nullable:false})
+    @Type(() => BookingReviewWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof BookingReviewWhereUniqueInput>;
+}
+
+@ArgsType()
+export class UpdateManyBookingReviewArgs {
+    @Field(() => BookingReviewUpdateManyMutationInput, {nullable:false})
+    @Type(() => BookingReviewUpdateManyMutationInput)
+    @ValidateNested({ each: true })
+    data!: InstanceType<typeof BookingReviewUpdateManyMutationInput>;
+    @Field(() => BookingReviewWhereInput, {nullable:true})
+    @Type(() => BookingReviewWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof BookingReviewWhereInput>;
+}
+
+@ArgsType()
+export class UpdateOneBookingReviewArgs {
+    @Field(() => BookingReviewUpdateInput, {nullable:false})
+    @Type(() => BookingReviewUpdateInput)
+    @ValidateNested({ each: true })
+    data!: InstanceType<typeof BookingReviewUpdateInput>;
+    @Field(() => BookingReviewWhereUniqueInput, {nullable:false})
+    @Type(() => BookingReviewWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof BookingReviewWhereUniqueInput>;
+}
+
+@ArgsType()
+export class UpsertOneBookingReviewArgs {
+    @Field(() => BookingReviewWhereUniqueInput, {nullable:false})
+    @Type(() => BookingReviewWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof BookingReviewWhereUniqueInput>;
+    @Field(() => BookingReviewCreateInput, {nullable:false})
+    @Type(() => BookingReviewCreateInput)
+    create!: InstanceType<typeof BookingReviewCreateInput>;
+    @Field(() => BookingReviewUpdateInput, {nullable:false})
+    @Type(() => BookingReviewUpdateInput)
+    update!: InstanceType<typeof BookingReviewUpdateInput>;
 }
 
 @ObjectType()
@@ -6225,8 +7419,6 @@ export class TourCount {
     @Field(() => Int, {nullable:false})
     tourLanguage?: number;
     @Field(() => Int, {nullable:false})
-    tourReview?: number;
-    @Field(() => Int, {nullable:false})
     tourImage?: number;
     @Field(() => Int, {nullable:false})
     booking?: number;
@@ -6448,19 +7640,6 @@ export class TourCreateNestedOneWithoutTourLanguageInput {
 }
 
 @InputType()
-export class TourCreateNestedOneWithoutTourReviewInput {
-    @Field(() => TourCreateWithoutTourReviewInput, {nullable:true})
-    @Type(() => TourCreateWithoutTourReviewInput)
-    create?: InstanceType<typeof TourCreateWithoutTourReviewInput>;
-    @Field(() => TourCreateOrConnectWithoutTourReviewInput, {nullable:true})
-    @Type(() => TourCreateOrConnectWithoutTourReviewInput)
-    connectOrCreate?: InstanceType<typeof TourCreateOrConnectWithoutTourReviewInput>;
-    @Field(() => TourWhereUniqueInput, {nullable:true})
-    @Type(() => TourWhereUniqueInput)
-    connect?: InstanceType<typeof TourWhereUniqueInput>;
-}
-
-@InputType()
 export class TourCreateNestedOneWithoutTourTourCategoryInput {
     @Field(() => TourCreateWithoutTourTourCategoryInput, {nullable:true})
     @Type(() => TourCreateWithoutTourTourCategoryInput)
@@ -6534,16 +7713,6 @@ export class TourCreateOrConnectWithoutTourLanguageInput {
 }
 
 @InputType()
-export class TourCreateOrConnectWithoutTourReviewInput {
-    @Field(() => TourWhereUniqueInput, {nullable:false})
-    @Type(() => TourWhereUniqueInput)
-    where!: InstanceType<typeof TourWhereUniqueInput>;
-    @Field(() => TourCreateWithoutTourReviewInput, {nullable:false})
-    @Type(() => TourCreateWithoutTourReviewInput)
-    create!: InstanceType<typeof TourCreateWithoutTourReviewInput>;
-}
-
-@InputType()
 export class TourCreateOrConnectWithoutTourTourCategoryInput {
     @Field(() => TourWhereUniqueInput, {nullable:false})
     @Type(() => TourWhereUniqueInput)
@@ -6594,8 +7763,6 @@ export class TourCreateWithoutBookingInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewCreateNestedManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewCreateNestedManyWithoutTourInput>;
     @Field(() => TourImageCreateNestedManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageCreateNestedManyWithoutTourInput>;
 }
@@ -6639,8 +7806,6 @@ export class TourCreateWithoutCurrencyInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewCreateNestedManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewCreateNestedManyWithoutTourInput>;
     @Field(() => TourImageCreateNestedManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageCreateNestedManyWithoutTourInput>;
     @Field(() => BookingCreateNestedManyWithoutTourInput, {nullable:true})
@@ -6686,8 +7851,6 @@ export class TourCreateWithoutGuideInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewCreateNestedManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewCreateNestedManyWithoutTourInput>;
     @Field(() => TourImageCreateNestedManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageCreateNestedManyWithoutTourInput>;
     @Field(() => BookingCreateNestedManyWithoutTourInput, {nullable:true})
@@ -6733,8 +7896,6 @@ export class TourCreateWithoutTourCityInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewCreateNestedManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewCreateNestedManyWithoutTourInput>;
     @Field(() => TourImageCreateNestedManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageCreateNestedManyWithoutTourInput>;
     @Field(() => BookingCreateNestedManyWithoutTourInput, {nullable:true})
@@ -6782,8 +7943,6 @@ export class TourCreateWithoutTourImageInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewCreateNestedManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewCreateNestedManyWithoutTourInput>;
     @Field(() => BookingCreateNestedManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingCreateNestedManyWithoutTourInput>;
 }
@@ -6819,55 +7978,6 @@ export class TourCreateWithoutTourLanguageInput {
     tourTourCategory?: InstanceType<typeof TourTourCategoryCreateNestedManyWithoutTourInput>;
     @Field(() => TourCityCreateNestedManyWithoutTourInput, {nullable:true})
     tourCity?: InstanceType<typeof TourCityCreateNestedManyWithoutTourInput>;
-    @Field(() => Int, {nullable:false})
-    durationHours!: number;
-    @Field(() => Int, {nullable:false})
-    durationMinutes!: number;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => TourReviewCreateNestedManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewCreateNestedManyWithoutTourInput>;
-    @Field(() => TourImageCreateNestedManyWithoutTourInput, {nullable:true})
-    tourImage?: InstanceType<typeof TourImageCreateNestedManyWithoutTourInput>;
-    @Field(() => BookingCreateNestedManyWithoutTourInput, {nullable:true})
-    booking?: InstanceType<typeof BookingCreateNestedManyWithoutTourInput>;
-}
-
-@InputType()
-export class TourCreateWithoutTourReviewInput {
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    name!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    description!: string;
-    @Field(() => Status, {nullable:true})
-    @Validator.IsString()
-    status?: keyof typeof Status;
-    @Field(() => TourType, {nullable:true})
-    type?: keyof typeof TourType;
-    @Field(() => TourFormat, {nullable:true})
-    format?: keyof typeof TourFormat;
-    @Field(() => String, {nullable:false})
-    image!: string;
-    @Field(() => UserCreateNestedOneWithoutTourInput, {nullable:false})
-    guide!: InstanceType<typeof UserCreateNestedOneWithoutTourInput>;
-    @Field(() => CurrencyCreateNestedOneWithoutTourInput, {nullable:false})
-    currency!: InstanceType<typeof CurrencyCreateNestedOneWithoutTourInput>;
-    @Field(() => Int, {nullable:false})
-    maxCapacity!: number;
-    @Field(() => Float, {nullable:true})
-    rating?: number;
-    @Field(() => Float, {nullable:false})
-    price!: number;
-    @Field(() => TourTourCategoryCreateNestedManyWithoutTourInput, {nullable:true})
-    tourTourCategory?: InstanceType<typeof TourTourCategoryCreateNestedManyWithoutTourInput>;
-    @Field(() => TourCityCreateNestedManyWithoutTourInput, {nullable:true})
-    tourCity?: InstanceType<typeof TourCityCreateNestedManyWithoutTourInput>;
-    @Field(() => TourLanguageCreateNestedManyWithoutTourInput, {nullable:true})
-    tourLanguage?: InstanceType<typeof TourLanguageCreateNestedManyWithoutTourInput>;
     @Field(() => Int, {nullable:false})
     durationHours!: number;
     @Field(() => Int, {nullable:false})
@@ -6921,8 +8031,6 @@ export class TourCreateWithoutTourTourCategoryInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewCreateNestedManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewCreateNestedManyWithoutTourInput>;
     @Field(() => TourImageCreateNestedManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageCreateNestedManyWithoutTourInput>;
     @Field(() => BookingCreateNestedManyWithoutTourInput, {nullable:true})
@@ -6970,8 +8078,6 @@ export class TourCreateInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewCreateNestedManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewCreateNestedManyWithoutTourInput>;
     @Field(() => TourImageCreateNestedManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageCreateNestedManyWithoutTourInput>;
     @Field(() => BookingCreateNestedManyWithoutTourInput, {nullable:true})
@@ -7383,8 +8489,6 @@ export class TourOrderByWithRelationInput {
     createdAt?: keyof typeof SortOrder;
     @Field(() => SortOrder, {nullable:true})
     updatedAt?: keyof typeof SortOrder;
-    @Field(() => TourReviewOrderByRelationAggregateInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewOrderByRelationAggregateInput>;
     @Field(() => TourImageOrderByRelationAggregateInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageOrderByRelationAggregateInput>;
     @Field(() => BookingOrderByRelationAggregateInput, {nullable:true})
@@ -7618,8 +8722,6 @@ export class TourUncheckedCreateWithoutBookingInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUncheckedCreateNestedManyWithoutTourInput>;
     @Field(() => TourImageUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageUncheckedCreateNestedManyWithoutTourInput>;
 }
@@ -7665,8 +8767,6 @@ export class TourUncheckedCreateWithoutCurrencyInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUncheckedCreateNestedManyWithoutTourInput>;
     @Field(() => TourImageUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageUncheckedCreateNestedManyWithoutTourInput>;
     @Field(() => BookingUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
@@ -7714,8 +8814,6 @@ export class TourUncheckedCreateWithoutGuideInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUncheckedCreateNestedManyWithoutTourInput>;
     @Field(() => TourImageUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageUncheckedCreateNestedManyWithoutTourInput>;
     @Field(() => BookingUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
@@ -7763,8 +8861,6 @@ export class TourUncheckedCreateWithoutTourCityInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUncheckedCreateNestedManyWithoutTourInput>;
     @Field(() => TourImageUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageUncheckedCreateNestedManyWithoutTourInput>;
     @Field(() => BookingUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
@@ -7814,8 +8910,6 @@ export class TourUncheckedCreateWithoutTourImageInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUncheckedCreateNestedManyWithoutTourInput>;
     @Field(() => BookingUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingUncheckedCreateNestedManyWithoutTourInput>;
 }
@@ -7853,57 +8947,6 @@ export class TourUncheckedCreateWithoutTourLanguageInput {
     tourTourCategory?: InstanceType<typeof TourTourCategoryUncheckedCreateNestedManyWithoutTourInput>;
     @Field(() => TourCityUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
     tourCity?: InstanceType<typeof TourCityUncheckedCreateNestedManyWithoutTourInput>;
-    @Field(() => Int, {nullable:false})
-    durationHours!: number;
-    @Field(() => Int, {nullable:false})
-    durationMinutes!: number;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => TourReviewUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUncheckedCreateNestedManyWithoutTourInput>;
-    @Field(() => TourImageUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
-    tourImage?: InstanceType<typeof TourImageUncheckedCreateNestedManyWithoutTourInput>;
-    @Field(() => BookingUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
-    booking?: InstanceType<typeof BookingUncheckedCreateNestedManyWithoutTourInput>;
-}
-
-@InputType()
-export class TourUncheckedCreateWithoutTourReviewInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    name!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    description!: string;
-    @Field(() => Status, {nullable:true})
-    @Validator.IsString()
-    status?: keyof typeof Status;
-    @Field(() => TourType, {nullable:true})
-    type?: keyof typeof TourType;
-    @Field(() => TourFormat, {nullable:true})
-    format?: keyof typeof TourFormat;
-    @Field(() => String, {nullable:false})
-    image!: string;
-    @Field(() => Int, {nullable:false})
-    guideId!: number;
-    @Field(() => Int, {nullable:false})
-    currencyId!: number;
-    @Field(() => Int, {nullable:false})
-    maxCapacity!: number;
-    @Field(() => Float, {nullable:true})
-    rating?: number;
-    @Field(() => Float, {nullable:false})
-    price!: number;
-    @Field(() => TourTourCategoryUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
-    tourTourCategory?: InstanceType<typeof TourTourCategoryUncheckedCreateNestedManyWithoutTourInput>;
-    @Field(() => TourCityUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
-    tourCity?: InstanceType<typeof TourCityUncheckedCreateNestedManyWithoutTourInput>;
-    @Field(() => TourLanguageUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
-    tourLanguage?: InstanceType<typeof TourLanguageUncheckedCreateNestedManyWithoutTourInput>;
     @Field(() => Int, {nullable:false})
     durationHours!: number;
     @Field(() => Int, {nullable:false})
@@ -7959,8 +9002,6 @@ export class TourUncheckedCreateWithoutTourTourCategoryInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUncheckedCreateNestedManyWithoutTourInput>;
     @Field(() => TourImageUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageUncheckedCreateNestedManyWithoutTourInput>;
     @Field(() => BookingUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
@@ -8010,8 +9051,6 @@ export class TourUncheckedCreateInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUncheckedCreateNestedManyWithoutTourInput>;
     @Field(() => TourImageUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageUncheckedCreateNestedManyWithoutTourInput>;
     @Field(() => BookingUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
@@ -8211,8 +9250,6 @@ export class TourUncheckedUpdateWithoutBookingInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewUncheckedUpdateManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUncheckedUpdateManyWithoutTourInput>;
     @Field(() => TourImageUncheckedUpdateManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageUncheckedUpdateManyWithoutTourInput>;
 }
@@ -8258,8 +9295,6 @@ export class TourUncheckedUpdateWithoutCurrencyInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewUncheckedUpdateManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUncheckedUpdateManyWithoutTourInput>;
     @Field(() => TourImageUncheckedUpdateManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageUncheckedUpdateManyWithoutTourInput>;
     @Field(() => BookingUncheckedUpdateManyWithoutTourInput, {nullable:true})
@@ -8307,8 +9342,6 @@ export class TourUncheckedUpdateWithoutGuideInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewUncheckedUpdateManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUncheckedUpdateManyWithoutTourInput>;
     @Field(() => TourImageUncheckedUpdateManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageUncheckedUpdateManyWithoutTourInput>;
     @Field(() => BookingUncheckedUpdateManyWithoutTourInput, {nullable:true})
@@ -8356,8 +9389,6 @@ export class TourUncheckedUpdateWithoutTourCityInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewUncheckedUpdateManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUncheckedUpdateManyWithoutTourInput>;
     @Field(() => TourImageUncheckedUpdateManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageUncheckedUpdateManyWithoutTourInput>;
     @Field(() => BookingUncheckedUpdateManyWithoutTourInput, {nullable:true})
@@ -8407,8 +9438,6 @@ export class TourUncheckedUpdateWithoutTourImageInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewUncheckedUpdateManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUncheckedUpdateManyWithoutTourInput>;
     @Field(() => BookingUncheckedUpdateManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingUncheckedUpdateManyWithoutTourInput>;
 }
@@ -8446,57 +9475,6 @@ export class TourUncheckedUpdateWithoutTourLanguageInput {
     tourTourCategory?: InstanceType<typeof TourTourCategoryUncheckedUpdateManyWithoutTourInput>;
     @Field(() => TourCityUncheckedUpdateManyWithoutTourInput, {nullable:true})
     tourCity?: InstanceType<typeof TourCityUncheckedUpdateManyWithoutTourInput>;
-    @Field(() => Int, {nullable:true})
-    durationHours?: number;
-    @Field(() => Int, {nullable:true})
-    durationMinutes?: number;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => TourReviewUncheckedUpdateManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUncheckedUpdateManyWithoutTourInput>;
-    @Field(() => TourImageUncheckedUpdateManyWithoutTourInput, {nullable:true})
-    tourImage?: InstanceType<typeof TourImageUncheckedUpdateManyWithoutTourInput>;
-    @Field(() => BookingUncheckedUpdateManyWithoutTourInput, {nullable:true})
-    booking?: InstanceType<typeof BookingUncheckedUpdateManyWithoutTourInput>;
-}
-
-@InputType()
-export class TourUncheckedUpdateWithoutTourReviewInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    name?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    description?: string;
-    @Field(() => Status, {nullable:true})
-    @Validator.IsString()
-    status?: keyof typeof Status;
-    @Field(() => TourType, {nullable:true})
-    type?: keyof typeof TourType;
-    @Field(() => TourFormat, {nullable:true})
-    format?: keyof typeof TourFormat;
-    @Field(() => String, {nullable:true})
-    image?: string;
-    @Field(() => Int, {nullable:true})
-    guideId?: number;
-    @Field(() => Int, {nullable:true})
-    currencyId?: number;
-    @Field(() => Int, {nullable:true})
-    maxCapacity?: number;
-    @Field(() => Float, {nullable:true})
-    rating?: number;
-    @Field(() => Float, {nullable:true})
-    price?: number;
-    @Field(() => TourTourCategoryUncheckedUpdateManyWithoutTourInput, {nullable:true})
-    tourTourCategory?: InstanceType<typeof TourTourCategoryUncheckedUpdateManyWithoutTourInput>;
-    @Field(() => TourCityUncheckedUpdateManyWithoutTourInput, {nullable:true})
-    tourCity?: InstanceType<typeof TourCityUncheckedUpdateManyWithoutTourInput>;
-    @Field(() => TourLanguageUncheckedUpdateManyWithoutTourInput, {nullable:true})
-    tourLanguage?: InstanceType<typeof TourLanguageUncheckedUpdateManyWithoutTourInput>;
     @Field(() => Int, {nullable:true})
     durationHours?: number;
     @Field(() => Int, {nullable:true})
@@ -8552,8 +9530,6 @@ export class TourUncheckedUpdateWithoutTourTourCategoryInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewUncheckedUpdateManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUncheckedUpdateManyWithoutTourInput>;
     @Field(() => TourImageUncheckedUpdateManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageUncheckedUpdateManyWithoutTourInput>;
     @Field(() => BookingUncheckedUpdateManyWithoutTourInput, {nullable:true})
@@ -8603,8 +9579,6 @@ export class TourUncheckedUpdateInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewUncheckedUpdateManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUncheckedUpdateManyWithoutTourInput>;
     @Field(() => TourImageUncheckedUpdateManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageUncheckedUpdateManyWithoutTourInput>;
     @Field(() => BookingUncheckedUpdateManyWithoutTourInput, {nullable:true})
@@ -8831,29 +9805,6 @@ export class TourUpdateOneWithoutTourLanguageInput {
 }
 
 @InputType()
-export class TourUpdateOneWithoutTourReviewInput {
-    @Field(() => TourCreateWithoutTourReviewInput, {nullable:true})
-    @Type(() => TourCreateWithoutTourReviewInput)
-    create?: InstanceType<typeof TourCreateWithoutTourReviewInput>;
-    @Field(() => TourCreateOrConnectWithoutTourReviewInput, {nullable:true})
-    @Type(() => TourCreateOrConnectWithoutTourReviewInput)
-    connectOrCreate?: InstanceType<typeof TourCreateOrConnectWithoutTourReviewInput>;
-    @Field(() => TourUpsertWithoutTourReviewInput, {nullable:true})
-    @Type(() => TourUpsertWithoutTourReviewInput)
-    upsert?: InstanceType<typeof TourUpsertWithoutTourReviewInput>;
-    @Field(() => Boolean, {nullable:true})
-    disconnect?: boolean;
-    @Field(() => Boolean, {nullable:true})
-    delete?: boolean;
-    @Field(() => TourWhereUniqueInput, {nullable:true})
-    @Type(() => TourWhereUniqueInput)
-    connect?: InstanceType<typeof TourWhereUniqueInput>;
-    @Field(() => TourUpdateWithoutTourReviewInput, {nullable:true})
-    @Type(() => TourUpdateWithoutTourReviewInput)
-    update?: InstanceType<typeof TourUpdateWithoutTourReviewInput>;
-}
-
-@InputType()
 export class TourUpdateOneWithoutTourTourCategoryInput {
     @Field(() => TourCreateWithoutTourTourCategoryInput, {nullable:true})
     @Type(() => TourCreateWithoutTourTourCategoryInput)
@@ -8937,8 +9888,6 @@ export class TourUpdateWithoutBookingInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewUpdateManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUpdateManyWithoutTourInput>;
     @Field(() => TourImageUpdateManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageUpdateManyWithoutTourInput>;
 }
@@ -8982,8 +9931,6 @@ export class TourUpdateWithoutCurrencyInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewUpdateManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUpdateManyWithoutTourInput>;
     @Field(() => TourImageUpdateManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageUpdateManyWithoutTourInput>;
     @Field(() => BookingUpdateManyWithoutTourInput, {nullable:true})
@@ -9029,8 +9976,6 @@ export class TourUpdateWithoutGuideInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewUpdateManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUpdateManyWithoutTourInput>;
     @Field(() => TourImageUpdateManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageUpdateManyWithoutTourInput>;
     @Field(() => BookingUpdateManyWithoutTourInput, {nullable:true})
@@ -9076,8 +10021,6 @@ export class TourUpdateWithoutTourCityInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewUpdateManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUpdateManyWithoutTourInput>;
     @Field(() => TourImageUpdateManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageUpdateManyWithoutTourInput>;
     @Field(() => BookingUpdateManyWithoutTourInput, {nullable:true})
@@ -9125,8 +10068,6 @@ export class TourUpdateWithoutTourImageInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewUpdateManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUpdateManyWithoutTourInput>;
     @Field(() => BookingUpdateManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingUpdateManyWithoutTourInput>;
 }
@@ -9162,55 +10103,6 @@ export class TourUpdateWithoutTourLanguageInput {
     tourTourCategory?: InstanceType<typeof TourTourCategoryUpdateManyWithoutTourInput>;
     @Field(() => TourCityUpdateManyWithoutTourInput, {nullable:true})
     tourCity?: InstanceType<typeof TourCityUpdateManyWithoutTourInput>;
-    @Field(() => Int, {nullable:true})
-    durationHours?: number;
-    @Field(() => Int, {nullable:true})
-    durationMinutes?: number;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => TourReviewUpdateManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUpdateManyWithoutTourInput>;
-    @Field(() => TourImageUpdateManyWithoutTourInput, {nullable:true})
-    tourImage?: InstanceType<typeof TourImageUpdateManyWithoutTourInput>;
-    @Field(() => BookingUpdateManyWithoutTourInput, {nullable:true})
-    booking?: InstanceType<typeof BookingUpdateManyWithoutTourInput>;
-}
-
-@InputType()
-export class TourUpdateWithoutTourReviewInput {
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    name?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    description?: string;
-    @Field(() => Status, {nullable:true})
-    @Validator.IsString()
-    status?: keyof typeof Status;
-    @Field(() => TourType, {nullable:true})
-    type?: keyof typeof TourType;
-    @Field(() => TourFormat, {nullable:true})
-    format?: keyof typeof TourFormat;
-    @Field(() => String, {nullable:true})
-    image?: string;
-    @Field(() => UserUpdateOneRequiredWithoutTourInput, {nullable:true})
-    guide?: InstanceType<typeof UserUpdateOneRequiredWithoutTourInput>;
-    @Field(() => CurrencyUpdateOneRequiredWithoutTourInput, {nullable:true})
-    currency?: InstanceType<typeof CurrencyUpdateOneRequiredWithoutTourInput>;
-    @Field(() => Int, {nullable:true})
-    maxCapacity?: number;
-    @Field(() => Float, {nullable:true})
-    rating?: number;
-    @Field(() => Float, {nullable:true})
-    price?: number;
-    @Field(() => TourTourCategoryUpdateManyWithoutTourInput, {nullable:true})
-    tourTourCategory?: InstanceType<typeof TourTourCategoryUpdateManyWithoutTourInput>;
-    @Field(() => TourCityUpdateManyWithoutTourInput, {nullable:true})
-    tourCity?: InstanceType<typeof TourCityUpdateManyWithoutTourInput>;
-    @Field(() => TourLanguageUpdateManyWithoutTourInput, {nullable:true})
-    tourLanguage?: InstanceType<typeof TourLanguageUpdateManyWithoutTourInput>;
     @Field(() => Int, {nullable:true})
     durationHours?: number;
     @Field(() => Int, {nullable:true})
@@ -9264,8 +10156,6 @@ export class TourUpdateWithoutTourTourCategoryInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewUpdateManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUpdateManyWithoutTourInput>;
     @Field(() => TourImageUpdateManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageUpdateManyWithoutTourInput>;
     @Field(() => BookingUpdateManyWithoutTourInput, {nullable:true})
@@ -9313,8 +10203,6 @@ export class TourUpdateInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewUpdateManyWithoutTourInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUpdateManyWithoutTourInput>;
     @Field(() => TourImageUpdateManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageUpdateManyWithoutTourInput>;
     @Field(() => BookingUpdateManyWithoutTourInput, {nullable:true})
@@ -9388,16 +10276,6 @@ export class TourUpsertWithoutTourLanguageInput {
 }
 
 @InputType()
-export class TourUpsertWithoutTourReviewInput {
-    @Field(() => TourUpdateWithoutTourReviewInput, {nullable:false})
-    @Type(() => TourUpdateWithoutTourReviewInput)
-    update!: InstanceType<typeof TourUpdateWithoutTourReviewInput>;
-    @Field(() => TourCreateWithoutTourReviewInput, {nullable:false})
-    @Type(() => TourCreateWithoutTourReviewInput)
-    create!: InstanceType<typeof TourCreateWithoutTourReviewInput>;
-}
-
-@InputType()
 export class TourUpsertWithoutTourTourCategoryInput {
     @Field(() => TourUpdateWithoutTourTourCategoryInput, {nullable:false})
     @Type(() => TourUpdateWithoutTourTourCategoryInput)
@@ -9463,8 +10341,6 @@ export class TourWhereInput {
     createdAt?: InstanceType<typeof DateTimeFilter>;
     @Field(() => DateTimeFilter, {nullable:true})
     updatedAt?: InstanceType<typeof DateTimeFilter>;
-    @Field(() => TourReviewListRelationFilter, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewListRelationFilter>;
     @Field(() => TourImageListRelationFilter, {nullable:true})
     tourImage?: InstanceType<typeof TourImageListRelationFilter>;
     @Field(() => BookingListRelationFilter, {nullable:true})
@@ -9515,8 +10391,6 @@ export class Tour {
     createdAt!: Date;
     @Field(() => Date, {nullable:false})
     updatedAt!: Date;
-    @Field(() => [TourReview], {nullable:true})
-    tourReview?: Array<TourReview>;
     @Field(() => [TourImage], {nullable:true})
     tourImage?: Array<TourImage>;
     @Field(() => [Booking], {nullable:true})
@@ -13206,1383 +14080,6 @@ export class UpsertOneTourLanguageArgs {
 }
 
 @ObjectType()
-export class AggregateTourReview {
-    @Field(() => TourReviewCountAggregate, {nullable:true})
-    _count?: InstanceType<typeof TourReviewCountAggregate>;
-    @Field(() => TourReviewAvgAggregate, {nullable:true})
-    _avg?: InstanceType<typeof TourReviewAvgAggregate>;
-    @Field(() => TourReviewSumAggregate, {nullable:true})
-    _sum?: InstanceType<typeof TourReviewSumAggregate>;
-    @Field(() => TourReviewMinAggregate, {nullable:true})
-    _min?: InstanceType<typeof TourReviewMinAggregate>;
-    @Field(() => TourReviewMaxAggregate, {nullable:true})
-    _max?: InstanceType<typeof TourReviewMaxAggregate>;
-}
-
-@ArgsType()
-export class CreateManyTourReviewArgs {
-    @Field(() => [TourReviewCreateManyInput], {nullable:false})
-    @Type(() => TourReviewCreateManyInput)
-    @ValidateNested({ each: true })
-    data!: Array<TourReviewCreateManyInput>;
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
-}
-
-@ArgsType()
-export class CreateOneTourReviewArgs {
-    @Field(() => TourReviewCreateInput, {nullable:false})
-    @Type(() => TourReviewCreateInput)
-    @ValidateNested({ each: true })
-    data!: InstanceType<typeof TourReviewCreateInput>;
-}
-
-@ArgsType()
-export class DeleteManyTourReviewArgs {
-    @Field(() => TourReviewWhereInput, {nullable:true})
-    @Type(() => TourReviewWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof TourReviewWhereInput>;
-}
-
-@ArgsType()
-export class DeleteOneTourReviewArgs {
-    @Field(() => TourReviewWhereUniqueInput, {nullable:false})
-    @Type(() => TourReviewWhereUniqueInput)
-    @ValidateNested({ each: true })
-    where!: InstanceType<typeof TourReviewWhereUniqueInput>;
-}
-
-@ArgsType()
-export class FindFirstTourReviewArgs {
-    @Field(() => TourReviewWhereInput, {nullable:true})
-    @Type(() => TourReviewWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof TourReviewWhereInput>;
-    @Field(() => [TourReviewOrderByWithRelationInput], {nullable:true})
-    orderBy?: Array<TourReviewOrderByWithRelationInput>;
-    @Field(() => TourReviewWhereUniqueInput, {nullable:true})
-    cursor?: InstanceType<typeof TourReviewWhereUniqueInput>;
-    @Field(() => Int, {nullable:true})
-    take?: number;
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-    @Field(() => [TourReviewScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof TourReviewScalarFieldEnum>;
-}
-
-@ArgsType()
-export class FindManyTourReviewArgs {
-    @Field(() => TourReviewWhereInput, {nullable:true})
-    @Type(() => TourReviewWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof TourReviewWhereInput>;
-    @Field(() => [TourReviewOrderByWithRelationInput], {nullable:true})
-    orderBy?: Array<TourReviewOrderByWithRelationInput>;
-    @Field(() => TourReviewWhereUniqueInput, {nullable:true})
-    cursor?: InstanceType<typeof TourReviewWhereUniqueInput>;
-    @Field(() => Int, {nullable:true})
-    take?: number;
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-    @Field(() => [TourReviewScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof TourReviewScalarFieldEnum>;
-}
-
-@ArgsType()
-export class FindUniqueTourReviewArgs {
-    @Field(() => TourReviewWhereUniqueInput, {nullable:false})
-    @Type(() => TourReviewWhereUniqueInput)
-    @ValidateNested({ each: true })
-    where!: InstanceType<typeof TourReviewWhereUniqueInput>;
-}
-
-@ArgsType()
-export class TourReviewAggregateArgs {
-    @Field(() => TourReviewWhereInput, {nullable:true})
-    @Type(() => TourReviewWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof TourReviewWhereInput>;
-    @Field(() => [TourReviewOrderByWithRelationInput], {nullable:true})
-    orderBy?: Array<TourReviewOrderByWithRelationInput>;
-    @Field(() => TourReviewWhereUniqueInput, {nullable:true})
-    cursor?: InstanceType<typeof TourReviewWhereUniqueInput>;
-    @Field(() => Int, {nullable:true})
-    take?: number;
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-    @Field(() => TourReviewCountAggregateInput, {nullable:true})
-    _count?: InstanceType<typeof TourReviewCountAggregateInput>;
-    @Field(() => TourReviewAvgAggregateInput, {nullable:true})
-    _avg?: InstanceType<typeof TourReviewAvgAggregateInput>;
-    @Field(() => TourReviewSumAggregateInput, {nullable:true})
-    _sum?: InstanceType<typeof TourReviewSumAggregateInput>;
-    @Field(() => TourReviewMinAggregateInput, {nullable:true})
-    _min?: InstanceType<typeof TourReviewMinAggregateInput>;
-    @Field(() => TourReviewMaxAggregateInput, {nullable:true})
-    _max?: InstanceType<typeof TourReviewMaxAggregateInput>;
-}
-
-@InputType()
-export class TourReviewAvgAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    id?: true;
-    @Field(() => Boolean, {nullable:true})
-    rate?: true;
-    @Field(() => Boolean, {nullable:true})
-    tourId?: true;
-    @Field(() => Boolean, {nullable:true})
-    userId?: true;
-}
-
-@ObjectType()
-export class TourReviewAvgAggregate {
-    @Field(() => Float, {nullable:true})
-    id?: number;
-    @Field(() => Float, {nullable:true})
-    rate?: number;
-    @Field(() => Float, {nullable:true})
-    tourId?: number;
-    @Field(() => Float, {nullable:true})
-    userId?: number;
-}
-
-@InputType()
-export class TourReviewAvgOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    rate?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    tourId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class TourReviewCountAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    id?: true;
-    @Field(() => Boolean, {nullable:true})
-    name?: true;
-    @Field(() => Boolean, {nullable:true})
-    status?: true;
-    @Field(() => Boolean, {nullable:true})
-    createdAt?: true;
-    @Field(() => Boolean, {nullable:true})
-    updatedAt?: true;
-    @Field(() => Boolean, {nullable:true})
-    rate?: true;
-    @Field(() => Boolean, {nullable:true})
-    review?: true;
-    @Field(() => Boolean, {nullable:true})
-    tourId?: true;
-    @Field(() => Boolean, {nullable:true})
-    userId?: true;
-    @Field(() => Boolean, {nullable:true})
-    _all?: true;
-}
-
-@ObjectType()
-export class TourReviewCountAggregate {
-    @Field(() => Int, {nullable:false})
-    id!: number;
-    @Field(() => Int, {nullable:false})
-    name!: number;
-    @Field(() => Int, {nullable:false})
-    status!: number;
-    @Field(() => Int, {nullable:false})
-    createdAt!: number;
-    @Field(() => Int, {nullable:false})
-    updatedAt!: number;
-    @Field(() => Int, {nullable:false})
-    rate!: number;
-    @Field(() => Int, {nullable:false})
-    review!: number;
-    @Field(() => Int, {nullable:false})
-    tourId!: number;
-    @Field(() => Int, {nullable:false})
-    userId!: number;
-    @Field(() => Int, {nullable:false})
-    _all!: number;
-}
-
-@InputType()
-export class TourReviewCountOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    createdAt?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    updatedAt?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    rate?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    review?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    tourId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class TourReviewCreateManyTourInputEnvelope {
-    @Field(() => [TourReviewCreateManyTourInput], {nullable:false})
-    @Type(() => TourReviewCreateManyTourInput)
-    data!: Array<TourReviewCreateManyTourInput>;
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
-}
-
-@InputType()
-export class TourReviewCreateManyTourInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    name!: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => Int, {nullable:false})
-    rate!: number;
-    @Field(() => String, {nullable:false})
-    review!: string;
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-}
-
-@InputType()
-export class TourReviewCreateManyUserInputEnvelope {
-    @Field(() => [TourReviewCreateManyUserInput], {nullable:false})
-    @Type(() => TourReviewCreateManyUserInput)
-    data!: Array<TourReviewCreateManyUserInput>;
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
-}
-
-@InputType()
-export class TourReviewCreateManyUserInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    name!: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => Int, {nullable:false})
-    rate!: number;
-    @Field(() => String, {nullable:false})
-    review!: string;
-    @Field(() => Int, {nullable:true})
-    tourId?: number;
-}
-
-@InputType()
-export class TourReviewCreateManyInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    name!: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => Int, {nullable:false})
-    rate!: number;
-    @Field(() => String, {nullable:false})
-    review!: string;
-    @Field(() => Int, {nullable:true})
-    tourId?: number;
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-}
-
-@InputType()
-export class TourReviewCreateNestedManyWithoutTourInput {
-    @Field(() => [TourReviewCreateWithoutTourInput], {nullable:true})
-    @Type(() => TourReviewCreateWithoutTourInput)
-    create?: Array<TourReviewCreateWithoutTourInput>;
-    @Field(() => [TourReviewCreateOrConnectWithoutTourInput], {nullable:true})
-    @Type(() => TourReviewCreateOrConnectWithoutTourInput)
-    connectOrCreate?: Array<TourReviewCreateOrConnectWithoutTourInput>;
-    @Field(() => TourReviewCreateManyTourInputEnvelope, {nullable:true})
-    @Type(() => TourReviewCreateManyTourInputEnvelope)
-    createMany?: InstanceType<typeof TourReviewCreateManyTourInputEnvelope>;
-    @Field(() => [TourReviewWhereUniqueInput], {nullable:true})
-    @Type(() => TourReviewWhereUniqueInput)
-    connect?: Array<TourReviewWhereUniqueInput>;
-}
-
-@InputType()
-export class TourReviewCreateNestedManyWithoutUserInput {
-    @Field(() => [TourReviewCreateWithoutUserInput], {nullable:true})
-    @Type(() => TourReviewCreateWithoutUserInput)
-    create?: Array<TourReviewCreateWithoutUserInput>;
-    @Field(() => [TourReviewCreateOrConnectWithoutUserInput], {nullable:true})
-    @Type(() => TourReviewCreateOrConnectWithoutUserInput)
-    connectOrCreate?: Array<TourReviewCreateOrConnectWithoutUserInput>;
-    @Field(() => TourReviewCreateManyUserInputEnvelope, {nullable:true})
-    @Type(() => TourReviewCreateManyUserInputEnvelope)
-    createMany?: InstanceType<typeof TourReviewCreateManyUserInputEnvelope>;
-    @Field(() => [TourReviewWhereUniqueInput], {nullable:true})
-    @Type(() => TourReviewWhereUniqueInput)
-    connect?: Array<TourReviewWhereUniqueInput>;
-}
-
-@InputType()
-export class TourReviewCreateOrConnectWithoutTourInput {
-    @Field(() => TourReviewWhereUniqueInput, {nullable:false})
-    @Type(() => TourReviewWhereUniqueInput)
-    where!: InstanceType<typeof TourReviewWhereUniqueInput>;
-    @Field(() => TourReviewCreateWithoutTourInput, {nullable:false})
-    @Type(() => TourReviewCreateWithoutTourInput)
-    create!: InstanceType<typeof TourReviewCreateWithoutTourInput>;
-}
-
-@InputType()
-export class TourReviewCreateOrConnectWithoutUserInput {
-    @Field(() => TourReviewWhereUniqueInput, {nullable:false})
-    @Type(() => TourReviewWhereUniqueInput)
-    where!: InstanceType<typeof TourReviewWhereUniqueInput>;
-    @Field(() => TourReviewCreateWithoutUserInput, {nullable:false})
-    @Type(() => TourReviewCreateWithoutUserInput)
-    create!: InstanceType<typeof TourReviewCreateWithoutUserInput>;
-}
-
-@InputType()
-export class TourReviewCreateWithoutTourInput {
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    name!: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => Int, {nullable:false})
-    rate!: number;
-    @Field(() => String, {nullable:false})
-    review!: string;
-    @Field(() => UserCreateNestedOneWithoutTourReviewInput, {nullable:true})
-    user?: InstanceType<typeof UserCreateNestedOneWithoutTourReviewInput>;
-}
-
-@InputType()
-export class TourReviewCreateWithoutUserInput {
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    name!: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => Int, {nullable:false})
-    rate!: number;
-    @Field(() => String, {nullable:false})
-    review!: string;
-    @Field(() => TourCreateNestedOneWithoutTourReviewInput, {nullable:true})
-    tour?: InstanceType<typeof TourCreateNestedOneWithoutTourReviewInput>;
-}
-
-@InputType()
-export class TourReviewCreateInput {
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    name!: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => Int, {nullable:false})
-    rate!: number;
-    @Field(() => String, {nullable:false})
-    review!: string;
-    @Field(() => TourCreateNestedOneWithoutTourReviewInput, {nullable:true})
-    tour?: InstanceType<typeof TourCreateNestedOneWithoutTourReviewInput>;
-    @Field(() => UserCreateNestedOneWithoutTourReviewInput, {nullable:true})
-    user?: InstanceType<typeof UserCreateNestedOneWithoutTourReviewInput>;
-}
-
-@ArgsType()
-export class TourReviewGroupByArgs {
-    @Field(() => TourReviewWhereInput, {nullable:true})
-    @Type(() => TourReviewWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof TourReviewWhereInput>;
-    @Field(() => [TourReviewOrderByWithAggregationInput], {nullable:true})
-    orderBy?: Array<TourReviewOrderByWithAggregationInput>;
-    @Field(() => [TourReviewScalarFieldEnum], {nullable:false})
-    by!: Array<keyof typeof TourReviewScalarFieldEnum>;
-    @Field(() => TourReviewScalarWhereWithAggregatesInput, {nullable:true})
-    having?: InstanceType<typeof TourReviewScalarWhereWithAggregatesInput>;
-    @Field(() => Int, {nullable:true})
-    take?: number;
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-    @Field(() => TourReviewCountAggregateInput, {nullable:true})
-    _count?: InstanceType<typeof TourReviewCountAggregateInput>;
-    @Field(() => TourReviewAvgAggregateInput, {nullable:true})
-    _avg?: InstanceType<typeof TourReviewAvgAggregateInput>;
-    @Field(() => TourReviewSumAggregateInput, {nullable:true})
-    _sum?: InstanceType<typeof TourReviewSumAggregateInput>;
-    @Field(() => TourReviewMinAggregateInput, {nullable:true})
-    _min?: InstanceType<typeof TourReviewMinAggregateInput>;
-    @Field(() => TourReviewMaxAggregateInput, {nullable:true})
-    _max?: InstanceType<typeof TourReviewMaxAggregateInput>;
-}
-
-@ObjectType()
-export class TourReviewGroupBy {
-    @Field(() => Int, {nullable:false})
-    id!: number;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    name!: string;
-    @Field(() => Status, {nullable:false})
-    status!: keyof typeof Status;
-    @Field(() => Date, {nullable:false})
-    createdAt!: Date | string;
-    @Field(() => Date, {nullable:false})
-    updatedAt!: Date | string;
-    @Field(() => Int, {nullable:false})
-    rate!: number;
-    @Field(() => String, {nullable:false})
-    review!: string;
-    @Field(() => Int, {nullable:true})
-    tourId?: number;
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-    @Field(() => TourReviewCountAggregate, {nullable:true})
-    _count?: InstanceType<typeof TourReviewCountAggregate>;
-    @Field(() => TourReviewAvgAggregate, {nullable:true})
-    _avg?: InstanceType<typeof TourReviewAvgAggregate>;
-    @Field(() => TourReviewSumAggregate, {nullable:true})
-    _sum?: InstanceType<typeof TourReviewSumAggregate>;
-    @Field(() => TourReviewMinAggregate, {nullable:true})
-    _min?: InstanceType<typeof TourReviewMinAggregate>;
-    @Field(() => TourReviewMaxAggregate, {nullable:true})
-    _max?: InstanceType<typeof TourReviewMaxAggregate>;
-}
-
-@InputType()
-export class TourReviewListRelationFilter {
-    @Field(() => TourReviewWhereInput, {nullable:true})
-    every?: InstanceType<typeof TourReviewWhereInput>;
-    @Field(() => TourReviewWhereInput, {nullable:true})
-    some?: InstanceType<typeof TourReviewWhereInput>;
-    @Field(() => TourReviewWhereInput, {nullable:true})
-    none?: InstanceType<typeof TourReviewWhereInput>;
-}
-
-@InputType()
-export class TourReviewMaxAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    id?: true;
-    @Field(() => Boolean, {nullable:true})
-    name?: true;
-    @Field(() => Boolean, {nullable:true})
-    status?: true;
-    @Field(() => Boolean, {nullable:true})
-    createdAt?: true;
-    @Field(() => Boolean, {nullable:true})
-    updatedAt?: true;
-    @Field(() => Boolean, {nullable:true})
-    rate?: true;
-    @Field(() => Boolean, {nullable:true})
-    review?: true;
-    @Field(() => Boolean, {nullable:true})
-    tourId?: true;
-    @Field(() => Boolean, {nullable:true})
-    userId?: true;
-}
-
-@ObjectType()
-export class TourReviewMaxAggregate {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    name?: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => Int, {nullable:true})
-    rate?: number;
-    @Field(() => String, {nullable:true})
-    review?: string;
-    @Field(() => Int, {nullable:true})
-    tourId?: number;
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-}
-
-@InputType()
-export class TourReviewMaxOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    createdAt?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    updatedAt?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    rate?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    review?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    tourId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class TourReviewMinAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    id?: true;
-    @Field(() => Boolean, {nullable:true})
-    name?: true;
-    @Field(() => Boolean, {nullable:true})
-    status?: true;
-    @Field(() => Boolean, {nullable:true})
-    createdAt?: true;
-    @Field(() => Boolean, {nullable:true})
-    updatedAt?: true;
-    @Field(() => Boolean, {nullable:true})
-    rate?: true;
-    @Field(() => Boolean, {nullable:true})
-    review?: true;
-    @Field(() => Boolean, {nullable:true})
-    tourId?: true;
-    @Field(() => Boolean, {nullable:true})
-    userId?: true;
-}
-
-@ObjectType()
-export class TourReviewMinAggregate {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    name?: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => Int, {nullable:true})
-    rate?: number;
-    @Field(() => String, {nullable:true})
-    review?: string;
-    @Field(() => Int, {nullable:true})
-    tourId?: number;
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-}
-
-@InputType()
-export class TourReviewMinOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    createdAt?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    updatedAt?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    rate?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    review?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    tourId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class TourReviewOrderByRelationAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    _count?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class TourReviewOrderByWithAggregationInput {
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    createdAt?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    updatedAt?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    rate?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    review?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    tourId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-    @Field(() => TourReviewCountOrderByAggregateInput, {nullable:true})
-    _count?: InstanceType<typeof TourReviewCountOrderByAggregateInput>;
-    @Field(() => TourReviewAvgOrderByAggregateInput, {nullable:true})
-    _avg?: InstanceType<typeof TourReviewAvgOrderByAggregateInput>;
-    @Field(() => TourReviewMaxOrderByAggregateInput, {nullable:true})
-    _max?: InstanceType<typeof TourReviewMaxOrderByAggregateInput>;
-    @Field(() => TourReviewMinOrderByAggregateInput, {nullable:true})
-    _min?: InstanceType<typeof TourReviewMinOrderByAggregateInput>;
-    @Field(() => TourReviewSumOrderByAggregateInput, {nullable:true})
-    _sum?: InstanceType<typeof TourReviewSumOrderByAggregateInput>;
-}
-
-@InputType()
-export class TourReviewOrderByWithRelationInput {
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    createdAt?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    updatedAt?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    rate?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    review?: keyof typeof SortOrder;
-    @Field(() => TourOrderByWithRelationInput, {nullable:true})
-    tour?: InstanceType<typeof TourOrderByWithRelationInput>;
-    @Field(() => SortOrder, {nullable:true})
-    tourId?: keyof typeof SortOrder;
-    @Field(() => UserOrderByWithRelationInput, {nullable:true})
-    user?: InstanceType<typeof UserOrderByWithRelationInput>;
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class TourReviewScalarWhereWithAggregatesInput {
-    @Field(() => [TourReviewScalarWhereWithAggregatesInput], {nullable:true})
-    AND?: Array<TourReviewScalarWhereWithAggregatesInput>;
-    @Field(() => [TourReviewScalarWhereWithAggregatesInput], {nullable:true})
-    OR?: Array<TourReviewScalarWhereWithAggregatesInput>;
-    @Field(() => [TourReviewScalarWhereWithAggregatesInput], {nullable:true})
-    NOT?: Array<TourReviewScalarWhereWithAggregatesInput>;
-    @Field(() => IntWithAggregatesFilter, {nullable:true})
-    id?: InstanceType<typeof IntWithAggregatesFilter>;
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    name?: InstanceType<typeof StringWithAggregatesFilter>;
-    @Field(() => EnumStatusWithAggregatesFilter, {nullable:true})
-    status?: InstanceType<typeof EnumStatusWithAggregatesFilter>;
-    @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
-    createdAt?: InstanceType<typeof DateTimeWithAggregatesFilter>;
-    @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
-    updatedAt?: InstanceType<typeof DateTimeWithAggregatesFilter>;
-    @Field(() => IntWithAggregatesFilter, {nullable:true})
-    rate?: InstanceType<typeof IntWithAggregatesFilter>;
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    review?: InstanceType<typeof StringWithAggregatesFilter>;
-    @Field(() => IntWithAggregatesFilter, {nullable:true})
-    tourId?: InstanceType<typeof IntWithAggregatesFilter>;
-    @Field(() => IntWithAggregatesFilter, {nullable:true})
-    userId?: InstanceType<typeof IntWithAggregatesFilter>;
-}
-
-@InputType()
-export class TourReviewScalarWhereInput {
-    @Field(() => [TourReviewScalarWhereInput], {nullable:true})
-    AND?: Array<TourReviewScalarWhereInput>;
-    @Field(() => [TourReviewScalarWhereInput], {nullable:true})
-    OR?: Array<TourReviewScalarWhereInput>;
-    @Field(() => [TourReviewScalarWhereInput], {nullable:true})
-    NOT?: Array<TourReviewScalarWhereInput>;
-    @Field(() => IntFilter, {nullable:true})
-    id?: InstanceType<typeof IntFilter>;
-    @Field(() => StringFilter, {nullable:true})
-    name?: InstanceType<typeof StringFilter>;
-    @Field(() => EnumStatusFilter, {nullable:true})
-    status?: InstanceType<typeof EnumStatusFilter>;
-    @Field(() => DateTimeFilter, {nullable:true})
-    createdAt?: InstanceType<typeof DateTimeFilter>;
-    @Field(() => DateTimeFilter, {nullable:true})
-    updatedAt?: InstanceType<typeof DateTimeFilter>;
-    @Field(() => IntFilter, {nullable:true})
-    rate?: InstanceType<typeof IntFilter>;
-    @Field(() => StringFilter, {nullable:true})
-    review?: InstanceType<typeof StringFilter>;
-    @Field(() => IntFilter, {nullable:true})
-    tourId?: InstanceType<typeof IntFilter>;
-    @Field(() => IntFilter, {nullable:true})
-    userId?: InstanceType<typeof IntFilter>;
-}
-
-@InputType()
-export class TourReviewSumAggregateInput {
-    @Field(() => Boolean, {nullable:true})
-    id?: true;
-    @Field(() => Boolean, {nullable:true})
-    rate?: true;
-    @Field(() => Boolean, {nullable:true})
-    tourId?: true;
-    @Field(() => Boolean, {nullable:true})
-    userId?: true;
-}
-
-@ObjectType()
-export class TourReviewSumAggregate {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => Int, {nullable:true})
-    rate?: number;
-    @Field(() => Int, {nullable:true})
-    tourId?: number;
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-}
-
-@InputType()
-export class TourReviewSumOrderByAggregateInput {
-    @Field(() => SortOrder, {nullable:true})
-    id?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    rate?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    tourId?: keyof typeof SortOrder;
-    @Field(() => SortOrder, {nullable:true})
-    userId?: keyof typeof SortOrder;
-}
-
-@InputType()
-export class TourReviewUncheckedCreateNestedManyWithoutTourInput {
-    @Field(() => [TourReviewCreateWithoutTourInput], {nullable:true})
-    @Type(() => TourReviewCreateWithoutTourInput)
-    create?: Array<TourReviewCreateWithoutTourInput>;
-    @Field(() => [TourReviewCreateOrConnectWithoutTourInput], {nullable:true})
-    @Type(() => TourReviewCreateOrConnectWithoutTourInput)
-    connectOrCreate?: Array<TourReviewCreateOrConnectWithoutTourInput>;
-    @Field(() => TourReviewCreateManyTourInputEnvelope, {nullable:true})
-    @Type(() => TourReviewCreateManyTourInputEnvelope)
-    createMany?: InstanceType<typeof TourReviewCreateManyTourInputEnvelope>;
-    @Field(() => [TourReviewWhereUniqueInput], {nullable:true})
-    @Type(() => TourReviewWhereUniqueInput)
-    connect?: Array<TourReviewWhereUniqueInput>;
-}
-
-@InputType()
-export class TourReviewUncheckedCreateNestedManyWithoutUserInput {
-    @Field(() => [TourReviewCreateWithoutUserInput], {nullable:true})
-    @Type(() => TourReviewCreateWithoutUserInput)
-    create?: Array<TourReviewCreateWithoutUserInput>;
-    @Field(() => [TourReviewCreateOrConnectWithoutUserInput], {nullable:true})
-    @Type(() => TourReviewCreateOrConnectWithoutUserInput)
-    connectOrCreate?: Array<TourReviewCreateOrConnectWithoutUserInput>;
-    @Field(() => TourReviewCreateManyUserInputEnvelope, {nullable:true})
-    @Type(() => TourReviewCreateManyUserInputEnvelope)
-    createMany?: InstanceType<typeof TourReviewCreateManyUserInputEnvelope>;
-    @Field(() => [TourReviewWhereUniqueInput], {nullable:true})
-    @Type(() => TourReviewWhereUniqueInput)
-    connect?: Array<TourReviewWhereUniqueInput>;
-}
-
-@InputType()
-export class TourReviewUncheckedCreateWithoutTourInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    name!: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => Int, {nullable:false})
-    rate!: number;
-    @Field(() => String, {nullable:false})
-    review!: string;
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-}
-
-@InputType()
-export class TourReviewUncheckedCreateWithoutUserInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    name!: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => Int, {nullable:false})
-    rate!: number;
-    @Field(() => String, {nullable:false})
-    review!: string;
-    @Field(() => Int, {nullable:true})
-    tourId?: number;
-}
-
-@InputType()
-export class TourReviewUncheckedCreateInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:false})
-    @Validator.IsString()
-    name!: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => Int, {nullable:false})
-    rate!: number;
-    @Field(() => String, {nullable:false})
-    review!: string;
-    @Field(() => Int, {nullable:true})
-    tourId?: number;
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-}
-
-@InputType()
-export class TourReviewUncheckedUpdateManyWithoutTourReviewInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    name?: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => Int, {nullable:true})
-    rate?: number;
-    @Field(() => String, {nullable:true})
-    review?: string;
-    @Field(() => Int, {nullable:true})
-    tourId?: number;
-}
-
-@InputType()
-export class TourReviewUncheckedUpdateManyWithoutTourInput {
-    @Field(() => [TourReviewCreateWithoutTourInput], {nullable:true})
-    @Type(() => TourReviewCreateWithoutTourInput)
-    create?: Array<TourReviewCreateWithoutTourInput>;
-    @Field(() => [TourReviewCreateOrConnectWithoutTourInput], {nullable:true})
-    @Type(() => TourReviewCreateOrConnectWithoutTourInput)
-    connectOrCreate?: Array<TourReviewCreateOrConnectWithoutTourInput>;
-    @Field(() => [TourReviewUpsertWithWhereUniqueWithoutTourInput], {nullable:true})
-    @Type(() => TourReviewUpsertWithWhereUniqueWithoutTourInput)
-    upsert?: Array<TourReviewUpsertWithWhereUniqueWithoutTourInput>;
-    @Field(() => TourReviewCreateManyTourInputEnvelope, {nullable:true})
-    @Type(() => TourReviewCreateManyTourInputEnvelope)
-    createMany?: InstanceType<typeof TourReviewCreateManyTourInputEnvelope>;
-    @Field(() => [TourReviewWhereUniqueInput], {nullable:true})
-    @Type(() => TourReviewWhereUniqueInput)
-    set?: Array<TourReviewWhereUniqueInput>;
-    @Field(() => [TourReviewWhereUniqueInput], {nullable:true})
-    @Type(() => TourReviewWhereUniqueInput)
-    disconnect?: Array<TourReviewWhereUniqueInput>;
-    @Field(() => [TourReviewWhereUniqueInput], {nullable:true})
-    @Type(() => TourReviewWhereUniqueInput)
-    delete?: Array<TourReviewWhereUniqueInput>;
-    @Field(() => [TourReviewWhereUniqueInput], {nullable:true})
-    @Type(() => TourReviewWhereUniqueInput)
-    connect?: Array<TourReviewWhereUniqueInput>;
-    @Field(() => [TourReviewUpdateWithWhereUniqueWithoutTourInput], {nullable:true})
-    @Type(() => TourReviewUpdateWithWhereUniqueWithoutTourInput)
-    update?: Array<TourReviewUpdateWithWhereUniqueWithoutTourInput>;
-    @Field(() => [TourReviewUpdateManyWithWhereWithoutTourInput], {nullable:true})
-    @Type(() => TourReviewUpdateManyWithWhereWithoutTourInput)
-    updateMany?: Array<TourReviewUpdateManyWithWhereWithoutTourInput>;
-    @Field(() => [TourReviewScalarWhereInput], {nullable:true})
-    @Type(() => TourReviewScalarWhereInput)
-    deleteMany?: Array<TourReviewScalarWhereInput>;
-}
-
-@InputType()
-export class TourReviewUncheckedUpdateManyWithoutUserInput {
-    @Field(() => [TourReviewCreateWithoutUserInput], {nullable:true})
-    @Type(() => TourReviewCreateWithoutUserInput)
-    create?: Array<TourReviewCreateWithoutUserInput>;
-    @Field(() => [TourReviewCreateOrConnectWithoutUserInput], {nullable:true})
-    @Type(() => TourReviewCreateOrConnectWithoutUserInput)
-    connectOrCreate?: Array<TourReviewCreateOrConnectWithoutUserInput>;
-    @Field(() => [TourReviewUpsertWithWhereUniqueWithoutUserInput], {nullable:true})
-    @Type(() => TourReviewUpsertWithWhereUniqueWithoutUserInput)
-    upsert?: Array<TourReviewUpsertWithWhereUniqueWithoutUserInput>;
-    @Field(() => TourReviewCreateManyUserInputEnvelope, {nullable:true})
-    @Type(() => TourReviewCreateManyUserInputEnvelope)
-    createMany?: InstanceType<typeof TourReviewCreateManyUserInputEnvelope>;
-    @Field(() => [TourReviewWhereUniqueInput], {nullable:true})
-    @Type(() => TourReviewWhereUniqueInput)
-    set?: Array<TourReviewWhereUniqueInput>;
-    @Field(() => [TourReviewWhereUniqueInput], {nullable:true})
-    @Type(() => TourReviewWhereUniqueInput)
-    disconnect?: Array<TourReviewWhereUniqueInput>;
-    @Field(() => [TourReviewWhereUniqueInput], {nullable:true})
-    @Type(() => TourReviewWhereUniqueInput)
-    delete?: Array<TourReviewWhereUniqueInput>;
-    @Field(() => [TourReviewWhereUniqueInput], {nullable:true})
-    @Type(() => TourReviewWhereUniqueInput)
-    connect?: Array<TourReviewWhereUniqueInput>;
-    @Field(() => [TourReviewUpdateWithWhereUniqueWithoutUserInput], {nullable:true})
-    @Type(() => TourReviewUpdateWithWhereUniqueWithoutUserInput)
-    update?: Array<TourReviewUpdateWithWhereUniqueWithoutUserInput>;
-    @Field(() => [TourReviewUpdateManyWithWhereWithoutUserInput], {nullable:true})
-    @Type(() => TourReviewUpdateManyWithWhereWithoutUserInput)
-    updateMany?: Array<TourReviewUpdateManyWithWhereWithoutUserInput>;
-    @Field(() => [TourReviewScalarWhereInput], {nullable:true})
-    @Type(() => TourReviewScalarWhereInput)
-    deleteMany?: Array<TourReviewScalarWhereInput>;
-}
-
-@InputType()
-export class TourReviewUncheckedUpdateManyInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    name?: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => Int, {nullable:true})
-    rate?: number;
-    @Field(() => String, {nullable:true})
-    review?: string;
-    @Field(() => Int, {nullable:true})
-    tourId?: number;
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-}
-
-@InputType()
-export class TourReviewUncheckedUpdateWithoutTourInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    name?: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => Int, {nullable:true})
-    rate?: number;
-    @Field(() => String, {nullable:true})
-    review?: string;
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-}
-
-@InputType()
-export class TourReviewUncheckedUpdateWithoutUserInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    name?: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => Int, {nullable:true})
-    rate?: number;
-    @Field(() => String, {nullable:true})
-    review?: string;
-    @Field(() => Int, {nullable:true})
-    tourId?: number;
-}
-
-@InputType()
-export class TourReviewUncheckedUpdateInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    name?: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => Int, {nullable:true})
-    rate?: number;
-    @Field(() => String, {nullable:true})
-    review?: string;
-    @Field(() => Int, {nullable:true})
-    tourId?: number;
-    @Field(() => Int, {nullable:true})
-    userId?: number;
-}
-
-@InputType()
-export class TourReviewUpdateManyMutationInput {
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    name?: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => Int, {nullable:true})
-    rate?: number;
-    @Field(() => String, {nullable:true})
-    review?: string;
-}
-
-@InputType()
-export class TourReviewUpdateManyWithWhereWithoutTourInput {
-    @Field(() => TourReviewScalarWhereInput, {nullable:false})
-    @Type(() => TourReviewScalarWhereInput)
-    where!: InstanceType<typeof TourReviewScalarWhereInput>;
-    @Field(() => TourReviewUpdateManyMutationInput, {nullable:false})
-    @Type(() => TourReviewUpdateManyMutationInput)
-    data!: InstanceType<typeof TourReviewUpdateManyMutationInput>;
-}
-
-@InputType()
-export class TourReviewUpdateManyWithWhereWithoutUserInput {
-    @Field(() => TourReviewScalarWhereInput, {nullable:false})
-    @Type(() => TourReviewScalarWhereInput)
-    where!: InstanceType<typeof TourReviewScalarWhereInput>;
-    @Field(() => TourReviewUpdateManyMutationInput, {nullable:false})
-    @Type(() => TourReviewUpdateManyMutationInput)
-    data!: InstanceType<typeof TourReviewUpdateManyMutationInput>;
-}
-
-@InputType()
-export class TourReviewUpdateManyWithoutTourInput {
-    @Field(() => [TourReviewCreateWithoutTourInput], {nullable:true})
-    @Type(() => TourReviewCreateWithoutTourInput)
-    create?: Array<TourReviewCreateWithoutTourInput>;
-    @Field(() => [TourReviewCreateOrConnectWithoutTourInput], {nullable:true})
-    @Type(() => TourReviewCreateOrConnectWithoutTourInput)
-    connectOrCreate?: Array<TourReviewCreateOrConnectWithoutTourInput>;
-    @Field(() => [TourReviewUpsertWithWhereUniqueWithoutTourInput], {nullable:true})
-    @Type(() => TourReviewUpsertWithWhereUniqueWithoutTourInput)
-    upsert?: Array<TourReviewUpsertWithWhereUniqueWithoutTourInput>;
-    @Field(() => TourReviewCreateManyTourInputEnvelope, {nullable:true})
-    @Type(() => TourReviewCreateManyTourInputEnvelope)
-    createMany?: InstanceType<typeof TourReviewCreateManyTourInputEnvelope>;
-    @Field(() => [TourReviewWhereUniqueInput], {nullable:true})
-    @Type(() => TourReviewWhereUniqueInput)
-    set?: Array<TourReviewWhereUniqueInput>;
-    @Field(() => [TourReviewWhereUniqueInput], {nullable:true})
-    @Type(() => TourReviewWhereUniqueInput)
-    disconnect?: Array<TourReviewWhereUniqueInput>;
-    @Field(() => [TourReviewWhereUniqueInput], {nullable:true})
-    @Type(() => TourReviewWhereUniqueInput)
-    delete?: Array<TourReviewWhereUniqueInput>;
-    @Field(() => [TourReviewWhereUniqueInput], {nullable:true})
-    @Type(() => TourReviewWhereUniqueInput)
-    connect?: Array<TourReviewWhereUniqueInput>;
-    @Field(() => [TourReviewUpdateWithWhereUniqueWithoutTourInput], {nullable:true})
-    @Type(() => TourReviewUpdateWithWhereUniqueWithoutTourInput)
-    update?: Array<TourReviewUpdateWithWhereUniqueWithoutTourInput>;
-    @Field(() => [TourReviewUpdateManyWithWhereWithoutTourInput], {nullable:true})
-    @Type(() => TourReviewUpdateManyWithWhereWithoutTourInput)
-    updateMany?: Array<TourReviewUpdateManyWithWhereWithoutTourInput>;
-    @Field(() => [TourReviewScalarWhereInput], {nullable:true})
-    @Type(() => TourReviewScalarWhereInput)
-    deleteMany?: Array<TourReviewScalarWhereInput>;
-}
-
-@InputType()
-export class TourReviewUpdateManyWithoutUserInput {
-    @Field(() => [TourReviewCreateWithoutUserInput], {nullable:true})
-    @Type(() => TourReviewCreateWithoutUserInput)
-    create?: Array<TourReviewCreateWithoutUserInput>;
-    @Field(() => [TourReviewCreateOrConnectWithoutUserInput], {nullable:true})
-    @Type(() => TourReviewCreateOrConnectWithoutUserInput)
-    connectOrCreate?: Array<TourReviewCreateOrConnectWithoutUserInput>;
-    @Field(() => [TourReviewUpsertWithWhereUniqueWithoutUserInput], {nullable:true})
-    @Type(() => TourReviewUpsertWithWhereUniqueWithoutUserInput)
-    upsert?: Array<TourReviewUpsertWithWhereUniqueWithoutUserInput>;
-    @Field(() => TourReviewCreateManyUserInputEnvelope, {nullable:true})
-    @Type(() => TourReviewCreateManyUserInputEnvelope)
-    createMany?: InstanceType<typeof TourReviewCreateManyUserInputEnvelope>;
-    @Field(() => [TourReviewWhereUniqueInput], {nullable:true})
-    @Type(() => TourReviewWhereUniqueInput)
-    set?: Array<TourReviewWhereUniqueInput>;
-    @Field(() => [TourReviewWhereUniqueInput], {nullable:true})
-    @Type(() => TourReviewWhereUniqueInput)
-    disconnect?: Array<TourReviewWhereUniqueInput>;
-    @Field(() => [TourReviewWhereUniqueInput], {nullable:true})
-    @Type(() => TourReviewWhereUniqueInput)
-    delete?: Array<TourReviewWhereUniqueInput>;
-    @Field(() => [TourReviewWhereUniqueInput], {nullable:true})
-    @Type(() => TourReviewWhereUniqueInput)
-    connect?: Array<TourReviewWhereUniqueInput>;
-    @Field(() => [TourReviewUpdateWithWhereUniqueWithoutUserInput], {nullable:true})
-    @Type(() => TourReviewUpdateWithWhereUniqueWithoutUserInput)
-    update?: Array<TourReviewUpdateWithWhereUniqueWithoutUserInput>;
-    @Field(() => [TourReviewUpdateManyWithWhereWithoutUserInput], {nullable:true})
-    @Type(() => TourReviewUpdateManyWithWhereWithoutUserInput)
-    updateMany?: Array<TourReviewUpdateManyWithWhereWithoutUserInput>;
-    @Field(() => [TourReviewScalarWhereInput], {nullable:true})
-    @Type(() => TourReviewScalarWhereInput)
-    deleteMany?: Array<TourReviewScalarWhereInput>;
-}
-
-@InputType()
-export class TourReviewUpdateWithWhereUniqueWithoutTourInput {
-    @Field(() => TourReviewWhereUniqueInput, {nullable:false})
-    @Type(() => TourReviewWhereUniqueInput)
-    where!: InstanceType<typeof TourReviewWhereUniqueInput>;
-    @Field(() => TourReviewUpdateWithoutTourInput, {nullable:false})
-    @Type(() => TourReviewUpdateWithoutTourInput)
-    data!: InstanceType<typeof TourReviewUpdateWithoutTourInput>;
-}
-
-@InputType()
-export class TourReviewUpdateWithWhereUniqueWithoutUserInput {
-    @Field(() => TourReviewWhereUniqueInput, {nullable:false})
-    @Type(() => TourReviewWhereUniqueInput)
-    where!: InstanceType<typeof TourReviewWhereUniqueInput>;
-    @Field(() => TourReviewUpdateWithoutUserInput, {nullable:false})
-    @Type(() => TourReviewUpdateWithoutUserInput)
-    data!: InstanceType<typeof TourReviewUpdateWithoutUserInput>;
-}
-
-@InputType()
-export class TourReviewUpdateWithoutTourInput {
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    name?: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => Int, {nullable:true})
-    rate?: number;
-    @Field(() => String, {nullable:true})
-    review?: string;
-    @Field(() => UserUpdateOneWithoutTourReviewInput, {nullable:true})
-    user?: InstanceType<typeof UserUpdateOneWithoutTourReviewInput>;
-}
-
-@InputType()
-export class TourReviewUpdateWithoutUserInput {
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    name?: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => Int, {nullable:true})
-    rate?: number;
-    @Field(() => String, {nullable:true})
-    review?: string;
-    @Field(() => TourUpdateOneWithoutTourReviewInput, {nullable:true})
-    tour?: InstanceType<typeof TourUpdateOneWithoutTourReviewInput>;
-}
-
-@InputType()
-export class TourReviewUpdateInput {
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    name?: string;
-    @Field(() => Status, {nullable:true})
-    status?: keyof typeof Status;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => Int, {nullable:true})
-    rate?: number;
-    @Field(() => String, {nullable:true})
-    review?: string;
-    @Field(() => TourUpdateOneWithoutTourReviewInput, {nullable:true})
-    tour?: InstanceType<typeof TourUpdateOneWithoutTourReviewInput>;
-    @Field(() => UserUpdateOneWithoutTourReviewInput, {nullable:true})
-    user?: InstanceType<typeof UserUpdateOneWithoutTourReviewInput>;
-}
-
-@InputType()
-export class TourReviewUpsertWithWhereUniqueWithoutTourInput {
-    @Field(() => TourReviewWhereUniqueInput, {nullable:false})
-    @Type(() => TourReviewWhereUniqueInput)
-    where!: InstanceType<typeof TourReviewWhereUniqueInput>;
-    @Field(() => TourReviewUpdateWithoutTourInput, {nullable:false})
-    @Type(() => TourReviewUpdateWithoutTourInput)
-    update!: InstanceType<typeof TourReviewUpdateWithoutTourInput>;
-    @Field(() => TourReviewCreateWithoutTourInput, {nullable:false})
-    @Type(() => TourReviewCreateWithoutTourInput)
-    create!: InstanceType<typeof TourReviewCreateWithoutTourInput>;
-}
-
-@InputType()
-export class TourReviewUpsertWithWhereUniqueWithoutUserInput {
-    @Field(() => TourReviewWhereUniqueInput, {nullable:false})
-    @Type(() => TourReviewWhereUniqueInput)
-    where!: InstanceType<typeof TourReviewWhereUniqueInput>;
-    @Field(() => TourReviewUpdateWithoutUserInput, {nullable:false})
-    @Type(() => TourReviewUpdateWithoutUserInput)
-    update!: InstanceType<typeof TourReviewUpdateWithoutUserInput>;
-    @Field(() => TourReviewCreateWithoutUserInput, {nullable:false})
-    @Type(() => TourReviewCreateWithoutUserInput)
-    create!: InstanceType<typeof TourReviewCreateWithoutUserInput>;
-}
-
-@InputType()
-export class TourReviewWhereUniqueInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-}
-
-@InputType()
-export class TourReviewWhereInput {
-    @Field(() => [TourReviewWhereInput], {nullable:true})
-    AND?: Array<TourReviewWhereInput>;
-    @Field(() => [TourReviewWhereInput], {nullable:true})
-    OR?: Array<TourReviewWhereInput>;
-    @Field(() => [TourReviewWhereInput], {nullable:true})
-    NOT?: Array<TourReviewWhereInput>;
-    @Field(() => IntFilter, {nullable:true})
-    id?: InstanceType<typeof IntFilter>;
-    @Field(() => StringFilter, {nullable:true})
-    name?: InstanceType<typeof StringFilter>;
-    @Field(() => EnumStatusFilter, {nullable:true})
-    status?: InstanceType<typeof EnumStatusFilter>;
-    @Field(() => DateTimeFilter, {nullable:true})
-    createdAt?: InstanceType<typeof DateTimeFilter>;
-    @Field(() => DateTimeFilter, {nullable:true})
-    updatedAt?: InstanceType<typeof DateTimeFilter>;
-    @Field(() => IntFilter, {nullable:true})
-    rate?: InstanceType<typeof IntFilter>;
-    @Field(() => StringFilter, {nullable:true})
-    review?: InstanceType<typeof StringFilter>;
-    @Field(() => TourRelationFilter, {nullable:true})
-    tour?: InstanceType<typeof TourRelationFilter>;
-    @Field(() => IntFilter, {nullable:true})
-    tourId?: InstanceType<typeof IntFilter>;
-    @Field(() => UserRelationFilter, {nullable:true})
-    user?: InstanceType<typeof UserRelationFilter>;
-    @Field(() => IntFilter, {nullable:true})
-    userId?: InstanceType<typeof IntFilter>;
-}
-
-@ObjectType()
-export class TourReview {
-    @Field(() => ID, {nullable:false})
-    id!: number;
-    @Field(() => String, {nullable:false})
-    name!: string;
-    @Field(() => Status, {nullable:false,defaultValue:'ACTIVE'})
-    status!: keyof typeof Status;
-    @Field(() => Date, {nullable:false})
-    createdAt!: Date;
-    @Field(() => Date, {nullable:false})
-    updatedAt!: Date;
-    @Field(() => Int, {nullable:false})
-    rate!: number;
-    @Field(() => String, {nullable:false})
-    review!: string;
-    @Field(() => Tour, {nullable:true})
-    tour?: InstanceType<typeof Tour> | null;
-    @Field(() => Int, {nullable:true})
-    tourId!: number | null;
-    @Field(() => User, {nullable:true})
-    user?: InstanceType<typeof User> | null;
-    @Field(() => Int, {nullable:true})
-    userId!: number | null;
-}
-
-@ArgsType()
-export class UpdateManyTourReviewArgs {
-    @Field(() => TourReviewUpdateManyMutationInput, {nullable:false})
-    @Type(() => TourReviewUpdateManyMutationInput)
-    @ValidateNested({ each: true })
-    data!: InstanceType<typeof TourReviewUpdateManyMutationInput>;
-    @Field(() => TourReviewWhereInput, {nullable:true})
-    @Type(() => TourReviewWhereInput)
-    @ValidateNested({ each: true })
-    where?: InstanceType<typeof TourReviewWhereInput>;
-}
-
-@ArgsType()
-export class UpdateOneTourReviewArgs {
-    @Field(() => TourReviewUpdateInput, {nullable:false})
-    @Type(() => TourReviewUpdateInput)
-    @ValidateNested({ each: true })
-    data!: InstanceType<typeof TourReviewUpdateInput>;
-    @Field(() => TourReviewWhereUniqueInput, {nullable:false})
-    @Type(() => TourReviewWhereUniqueInput)
-    @ValidateNested({ each: true })
-    where!: InstanceType<typeof TourReviewWhereUniqueInput>;
-}
-
-@ArgsType()
-export class UpsertOneTourReviewArgs {
-    @Field(() => TourReviewWhereUniqueInput, {nullable:false})
-    @Type(() => TourReviewWhereUniqueInput)
-    @ValidateNested({ each: true })
-    where!: InstanceType<typeof TourReviewWhereUniqueInput>;
-    @Field(() => TourReviewCreateInput, {nullable:false})
-    @Type(() => TourReviewCreateInput)
-    create!: InstanceType<typeof TourReviewCreateInput>;
-    @Field(() => TourReviewUpdateInput, {nullable:false})
-    @Type(() => TourReviewUpdateInput)
-    update!: InstanceType<typeof TourReviewUpdateInput>;
-}
-
-@ObjectType()
 export class AggregateTourTourCategory {
     @Field(() => TourTourCategoryCountAggregate, {nullable:true})
     _count?: InstanceType<typeof TourTourCategoryCountAggregate>;
@@ -15831,8 +15328,6 @@ export class UserCount {
     @Field(() => Int, {nullable:false})
     tour?: number;
     @Field(() => Int, {nullable:false})
-    tourReview?: number;
-    @Field(() => Int, {nullable:false})
     booking?: number;
 }
 
@@ -15985,19 +15480,6 @@ export class UserCreateNestedOneWithoutBookingInput {
 }
 
 @InputType()
-export class UserCreateNestedOneWithoutTourReviewInput {
-    @Field(() => UserCreateWithoutTourReviewInput, {nullable:true})
-    @Type(() => UserCreateWithoutTourReviewInput)
-    create?: InstanceType<typeof UserCreateWithoutTourReviewInput>;
-    @Field(() => UserCreateOrConnectWithoutTourReviewInput, {nullable:true})
-    @Type(() => UserCreateOrConnectWithoutTourReviewInput)
-    connectOrCreate?: InstanceType<typeof UserCreateOrConnectWithoutTourReviewInput>;
-    @Field(() => UserWhereUniqueInput, {nullable:true})
-    @Type(() => UserWhereUniqueInput)
-    connect?: InstanceType<typeof UserWhereUniqueInput>;
-}
-
-@InputType()
 export class UserCreateNestedOneWithoutTourInput {
     @Field(() => UserCreateWithoutTourInput, {nullable:true})
     @Type(() => UserCreateWithoutTourInput)
@@ -16028,16 +15510,6 @@ export class UserCreateOrConnectWithoutCountryInput {
     @Field(() => UserCreateWithoutCountryInput, {nullable:false})
     @Type(() => UserCreateWithoutCountryInput)
     create!: InstanceType<typeof UserCreateWithoutCountryInput>;
-}
-
-@InputType()
-export class UserCreateOrConnectWithoutTourReviewInput {
-    @Field(() => UserWhereUniqueInput, {nullable:false})
-    @Type(() => UserWhereUniqueInput)
-    where!: InstanceType<typeof UserWhereUniqueInput>;
-    @Field(() => UserCreateWithoutTourReviewInput, {nullable:false})
-    @Type(() => UserCreateWithoutTourReviewInput)
-    create!: InstanceType<typeof UserCreateWithoutTourReviewInput>;
 }
 
 @InputType()
@@ -16104,8 +15576,6 @@ export class UserCreateWithoutBookingInput {
     updatedAt?: Date | string;
     @Field(() => TourCreateNestedManyWithoutGuideInput, {nullable:true})
     tour?: InstanceType<typeof TourCreateNestedManyWithoutGuideInput>;
-    @Field(() => TourReviewCreateNestedManyWithoutUserInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewCreateNestedManyWithoutUserInput>;
 }
 
 @InputType()
@@ -16139,66 +15609,6 @@ export class UserCreateWithoutCountryInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     image?: string;
-    @Field(() => UserRole, {nullable:false})
-    @Validator.IsString()
-    role!: keyof typeof UserRole;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    bio?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    hash?: string;
-    @Field(() => Date, {nullable:true})
-    hashExpiredAt?: Date | string;
-    @Field(() => Float, {nullable:true})
-    rating?: number;
-    @Field(() => YesNo, {nullable:true})
-    isVerified?: keyof typeof YesNo;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => TourCreateNestedManyWithoutGuideInput, {nullable:true})
-    tour?: InstanceType<typeof TourCreateNestedManyWithoutGuideInput>;
-    @Field(() => TourReviewCreateNestedManyWithoutUserInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewCreateNestedManyWithoutUserInput>;
-    @Field(() => BookingCreateNestedManyWithoutUserInput, {nullable:true})
-    booking?: InstanceType<typeof BookingCreateNestedManyWithoutUserInput>;
-}
-
-@InputType()
-export class UserCreateWithoutTourReviewInput {
-    @Field(() => String, {nullable:false})
-    @Validator.IsNotEmpty()
-    @Validator.IsEmail()
-    email!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsNotEmpty()
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(2)
-    firstName!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsNotEmpty()
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(2)
-    lastName!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsNotEmpty()
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(8)
-    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
-    password!: string;
-    @Field(() => Status, {nullable:true})
-    @Validator.IsString()
-    status?: keyof typeof Status;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    image?: string;
-    @Field(() => CountryCreateNestedOneWithoutUserInput, {nullable:true})
-    country?: InstanceType<typeof CountryCreateNestedOneWithoutUserInput>;
     @Field(() => UserRole, {nullable:false})
     @Validator.IsString()
     role!: keyof typeof UserRole;
@@ -16276,8 +15686,6 @@ export class UserCreateWithoutTourInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewCreateNestedManyWithoutUserInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewCreateNestedManyWithoutUserInput>;
     @Field(() => BookingCreateNestedManyWithoutUserInput, {nullable:true})
     booking?: InstanceType<typeof BookingCreateNestedManyWithoutUserInput>;
 }
@@ -16336,8 +15744,6 @@ export class UserCreateInput {
     updatedAt?: Date | string;
     @Field(() => TourCreateNestedManyWithoutGuideInput, {nullable:true})
     tour?: InstanceType<typeof TourCreateNestedManyWithoutGuideInput>;
-    @Field(() => TourReviewCreateNestedManyWithoutUserInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewCreateNestedManyWithoutUserInput>;
     @Field(() => BookingCreateNestedManyWithoutUserInput, {nullable:true})
     booking?: InstanceType<typeof BookingCreateNestedManyWithoutUserInput>;
 }
@@ -16777,8 +16183,6 @@ export class UserOrderByWithRelationInput {
     updatedAt?: keyof typeof SortOrder;
     @Field(() => TourOrderByRelationAggregateInput, {nullable:true})
     tour?: InstanceType<typeof TourOrderByRelationAggregateInput>;
-    @Field(() => TourReviewOrderByRelationAggregateInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewOrderByRelationAggregateInput>;
     @Field(() => BookingOrderByRelationAggregateInput, {nullable:true})
     booking?: InstanceType<typeof BookingOrderByRelationAggregateInput>;
 }
@@ -16977,8 +16381,6 @@ export class UserUncheckedCreateWithoutBookingInput {
     updatedAt?: Date | string;
     @Field(() => TourUncheckedCreateNestedManyWithoutGuideInput, {nullable:true})
     tour?: InstanceType<typeof TourUncheckedCreateNestedManyWithoutGuideInput>;
-    @Field(() => TourReviewUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUncheckedCreateNestedManyWithoutUserInput>;
 }
 
 @InputType()
@@ -17014,68 +16416,6 @@ export class UserUncheckedCreateWithoutCountryInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     image?: string;
-    @Field(() => UserRole, {nullable:false})
-    @Validator.IsString()
-    role!: keyof typeof UserRole;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    bio?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    hash?: string;
-    @Field(() => Date, {nullable:true})
-    hashExpiredAt?: Date | string;
-    @Field(() => Float, {nullable:true})
-    rating?: number;
-    @Field(() => YesNo, {nullable:true})
-    isVerified?: keyof typeof YesNo;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => TourUncheckedCreateNestedManyWithoutGuideInput, {nullable:true})
-    tour?: InstanceType<typeof TourUncheckedCreateNestedManyWithoutGuideInput>;
-    @Field(() => TourReviewUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUncheckedCreateNestedManyWithoutUserInput>;
-    @Field(() => BookingUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
-    booking?: InstanceType<typeof BookingUncheckedCreateNestedManyWithoutUserInput>;
-}
-
-@InputType()
-export class UserUncheckedCreateWithoutTourReviewInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:false})
-    @Validator.IsNotEmpty()
-    @Validator.IsEmail()
-    email!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsNotEmpty()
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(2)
-    firstName!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsNotEmpty()
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(2)
-    lastName!: string;
-    @Field(() => String, {nullable:false})
-    @Validator.IsNotEmpty()
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(8)
-    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
-    password!: string;
-    @Field(() => Status, {nullable:true})
-    @Validator.IsString()
-    status?: keyof typeof Status;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    image?: string;
-    @Field(() => Int, {nullable:true})
-    countryId?: number;
     @Field(() => UserRole, {nullable:false})
     @Validator.IsString()
     role!: keyof typeof UserRole;
@@ -17155,8 +16495,6 @@ export class UserUncheckedCreateWithoutTourInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUncheckedCreateNestedManyWithoutUserInput>;
     @Field(() => BookingUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
     booking?: InstanceType<typeof BookingUncheckedCreateNestedManyWithoutUserInput>;
 }
@@ -17217,8 +16555,6 @@ export class UserUncheckedCreateInput {
     updatedAt?: Date | string;
     @Field(() => TourUncheckedCreateNestedManyWithoutGuideInput, {nullable:true})
     tour?: InstanceType<typeof TourUncheckedCreateNestedManyWithoutGuideInput>;
-    @Field(() => TourReviewUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUncheckedCreateNestedManyWithoutUserInput>;
     @Field(() => BookingUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
     booking?: InstanceType<typeof BookingUncheckedCreateNestedManyWithoutUserInput>;
 }
@@ -17426,8 +16762,6 @@ export class UserUncheckedUpdateWithoutBookingInput {
     updatedAt?: Date | string;
     @Field(() => TourUncheckedUpdateManyWithoutGuideInput, {nullable:true})
     tour?: InstanceType<typeof TourUncheckedUpdateManyWithoutGuideInput>;
-    @Field(() => TourReviewUncheckedUpdateManyWithoutUserInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUncheckedUpdateManyWithoutUserInput>;
 }
 
 @InputType()
@@ -17463,68 +16797,6 @@ export class UserUncheckedUpdateWithoutCountryInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     image?: string;
-    @Field(() => UserRole, {nullable:true})
-    @Validator.IsString()
-    role?: keyof typeof UserRole;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    bio?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    hash?: string;
-    @Field(() => Date, {nullable:true})
-    hashExpiredAt?: Date | string;
-    @Field(() => Float, {nullable:true})
-    rating?: number;
-    @Field(() => YesNo, {nullable:true})
-    isVerified?: keyof typeof YesNo;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => TourUncheckedUpdateManyWithoutGuideInput, {nullable:true})
-    tour?: InstanceType<typeof TourUncheckedUpdateManyWithoutGuideInput>;
-    @Field(() => TourReviewUncheckedUpdateManyWithoutUserInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUncheckedUpdateManyWithoutUserInput>;
-    @Field(() => BookingUncheckedUpdateManyWithoutUserInput, {nullable:true})
-    booking?: InstanceType<typeof BookingUncheckedUpdateManyWithoutUserInput>;
-}
-
-@InputType()
-export class UserUncheckedUpdateWithoutTourReviewInput {
-    @Field(() => Int, {nullable:true})
-    id?: number;
-    @Field(() => String, {nullable:true})
-    @Validator.IsNotEmpty()
-    @Validator.IsEmail()
-    email?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsNotEmpty()
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(2)
-    firstName?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsNotEmpty()
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(2)
-    lastName?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsNotEmpty()
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(8)
-    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
-    password?: string;
-    @Field(() => Status, {nullable:true})
-    @Validator.IsString()
-    status?: keyof typeof Status;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    image?: string;
-    @Field(() => Int, {nullable:true})
-    countryId?: number;
     @Field(() => UserRole, {nullable:true})
     @Validator.IsString()
     role?: keyof typeof UserRole;
@@ -17604,8 +16876,6 @@ export class UserUncheckedUpdateWithoutTourInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewUncheckedUpdateManyWithoutUserInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUncheckedUpdateManyWithoutUserInput>;
     @Field(() => BookingUncheckedUpdateManyWithoutUserInput, {nullable:true})
     booking?: InstanceType<typeof BookingUncheckedUpdateManyWithoutUserInput>;
 }
@@ -17666,8 +16936,6 @@ export class UserUncheckedUpdateInput {
     updatedAt?: Date | string;
     @Field(() => TourUncheckedUpdateManyWithoutGuideInput, {nullable:true})
     tour?: InstanceType<typeof TourUncheckedUpdateManyWithoutGuideInput>;
-    @Field(() => TourReviewUncheckedUpdateManyWithoutUserInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUncheckedUpdateManyWithoutUserInput>;
     @Field(() => BookingUncheckedUpdateManyWithoutUserInput, {nullable:true})
     booking?: InstanceType<typeof BookingUncheckedUpdateManyWithoutUserInput>;
 }
@@ -17814,29 +17082,6 @@ export class UserUpdateOneWithoutBookingInput {
 }
 
 @InputType()
-export class UserUpdateOneWithoutTourReviewInput {
-    @Field(() => UserCreateWithoutTourReviewInput, {nullable:true})
-    @Type(() => UserCreateWithoutTourReviewInput)
-    create?: InstanceType<typeof UserCreateWithoutTourReviewInput>;
-    @Field(() => UserCreateOrConnectWithoutTourReviewInput, {nullable:true})
-    @Type(() => UserCreateOrConnectWithoutTourReviewInput)
-    connectOrCreate?: InstanceType<typeof UserCreateOrConnectWithoutTourReviewInput>;
-    @Field(() => UserUpsertWithoutTourReviewInput, {nullable:true})
-    @Type(() => UserUpsertWithoutTourReviewInput)
-    upsert?: InstanceType<typeof UserUpsertWithoutTourReviewInput>;
-    @Field(() => Boolean, {nullable:true})
-    disconnect?: boolean;
-    @Field(() => Boolean, {nullable:true})
-    delete?: boolean;
-    @Field(() => UserWhereUniqueInput, {nullable:true})
-    @Type(() => UserWhereUniqueInput)
-    connect?: InstanceType<typeof UserWhereUniqueInput>;
-    @Field(() => UserUpdateWithoutTourReviewInput, {nullable:true})
-    @Type(() => UserUpdateWithoutTourReviewInput)
-    update?: InstanceType<typeof UserUpdateWithoutTourReviewInput>;
-}
-
-@InputType()
 export class UserUpdateWithWhereUniqueWithoutCountryInput {
     @Field(() => UserWhereUniqueInput, {nullable:false})
     @Type(() => UserWhereUniqueInput)
@@ -17900,8 +17145,6 @@ export class UserUpdateWithoutBookingInput {
     updatedAt?: Date | string;
     @Field(() => TourUpdateManyWithoutGuideInput, {nullable:true})
     tour?: InstanceType<typeof TourUpdateManyWithoutGuideInput>;
-    @Field(() => TourReviewUpdateManyWithoutUserInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUpdateManyWithoutUserInput>;
 }
 
 @InputType()
@@ -17935,66 +17178,6 @@ export class UserUpdateWithoutCountryInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     image?: string;
-    @Field(() => UserRole, {nullable:true})
-    @Validator.IsString()
-    role?: keyof typeof UserRole;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    bio?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    hash?: string;
-    @Field(() => Date, {nullable:true})
-    hashExpiredAt?: Date | string;
-    @Field(() => Float, {nullable:true})
-    rating?: number;
-    @Field(() => YesNo, {nullable:true})
-    isVerified?: keyof typeof YesNo;
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-    @Field(() => TourUpdateManyWithoutGuideInput, {nullable:true})
-    tour?: InstanceType<typeof TourUpdateManyWithoutGuideInput>;
-    @Field(() => TourReviewUpdateManyWithoutUserInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUpdateManyWithoutUserInput>;
-    @Field(() => BookingUpdateManyWithoutUserInput, {nullable:true})
-    booking?: InstanceType<typeof BookingUpdateManyWithoutUserInput>;
-}
-
-@InputType()
-export class UserUpdateWithoutTourReviewInput {
-    @Field(() => String, {nullable:true})
-    @Validator.IsNotEmpty()
-    @Validator.IsEmail()
-    email?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsNotEmpty()
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(2)
-    firstName?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsNotEmpty()
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(2)
-    lastName?: string;
-    @Field(() => String, {nullable:true})
-    @Validator.IsNotEmpty()
-    @Validator.IsString()
-    @Validator.MaxLength(100)
-    @Validator.MinLength(8)
-    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
-    password?: string;
-    @Field(() => Status, {nullable:true})
-    @Validator.IsString()
-    status?: keyof typeof Status;
-    @Field(() => String, {nullable:true})
-    @Validator.IsString()
-    image?: string;
-    @Field(() => CountryUpdateOneWithoutUserInput, {nullable:true})
-    country?: InstanceType<typeof CountryUpdateOneWithoutUserInput>;
     @Field(() => UserRole, {nullable:true})
     @Validator.IsString()
     role?: keyof typeof UserRole;
@@ -18072,8 +17255,6 @@ export class UserUpdateWithoutTourInput {
     createdAt?: Date | string;
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
-    @Field(() => TourReviewUpdateManyWithoutUserInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUpdateManyWithoutUserInput>;
     @Field(() => BookingUpdateManyWithoutUserInput, {nullable:true})
     booking?: InstanceType<typeof BookingUpdateManyWithoutUserInput>;
 }
@@ -18132,8 +17313,6 @@ export class UserUpdateInput {
     updatedAt?: Date | string;
     @Field(() => TourUpdateManyWithoutGuideInput, {nullable:true})
     tour?: InstanceType<typeof TourUpdateManyWithoutGuideInput>;
-    @Field(() => TourReviewUpdateManyWithoutUserInput, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewUpdateManyWithoutUserInput>;
     @Field(() => BookingUpdateManyWithoutUserInput, {nullable:true})
     booking?: InstanceType<typeof BookingUpdateManyWithoutUserInput>;
 }
@@ -18159,16 +17338,6 @@ export class UserUpsertWithoutBookingInput {
     @Field(() => UserCreateWithoutBookingInput, {nullable:false})
     @Type(() => UserCreateWithoutBookingInput)
     create!: InstanceType<typeof UserCreateWithoutBookingInput>;
-}
-
-@InputType()
-export class UserUpsertWithoutTourReviewInput {
-    @Field(() => UserUpdateWithoutTourReviewInput, {nullable:false})
-    @Type(() => UserUpdateWithoutTourReviewInput)
-    update!: InstanceType<typeof UserUpdateWithoutTourReviewInput>;
-    @Field(() => UserCreateWithoutTourReviewInput, {nullable:false})
-    @Type(() => UserCreateWithoutTourReviewInput)
-    create!: InstanceType<typeof UserCreateWithoutTourReviewInput>;
 }
 
 @InputType()
@@ -18235,8 +17404,6 @@ export class UserWhereInput {
     updatedAt?: InstanceType<typeof DateTimeFilter>;
     @Field(() => TourListRelationFilter, {nullable:true})
     tour?: InstanceType<typeof TourListRelationFilter>;
-    @Field(() => TourReviewListRelationFilter, {nullable:true})
-    tourReview?: InstanceType<typeof TourReviewListRelationFilter>;
     @Field(() => BookingListRelationFilter, {nullable:true})
     booking?: InstanceType<typeof BookingListRelationFilter>;
 }
@@ -18279,8 +17446,6 @@ export class User {
     updatedAt!: Date;
     @Field(() => [Tour], {nullable:true})
     tour?: Array<Tour>;
-    @Field(() => [TourReview], {nullable:true})
-    tourReview?: Array<TourReview>;
     @Field(() => [Booking], {nullable:true})
     booking?: Array<Booking>;
     @Field(() => UserCount, {nullable:false})

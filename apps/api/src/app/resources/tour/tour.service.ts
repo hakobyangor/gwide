@@ -43,7 +43,6 @@ export class TourService {
             tourCategory: true
           }
         },
-        tourReview: true,
         tourImage: {},
         guide: {
           include: {
@@ -80,7 +79,6 @@ export class TourService {
             tourCategory: true
           }
         },
-        tourReview: true,
         tourImage: {},
         guide: {
           include: {
@@ -99,43 +97,9 @@ export class TourService {
     })
   }
 
-  findOne(id: number) {
-    return this.database.tour.findUnique({
-      where: { id },
-      include: {
-        currency: true,
-        tourCity: {
-          include: { city: true }
-        },
-        tourLanguage: {
-          include: {
-            language: true
-          }
-        },
-        tourTourCategory: {
-          include: {
-            tourCategory: true
-          }
-        },
-        tourReview: true,
-        tourImage: {},
-        guide: {
-          include: {
-            country: {},
-            tour: {
-              include: {
-                currency: {},
-                _count: {
-                  select: { tourCity: true, tourLanguage: true, tourTourCategory: true }
-                }
-              }
-            }
-          }
-        }
-      }
-    })
+  async updateRate(id: number, rate: number) {
+    return this.database.tour.update({ data: { rating: rate }, where: { id } })
   }
-
   async update(id: number, updateTourInput: TourUpdateInput) {
     if (updateTourInput.tourCity) {
       await this.database.tourCity.deleteMany({ where: { tourId: id } })
@@ -169,8 +133,7 @@ export class TourService {
             tourCategory: true
           }
         },
-        tourImage: true,
-        tourReview: true
+        tourImage: true
       },
       data: updateTourInput
     })
@@ -181,7 +144,6 @@ export class TourService {
     await this.database.tourLanguage.deleteMany({ where: { tourId: id } })
     await this.database.tourTourCategory.deleteMany({ where: { tourId: id } })
     await this.database.tourImage.deleteMany({ where: { tourId: id } })
-    await this.database.tourReview.deleteMany({ where: { tourId: id } })
 
     return this.database.tour.delete({
       where: { id }

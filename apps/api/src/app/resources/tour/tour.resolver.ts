@@ -114,7 +114,7 @@ export class TourResolver {
     @Args('id', { type: () => Int }) id: number,
     @CurrentUser() currentUser: User
   ) {
-    const tour = await this.tourService.findOne(id)
+    const tour = await this.tourService.getById(id)
     if (!tour || currentUser.id !== tour.guideId) {
       throw new UnauthorizedException()
     }
@@ -133,7 +133,7 @@ export class TourResolver {
   @Mutation(() => Tour)
   @UseGuards(CheckGuideAuthGuard)
   async removeTour(@Args('id', { type: () => Int }) id: number, @CurrentUser() currentUser: User) {
-    const tour = await this.tourService.findOne(id)
+    const tour = await this.tourService.getById(id)
     if (!tour || currentUser.id !== tour.guideId) {
       throw new UnauthorizedException()
     }
