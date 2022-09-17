@@ -49,18 +49,16 @@ export class TourResolver {
   @Query(() => [Tour])
   @UseGuards(CheckAuthGuard)
   async getToursByCountry(@Args('countryId') countryId: number) {
-    const where: { [k: string]: any } = {}
-
-    where.status === Status.ACTIVE
-    where.tourCity = {
-      some: {
-        city: {
-          countryId
+    return this.tourService.findAllByFilter({
+      status: { equals: Status.ACTIVE },
+      tourCity: {
+        some: {
+          city: {
+            is: { countryId: { equals: countryId } }
+          }
         }
       }
-    }
-
-    return this.tourService.findAllByFilter(where)
+    })
   }
 
   @Query(() => [Tour])
