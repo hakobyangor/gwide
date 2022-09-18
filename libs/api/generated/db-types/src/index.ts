@@ -142,6 +142,14 @@ export enum LanguageScalarFieldEnum {
     updatedAt = "updatedAt"
 }
 
+export enum FavoriteTourScalarFieldEnum {
+    id = "id",
+    tourId = "tourId",
+    userId = "userId",
+    createdAt = "createdAt",
+    updatedAt = "updatedAt"
+}
+
 export enum CurrencyScalarFieldEnum {
     id = "id",
     name = "name",
@@ -195,6 +203,7 @@ registerEnumType(BookingReviewScalarFieldEnum, { name: 'BookingReviewScalarField
 registerEnumType(CityScalarFieldEnum, { name: 'CityScalarFieldEnum', description: undefined })
 registerEnumType(CountryScalarFieldEnum, { name: 'CountryScalarFieldEnum', description: undefined })
 registerEnumType(CurrencyScalarFieldEnum, { name: 'CurrencyScalarFieldEnum', description: undefined })
+registerEnumType(FavoriteTourScalarFieldEnum, { name: 'FavoriteTourScalarFieldEnum', description: undefined })
 registerEnumType(LanguageScalarFieldEnum, { name: 'LanguageScalarFieldEnum', description: undefined })
 registerEnumType(BookingStatus, { name: 'BookingStatus', description: undefined })
 registerEnumType(QueryMode, { name: 'QueryMode', description: undefined })
@@ -5855,6 +5864,1078 @@ export class UpsertOneCurrencyArgs {
 }
 
 @ObjectType()
+export class AggregateFavoriteTour {
+    @Field(() => FavoriteTourCountAggregate, {nullable:true})
+    _count?: InstanceType<typeof FavoriteTourCountAggregate>;
+    @Field(() => FavoriteTourAvgAggregate, {nullable:true})
+    _avg?: InstanceType<typeof FavoriteTourAvgAggregate>;
+    @Field(() => FavoriteTourSumAggregate, {nullable:true})
+    _sum?: InstanceType<typeof FavoriteTourSumAggregate>;
+    @Field(() => FavoriteTourMinAggregate, {nullable:true})
+    _min?: InstanceType<typeof FavoriteTourMinAggregate>;
+    @Field(() => FavoriteTourMaxAggregate, {nullable:true})
+    _max?: InstanceType<typeof FavoriteTourMaxAggregate>;
+}
+
+@ArgsType()
+export class CreateManyFavoriteTourArgs {
+    @Field(() => [FavoriteTourCreateManyInput], {nullable:false})
+    @Type(() => FavoriteTourCreateManyInput)
+    @ValidateNested({ each: true })
+    data!: Array<FavoriteTourCreateManyInput>;
+    @Field(() => Boolean, {nullable:true})
+    skipDuplicates?: boolean;
+}
+
+@ArgsType()
+export class CreateOneFavoriteTourArgs {
+    @Field(() => FavoriteTourCreateInput, {nullable:false})
+    @Type(() => FavoriteTourCreateInput)
+    @ValidateNested({ each: true })
+    data!: InstanceType<typeof FavoriteTourCreateInput>;
+}
+
+@ArgsType()
+export class DeleteManyFavoriteTourArgs {
+    @Field(() => FavoriteTourWhereInput, {nullable:true})
+    @Type(() => FavoriteTourWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof FavoriteTourWhereInput>;
+}
+
+@ArgsType()
+export class DeleteOneFavoriteTourArgs {
+    @Field(() => FavoriteTourWhereUniqueInput, {nullable:false})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof FavoriteTourWhereUniqueInput>;
+}
+
+@ArgsType()
+export class FavoriteTourAggregateArgs {
+    @Field(() => FavoriteTourWhereInput, {nullable:true})
+    @Type(() => FavoriteTourWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof FavoriteTourWhereInput>;
+    @Field(() => [FavoriteTourOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<FavoriteTourOrderByWithRelationInput>;
+    @Field(() => FavoriteTourWhereUniqueInput, {nullable:true})
+    cursor?: InstanceType<typeof FavoriteTourWhereUniqueInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => FavoriteTourCountAggregateInput, {nullable:true})
+    _count?: InstanceType<typeof FavoriteTourCountAggregateInput>;
+    @Field(() => FavoriteTourAvgAggregateInput, {nullable:true})
+    _avg?: InstanceType<typeof FavoriteTourAvgAggregateInput>;
+    @Field(() => FavoriteTourSumAggregateInput, {nullable:true})
+    _sum?: InstanceType<typeof FavoriteTourSumAggregateInput>;
+    @Field(() => FavoriteTourMinAggregateInput, {nullable:true})
+    _min?: InstanceType<typeof FavoriteTourMinAggregateInput>;
+    @Field(() => FavoriteTourMaxAggregateInput, {nullable:true})
+    _max?: InstanceType<typeof FavoriteTourMaxAggregateInput>;
+}
+
+@InputType()
+export class FavoriteTourAvgAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+    @Field(() => Boolean, {nullable:true})
+    tourId?: true;
+    @Field(() => Boolean, {nullable:true})
+    userId?: true;
+}
+
+@ObjectType()
+export class FavoriteTourAvgAggregate {
+    @Field(() => Float, {nullable:true})
+    id?: number;
+    @Field(() => Float, {nullable:true})
+    tourId?: number;
+    @Field(() => Float, {nullable:true})
+    userId?: number;
+}
+
+@InputType()
+export class FavoriteTourAvgOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    userId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class FavoriteTourCountAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+    @Field(() => Boolean, {nullable:true})
+    tourId?: true;
+    @Field(() => Boolean, {nullable:true})
+    userId?: true;
+    @Field(() => Boolean, {nullable:true})
+    createdAt?: true;
+    @Field(() => Boolean, {nullable:true})
+    updatedAt?: true;
+    @Field(() => Boolean, {nullable:true})
+    _all?: true;
+}
+
+@ObjectType()
+export class FavoriteTourCountAggregate {
+    @Field(() => Int, {nullable:false})
+    id!: number;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+    @Field(() => Int, {nullable:false})
+    userId!: number;
+    @Field(() => Int, {nullable:false})
+    createdAt!: number;
+    @Field(() => Int, {nullable:false})
+    updatedAt!: number;
+    @Field(() => Int, {nullable:false})
+    _all!: number;
+}
+
+@InputType()
+export class FavoriteTourCountOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    userId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class FavoriteTourCreateManyTourInputEnvelope {
+    @Field(() => [FavoriteTourCreateManyTourInput], {nullable:false})
+    @Type(() => FavoriteTourCreateManyTourInput)
+    data!: Array<FavoriteTourCreateManyTourInput>;
+    @Field(() => Boolean, {nullable:true})
+    skipDuplicates?: boolean;
+}
+
+@InputType()
+export class FavoriteTourCreateManyTourInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Int, {nullable:false})
+    userId!: number;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class FavoriteTourCreateManyUserInputEnvelope {
+    @Field(() => [FavoriteTourCreateManyUserInput], {nullable:false})
+    @Type(() => FavoriteTourCreateManyUserInput)
+    data!: Array<FavoriteTourCreateManyUserInput>;
+    @Field(() => Boolean, {nullable:true})
+    skipDuplicates?: boolean;
+}
+
+@InputType()
+export class FavoriteTourCreateManyUserInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class FavoriteTourCreateManyInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+    @Field(() => Int, {nullable:false})
+    userId!: number;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class FavoriteTourCreateNestedManyWithoutTourInput {
+    @Field(() => [FavoriteTourCreateWithoutTourInput], {nullable:true})
+    @Type(() => FavoriteTourCreateWithoutTourInput)
+    create?: Array<FavoriteTourCreateWithoutTourInput>;
+    @Field(() => [FavoriteTourCreateOrConnectWithoutTourInput], {nullable:true})
+    @Type(() => FavoriteTourCreateOrConnectWithoutTourInput)
+    connectOrCreate?: Array<FavoriteTourCreateOrConnectWithoutTourInput>;
+    @Field(() => FavoriteTourCreateManyTourInputEnvelope, {nullable:true})
+    @Type(() => FavoriteTourCreateManyTourInputEnvelope)
+    createMany?: InstanceType<typeof FavoriteTourCreateManyTourInputEnvelope>;
+    @Field(() => [FavoriteTourWhereUniqueInput], {nullable:true})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    connect?: Array<FavoriteTourWhereUniqueInput>;
+}
+
+@InputType()
+export class FavoriteTourCreateNestedManyWithoutUserInput {
+    @Field(() => [FavoriteTourCreateWithoutUserInput], {nullable:true})
+    @Type(() => FavoriteTourCreateWithoutUserInput)
+    create?: Array<FavoriteTourCreateWithoutUserInput>;
+    @Field(() => [FavoriteTourCreateOrConnectWithoutUserInput], {nullable:true})
+    @Type(() => FavoriteTourCreateOrConnectWithoutUserInput)
+    connectOrCreate?: Array<FavoriteTourCreateOrConnectWithoutUserInput>;
+    @Field(() => FavoriteTourCreateManyUserInputEnvelope, {nullable:true})
+    @Type(() => FavoriteTourCreateManyUserInputEnvelope)
+    createMany?: InstanceType<typeof FavoriteTourCreateManyUserInputEnvelope>;
+    @Field(() => [FavoriteTourWhereUniqueInput], {nullable:true})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    connect?: Array<FavoriteTourWhereUniqueInput>;
+}
+
+@InputType()
+export class FavoriteTourCreateOrConnectWithoutTourInput {
+    @Field(() => FavoriteTourWhereUniqueInput, {nullable:false})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    where!: InstanceType<typeof FavoriteTourWhereUniqueInput>;
+    @Field(() => FavoriteTourCreateWithoutTourInput, {nullable:false})
+    @Type(() => FavoriteTourCreateWithoutTourInput)
+    create!: InstanceType<typeof FavoriteTourCreateWithoutTourInput>;
+}
+
+@InputType()
+export class FavoriteTourCreateOrConnectWithoutUserInput {
+    @Field(() => FavoriteTourWhereUniqueInput, {nullable:false})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    where!: InstanceType<typeof FavoriteTourWhereUniqueInput>;
+    @Field(() => FavoriteTourCreateWithoutUserInput, {nullable:false})
+    @Type(() => FavoriteTourCreateWithoutUserInput)
+    create!: InstanceType<typeof FavoriteTourCreateWithoutUserInput>;
+}
+
+@InputType()
+export class FavoriteTourCreateWithoutTourInput {
+    @Field(() => UserCreateNestedOneWithoutFavoriteTourInput, {nullable:true})
+    user?: InstanceType<typeof UserCreateNestedOneWithoutFavoriteTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class FavoriteTourCreateWithoutUserInput {
+    @Field(() => TourCreateNestedOneWithoutFavoriteTourInput, {nullable:true})
+    tour?: InstanceType<typeof TourCreateNestedOneWithoutFavoriteTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class FavoriteTourCreateInput {
+    @Field(() => TourCreateNestedOneWithoutFavoriteTourInput, {nullable:true})
+    tour?: InstanceType<typeof TourCreateNestedOneWithoutFavoriteTourInput>;
+    @Field(() => UserCreateNestedOneWithoutFavoriteTourInput, {nullable:true})
+    user?: InstanceType<typeof UserCreateNestedOneWithoutFavoriteTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@ArgsType()
+export class FavoriteTourGroupByArgs {
+    @Field(() => FavoriteTourWhereInput, {nullable:true})
+    @Type(() => FavoriteTourWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof FavoriteTourWhereInput>;
+    @Field(() => [FavoriteTourOrderByWithAggregationInput], {nullable:true})
+    orderBy?: Array<FavoriteTourOrderByWithAggregationInput>;
+    @Field(() => [FavoriteTourScalarFieldEnum], {nullable:false})
+    by!: Array<keyof typeof FavoriteTourScalarFieldEnum>;
+    @Field(() => FavoriteTourScalarWhereWithAggregatesInput, {nullable:true})
+    having?: InstanceType<typeof FavoriteTourScalarWhereWithAggregatesInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => FavoriteTourCountAggregateInput, {nullable:true})
+    _count?: InstanceType<typeof FavoriteTourCountAggregateInput>;
+    @Field(() => FavoriteTourAvgAggregateInput, {nullable:true})
+    _avg?: InstanceType<typeof FavoriteTourAvgAggregateInput>;
+    @Field(() => FavoriteTourSumAggregateInput, {nullable:true})
+    _sum?: InstanceType<typeof FavoriteTourSumAggregateInput>;
+    @Field(() => FavoriteTourMinAggregateInput, {nullable:true})
+    _min?: InstanceType<typeof FavoriteTourMinAggregateInput>;
+    @Field(() => FavoriteTourMaxAggregateInput, {nullable:true})
+    _max?: InstanceType<typeof FavoriteTourMaxAggregateInput>;
+}
+
+@ObjectType()
+export class FavoriteTourGroupBy {
+    @Field(() => Int, {nullable:false})
+    id!: number;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+    @Field(() => Int, {nullable:false})
+    userId!: number;
+    @Field(() => Date, {nullable:false})
+    createdAt!: Date | string;
+    @Field(() => Date, {nullable:false})
+    updatedAt!: Date | string;
+    @Field(() => FavoriteTourCountAggregate, {nullable:true})
+    _count?: InstanceType<typeof FavoriteTourCountAggregate>;
+    @Field(() => FavoriteTourAvgAggregate, {nullable:true})
+    _avg?: InstanceType<typeof FavoriteTourAvgAggregate>;
+    @Field(() => FavoriteTourSumAggregate, {nullable:true})
+    _sum?: InstanceType<typeof FavoriteTourSumAggregate>;
+    @Field(() => FavoriteTourMinAggregate, {nullable:true})
+    _min?: InstanceType<typeof FavoriteTourMinAggregate>;
+    @Field(() => FavoriteTourMaxAggregate, {nullable:true})
+    _max?: InstanceType<typeof FavoriteTourMaxAggregate>;
+}
+
+@InputType()
+export class FavoriteTourListRelationFilter {
+    @Field(() => FavoriteTourWhereInput, {nullable:true})
+    every?: InstanceType<typeof FavoriteTourWhereInput>;
+    @Field(() => FavoriteTourWhereInput, {nullable:true})
+    some?: InstanceType<typeof FavoriteTourWhereInput>;
+    @Field(() => FavoriteTourWhereInput, {nullable:true})
+    none?: InstanceType<typeof FavoriteTourWhereInput>;
+}
+
+@InputType()
+export class FavoriteTourMaxAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+    @Field(() => Boolean, {nullable:true})
+    tourId?: true;
+    @Field(() => Boolean, {nullable:true})
+    userId?: true;
+    @Field(() => Boolean, {nullable:true})
+    createdAt?: true;
+    @Field(() => Boolean, {nullable:true})
+    updatedAt?: true;
+}
+
+@ObjectType()
+export class FavoriteTourMaxAggregate {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Int, {nullable:true})
+    tourId?: number;
+    @Field(() => Int, {nullable:true})
+    userId?: number;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class FavoriteTourMaxOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    userId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class FavoriteTourMinAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+    @Field(() => Boolean, {nullable:true})
+    tourId?: true;
+    @Field(() => Boolean, {nullable:true})
+    userId?: true;
+    @Field(() => Boolean, {nullable:true})
+    createdAt?: true;
+    @Field(() => Boolean, {nullable:true})
+    updatedAt?: true;
+}
+
+@ObjectType()
+export class FavoriteTourMinAggregate {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Int, {nullable:true})
+    tourId?: number;
+    @Field(() => Int, {nullable:true})
+    userId?: number;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class FavoriteTourMinOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    userId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class FavoriteTourOrderByRelationAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    _count?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class FavoriteTourOrderByWithAggregationInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    userId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
+    @Field(() => FavoriteTourCountOrderByAggregateInput, {nullable:true})
+    _count?: InstanceType<typeof FavoriteTourCountOrderByAggregateInput>;
+    @Field(() => FavoriteTourAvgOrderByAggregateInput, {nullable:true})
+    _avg?: InstanceType<typeof FavoriteTourAvgOrderByAggregateInput>;
+    @Field(() => FavoriteTourMaxOrderByAggregateInput, {nullable:true})
+    _max?: InstanceType<typeof FavoriteTourMaxOrderByAggregateInput>;
+    @Field(() => FavoriteTourMinOrderByAggregateInput, {nullable:true})
+    _min?: InstanceType<typeof FavoriteTourMinOrderByAggregateInput>;
+    @Field(() => FavoriteTourSumOrderByAggregateInput, {nullable:true})
+    _sum?: InstanceType<typeof FavoriteTourSumOrderByAggregateInput>;
+}
+
+@InputType()
+export class FavoriteTourOrderByWithRelationInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => TourOrderByWithRelationInput, {nullable:true})
+    tour?: InstanceType<typeof TourOrderByWithRelationInput>;
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => UserOrderByWithRelationInput, {nullable:true})
+    user?: InstanceType<typeof UserOrderByWithRelationInput>;
+    @Field(() => SortOrder, {nullable:true})
+    userId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class FavoriteTourScalarWhereWithAggregatesInput {
+    @Field(() => [FavoriteTourScalarWhereWithAggregatesInput], {nullable:true})
+    AND?: Array<FavoriteTourScalarWhereWithAggregatesInput>;
+    @Field(() => [FavoriteTourScalarWhereWithAggregatesInput], {nullable:true})
+    OR?: Array<FavoriteTourScalarWhereWithAggregatesInput>;
+    @Field(() => [FavoriteTourScalarWhereWithAggregatesInput], {nullable:true})
+    NOT?: Array<FavoriteTourScalarWhereWithAggregatesInput>;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    id?: InstanceType<typeof IntWithAggregatesFilter>;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    tourId?: InstanceType<typeof IntWithAggregatesFilter>;
+    @Field(() => IntWithAggregatesFilter, {nullable:true})
+    userId?: InstanceType<typeof IntWithAggregatesFilter>;
+    @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
+    createdAt?: InstanceType<typeof DateTimeWithAggregatesFilter>;
+    @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
+    updatedAt?: InstanceType<typeof DateTimeWithAggregatesFilter>;
+}
+
+@InputType()
+export class FavoriteTourScalarWhereInput {
+    @Field(() => [FavoriteTourScalarWhereInput], {nullable:true})
+    AND?: Array<FavoriteTourScalarWhereInput>;
+    @Field(() => [FavoriteTourScalarWhereInput], {nullable:true})
+    OR?: Array<FavoriteTourScalarWhereInput>;
+    @Field(() => [FavoriteTourScalarWhereInput], {nullable:true})
+    NOT?: Array<FavoriteTourScalarWhereInput>;
+    @Field(() => IntFilter, {nullable:true})
+    id?: InstanceType<typeof IntFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    tourId?: InstanceType<typeof IntFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    userId?: InstanceType<typeof IntFilter>;
+    @Field(() => DateTimeFilter, {nullable:true})
+    createdAt?: InstanceType<typeof DateTimeFilter>;
+    @Field(() => DateTimeFilter, {nullable:true})
+    updatedAt?: InstanceType<typeof DateTimeFilter>;
+}
+
+@InputType()
+export class FavoriteTourSumAggregateInput {
+    @Field(() => Boolean, {nullable:true})
+    id?: true;
+    @Field(() => Boolean, {nullable:true})
+    tourId?: true;
+    @Field(() => Boolean, {nullable:true})
+    userId?: true;
+}
+
+@ObjectType()
+export class FavoriteTourSumAggregate {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Int, {nullable:true})
+    tourId?: number;
+    @Field(() => Int, {nullable:true})
+    userId?: number;
+}
+
+@InputType()
+export class FavoriteTourSumOrderByAggregateInput {
+    @Field(() => SortOrder, {nullable:true})
+    id?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    tourId?: keyof typeof SortOrder;
+    @Field(() => SortOrder, {nullable:true})
+    userId?: keyof typeof SortOrder;
+}
+
+@InputType()
+export class FavoriteTourUncheckedCreateNestedManyWithoutTourInput {
+    @Field(() => [FavoriteTourCreateWithoutTourInput], {nullable:true})
+    @Type(() => FavoriteTourCreateWithoutTourInput)
+    create?: Array<FavoriteTourCreateWithoutTourInput>;
+    @Field(() => [FavoriteTourCreateOrConnectWithoutTourInput], {nullable:true})
+    @Type(() => FavoriteTourCreateOrConnectWithoutTourInput)
+    connectOrCreate?: Array<FavoriteTourCreateOrConnectWithoutTourInput>;
+    @Field(() => FavoriteTourCreateManyTourInputEnvelope, {nullable:true})
+    @Type(() => FavoriteTourCreateManyTourInputEnvelope)
+    createMany?: InstanceType<typeof FavoriteTourCreateManyTourInputEnvelope>;
+    @Field(() => [FavoriteTourWhereUniqueInput], {nullable:true})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    connect?: Array<FavoriteTourWhereUniqueInput>;
+}
+
+@InputType()
+export class FavoriteTourUncheckedCreateNestedManyWithoutUserInput {
+    @Field(() => [FavoriteTourCreateWithoutUserInput], {nullable:true})
+    @Type(() => FavoriteTourCreateWithoutUserInput)
+    create?: Array<FavoriteTourCreateWithoutUserInput>;
+    @Field(() => [FavoriteTourCreateOrConnectWithoutUserInput], {nullable:true})
+    @Type(() => FavoriteTourCreateOrConnectWithoutUserInput)
+    connectOrCreate?: Array<FavoriteTourCreateOrConnectWithoutUserInput>;
+    @Field(() => FavoriteTourCreateManyUserInputEnvelope, {nullable:true})
+    @Type(() => FavoriteTourCreateManyUserInputEnvelope)
+    createMany?: InstanceType<typeof FavoriteTourCreateManyUserInputEnvelope>;
+    @Field(() => [FavoriteTourWhereUniqueInput], {nullable:true})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    connect?: Array<FavoriteTourWhereUniqueInput>;
+}
+
+@InputType()
+export class FavoriteTourUncheckedCreateWithoutTourInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Int, {nullable:false})
+    userId!: number;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class FavoriteTourUncheckedCreateWithoutUserInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class FavoriteTourUncheckedCreateInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+    @Field(() => Int, {nullable:false})
+    userId!: number;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class FavoriteTourUncheckedUpdateManyWithoutFavoriteTourInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Int, {nullable:true})
+    tourId?: number;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class FavoriteTourUncheckedUpdateManyWithoutTourInput {
+    @Field(() => [FavoriteTourCreateWithoutTourInput], {nullable:true})
+    @Type(() => FavoriteTourCreateWithoutTourInput)
+    create?: Array<FavoriteTourCreateWithoutTourInput>;
+    @Field(() => [FavoriteTourCreateOrConnectWithoutTourInput], {nullable:true})
+    @Type(() => FavoriteTourCreateOrConnectWithoutTourInput)
+    connectOrCreate?: Array<FavoriteTourCreateOrConnectWithoutTourInput>;
+    @Field(() => [FavoriteTourUpsertWithWhereUniqueWithoutTourInput], {nullable:true})
+    @Type(() => FavoriteTourUpsertWithWhereUniqueWithoutTourInput)
+    upsert?: Array<FavoriteTourUpsertWithWhereUniqueWithoutTourInput>;
+    @Field(() => FavoriteTourCreateManyTourInputEnvelope, {nullable:true})
+    @Type(() => FavoriteTourCreateManyTourInputEnvelope)
+    createMany?: InstanceType<typeof FavoriteTourCreateManyTourInputEnvelope>;
+    @Field(() => [FavoriteTourWhereUniqueInput], {nullable:true})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    set?: Array<FavoriteTourWhereUniqueInput>;
+    @Field(() => [FavoriteTourWhereUniqueInput], {nullable:true})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    disconnect?: Array<FavoriteTourWhereUniqueInput>;
+    @Field(() => [FavoriteTourWhereUniqueInput], {nullable:true})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    delete?: Array<FavoriteTourWhereUniqueInput>;
+    @Field(() => [FavoriteTourWhereUniqueInput], {nullable:true})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    connect?: Array<FavoriteTourWhereUniqueInput>;
+    @Field(() => [FavoriteTourUpdateWithWhereUniqueWithoutTourInput], {nullable:true})
+    @Type(() => FavoriteTourUpdateWithWhereUniqueWithoutTourInput)
+    update?: Array<FavoriteTourUpdateWithWhereUniqueWithoutTourInput>;
+    @Field(() => [FavoriteTourUpdateManyWithWhereWithoutTourInput], {nullable:true})
+    @Type(() => FavoriteTourUpdateManyWithWhereWithoutTourInput)
+    updateMany?: Array<FavoriteTourUpdateManyWithWhereWithoutTourInput>;
+    @Field(() => [FavoriteTourScalarWhereInput], {nullable:true})
+    @Type(() => FavoriteTourScalarWhereInput)
+    deleteMany?: Array<FavoriteTourScalarWhereInput>;
+}
+
+@InputType()
+export class FavoriteTourUncheckedUpdateManyWithoutUserInput {
+    @Field(() => [FavoriteTourCreateWithoutUserInput], {nullable:true})
+    @Type(() => FavoriteTourCreateWithoutUserInput)
+    create?: Array<FavoriteTourCreateWithoutUserInput>;
+    @Field(() => [FavoriteTourCreateOrConnectWithoutUserInput], {nullable:true})
+    @Type(() => FavoriteTourCreateOrConnectWithoutUserInput)
+    connectOrCreate?: Array<FavoriteTourCreateOrConnectWithoutUserInput>;
+    @Field(() => [FavoriteTourUpsertWithWhereUniqueWithoutUserInput], {nullable:true})
+    @Type(() => FavoriteTourUpsertWithWhereUniqueWithoutUserInput)
+    upsert?: Array<FavoriteTourUpsertWithWhereUniqueWithoutUserInput>;
+    @Field(() => FavoriteTourCreateManyUserInputEnvelope, {nullable:true})
+    @Type(() => FavoriteTourCreateManyUserInputEnvelope)
+    createMany?: InstanceType<typeof FavoriteTourCreateManyUserInputEnvelope>;
+    @Field(() => [FavoriteTourWhereUniqueInput], {nullable:true})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    set?: Array<FavoriteTourWhereUniqueInput>;
+    @Field(() => [FavoriteTourWhereUniqueInput], {nullable:true})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    disconnect?: Array<FavoriteTourWhereUniqueInput>;
+    @Field(() => [FavoriteTourWhereUniqueInput], {nullable:true})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    delete?: Array<FavoriteTourWhereUniqueInput>;
+    @Field(() => [FavoriteTourWhereUniqueInput], {nullable:true})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    connect?: Array<FavoriteTourWhereUniqueInput>;
+    @Field(() => [FavoriteTourUpdateWithWhereUniqueWithoutUserInput], {nullable:true})
+    @Type(() => FavoriteTourUpdateWithWhereUniqueWithoutUserInput)
+    update?: Array<FavoriteTourUpdateWithWhereUniqueWithoutUserInput>;
+    @Field(() => [FavoriteTourUpdateManyWithWhereWithoutUserInput], {nullable:true})
+    @Type(() => FavoriteTourUpdateManyWithWhereWithoutUserInput)
+    updateMany?: Array<FavoriteTourUpdateManyWithWhereWithoutUserInput>;
+    @Field(() => [FavoriteTourScalarWhereInput], {nullable:true})
+    @Type(() => FavoriteTourScalarWhereInput)
+    deleteMany?: Array<FavoriteTourScalarWhereInput>;
+}
+
+@InputType()
+export class FavoriteTourUncheckedUpdateManyInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Int, {nullable:true})
+    tourId?: number;
+    @Field(() => Int, {nullable:true})
+    userId?: number;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class FavoriteTourUncheckedUpdateWithoutTourInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Int, {nullable:true})
+    userId?: number;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class FavoriteTourUncheckedUpdateWithoutUserInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Int, {nullable:true})
+    tourId?: number;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class FavoriteTourUncheckedUpdateInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => Int, {nullable:true})
+    tourId?: number;
+    @Field(() => Int, {nullable:true})
+    userId?: number;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class FavoriteTourUpdateManyMutationInput {
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class FavoriteTourUpdateManyWithWhereWithoutTourInput {
+    @Field(() => FavoriteTourScalarWhereInput, {nullable:false})
+    @Type(() => FavoriteTourScalarWhereInput)
+    where!: InstanceType<typeof FavoriteTourScalarWhereInput>;
+    @Field(() => FavoriteTourUpdateManyMutationInput, {nullable:false})
+    @Type(() => FavoriteTourUpdateManyMutationInput)
+    data!: InstanceType<typeof FavoriteTourUpdateManyMutationInput>;
+}
+
+@InputType()
+export class FavoriteTourUpdateManyWithWhereWithoutUserInput {
+    @Field(() => FavoriteTourScalarWhereInput, {nullable:false})
+    @Type(() => FavoriteTourScalarWhereInput)
+    where!: InstanceType<typeof FavoriteTourScalarWhereInput>;
+    @Field(() => FavoriteTourUpdateManyMutationInput, {nullable:false})
+    @Type(() => FavoriteTourUpdateManyMutationInput)
+    data!: InstanceType<typeof FavoriteTourUpdateManyMutationInput>;
+}
+
+@InputType()
+export class FavoriteTourUpdateManyWithoutTourInput {
+    @Field(() => [FavoriteTourCreateWithoutTourInput], {nullable:true})
+    @Type(() => FavoriteTourCreateWithoutTourInput)
+    create?: Array<FavoriteTourCreateWithoutTourInput>;
+    @Field(() => [FavoriteTourCreateOrConnectWithoutTourInput], {nullable:true})
+    @Type(() => FavoriteTourCreateOrConnectWithoutTourInput)
+    connectOrCreate?: Array<FavoriteTourCreateOrConnectWithoutTourInput>;
+    @Field(() => [FavoriteTourUpsertWithWhereUniqueWithoutTourInput], {nullable:true})
+    @Type(() => FavoriteTourUpsertWithWhereUniqueWithoutTourInput)
+    upsert?: Array<FavoriteTourUpsertWithWhereUniqueWithoutTourInput>;
+    @Field(() => FavoriteTourCreateManyTourInputEnvelope, {nullable:true})
+    @Type(() => FavoriteTourCreateManyTourInputEnvelope)
+    createMany?: InstanceType<typeof FavoriteTourCreateManyTourInputEnvelope>;
+    @Field(() => [FavoriteTourWhereUniqueInput], {nullable:true})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    set?: Array<FavoriteTourWhereUniqueInput>;
+    @Field(() => [FavoriteTourWhereUniqueInput], {nullable:true})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    disconnect?: Array<FavoriteTourWhereUniqueInput>;
+    @Field(() => [FavoriteTourWhereUniqueInput], {nullable:true})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    delete?: Array<FavoriteTourWhereUniqueInput>;
+    @Field(() => [FavoriteTourWhereUniqueInput], {nullable:true})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    connect?: Array<FavoriteTourWhereUniqueInput>;
+    @Field(() => [FavoriteTourUpdateWithWhereUniqueWithoutTourInput], {nullable:true})
+    @Type(() => FavoriteTourUpdateWithWhereUniqueWithoutTourInput)
+    update?: Array<FavoriteTourUpdateWithWhereUniqueWithoutTourInput>;
+    @Field(() => [FavoriteTourUpdateManyWithWhereWithoutTourInput], {nullable:true})
+    @Type(() => FavoriteTourUpdateManyWithWhereWithoutTourInput)
+    updateMany?: Array<FavoriteTourUpdateManyWithWhereWithoutTourInput>;
+    @Field(() => [FavoriteTourScalarWhereInput], {nullable:true})
+    @Type(() => FavoriteTourScalarWhereInput)
+    deleteMany?: Array<FavoriteTourScalarWhereInput>;
+}
+
+@InputType()
+export class FavoriteTourUpdateManyWithoutUserInput {
+    @Field(() => [FavoriteTourCreateWithoutUserInput], {nullable:true})
+    @Type(() => FavoriteTourCreateWithoutUserInput)
+    create?: Array<FavoriteTourCreateWithoutUserInput>;
+    @Field(() => [FavoriteTourCreateOrConnectWithoutUserInput], {nullable:true})
+    @Type(() => FavoriteTourCreateOrConnectWithoutUserInput)
+    connectOrCreate?: Array<FavoriteTourCreateOrConnectWithoutUserInput>;
+    @Field(() => [FavoriteTourUpsertWithWhereUniqueWithoutUserInput], {nullable:true})
+    @Type(() => FavoriteTourUpsertWithWhereUniqueWithoutUserInput)
+    upsert?: Array<FavoriteTourUpsertWithWhereUniqueWithoutUserInput>;
+    @Field(() => FavoriteTourCreateManyUserInputEnvelope, {nullable:true})
+    @Type(() => FavoriteTourCreateManyUserInputEnvelope)
+    createMany?: InstanceType<typeof FavoriteTourCreateManyUserInputEnvelope>;
+    @Field(() => [FavoriteTourWhereUniqueInput], {nullable:true})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    set?: Array<FavoriteTourWhereUniqueInput>;
+    @Field(() => [FavoriteTourWhereUniqueInput], {nullable:true})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    disconnect?: Array<FavoriteTourWhereUniqueInput>;
+    @Field(() => [FavoriteTourWhereUniqueInput], {nullable:true})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    delete?: Array<FavoriteTourWhereUniqueInput>;
+    @Field(() => [FavoriteTourWhereUniqueInput], {nullable:true})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    connect?: Array<FavoriteTourWhereUniqueInput>;
+    @Field(() => [FavoriteTourUpdateWithWhereUniqueWithoutUserInput], {nullable:true})
+    @Type(() => FavoriteTourUpdateWithWhereUniqueWithoutUserInput)
+    update?: Array<FavoriteTourUpdateWithWhereUniqueWithoutUserInput>;
+    @Field(() => [FavoriteTourUpdateManyWithWhereWithoutUserInput], {nullable:true})
+    @Type(() => FavoriteTourUpdateManyWithWhereWithoutUserInput)
+    updateMany?: Array<FavoriteTourUpdateManyWithWhereWithoutUserInput>;
+    @Field(() => [FavoriteTourScalarWhereInput], {nullable:true})
+    @Type(() => FavoriteTourScalarWhereInput)
+    deleteMany?: Array<FavoriteTourScalarWhereInput>;
+}
+
+@InputType()
+export class FavoriteTourUpdateWithWhereUniqueWithoutTourInput {
+    @Field(() => FavoriteTourWhereUniqueInput, {nullable:false})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    where!: InstanceType<typeof FavoriteTourWhereUniqueInput>;
+    @Field(() => FavoriteTourUpdateWithoutTourInput, {nullable:false})
+    @Type(() => FavoriteTourUpdateWithoutTourInput)
+    data!: InstanceType<typeof FavoriteTourUpdateWithoutTourInput>;
+}
+
+@InputType()
+export class FavoriteTourUpdateWithWhereUniqueWithoutUserInput {
+    @Field(() => FavoriteTourWhereUniqueInput, {nullable:false})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    where!: InstanceType<typeof FavoriteTourWhereUniqueInput>;
+    @Field(() => FavoriteTourUpdateWithoutUserInput, {nullable:false})
+    @Type(() => FavoriteTourUpdateWithoutUserInput)
+    data!: InstanceType<typeof FavoriteTourUpdateWithoutUserInput>;
+}
+
+@InputType()
+export class FavoriteTourUpdateWithoutTourInput {
+    @Field(() => UserUpdateOneWithoutFavoriteTourInput, {nullable:true})
+    user?: InstanceType<typeof UserUpdateOneWithoutFavoriteTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class FavoriteTourUpdateWithoutUserInput {
+    @Field(() => TourUpdateOneWithoutFavoriteTourInput, {nullable:true})
+    tour?: InstanceType<typeof TourUpdateOneWithoutFavoriteTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class FavoriteTourUpdateInput {
+    @Field(() => TourUpdateOneWithoutFavoriteTourInput, {nullable:true})
+    tour?: InstanceType<typeof TourUpdateOneWithoutFavoriteTourInput>;
+    @Field(() => UserUpdateOneWithoutFavoriteTourInput, {nullable:true})
+    user?: InstanceType<typeof UserUpdateOneWithoutFavoriteTourInput>;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+}
+
+@InputType()
+export class FavoriteTourUpsertWithWhereUniqueWithoutTourInput {
+    @Field(() => FavoriteTourWhereUniqueInput, {nullable:false})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    where!: InstanceType<typeof FavoriteTourWhereUniqueInput>;
+    @Field(() => FavoriteTourUpdateWithoutTourInput, {nullable:false})
+    @Type(() => FavoriteTourUpdateWithoutTourInput)
+    update!: InstanceType<typeof FavoriteTourUpdateWithoutTourInput>;
+    @Field(() => FavoriteTourCreateWithoutTourInput, {nullable:false})
+    @Type(() => FavoriteTourCreateWithoutTourInput)
+    create!: InstanceType<typeof FavoriteTourCreateWithoutTourInput>;
+}
+
+@InputType()
+export class FavoriteTourUpsertWithWhereUniqueWithoutUserInput {
+    @Field(() => FavoriteTourWhereUniqueInput, {nullable:false})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    where!: InstanceType<typeof FavoriteTourWhereUniqueInput>;
+    @Field(() => FavoriteTourUpdateWithoutUserInput, {nullable:false})
+    @Type(() => FavoriteTourUpdateWithoutUserInput)
+    update!: InstanceType<typeof FavoriteTourUpdateWithoutUserInput>;
+    @Field(() => FavoriteTourCreateWithoutUserInput, {nullable:false})
+    @Type(() => FavoriteTourCreateWithoutUserInput)
+    create!: InstanceType<typeof FavoriteTourCreateWithoutUserInput>;
+}
+
+@InputType()
+export class FavoriteTourWhereUniqueInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+}
+
+@InputType()
+export class FavoriteTourWhereInput {
+    @Field(() => [FavoriteTourWhereInput], {nullable:true})
+    AND?: Array<FavoriteTourWhereInput>;
+    @Field(() => [FavoriteTourWhereInput], {nullable:true})
+    OR?: Array<FavoriteTourWhereInput>;
+    @Field(() => [FavoriteTourWhereInput], {nullable:true})
+    NOT?: Array<FavoriteTourWhereInput>;
+    @Field(() => IntFilter, {nullable:true})
+    id?: InstanceType<typeof IntFilter>;
+    @Field(() => TourRelationFilter, {nullable:true})
+    tour?: InstanceType<typeof TourRelationFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    tourId?: InstanceType<typeof IntFilter>;
+    @Field(() => UserRelationFilter, {nullable:true})
+    user?: InstanceType<typeof UserRelationFilter>;
+    @Field(() => IntFilter, {nullable:true})
+    userId?: InstanceType<typeof IntFilter>;
+    @Field(() => DateTimeFilter, {nullable:true})
+    createdAt?: InstanceType<typeof DateTimeFilter>;
+    @Field(() => DateTimeFilter, {nullable:true})
+    updatedAt?: InstanceType<typeof DateTimeFilter>;
+}
+
+@ObjectType()
+export class FavoriteTour {
+    @Field(() => ID, {nullable:false})
+    id!: number;
+    @Field(() => Tour, {nullable:true})
+    tour?: InstanceType<typeof Tour> | null;
+    @Field(() => Int, {nullable:false})
+    tourId!: number;
+    @Field(() => User, {nullable:true})
+    user?: InstanceType<typeof User> | null;
+    @Field(() => Int, {nullable:false})
+    userId!: number;
+    @Field(() => Date, {nullable:false})
+    createdAt!: Date;
+    @Field(() => Date, {nullable:false})
+    updatedAt!: Date;
+}
+
+@ArgsType()
+export class FindFirstFavoriteTourArgs {
+    @Field(() => FavoriteTourWhereInput, {nullable:true})
+    @Type(() => FavoriteTourWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof FavoriteTourWhereInput>;
+    @Field(() => [FavoriteTourOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<FavoriteTourOrderByWithRelationInput>;
+    @Field(() => FavoriteTourWhereUniqueInput, {nullable:true})
+    cursor?: InstanceType<typeof FavoriteTourWhereUniqueInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => [FavoriteTourScalarFieldEnum], {nullable:true})
+    distinct?: Array<keyof typeof FavoriteTourScalarFieldEnum>;
+}
+
+@ArgsType()
+export class FindManyFavoriteTourArgs {
+    @Field(() => FavoriteTourWhereInput, {nullable:true})
+    @Type(() => FavoriteTourWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof FavoriteTourWhereInput>;
+    @Field(() => [FavoriteTourOrderByWithRelationInput], {nullable:true})
+    orderBy?: Array<FavoriteTourOrderByWithRelationInput>;
+    @Field(() => FavoriteTourWhereUniqueInput, {nullable:true})
+    cursor?: InstanceType<typeof FavoriteTourWhereUniqueInput>;
+    @Field(() => Int, {nullable:true})
+    take?: number;
+    @Field(() => Int, {nullable:true})
+    skip?: number;
+    @Field(() => [FavoriteTourScalarFieldEnum], {nullable:true})
+    distinct?: Array<keyof typeof FavoriteTourScalarFieldEnum>;
+}
+
+@ArgsType()
+export class FindUniqueFavoriteTourArgs {
+    @Field(() => FavoriteTourWhereUniqueInput, {nullable:false})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof FavoriteTourWhereUniqueInput>;
+}
+
+@ArgsType()
+export class UpdateManyFavoriteTourArgs {
+    @Field(() => FavoriteTourUpdateManyMutationInput, {nullable:false})
+    @Type(() => FavoriteTourUpdateManyMutationInput)
+    @ValidateNested({ each: true })
+    data!: InstanceType<typeof FavoriteTourUpdateManyMutationInput>;
+    @Field(() => FavoriteTourWhereInput, {nullable:true})
+    @Type(() => FavoriteTourWhereInput)
+    @ValidateNested({ each: true })
+    where?: InstanceType<typeof FavoriteTourWhereInput>;
+}
+
+@ArgsType()
+export class UpdateOneFavoriteTourArgs {
+    @Field(() => FavoriteTourUpdateInput, {nullable:false})
+    @Type(() => FavoriteTourUpdateInput)
+    @ValidateNested({ each: true })
+    data!: InstanceType<typeof FavoriteTourUpdateInput>;
+    @Field(() => FavoriteTourWhereUniqueInput, {nullable:false})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof FavoriteTourWhereUniqueInput>;
+}
+
+@ArgsType()
+export class UpsertOneFavoriteTourArgs {
+    @Field(() => FavoriteTourWhereUniqueInput, {nullable:false})
+    @Type(() => FavoriteTourWhereUniqueInput)
+    @ValidateNested({ each: true })
+    where!: InstanceType<typeof FavoriteTourWhereUniqueInput>;
+    @Field(() => FavoriteTourCreateInput, {nullable:false})
+    @Type(() => FavoriteTourCreateInput)
+    create!: InstanceType<typeof FavoriteTourCreateInput>;
+    @Field(() => FavoriteTourUpdateInput, {nullable:false})
+    @Type(() => FavoriteTourUpdateInput)
+    update!: InstanceType<typeof FavoriteTourUpdateInput>;
+}
+
+@ObjectType()
 export class AggregateLanguage {
     @Field(() => LanguageCountAggregate, {nullable:true})
     _count?: InstanceType<typeof LanguageCountAggregate>;
@@ -7422,6 +8503,8 @@ export class TourCount {
     tourImage?: number;
     @Field(() => Int, {nullable:false})
     booking?: number;
+    @Field(() => Int, {nullable:false})
+    favoriteTour?: number;
 }
 
 @InputType()
@@ -7601,6 +8684,19 @@ export class TourCreateNestedOneWithoutBookingInput {
 }
 
 @InputType()
+export class TourCreateNestedOneWithoutFavoriteTourInput {
+    @Field(() => TourCreateWithoutFavoriteTourInput, {nullable:true})
+    @Type(() => TourCreateWithoutFavoriteTourInput)
+    create?: InstanceType<typeof TourCreateWithoutFavoriteTourInput>;
+    @Field(() => TourCreateOrConnectWithoutFavoriteTourInput, {nullable:true})
+    @Type(() => TourCreateOrConnectWithoutFavoriteTourInput)
+    connectOrCreate?: InstanceType<typeof TourCreateOrConnectWithoutFavoriteTourInput>;
+    @Field(() => TourWhereUniqueInput, {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    connect?: InstanceType<typeof TourWhereUniqueInput>;
+}
+
+@InputType()
 export class TourCreateNestedOneWithoutTourCityInput {
     @Field(() => TourCreateWithoutTourCityInput, {nullable:true})
     @Type(() => TourCreateWithoutTourCityInput)
@@ -7670,6 +8766,16 @@ export class TourCreateOrConnectWithoutCurrencyInput {
     @Field(() => TourCreateWithoutCurrencyInput, {nullable:false})
     @Type(() => TourCreateWithoutCurrencyInput)
     create!: InstanceType<typeof TourCreateWithoutCurrencyInput>;
+}
+
+@InputType()
+export class TourCreateOrConnectWithoutFavoriteTourInput {
+    @Field(() => TourWhereUniqueInput, {nullable:false})
+    @Type(() => TourWhereUniqueInput)
+    where!: InstanceType<typeof TourWhereUniqueInput>;
+    @Field(() => TourCreateWithoutFavoriteTourInput, {nullable:false})
+    @Type(() => TourCreateWithoutFavoriteTourInput)
+    create!: InstanceType<typeof TourCreateWithoutFavoriteTourInput>;
 }
 
 @InputType()
@@ -7765,6 +8871,8 @@ export class TourCreateWithoutBookingInput {
     updatedAt?: Date | string;
     @Field(() => TourImageCreateNestedManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageCreateNestedManyWithoutTourInput>;
+    @Field(() => FavoriteTourCreateNestedManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourCreateNestedManyWithoutTourInput>;
 }
 
 @InputType()
@@ -7786,6 +8894,55 @@ export class TourCreateWithoutCurrencyInput {
     image!: string;
     @Field(() => UserCreateNestedOneWithoutTourInput, {nullable:false})
     guide!: InstanceType<typeof UserCreateNestedOneWithoutTourInput>;
+    @Field(() => Int, {nullable:false})
+    maxCapacity!: number;
+    @Field(() => Float, {nullable:true})
+    rating?: number;
+    @Field(() => Float, {nullable:false})
+    price!: number;
+    @Field(() => TourTourCategoryCreateNestedManyWithoutTourInput, {nullable:true})
+    tourTourCategory?: InstanceType<typeof TourTourCategoryCreateNestedManyWithoutTourInput>;
+    @Field(() => TourCityCreateNestedManyWithoutTourInput, {nullable:true})
+    tourCity?: InstanceType<typeof TourCityCreateNestedManyWithoutTourInput>;
+    @Field(() => TourLanguageCreateNestedManyWithoutTourInput, {nullable:true})
+    tourLanguage?: InstanceType<typeof TourLanguageCreateNestedManyWithoutTourInput>;
+    @Field(() => Int, {nullable:false})
+    durationHours!: number;
+    @Field(() => Int, {nullable:false})
+    durationMinutes!: number;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => TourImageCreateNestedManyWithoutTourInput, {nullable:true})
+    tourImage?: InstanceType<typeof TourImageCreateNestedManyWithoutTourInput>;
+    @Field(() => BookingCreateNestedManyWithoutTourInput, {nullable:true})
+    booking?: InstanceType<typeof BookingCreateNestedManyWithoutTourInput>;
+    @Field(() => FavoriteTourCreateNestedManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourCreateNestedManyWithoutTourInput>;
+}
+
+@InputType()
+export class TourCreateWithoutFavoriteTourInput {
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    description!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => TourType, {nullable:true})
+    type?: keyof typeof TourType;
+    @Field(() => TourFormat, {nullable:true})
+    format?: keyof typeof TourFormat;
+    @Field(() => String, {nullable:false})
+    image!: string;
+    @Field(() => UserCreateNestedOneWithoutTourInput, {nullable:false})
+    guide!: InstanceType<typeof UserCreateNestedOneWithoutTourInput>;
+    @Field(() => CurrencyCreateNestedOneWithoutTourInput, {nullable:false})
+    currency!: InstanceType<typeof CurrencyCreateNestedOneWithoutTourInput>;
     @Field(() => Int, {nullable:false})
     maxCapacity!: number;
     @Field(() => Float, {nullable:true})
@@ -7855,6 +9012,8 @@ export class TourCreateWithoutGuideInput {
     tourImage?: InstanceType<typeof TourImageCreateNestedManyWithoutTourInput>;
     @Field(() => BookingCreateNestedManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingCreateNestedManyWithoutTourInput>;
+    @Field(() => FavoriteTourCreateNestedManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourCreateNestedManyWithoutTourInput>;
 }
 
 @InputType()
@@ -7900,6 +9059,8 @@ export class TourCreateWithoutTourCityInput {
     tourImage?: InstanceType<typeof TourImageCreateNestedManyWithoutTourInput>;
     @Field(() => BookingCreateNestedManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingCreateNestedManyWithoutTourInput>;
+    @Field(() => FavoriteTourCreateNestedManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourCreateNestedManyWithoutTourInput>;
 }
 
 @InputType()
@@ -7945,6 +9106,8 @@ export class TourCreateWithoutTourImageInput {
     updatedAt?: Date | string;
     @Field(() => BookingCreateNestedManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingCreateNestedManyWithoutTourInput>;
+    @Field(() => FavoriteTourCreateNestedManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourCreateNestedManyWithoutTourInput>;
 }
 
 @InputType()
@@ -7990,6 +9153,8 @@ export class TourCreateWithoutTourLanguageInput {
     tourImage?: InstanceType<typeof TourImageCreateNestedManyWithoutTourInput>;
     @Field(() => BookingCreateNestedManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingCreateNestedManyWithoutTourInput>;
+    @Field(() => FavoriteTourCreateNestedManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourCreateNestedManyWithoutTourInput>;
 }
 
 @InputType()
@@ -8035,6 +9200,8 @@ export class TourCreateWithoutTourTourCategoryInput {
     tourImage?: InstanceType<typeof TourImageCreateNestedManyWithoutTourInput>;
     @Field(() => BookingCreateNestedManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingCreateNestedManyWithoutTourInput>;
+    @Field(() => FavoriteTourCreateNestedManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourCreateNestedManyWithoutTourInput>;
 }
 
 @InputType()
@@ -8082,6 +9249,8 @@ export class TourCreateInput {
     tourImage?: InstanceType<typeof TourImageCreateNestedManyWithoutTourInput>;
     @Field(() => BookingCreateNestedManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingCreateNestedManyWithoutTourInput>;
+    @Field(() => FavoriteTourCreateNestedManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourCreateNestedManyWithoutTourInput>;
 }
 
 @ArgsType()
@@ -8493,6 +9662,8 @@ export class TourOrderByWithRelationInput {
     tourImage?: InstanceType<typeof TourImageOrderByRelationAggregateInput>;
     @Field(() => BookingOrderByRelationAggregateInput, {nullable:true})
     booking?: InstanceType<typeof BookingOrderByRelationAggregateInput>;
+    @Field(() => FavoriteTourOrderByRelationAggregateInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourOrderByRelationAggregateInput>;
 }
 
 @InputType()
@@ -8724,6 +9895,8 @@ export class TourUncheckedCreateWithoutBookingInput {
     updatedAt?: Date | string;
     @Field(() => TourImageUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageUncheckedCreateNestedManyWithoutTourInput>;
+    @Field(() => FavoriteTourUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUncheckedCreateNestedManyWithoutTourInput>;
 }
 
 @InputType()
@@ -8747,6 +9920,57 @@ export class TourUncheckedCreateWithoutCurrencyInput {
     image!: string;
     @Field(() => Int, {nullable:false})
     guideId!: number;
+    @Field(() => Int, {nullable:false})
+    maxCapacity!: number;
+    @Field(() => Float, {nullable:true})
+    rating?: number;
+    @Field(() => Float, {nullable:false})
+    price!: number;
+    @Field(() => TourTourCategoryUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    tourTourCategory?: InstanceType<typeof TourTourCategoryUncheckedCreateNestedManyWithoutTourInput>;
+    @Field(() => TourCityUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    tourCity?: InstanceType<typeof TourCityUncheckedCreateNestedManyWithoutTourInput>;
+    @Field(() => TourLanguageUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    tourLanguage?: InstanceType<typeof TourLanguageUncheckedCreateNestedManyWithoutTourInput>;
+    @Field(() => Int, {nullable:false})
+    durationHours!: number;
+    @Field(() => Int, {nullable:false})
+    durationMinutes!: number;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => TourImageUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    tourImage?: InstanceType<typeof TourImageUncheckedCreateNestedManyWithoutTourInput>;
+    @Field(() => BookingUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    booking?: InstanceType<typeof BookingUncheckedCreateNestedManyWithoutTourInput>;
+    @Field(() => FavoriteTourUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUncheckedCreateNestedManyWithoutTourInput>;
+}
+
+@InputType()
+export class TourUncheckedCreateWithoutFavoriteTourInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    name!: string;
+    @Field(() => String, {nullable:false})
+    @Validator.IsString()
+    description!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => TourType, {nullable:true})
+    type?: keyof typeof TourType;
+    @Field(() => TourFormat, {nullable:true})
+    format?: keyof typeof TourFormat;
+    @Field(() => String, {nullable:false})
+    image!: string;
+    @Field(() => Int, {nullable:false})
+    guideId!: number;
+    @Field(() => Int, {nullable:false})
+    currencyId!: number;
     @Field(() => Int, {nullable:false})
     maxCapacity!: number;
     @Field(() => Float, {nullable:true})
@@ -8818,6 +10042,8 @@ export class TourUncheckedCreateWithoutGuideInput {
     tourImage?: InstanceType<typeof TourImageUncheckedCreateNestedManyWithoutTourInput>;
     @Field(() => BookingUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingUncheckedCreateNestedManyWithoutTourInput>;
+    @Field(() => FavoriteTourUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUncheckedCreateNestedManyWithoutTourInput>;
 }
 
 @InputType()
@@ -8865,6 +10091,8 @@ export class TourUncheckedCreateWithoutTourCityInput {
     tourImage?: InstanceType<typeof TourImageUncheckedCreateNestedManyWithoutTourInput>;
     @Field(() => BookingUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingUncheckedCreateNestedManyWithoutTourInput>;
+    @Field(() => FavoriteTourUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUncheckedCreateNestedManyWithoutTourInput>;
 }
 
 @InputType()
@@ -8912,6 +10140,8 @@ export class TourUncheckedCreateWithoutTourImageInput {
     updatedAt?: Date | string;
     @Field(() => BookingUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingUncheckedCreateNestedManyWithoutTourInput>;
+    @Field(() => FavoriteTourUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUncheckedCreateNestedManyWithoutTourInput>;
 }
 
 @InputType()
@@ -8959,6 +10189,8 @@ export class TourUncheckedCreateWithoutTourLanguageInput {
     tourImage?: InstanceType<typeof TourImageUncheckedCreateNestedManyWithoutTourInput>;
     @Field(() => BookingUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingUncheckedCreateNestedManyWithoutTourInput>;
+    @Field(() => FavoriteTourUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUncheckedCreateNestedManyWithoutTourInput>;
 }
 
 @InputType()
@@ -9006,6 +10238,8 @@ export class TourUncheckedCreateWithoutTourTourCategoryInput {
     tourImage?: InstanceType<typeof TourImageUncheckedCreateNestedManyWithoutTourInput>;
     @Field(() => BookingUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingUncheckedCreateNestedManyWithoutTourInput>;
+    @Field(() => FavoriteTourUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUncheckedCreateNestedManyWithoutTourInput>;
 }
 
 @InputType()
@@ -9055,6 +10289,8 @@ export class TourUncheckedCreateInput {
     tourImage?: InstanceType<typeof TourImageUncheckedCreateNestedManyWithoutTourInput>;
     @Field(() => BookingUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingUncheckedCreateNestedManyWithoutTourInput>;
+    @Field(() => FavoriteTourUncheckedCreateNestedManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUncheckedCreateNestedManyWithoutTourInput>;
 }
 
 @InputType()
@@ -9252,6 +10488,8 @@ export class TourUncheckedUpdateWithoutBookingInput {
     updatedAt?: Date | string;
     @Field(() => TourImageUncheckedUpdateManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageUncheckedUpdateManyWithoutTourInput>;
+    @Field(() => FavoriteTourUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUncheckedUpdateManyWithoutTourInput>;
 }
 
 @InputType()
@@ -9275,6 +10513,57 @@ export class TourUncheckedUpdateWithoutCurrencyInput {
     image?: string;
     @Field(() => Int, {nullable:true})
     guideId?: number;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    rating?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
+    @Field(() => TourTourCategoryUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    tourTourCategory?: InstanceType<typeof TourTourCategoryUncheckedUpdateManyWithoutTourInput>;
+    @Field(() => TourCityUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    tourCity?: InstanceType<typeof TourCityUncheckedUpdateManyWithoutTourInput>;
+    @Field(() => TourLanguageUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    tourLanguage?: InstanceType<typeof TourLanguageUncheckedUpdateManyWithoutTourInput>;
+    @Field(() => Int, {nullable:true})
+    durationHours?: number;
+    @Field(() => Int, {nullable:true})
+    durationMinutes?: number;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => TourImageUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    tourImage?: InstanceType<typeof TourImageUncheckedUpdateManyWithoutTourInput>;
+    @Field(() => BookingUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    booking?: InstanceType<typeof BookingUncheckedUpdateManyWithoutTourInput>;
+    @Field(() => FavoriteTourUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUncheckedUpdateManyWithoutTourInput>;
+}
+
+@InputType()
+export class TourUncheckedUpdateWithoutFavoriteTourInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    description?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => TourType, {nullable:true})
+    type?: keyof typeof TourType;
+    @Field(() => TourFormat, {nullable:true})
+    format?: keyof typeof TourFormat;
+    @Field(() => String, {nullable:true})
+    image?: string;
+    @Field(() => Int, {nullable:true})
+    guideId?: number;
+    @Field(() => Int, {nullable:true})
+    currencyId?: number;
     @Field(() => Int, {nullable:true})
     maxCapacity?: number;
     @Field(() => Float, {nullable:true})
@@ -9346,6 +10635,8 @@ export class TourUncheckedUpdateWithoutGuideInput {
     tourImage?: InstanceType<typeof TourImageUncheckedUpdateManyWithoutTourInput>;
     @Field(() => BookingUncheckedUpdateManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingUncheckedUpdateManyWithoutTourInput>;
+    @Field(() => FavoriteTourUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUncheckedUpdateManyWithoutTourInput>;
 }
 
 @InputType()
@@ -9393,6 +10684,8 @@ export class TourUncheckedUpdateWithoutTourCityInput {
     tourImage?: InstanceType<typeof TourImageUncheckedUpdateManyWithoutTourInput>;
     @Field(() => BookingUncheckedUpdateManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingUncheckedUpdateManyWithoutTourInput>;
+    @Field(() => FavoriteTourUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUncheckedUpdateManyWithoutTourInput>;
 }
 
 @InputType()
@@ -9440,6 +10733,8 @@ export class TourUncheckedUpdateWithoutTourImageInput {
     updatedAt?: Date | string;
     @Field(() => BookingUncheckedUpdateManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingUncheckedUpdateManyWithoutTourInput>;
+    @Field(() => FavoriteTourUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUncheckedUpdateManyWithoutTourInput>;
 }
 
 @InputType()
@@ -9487,6 +10782,8 @@ export class TourUncheckedUpdateWithoutTourLanguageInput {
     tourImage?: InstanceType<typeof TourImageUncheckedUpdateManyWithoutTourInput>;
     @Field(() => BookingUncheckedUpdateManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingUncheckedUpdateManyWithoutTourInput>;
+    @Field(() => FavoriteTourUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUncheckedUpdateManyWithoutTourInput>;
 }
 
 @InputType()
@@ -9534,6 +10831,8 @@ export class TourUncheckedUpdateWithoutTourTourCategoryInput {
     tourImage?: InstanceType<typeof TourImageUncheckedUpdateManyWithoutTourInput>;
     @Field(() => BookingUncheckedUpdateManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingUncheckedUpdateManyWithoutTourInput>;
+    @Field(() => FavoriteTourUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUncheckedUpdateManyWithoutTourInput>;
 }
 
 @InputType()
@@ -9583,6 +10882,8 @@ export class TourUncheckedUpdateInput {
     tourImage?: InstanceType<typeof TourImageUncheckedUpdateManyWithoutTourInput>;
     @Field(() => BookingUncheckedUpdateManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingUncheckedUpdateManyWithoutTourInput>;
+    @Field(() => FavoriteTourUncheckedUpdateManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUncheckedUpdateManyWithoutTourInput>;
 }
 
 @InputType()
@@ -9733,6 +11034,29 @@ export class TourUpdateOneWithoutBookingInput {
     @Field(() => TourUpdateWithoutBookingInput, {nullable:true})
     @Type(() => TourUpdateWithoutBookingInput)
     update?: InstanceType<typeof TourUpdateWithoutBookingInput>;
+}
+
+@InputType()
+export class TourUpdateOneWithoutFavoriteTourInput {
+    @Field(() => TourCreateWithoutFavoriteTourInput, {nullable:true})
+    @Type(() => TourCreateWithoutFavoriteTourInput)
+    create?: InstanceType<typeof TourCreateWithoutFavoriteTourInput>;
+    @Field(() => TourCreateOrConnectWithoutFavoriteTourInput, {nullable:true})
+    @Type(() => TourCreateOrConnectWithoutFavoriteTourInput)
+    connectOrCreate?: InstanceType<typeof TourCreateOrConnectWithoutFavoriteTourInput>;
+    @Field(() => TourUpsertWithoutFavoriteTourInput, {nullable:true})
+    @Type(() => TourUpsertWithoutFavoriteTourInput)
+    upsert?: InstanceType<typeof TourUpsertWithoutFavoriteTourInput>;
+    @Field(() => Boolean, {nullable:true})
+    disconnect?: boolean;
+    @Field(() => Boolean, {nullable:true})
+    delete?: boolean;
+    @Field(() => TourWhereUniqueInput, {nullable:true})
+    @Type(() => TourWhereUniqueInput)
+    connect?: InstanceType<typeof TourWhereUniqueInput>;
+    @Field(() => TourUpdateWithoutFavoriteTourInput, {nullable:true})
+    @Type(() => TourUpdateWithoutFavoriteTourInput)
+    update?: InstanceType<typeof TourUpdateWithoutFavoriteTourInput>;
 }
 
 @InputType()
@@ -9890,6 +11214,8 @@ export class TourUpdateWithoutBookingInput {
     updatedAt?: Date | string;
     @Field(() => TourImageUpdateManyWithoutTourInput, {nullable:true})
     tourImage?: InstanceType<typeof TourImageUpdateManyWithoutTourInput>;
+    @Field(() => FavoriteTourUpdateManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUpdateManyWithoutTourInput>;
 }
 
 @InputType()
@@ -9911,6 +11237,55 @@ export class TourUpdateWithoutCurrencyInput {
     image?: string;
     @Field(() => UserUpdateOneRequiredWithoutTourInput, {nullable:true})
     guide?: InstanceType<typeof UserUpdateOneRequiredWithoutTourInput>;
+    @Field(() => Int, {nullable:true})
+    maxCapacity?: number;
+    @Field(() => Float, {nullable:true})
+    rating?: number;
+    @Field(() => Float, {nullable:true})
+    price?: number;
+    @Field(() => TourTourCategoryUpdateManyWithoutTourInput, {nullable:true})
+    tourTourCategory?: InstanceType<typeof TourTourCategoryUpdateManyWithoutTourInput>;
+    @Field(() => TourCityUpdateManyWithoutTourInput, {nullable:true})
+    tourCity?: InstanceType<typeof TourCityUpdateManyWithoutTourInput>;
+    @Field(() => TourLanguageUpdateManyWithoutTourInput, {nullable:true})
+    tourLanguage?: InstanceType<typeof TourLanguageUpdateManyWithoutTourInput>;
+    @Field(() => Int, {nullable:true})
+    durationHours?: number;
+    @Field(() => Int, {nullable:true})
+    durationMinutes?: number;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => TourImageUpdateManyWithoutTourInput, {nullable:true})
+    tourImage?: InstanceType<typeof TourImageUpdateManyWithoutTourInput>;
+    @Field(() => BookingUpdateManyWithoutTourInput, {nullable:true})
+    booking?: InstanceType<typeof BookingUpdateManyWithoutTourInput>;
+    @Field(() => FavoriteTourUpdateManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUpdateManyWithoutTourInput>;
+}
+
+@InputType()
+export class TourUpdateWithoutFavoriteTourInput {
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    name?: string;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    description?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => TourType, {nullable:true})
+    type?: keyof typeof TourType;
+    @Field(() => TourFormat, {nullable:true})
+    format?: keyof typeof TourFormat;
+    @Field(() => String, {nullable:true})
+    image?: string;
+    @Field(() => UserUpdateOneRequiredWithoutTourInput, {nullable:true})
+    guide?: InstanceType<typeof UserUpdateOneRequiredWithoutTourInput>;
+    @Field(() => CurrencyUpdateOneRequiredWithoutTourInput, {nullable:true})
+    currency?: InstanceType<typeof CurrencyUpdateOneRequiredWithoutTourInput>;
     @Field(() => Int, {nullable:true})
     maxCapacity?: number;
     @Field(() => Float, {nullable:true})
@@ -9980,6 +11355,8 @@ export class TourUpdateWithoutGuideInput {
     tourImage?: InstanceType<typeof TourImageUpdateManyWithoutTourInput>;
     @Field(() => BookingUpdateManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingUpdateManyWithoutTourInput>;
+    @Field(() => FavoriteTourUpdateManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUpdateManyWithoutTourInput>;
 }
 
 @InputType()
@@ -10025,6 +11402,8 @@ export class TourUpdateWithoutTourCityInput {
     tourImage?: InstanceType<typeof TourImageUpdateManyWithoutTourInput>;
     @Field(() => BookingUpdateManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingUpdateManyWithoutTourInput>;
+    @Field(() => FavoriteTourUpdateManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUpdateManyWithoutTourInput>;
 }
 
 @InputType()
@@ -10070,6 +11449,8 @@ export class TourUpdateWithoutTourImageInput {
     updatedAt?: Date | string;
     @Field(() => BookingUpdateManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingUpdateManyWithoutTourInput>;
+    @Field(() => FavoriteTourUpdateManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUpdateManyWithoutTourInput>;
 }
 
 @InputType()
@@ -10115,6 +11496,8 @@ export class TourUpdateWithoutTourLanguageInput {
     tourImage?: InstanceType<typeof TourImageUpdateManyWithoutTourInput>;
     @Field(() => BookingUpdateManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingUpdateManyWithoutTourInput>;
+    @Field(() => FavoriteTourUpdateManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUpdateManyWithoutTourInput>;
 }
 
 @InputType()
@@ -10160,6 +11543,8 @@ export class TourUpdateWithoutTourTourCategoryInput {
     tourImage?: InstanceType<typeof TourImageUpdateManyWithoutTourInput>;
     @Field(() => BookingUpdateManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingUpdateManyWithoutTourInput>;
+    @Field(() => FavoriteTourUpdateManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUpdateManyWithoutTourInput>;
 }
 
 @InputType()
@@ -10207,6 +11592,8 @@ export class TourUpdateInput {
     tourImage?: InstanceType<typeof TourImageUpdateManyWithoutTourInput>;
     @Field(() => BookingUpdateManyWithoutTourInput, {nullable:true})
     booking?: InstanceType<typeof BookingUpdateManyWithoutTourInput>;
+    @Field(() => FavoriteTourUpdateManyWithoutTourInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUpdateManyWithoutTourInput>;
 }
 
 @InputType()
@@ -10243,6 +11630,16 @@ export class TourUpsertWithoutBookingInput {
     @Field(() => TourCreateWithoutBookingInput, {nullable:false})
     @Type(() => TourCreateWithoutBookingInput)
     create!: InstanceType<typeof TourCreateWithoutBookingInput>;
+}
+
+@InputType()
+export class TourUpsertWithoutFavoriteTourInput {
+    @Field(() => TourUpdateWithoutFavoriteTourInput, {nullable:false})
+    @Type(() => TourUpdateWithoutFavoriteTourInput)
+    update!: InstanceType<typeof TourUpdateWithoutFavoriteTourInput>;
+    @Field(() => TourCreateWithoutFavoriteTourInput, {nullable:false})
+    @Type(() => TourCreateWithoutFavoriteTourInput)
+    create!: InstanceType<typeof TourCreateWithoutFavoriteTourInput>;
 }
 
 @InputType()
@@ -10345,6 +11742,8 @@ export class TourWhereInput {
     tourImage?: InstanceType<typeof TourImageListRelationFilter>;
     @Field(() => BookingListRelationFilter, {nullable:true})
     booking?: InstanceType<typeof BookingListRelationFilter>;
+    @Field(() => FavoriteTourListRelationFilter, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourListRelationFilter>;
 }
 
 @ObjectType()
@@ -10395,6 +11794,8 @@ export class Tour {
     tourImage?: Array<TourImage>;
     @Field(() => [Booking], {nullable:true})
     booking?: Array<Booking>;
+    @Field(() => [FavoriteTour], {nullable:true})
+    favoriteTour?: Array<FavoriteTour>;
     @Field(() => TourCount, {nullable:false})
     _count?: InstanceType<typeof TourCount>;
 }
@@ -15329,6 +16730,8 @@ export class UserCount {
     tour?: number;
     @Field(() => Int, {nullable:false})
     booking?: number;
+    @Field(() => Int, {nullable:false})
+    favoriteTour?: number;
 }
 
 @InputType()
@@ -15480,6 +16883,19 @@ export class UserCreateNestedOneWithoutBookingInput {
 }
 
 @InputType()
+export class UserCreateNestedOneWithoutFavoriteTourInput {
+    @Field(() => UserCreateWithoutFavoriteTourInput, {nullable:true})
+    @Type(() => UserCreateWithoutFavoriteTourInput)
+    create?: InstanceType<typeof UserCreateWithoutFavoriteTourInput>;
+    @Field(() => UserCreateOrConnectWithoutFavoriteTourInput, {nullable:true})
+    @Type(() => UserCreateOrConnectWithoutFavoriteTourInput)
+    connectOrCreate?: InstanceType<typeof UserCreateOrConnectWithoutFavoriteTourInput>;
+    @Field(() => UserWhereUniqueInput, {nullable:true})
+    @Type(() => UserWhereUniqueInput)
+    connect?: InstanceType<typeof UserWhereUniqueInput>;
+}
+
+@InputType()
 export class UserCreateNestedOneWithoutTourInput {
     @Field(() => UserCreateWithoutTourInput, {nullable:true})
     @Type(() => UserCreateWithoutTourInput)
@@ -15510,6 +16926,16 @@ export class UserCreateOrConnectWithoutCountryInput {
     @Field(() => UserCreateWithoutCountryInput, {nullable:false})
     @Type(() => UserCreateWithoutCountryInput)
     create!: InstanceType<typeof UserCreateWithoutCountryInput>;
+}
+
+@InputType()
+export class UserCreateOrConnectWithoutFavoriteTourInput {
+    @Field(() => UserWhereUniqueInput, {nullable:false})
+    @Type(() => UserWhereUniqueInput)
+    where!: InstanceType<typeof UserWhereUniqueInput>;
+    @Field(() => UserCreateWithoutFavoriteTourInput, {nullable:false})
+    @Type(() => UserCreateWithoutFavoriteTourInput)
+    create!: InstanceType<typeof UserCreateWithoutFavoriteTourInput>;
 }
 
 @InputType()
@@ -15576,6 +17002,8 @@ export class UserCreateWithoutBookingInput {
     updatedAt?: Date | string;
     @Field(() => TourCreateNestedManyWithoutGuideInput, {nullable:true})
     tour?: InstanceType<typeof TourCreateNestedManyWithoutGuideInput>;
+    @Field(() => FavoriteTourCreateNestedManyWithoutUserInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourCreateNestedManyWithoutUserInput>;
 }
 
 @InputType()
@@ -15609,6 +17037,66 @@ export class UserCreateWithoutCountryInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     image?: string;
+    @Field(() => UserRole, {nullable:false})
+    @Validator.IsString()
+    role!: keyof typeof UserRole;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    bio?: string;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
+    @Field(() => Float, {nullable:true})
+    rating?: number;
+    @Field(() => YesNo, {nullable:true})
+    isVerified?: keyof typeof YesNo;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => TourCreateNestedManyWithoutGuideInput, {nullable:true})
+    tour?: InstanceType<typeof TourCreateNestedManyWithoutGuideInput>;
+    @Field(() => BookingCreateNestedManyWithoutUserInput, {nullable:true})
+    booking?: InstanceType<typeof BookingCreateNestedManyWithoutUserInput>;
+    @Field(() => FavoriteTourCreateNestedManyWithoutUserInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourCreateNestedManyWithoutUserInput>;
+}
+
+@InputType()
+export class UserCreateWithoutFavoriteTourInput {
+    @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
+    @Validator.IsEmail()
+    email!: string;
+    @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
+    @Validator.IsString()
+    @Validator.MaxLength(100)
+    @Validator.MinLength(2)
+    firstName!: string;
+    @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
+    @Validator.IsString()
+    @Validator.MaxLength(100)
+    @Validator.MinLength(2)
+    lastName!: string;
+    @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
+    @Validator.IsString()
+    @Validator.MaxLength(100)
+    @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
+    password!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    image?: string;
+    @Field(() => CountryCreateNestedOneWithoutUserInput, {nullable:true})
+    country?: InstanceType<typeof CountryCreateNestedOneWithoutUserInput>;
     @Field(() => UserRole, {nullable:false})
     @Validator.IsString()
     role!: keyof typeof UserRole;
@@ -15688,6 +17176,8 @@ export class UserCreateWithoutTourInput {
     updatedAt?: Date | string;
     @Field(() => BookingCreateNestedManyWithoutUserInput, {nullable:true})
     booking?: InstanceType<typeof BookingCreateNestedManyWithoutUserInput>;
+    @Field(() => FavoriteTourCreateNestedManyWithoutUserInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourCreateNestedManyWithoutUserInput>;
 }
 
 @InputType()
@@ -15746,6 +17236,8 @@ export class UserCreateInput {
     tour?: InstanceType<typeof TourCreateNestedManyWithoutGuideInput>;
     @Field(() => BookingCreateNestedManyWithoutUserInput, {nullable:true})
     booking?: InstanceType<typeof BookingCreateNestedManyWithoutUserInput>;
+    @Field(() => FavoriteTourCreateNestedManyWithoutUserInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourCreateNestedManyWithoutUserInput>;
 }
 
 @ArgsType()
@@ -16185,6 +17677,8 @@ export class UserOrderByWithRelationInput {
     tour?: InstanceType<typeof TourOrderByRelationAggregateInput>;
     @Field(() => BookingOrderByRelationAggregateInput, {nullable:true})
     booking?: InstanceType<typeof BookingOrderByRelationAggregateInput>;
+    @Field(() => FavoriteTourOrderByRelationAggregateInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourOrderByRelationAggregateInput>;
 }
 
 @InputType()
@@ -16381,6 +17875,8 @@ export class UserUncheckedCreateWithoutBookingInput {
     updatedAt?: Date | string;
     @Field(() => TourUncheckedCreateNestedManyWithoutGuideInput, {nullable:true})
     tour?: InstanceType<typeof TourUncheckedCreateNestedManyWithoutGuideInput>;
+    @Field(() => FavoriteTourUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUncheckedCreateNestedManyWithoutUserInput>;
 }
 
 @InputType()
@@ -16416,6 +17912,68 @@ export class UserUncheckedCreateWithoutCountryInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     image?: string;
+    @Field(() => UserRole, {nullable:false})
+    @Validator.IsString()
+    role!: keyof typeof UserRole;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    bio?: string;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
+    @Field(() => Float, {nullable:true})
+    rating?: number;
+    @Field(() => YesNo, {nullable:true})
+    isVerified?: keyof typeof YesNo;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => TourUncheckedCreateNestedManyWithoutGuideInput, {nullable:true})
+    tour?: InstanceType<typeof TourUncheckedCreateNestedManyWithoutGuideInput>;
+    @Field(() => BookingUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
+    booking?: InstanceType<typeof BookingUncheckedCreateNestedManyWithoutUserInput>;
+    @Field(() => FavoriteTourUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUncheckedCreateNestedManyWithoutUserInput>;
+}
+
+@InputType()
+export class UserUncheckedCreateWithoutFavoriteTourInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
+    @Validator.IsEmail()
+    email!: string;
+    @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
+    @Validator.IsString()
+    @Validator.MaxLength(100)
+    @Validator.MinLength(2)
+    firstName!: string;
+    @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
+    @Validator.IsString()
+    @Validator.MaxLength(100)
+    @Validator.MinLength(2)
+    lastName!: string;
+    @Field(() => String, {nullable:false})
+    @Validator.IsNotEmpty()
+    @Validator.IsString()
+    @Validator.MaxLength(100)
+    @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
+    password!: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    image?: string;
+    @Field(() => Int, {nullable:true})
+    countryId?: number;
     @Field(() => UserRole, {nullable:false})
     @Validator.IsString()
     role!: keyof typeof UserRole;
@@ -16497,6 +18055,8 @@ export class UserUncheckedCreateWithoutTourInput {
     updatedAt?: Date | string;
     @Field(() => BookingUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
     booking?: InstanceType<typeof BookingUncheckedCreateNestedManyWithoutUserInput>;
+    @Field(() => FavoriteTourUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUncheckedCreateNestedManyWithoutUserInput>;
 }
 
 @InputType()
@@ -16557,6 +18117,8 @@ export class UserUncheckedCreateInput {
     tour?: InstanceType<typeof TourUncheckedCreateNestedManyWithoutGuideInput>;
     @Field(() => BookingUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
     booking?: InstanceType<typeof BookingUncheckedCreateNestedManyWithoutUserInput>;
+    @Field(() => FavoriteTourUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUncheckedCreateNestedManyWithoutUserInput>;
 }
 
 @InputType()
@@ -16762,6 +18324,8 @@ export class UserUncheckedUpdateWithoutBookingInput {
     updatedAt?: Date | string;
     @Field(() => TourUncheckedUpdateManyWithoutGuideInput, {nullable:true})
     tour?: InstanceType<typeof TourUncheckedUpdateManyWithoutGuideInput>;
+    @Field(() => FavoriteTourUncheckedUpdateManyWithoutUserInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUncheckedUpdateManyWithoutUserInput>;
 }
 
 @InputType()
@@ -16797,6 +18361,68 @@ export class UserUncheckedUpdateWithoutCountryInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     image?: string;
+    @Field(() => UserRole, {nullable:true})
+    @Validator.IsString()
+    role?: keyof typeof UserRole;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    bio?: string;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
+    @Field(() => Float, {nullable:true})
+    rating?: number;
+    @Field(() => YesNo, {nullable:true})
+    isVerified?: keyof typeof YesNo;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => TourUncheckedUpdateManyWithoutGuideInput, {nullable:true})
+    tour?: InstanceType<typeof TourUncheckedUpdateManyWithoutGuideInput>;
+    @Field(() => BookingUncheckedUpdateManyWithoutUserInput, {nullable:true})
+    booking?: InstanceType<typeof BookingUncheckedUpdateManyWithoutUserInput>;
+    @Field(() => FavoriteTourUncheckedUpdateManyWithoutUserInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUncheckedUpdateManyWithoutUserInput>;
+}
+
+@InputType()
+export class UserUncheckedUpdateWithoutFavoriteTourInput {
+    @Field(() => Int, {nullable:true})
+    id?: number;
+    @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
+    @Validator.IsEmail()
+    email?: string;
+    @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
+    @Validator.IsString()
+    @Validator.MaxLength(100)
+    @Validator.MinLength(2)
+    firstName?: string;
+    @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
+    @Validator.IsString()
+    @Validator.MaxLength(100)
+    @Validator.MinLength(2)
+    lastName?: string;
+    @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
+    @Validator.IsString()
+    @Validator.MaxLength(100)
+    @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
+    password?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    image?: string;
+    @Field(() => Int, {nullable:true})
+    countryId?: number;
     @Field(() => UserRole, {nullable:true})
     @Validator.IsString()
     role?: keyof typeof UserRole;
@@ -16878,6 +18504,8 @@ export class UserUncheckedUpdateWithoutTourInput {
     updatedAt?: Date | string;
     @Field(() => BookingUncheckedUpdateManyWithoutUserInput, {nullable:true})
     booking?: InstanceType<typeof BookingUncheckedUpdateManyWithoutUserInput>;
+    @Field(() => FavoriteTourUncheckedUpdateManyWithoutUserInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUncheckedUpdateManyWithoutUserInput>;
 }
 
 @InputType()
@@ -16938,6 +18566,8 @@ export class UserUncheckedUpdateInput {
     tour?: InstanceType<typeof TourUncheckedUpdateManyWithoutGuideInput>;
     @Field(() => BookingUncheckedUpdateManyWithoutUserInput, {nullable:true})
     booking?: InstanceType<typeof BookingUncheckedUpdateManyWithoutUserInput>;
+    @Field(() => FavoriteTourUncheckedUpdateManyWithoutUserInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUncheckedUpdateManyWithoutUserInput>;
 }
 
 @InputType()
@@ -17082,6 +18712,29 @@ export class UserUpdateOneWithoutBookingInput {
 }
 
 @InputType()
+export class UserUpdateOneWithoutFavoriteTourInput {
+    @Field(() => UserCreateWithoutFavoriteTourInput, {nullable:true})
+    @Type(() => UserCreateWithoutFavoriteTourInput)
+    create?: InstanceType<typeof UserCreateWithoutFavoriteTourInput>;
+    @Field(() => UserCreateOrConnectWithoutFavoriteTourInput, {nullable:true})
+    @Type(() => UserCreateOrConnectWithoutFavoriteTourInput)
+    connectOrCreate?: InstanceType<typeof UserCreateOrConnectWithoutFavoriteTourInput>;
+    @Field(() => UserUpsertWithoutFavoriteTourInput, {nullable:true})
+    @Type(() => UserUpsertWithoutFavoriteTourInput)
+    upsert?: InstanceType<typeof UserUpsertWithoutFavoriteTourInput>;
+    @Field(() => Boolean, {nullable:true})
+    disconnect?: boolean;
+    @Field(() => Boolean, {nullable:true})
+    delete?: boolean;
+    @Field(() => UserWhereUniqueInput, {nullable:true})
+    @Type(() => UserWhereUniqueInput)
+    connect?: InstanceType<typeof UserWhereUniqueInput>;
+    @Field(() => UserUpdateWithoutFavoriteTourInput, {nullable:true})
+    @Type(() => UserUpdateWithoutFavoriteTourInput)
+    update?: InstanceType<typeof UserUpdateWithoutFavoriteTourInput>;
+}
+
+@InputType()
 export class UserUpdateWithWhereUniqueWithoutCountryInput {
     @Field(() => UserWhereUniqueInput, {nullable:false})
     @Type(() => UserWhereUniqueInput)
@@ -17145,6 +18798,8 @@ export class UserUpdateWithoutBookingInput {
     updatedAt?: Date | string;
     @Field(() => TourUpdateManyWithoutGuideInput, {nullable:true})
     tour?: InstanceType<typeof TourUpdateManyWithoutGuideInput>;
+    @Field(() => FavoriteTourUpdateManyWithoutUserInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUpdateManyWithoutUserInput>;
 }
 
 @InputType()
@@ -17178,6 +18833,66 @@ export class UserUpdateWithoutCountryInput {
     @Field(() => String, {nullable:true})
     @Validator.IsString()
     image?: string;
+    @Field(() => UserRole, {nullable:true})
+    @Validator.IsString()
+    role?: keyof typeof UserRole;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    bio?: string;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    hash?: string;
+    @Field(() => Date, {nullable:true})
+    hashExpiredAt?: Date | string;
+    @Field(() => Float, {nullable:true})
+    rating?: number;
+    @Field(() => YesNo, {nullable:true})
+    isVerified?: keyof typeof YesNo;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+    @Field(() => TourUpdateManyWithoutGuideInput, {nullable:true})
+    tour?: InstanceType<typeof TourUpdateManyWithoutGuideInput>;
+    @Field(() => BookingUpdateManyWithoutUserInput, {nullable:true})
+    booking?: InstanceType<typeof BookingUpdateManyWithoutUserInput>;
+    @Field(() => FavoriteTourUpdateManyWithoutUserInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUpdateManyWithoutUserInput>;
+}
+
+@InputType()
+export class UserUpdateWithoutFavoriteTourInput {
+    @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
+    @Validator.IsEmail()
+    email?: string;
+    @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
+    @Validator.IsString()
+    @Validator.MaxLength(100)
+    @Validator.MinLength(2)
+    firstName?: string;
+    @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
+    @Validator.IsString()
+    @Validator.MaxLength(100)
+    @Validator.MinLength(2)
+    lastName?: string;
+    @Field(() => String, {nullable:true})
+    @Validator.IsNotEmpty()
+    @Validator.IsString()
+    @Validator.MaxLength(100)
+    @Validator.MinLength(8)
+    @Validator.Matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]+$/, {message: 'password too weak'})
+    password?: string;
+    @Field(() => Status, {nullable:true})
+    @Validator.IsString()
+    status?: keyof typeof Status;
+    @Field(() => String, {nullable:true})
+    @Validator.IsString()
+    image?: string;
+    @Field(() => CountryUpdateOneWithoutUserInput, {nullable:true})
+    country?: InstanceType<typeof CountryUpdateOneWithoutUserInput>;
     @Field(() => UserRole, {nullable:true})
     @Validator.IsString()
     role?: keyof typeof UserRole;
@@ -17257,6 +18972,8 @@ export class UserUpdateWithoutTourInput {
     updatedAt?: Date | string;
     @Field(() => BookingUpdateManyWithoutUserInput, {nullable:true})
     booking?: InstanceType<typeof BookingUpdateManyWithoutUserInput>;
+    @Field(() => FavoriteTourUpdateManyWithoutUserInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUpdateManyWithoutUserInput>;
 }
 
 @InputType()
@@ -17315,6 +19032,8 @@ export class UserUpdateInput {
     tour?: InstanceType<typeof TourUpdateManyWithoutGuideInput>;
     @Field(() => BookingUpdateManyWithoutUserInput, {nullable:true})
     booking?: InstanceType<typeof BookingUpdateManyWithoutUserInput>;
+    @Field(() => FavoriteTourUpdateManyWithoutUserInput, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourUpdateManyWithoutUserInput>;
 }
 
 @InputType()
@@ -17338,6 +19057,16 @@ export class UserUpsertWithoutBookingInput {
     @Field(() => UserCreateWithoutBookingInput, {nullable:false})
     @Type(() => UserCreateWithoutBookingInput)
     create!: InstanceType<typeof UserCreateWithoutBookingInput>;
+}
+
+@InputType()
+export class UserUpsertWithoutFavoriteTourInput {
+    @Field(() => UserUpdateWithoutFavoriteTourInput, {nullable:false})
+    @Type(() => UserUpdateWithoutFavoriteTourInput)
+    update!: InstanceType<typeof UserUpdateWithoutFavoriteTourInput>;
+    @Field(() => UserCreateWithoutFavoriteTourInput, {nullable:false})
+    @Type(() => UserCreateWithoutFavoriteTourInput)
+    create!: InstanceType<typeof UserCreateWithoutFavoriteTourInput>;
 }
 
 @InputType()
@@ -17406,6 +19135,8 @@ export class UserWhereInput {
     tour?: InstanceType<typeof TourListRelationFilter>;
     @Field(() => BookingListRelationFilter, {nullable:true})
     booking?: InstanceType<typeof BookingListRelationFilter>;
+    @Field(() => FavoriteTourListRelationFilter, {nullable:true})
+    favoriteTour?: InstanceType<typeof FavoriteTourListRelationFilter>;
 }
 
 @ObjectType()
@@ -17448,6 +19179,8 @@ export class User {
     tour?: Array<Tour>;
     @Field(() => [Booking], {nullable:true})
     booking?: Array<Booking>;
+    @Field(() => [FavoriteTour], {nullable:true})
+    favoriteTour?: Array<FavoriteTour>;
     @Field(() => UserCount, {nullable:false})
     _count?: InstanceType<typeof UserCount>;
 }

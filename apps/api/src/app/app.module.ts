@@ -7,6 +7,7 @@ import { AuthenticationModule } from './resources/authentication/authentication.
 import { TourModule } from './resources/tour/tour.module'
 import { BookingModule } from './resources/booking/booking.module'
 import { CountryModule } from './resources/country/country.module'
+import { FavoriteTourModule } from './resources/favorite-tour/favorite-tour.module'
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { CountryModule } from './resources/country/country.module'
     TourModule,
     BookingModule,
     AuthenticationModule,
-    CountryModule
+    CountryModule,
+    FavoriteTourModule
   ],
   controllers: [],
   providers: []

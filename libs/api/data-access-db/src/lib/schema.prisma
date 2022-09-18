@@ -116,10 +116,11 @@ model User {
 
   isVerified YesNo @default(NO)
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  tour      Tour[]
-  booking   Booking[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  tour         Tour[]
+  booking      Booking[]
+  favoriteTour FavoriteTour[]
 }
 
 model Tour {
@@ -152,10 +153,11 @@ model Tour {
   durationHours    Int
   durationMinutes  Int
 
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  tourImage TourImage[]
-  booking   Booking[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  tourImage    TourImage[]
+  booking      Booking[]
+  favoriteTour FavoriteTour[]
 }
 
 model City {
@@ -319,4 +321,17 @@ model Booking {
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
   bookingReview BookingReview[]
+}
+
+model FavoriteTour {
+  id Int @id @default(autoincrement())
+
+  tour   Tour? @relation(fields: [tourId], references: [id])
+  tourId Int
+
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
