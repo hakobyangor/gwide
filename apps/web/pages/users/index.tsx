@@ -25,7 +25,7 @@ export const UsersPage = () => {
         <hr />
         {data?.data?.users.map((user) => (
           <div key={user.id}>
-            <p>Name: {user.name}</p>
+            <p>Name: {user.firstName}</p>
             <p>Email: {user.email}</p>
             <p>ID: {user.id}</p>
             <hr />

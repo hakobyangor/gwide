@@ -8,7 +8,7 @@ export type GetUserQueryVariables = Types.Exact<{
 }>;
 
 
-export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'User', firstName: string, lastName: string, email: string } };
+export type GetUserQuery = { __typename?: 'Query', user: { __typename?: 'User', id: string, firstName: string, lastName: string, email: string } };
 
 export type GetUsersQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
@@ -19,6 +19,7 @@ export type GetUsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 
 export const GetUserDocument = gql`
     query GetUser($args: UserWhereUniqueInput!) {
   user(where: $args) {
+    id
     firstName
     lastName
     email

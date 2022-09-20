@@ -13,7 +13,7 @@ export function Index() {
         <div className="container">
           <div id="welcome">
             <h1>
-              <span> Hello {fetching ? 'there' : data?.user?.name}, </span>
+              <span> Hello {fetching ? 'there' : data?.user?.firstName}, </span>
               Welcome to Gwide web 👋
             </h1>
           </div>
