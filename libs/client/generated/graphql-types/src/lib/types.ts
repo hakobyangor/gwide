@@ -1738,7 +1738,9 @@ export type MutationVerifyEmailArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  currentUser: User;
   getCities: Array<City>;
+  getCountries: Array<Country>;
   getFavoriteTours: Array<FavoriteTour>;
   getGuideBookings: Array<Booking>;
   getGuides: Array<User>;

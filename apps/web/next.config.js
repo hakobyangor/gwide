@@ -13,7 +13,10 @@ const nextConfig = {
     // See: https://github.com/gregberge/svgr
     svgr: false
   },
-  swcMinify: true
+  swcMinify: true,
+  images: {
+    domains: ['flowbite.com']
+  }
 }
 
 module.exports = withNx(nextConfig)

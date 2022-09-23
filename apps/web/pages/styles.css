@@ -1,31 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-
-@layer components {
-  .btn-primary:hover {
-    background-color: #4ED084
-  }
-
-  .btn-primary:active {
-    background-color: #4ED084;
-    box-shadow: inset 0px 0px 5px theme('colors.primary');
-  }
-
-  .btn-primary {
-    background-color: theme('colors.primary');
-    border-radius: theme('borderRadius.md');
-    padding: theme('spacing.2');
-    box-shadow: theme('boxShadow.xl');
-  }
-
-  .input-primary {
-    background-color: #f0f0f0;
-    border: 1px solid #999;
-    border-radius: theme('borderRadius.md');
-    padding: theme('spacing.2');
-    /* box-shadow: theme('boxShadow.xl'); */
-    margin-bottom: 10px
-  }
-}

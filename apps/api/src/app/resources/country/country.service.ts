@@ -9,4 +9,8 @@ export class CountryService {
   getCountryCities(countryId: number) {
     return this.database.city.findMany({ where: { countryId, status: Status.ACTIVE } })
   }
+
+  getCountries() {
+    return this.database.country.findMany({ where: { status: Status.ACTIVE } })
+  }
 }

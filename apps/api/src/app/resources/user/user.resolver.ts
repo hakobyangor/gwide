@@ -23,6 +23,12 @@ export class UserResolver {
     return this.userService.findOne(findUserArguments)
   }
 
+  @UseGuards(CheckAuthGuard)
+  @Query(() => User)
+  currentUser(@CurrentUser() currentUser: User) {
+    return this.userService.findOne({ where: { id: currentUser.id } })
+  }
+
   @UseGuards(CheckAdminAuthGuard)
   @Query(() => [User])
   users() {

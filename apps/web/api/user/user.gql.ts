@@ -21,3 +21,14 @@ const GET_USERS = gql`
     }
   }
 `
+
+const GET_CURRENT_USER = gql`
+  query GetCurrentUser {
+    currentUser {
+      id
+      firstName
+      lastName
+      email
+    }
+  }
+`
