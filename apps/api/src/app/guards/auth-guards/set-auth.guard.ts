@@ -64,8 +64,8 @@ export class SetAuthGuard extends AuthGuard('local') {
         id: user.id,
         role: user.role,
         firstName: user.firstName,
-        lastName: user.lastName,
-        image: user.image
+        lastName: user.lastName
+        // image: user.image
       }
     })
 

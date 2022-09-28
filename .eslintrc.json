@@ -10,6 +10,7 @@
         "prettier/prettier": ["error"],
         "unicorn/prevent-abbreviations": "warn",
         "unicorn/no-null": "off",
+        "unicorn/filename-case": "off",
         "unicorn/prefer-module": ["warn"],
         "unicorn/no-abusive-eslint-disable": ["warn"],
         "@nrwl/nx/enforce-module-boundaries": [

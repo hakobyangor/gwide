@@ -1,11 +1,11 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
-import { Typography } from '@material-tailwind/react'
 import { withApi } from 'apps/web/api/client-api'
 import { useGetToursByCountryQuery } from 'apps/web/api/tour/tour.gql.gen'
 import Loader from 'apps/web/components/main/loader'
+import PageHeader from 'apps/web/components/main/page-header'
 import { useRouter } from 'next/router'
 import React from 'react'
-import TourCardItem from './card-item'
+import TourCardItem from '../card-item'
 
 function ToursPage() {
   const router = useRouter()
@@ -18,11 +18,13 @@ function ToursPage() {
   const toursData = data?.getToursByCountry
   return (
     <>
-      <Typography variant="h1" className="mx-auto text-3xl text-center mb-3">
-        Tours
-      </Typography>
+      {toursData ? (
+        <PageHeader>{`Tours In ${toursData[0].tourCity[0].city.country.name}`} </PageHeader>
+      ) : (
+        ''
+      )}
 
-      <div className="pt-10 flex justify-center">
+      <div className="grid lg:grid-cols-3 gap-6">
         {fetching && <Loader />}
         {toursData?.map((tour) => (
           <TourCardItem key={tour.id} tour={tour} />

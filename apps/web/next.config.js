@@ -15,7 +15,7 @@ const nextConfig = {
   },
   swcMinify: true,
   images: {
-    domains: ['flowbite.com']
+    domains: ['cdn.pixabay.com']
   }
 }
 

@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { useEffect, useState } from 'react'
 import { useGetCurrentUserQuery } from 'apps/web/api/user/user.gql.gen'
+import { useRouter } from 'next/router'
 
 // import { useNavigate } from 'react-router-dom';
 

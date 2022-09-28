@@ -23,6 +23,7 @@ export const clientApi = createClient({
     ssrCache,
     errorExchange({
       onError: (error) => {
+        console.log('🚀 ~ error', error)
         if (isAuthError(error)) {
           console.log('//TODO: log off')
         }
