@@ -47,7 +47,7 @@ export class TourResolver {
   }
 
   @Query(() => [Tour])
-  @UseGuards(CheckAuthGuard)
+  //  @UseGuards(CheckAuthGuard)
   async getToursByCountry(@Args('countryId') countryId: number) {
     return this.tourService.findAllByFilter({
       status: { equals: Status.ACTIVE },

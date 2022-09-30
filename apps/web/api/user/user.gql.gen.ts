@@ -18,7 +18,7 @@ export type GetUsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 
 export type GetCurrentUserQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GetCurrentUserQuery = { __typename?: 'Query', currentUser: { __typename?: 'User', id: string, firstName: string, lastName: string, email: string } };
+export type GetCurrentUserQuery = { __typename?: 'Query', currentUser: { __typename?: 'User', id: string, firstName: string, lastName: string, email: string, image?: string | null, bio?: string | null } };
 
 
 export const GetUserDocument = gql`
@@ -56,6 +56,8 @@ export const GetCurrentUserDocument = gql`
     firstName
     lastName
     email
+    image
+    bio
   }
 }
     `;

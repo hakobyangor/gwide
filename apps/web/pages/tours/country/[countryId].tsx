@@ -1,23 +1,26 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import { withApi } from 'apps/web/api/client-api'
 import { useGetToursByCountryQuery } from 'apps/web/api/tour/tour.gql.gen'
-import Loader from 'apps/web/components/main/loader'
-import PageHeader from 'apps/web/components/main/page-header'
+import Loader from 'apps/web/components/main/Loader'
+import PageHeader from 'apps/web/components/main/PageHeader'
 import { useRouter } from 'next/router'
 import React from 'react'
 import TourCardItem from '../card-item'
 
-function ToursPage() {
-  const router = useRouter()
-  const { countryId } = router.query
+export async function getServerSideProps(context) {
+  return {
+    props: { countryId: context.query.countryId } // will be passed to the page component as props
+  }
+}
 
+function ToursPage({ countryId }) {
   const [{ data, fetching }] = useGetToursByCountryQuery({
     variables: { countryId: Number(countryId) }
   })
 
   const toursData = data?.getToursByCountry
   return (
-    <>
+    <section className="mb-32 text-gray-800">
       {toursData ? (
         <PageHeader>{`Tours In ${toursData[0].tourCity[0].city.country.name}`} </PageHeader>
       ) : (
@@ -30,7 +33,7 @@ function ToursPage() {
           <TourCardItem key={tour.id} tour={tour} />
         ))}
       </div>
-    </>
+    </section>
   )
 }
 

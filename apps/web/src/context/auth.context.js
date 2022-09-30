@@ -4,6 +4,7 @@
 import React, { useEffect, useState } from 'react'
 import { useGetCurrentUserQuery } from 'apps/web/api/user/user.gql.gen'
 import { useRouter } from 'next/router'
+import { useLogoutMutation } from 'apps/web/api/auth/auth.gql.gen'
 
 // import { useNavigate } from 'react-router-dom';
 
@@ -19,6 +20,7 @@ const AuthProvider = (props) => {
   const [user, setUser] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [data] = useGetCurrentUserQuery()
+  const [logutData, logout] = useLogoutMutation()
   // const navigate = useNavigate();
 
   const loginFunc = (user) => {
@@ -29,6 +31,7 @@ const AuthProvider = (props) => {
   const logoutFunc = () => {
     setUser(false)
     setIsAuthenticated(false)
+    logout()
   }
 
   useEffect(() => {

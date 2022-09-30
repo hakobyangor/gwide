@@ -18,6 +18,19 @@ const LOGIN = gql`
       firstName
       lastName
       email
+      image
+    }
+  }
+`
+
+const LOGOUT = gql`
+  mutation Logout {
+    logout {
+      id
+      firstName
+      lastName
+      email
+      image
     }
   }
 `

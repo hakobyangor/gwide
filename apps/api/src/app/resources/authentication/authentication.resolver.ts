@@ -8,10 +8,16 @@ import { IUserContext } from '../../guards/auth-guards/types'
 import { RegisterInput } from './dto/register.input'
 import { resetPassword } from './dto/reset-password.input'
 import { verifyEmail } from './dto/verify-email.input'
+import { CheckAuthGuard } from '../../guards/auth-guards/check-auth.guard'
+import { CurrentUser } from '../../decorators/current-user.decorator'
+import { UserService } from '../user/user.service'
 
 @Resolver(() => User)
 export class AuthenticationResolver {
-  constructor(private readonly authenticationService: AuthenticationService) {}
+  constructor(
+    private readonly authenticationService: AuthenticationService,
+    private readonly userService: UserService
+  ) {}
 
   @UseGuards(SetAuthGuard)
   @Mutation(() => User)
@@ -19,6 +25,16 @@ export class AuthenticationResolver {
     const { user } = context
 
     return this.authenticationService.login(user)
+  }
+
+  @Mutation(() => User)
+  @UseGuards(CheckAuthGuard)
+  async logout(@Context() context: IUserContext, @CurrentUser() currentUser: User) {
+    const user = await this.userService.findOne({ where: { id: currentUser.id } })
+    const reply = context.reply
+    reply.setCookie('token', '')
+    reply.setCookie('token-expires', '')
+    return user
   }
 
   @Mutation(() => User)

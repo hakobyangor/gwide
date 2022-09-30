@@ -1633,6 +1633,7 @@ export type Mutation = {
   createTour: Tour;
   createUser: User;
   login: User;
+  logout: User;
   rejectBooking: Booking;
   removeFavoriteTour: FavoriteTour;
   removeTour: Tour;

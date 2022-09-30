@@ -2,8 +2,8 @@
 import { withApi } from 'apps/web/api/client-api'
 import { useGetCountriesQuery } from 'apps/web/api/country/country.gql.gen'
 import CardBgImage from 'apps/web/components/card/card-bg-image'
-import Loader from 'apps/web/components/main/loader'
-import PageHeader from 'apps/web/components/main/page-header'
+import Loader from 'apps/web/components/main/Loader'
+import PageHeader from 'apps/web/components/main/PageHeader'
 import Link from 'next/link'
 import React from 'react'
 
