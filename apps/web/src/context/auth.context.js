@@ -19,8 +19,9 @@ const AuthContext = React.createContext({
 const AuthProvider = (props) => {
   const [user, setUser] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [data] = useGetCurrentUserQuery()
+  const [{ data, fetching }] = useGetCurrentUserQuery()
   const [logutData, logout] = useLogoutMutation()
+  const router = useRouter()
   // const navigate = useNavigate();
 
   const loginFunc = (user) => {
@@ -35,15 +36,17 @@ const AuthProvider = (props) => {
   }
 
   useEffect(() => {
-    if (!data.data?.currentUser) {
-      setUser(false)
-      setIsAuthenticated(false)
-    } else {
-      setUser(data.data.currentUser)
-      setIsAuthenticated(true)
+    if (fetching === false) {
+      if (data?.currentUser) {
+        setUser(data?.currentUser)
+        setIsAuthenticated(true)
+      } else {
+        setUser(false)
+        setIsAuthenticated(false)
+        router.push('/')
+      }
     }
-    // setUser(null);
-  }, [data.data?.currentUser])
+  }, [data])
 
   const authContextValue = { user, loginFunc, logoutFunc, isAuthenticated }
   return <AuthContext.Provider value={authContextValue}>{props.children}</AuthContext.Provider>

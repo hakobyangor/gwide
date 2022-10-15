@@ -20,6 +20,13 @@ export type GetCurrentUserQueryVariables = Types.Exact<{ [key: string]: never; }
 
 export type GetCurrentUserQuery = { __typename?: 'Query', currentUser: { __typename?: 'User', id: string, firstName: string, lastName: string, email: string, image?: string | null, bio?: string | null } };
 
+export type UpdateUserMutationVariables = Types.Exact<{
+  data: Types.UpdateUserInput;
+}>;
+
+
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', firstName: string } };
+
 
 export const GetUserDocument = gql`
     query GetUser($args: UserWhereUniqueInput!) {
@@ -64,4 +71,15 @@ export const GetCurrentUserDocument = gql`
 
 export function useGetCurrentUserQuery(options?: Omit<Urql.UseQueryArgs<GetCurrentUserQueryVariables>, 'query'>) {
   return Urql.useQuery<GetCurrentUserQuery>({ query: GetCurrentUserDocument, ...options });
+};
+export const UpdateUserDocument = gql`
+    mutation updateUser($data: UpdateUserInput!) {
+  updateUser(data: $data) {
+    firstName
+  }
+}
+    `;
+
+export function useUpdateUserMutation() {
+  return Urql.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument);
 };

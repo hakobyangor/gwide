@@ -34,3 +34,11 @@ const GET_CURRENT_USER = gql`
     }
   }
 `
+
+const UPDATE_USER = gql`
+  mutation updateUser($data: UpdateUserInput!) {
+    updateUser(data: $data) {
+      firstName
+    }
+  }
+`

@@ -1,27 +1,40 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Switch } from '@headlessui/react'
 import TextInputWithLabel from 'apps/web/components/main/form/TextInputWithLabel'
 import { useAuth } from 'apps/web/src/context/auth.context'
 import SimpleTextArea from 'apps/web/components/main/form/SimpleTextArea'
 import Button from 'apps/web/components/main/Button'
+import { useRouter } from 'next/router'
+import { useUpdateUserMutation } from 'apps/web/api/user/user.gql.gen'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-// export async function getServerSideProps(context) {
-//   console.log('🚀 ~ getServerSideProps ~ context', context)
-//   return {
-//     props: { countryId: 3 } // will be passed to the page component as props
-//   }
-// }
-
 export default function ProfilePage() {
   const { user: authUser } = useAuth()
 
   const [availableToHire, setAvailableToHire] = useState(true)
+  const [{ fetching: updateFetching }, updateUser] = useUpdateUserMutation()
+
+  const inputFirstName = useRef(null)
+  const inputLastName = useRef(null)
+  const inputBio = useRef(null)
+
+  // eslint-disable-next-line unicorn/consistent-function-scoping
+  const saveProfile = async (event) => {
+    event.preventDefault()
+    updateUser({
+      data: {
+        firstName: inputFirstName.current.value,
+        lastName: inputLastName.current.value,
+        bio: inputBio.current.value,
+        countryId: 3
+      }
+    })
+  }
 
   return (
     <div>
@@ -38,7 +51,12 @@ export default function ProfilePage() {
           <div className="mt-6 flex flex-col lg:flex-row">
             <div className="flex-grow space-y-6 mr-10">
               <div>
-                <SimpleTextArea label="About" name="bio" defaultValue={authUser.bio ?? ''} />
+                <SimpleTextArea
+                  label="About"
+                  name="bio"
+                  defaultValue={authUser.bio ?? ''}
+                  inputRef={inputBio}
+                />
 
                 <p className="mt-2 text-sm text-gray-500">
                   Brief description for your profile. URLs are hyperlinked.
@@ -51,6 +69,7 @@ export default function ProfilePage() {
                     label="First Name"
                     defaultValue={authUser.firstName}
                     id="firstName"
+                    inputRef={inputFirstName}
                   />
                 </div>
 
@@ -60,6 +79,7 @@ export default function ProfilePage() {
                     label="Last Name"
                     defaultValue={authUser.lastName}
                     id="lastName"
+                    inputRef={inputLastName}
                   />
                 </div>
               </div>
@@ -167,10 +187,12 @@ export default function ProfilePage() {
             </ul>
           </div>
           <div className="mt-4 py-4 px-4 flex justify-end sm:px-6">
-            {/* <Button type="secondary" className="px-10 py-2 mr-2">
-              Cancel
-            </Button> */}
-            <Button type="primary" className="px-2 py-2 mr-0">
+            <Button
+              type="primary"
+              className="px-2 py-2 mr-0"
+              onClick={saveProfile}
+              disabled={updateFetching}
+            >
               Save
             </Button>
           </div>

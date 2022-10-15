@@ -13,6 +13,7 @@ function SimpleTextArea(props) {
           rows={3}
           className="shadow-sm p-3 focus:ring-sky-500 focus:border-sky-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
           defaultValue={props.defaultValue}
+          ref={props.inputRef}
         />
       </div>
     </>
