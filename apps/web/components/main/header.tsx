@@ -152,6 +152,7 @@ export default function Header() {
                   <>
                     <Button
                       type="primary"
+                      className="mr-2"
                       onClick={() => {
                         router.push('/sign-up')
                       }}

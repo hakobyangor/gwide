@@ -12,28 +12,7 @@
         "unicorn/no-null": "off",
         "unicorn/filename-case": "off",
         "unicorn/prefer-module": ["warn"],
-        "unicorn/no-abusive-eslint-disable": ["warn"],
-        "@nrwl/nx/enforce-module-boundaries": [
-          "error",
-          {
-            "allow": [],
-            // update depConstraints based on your tags
-            "depConstraints": [
-              {
-                "sourceTag": "scope:shared",
-                "onlyDependOnLibsWithTags": ["scope:shared"]
-              },
-              {
-                "sourceTag": "scope:api",
-                "onlyDependOnLibsWithTags": ["scope:shared", "scope:api"]
-              },
-              {
-                "sourceTag": "scope:client",
-                "onlyDependOnLibsWithTags": ["scope:shared", "scope:client"]
-              }
-            ]
-          }
-        ]
+        "unicorn/no-abusive-eslint-disable": ["warn"]
       }
     },
     {

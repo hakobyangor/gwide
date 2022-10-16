@@ -189,7 +189,7 @@ export default function ProfilePage() {
           <div className="mt-4 py-4 px-4 flex justify-end sm:px-6">
             <Button
               type="primary"
-              className="px-2 py-2 mr-0"
+              className="px-5 py-2 mr-0"
               onClick={saveProfile}
               disabled={updateFetching}
             >
