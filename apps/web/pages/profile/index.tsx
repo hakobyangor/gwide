@@ -37,7 +37,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div>
+    <div className="container mx-auto mt-10 max-w-7xl">
       <form className="divide-y divide-gray-200 lg:col-span-9" action="#" method="POST">
         {/* Profile section */}
         <div>

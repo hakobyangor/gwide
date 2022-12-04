@@ -62,7 +62,7 @@ export class TourResolver {
   }
 
   @Query(() => [Tour])
-  @UseGuards(CheckAuthGuard)
+  // @UseGuards(CheckAuthGuard)
   getTours(@Args('getToursInput') getToursInput: GetToursInput) {
     const where: { [k: string]: any } = {}
 
@@ -97,6 +97,12 @@ export class TourResolver {
     where.status === Status.ACTIVE
 
     return this.tourService.findAllByFilter(where)
+  }
+
+  @Query(() => [Tour])
+  // @UseGuards(CheckAuthGuard)
+  getHomeTours() {
+    return this.tourService.getHomeTours()
   }
 
   @Query(() => Tour, { name: 'getTour' })

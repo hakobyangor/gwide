@@ -4,7 +4,7 @@ import React from 'react'
 function TextInputWithLabel(props) {
   let errorClass = ''
   if (props.error) {
-    errorClass = 'text-red-500 border-red-500'
+    errorClass = 'text-gw-error-500 border-gw-error-500'
   }
   return (
     <div>
@@ -19,19 +19,19 @@ function TextInputWithLabel(props) {
           onBlur={props.onBlur}
           name={props.name}
           id={props.id ?? ''}
-          className={`mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm ${
+          className={`mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gw-primary-500 focus:border-gw-primary-500 sm:text-sm ${
             props.className ?? ''
           } ${errorClass}`}
           ref={props.inputRef}
         />
         {props.error && (
           <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-            <ExclamationCircleIcon className="h-5 w-5 text-red-500" aria-hidden="true" />
+            <ExclamationCircleIcon className="h-5 w-5 text-gw-error-500" aria-hidden="true" />
           </div>
         )}
       </div>
       {props.error && (
-        <p className="mt-2 text-sm text-red-600" id="email-error">
+        <p className="mt-2 text-sm text-gw-error-600" id="email-error">
           {props.error}
         </p>
       )}

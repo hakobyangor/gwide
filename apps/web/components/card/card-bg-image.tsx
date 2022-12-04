@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 
-function CardBgImage({ name, link }) {
+function CardBgImage({ name, id, link }) {
   return (
     <Link href={link} passHref>
       <div
@@ -12,10 +12,10 @@ function CardBgImage({ name, link }) {
       >
         <img
           alt={name}
-          src="https://mdbootstrap.com/img/new/standard/city/041.jpg"
+          // Todo change img src
+          src={`https://mdbootstrap.com/img/new/standard/city/00${id}.jpg`}
           className="w-full transition duration-300 ease-linear align-middle "
         />
-
         <>
           <div
             className="absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed"

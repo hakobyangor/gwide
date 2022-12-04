@@ -61,6 +61,49 @@ export class TourService {
     })
   }
 
+  getHomeTours() {
+    return this.database.tour.findMany({
+      where: { status: Status.ACTIVE },
+      include: {
+        currency: true,
+        tourCity: {
+          include: {
+            city: {
+              include: {
+                country: true
+              }
+            }
+          }
+        },
+        tourLanguage: {
+          include: {
+            language: true
+          }
+        },
+        tourTourCategory: {
+          include: {
+            tourCategory: true
+          }
+        },
+        tourImage: {},
+        guide: {
+          include: {
+            country: {},
+            tour: {
+              include: {
+                currency: {}
+              }
+            }
+          }
+        }
+      },
+      orderBy: {
+        rating: 'desc'
+      },
+      take: 6
+    })
+  }
+
   getById(id: number) {
     return this.database.tour.findFirst({
       where: { id, status: Status.ACTIVE },

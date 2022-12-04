@@ -1741,10 +1741,13 @@ export type Query = {
   __typename?: 'Query';
   currentUser: User;
   getCities: Array<City>;
+  getCitiesByCountry: Array<City>;
   getCountries: Array<Country>;
   getFavoriteTours: Array<FavoriteTour>;
   getGuideBookings: Array<Booking>;
   getGuides: Array<User>;
+  getHomeCountries: Array<Country>;
+  getHomeTours: Array<Tour>;
   getTour: Tour;
   getTours: Array<Tour>;
   getToursByCountry: Array<Tour>;
@@ -1755,7 +1758,7 @@ export type Query = {
 };
 
 
-export type QueryGetCitiesArgs = {
+export type QueryGetCitiesByCountryArgs = {
   countryId: Scalars['Float'];
 };
 

@@ -13,7 +13,13 @@ function TourCardItem({ tour }) {
     <div className="flex justify-center">
       <div className="rounded-lg shadow-lg bg-white relative">
         <Link passHref href={`/tours/${tour.id}`}>
-          <img className="rounded-t-lg hover:cursor-pointer" src={tour.image} alt="" />
+          <img
+            className="rounded-t-lg hover:cursor-pointer"
+            // Todo change img src
+            //src={tour.image}
+            src={`https://mdbootstrap.com/img/new/standard/city/${tour.id}.jpg`}
+            alt=""
+          />
         </Link>
         <div className="absolute top-3 left-3">
           <TourCardRatingBlock rating={tour.rating} />

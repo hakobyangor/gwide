@@ -13,14 +13,15 @@ function ToursMainPage() {
   const countries = getCountriesData?.getCountries
   return (
     <>
-      <section className="mb-32 text-gray-800">
+      <section className="mb-32 text-gray-800 container m-auto max-w-7xl ">
         <PageHeader>Tours</PageHeader>
-        <div className="grid lg:grid-cols-3 gap-6">
-          {fetching && <Loader />}
+        {fetching && <Loader />}
+        <div className="grid lg:grid-cols-3 gap-6 ">
           {countries?.map((country) => (
             <CardBgImage
               key={country.id}
               name={country.name}
+              id={country.id}
               link={`/tours/country/${country.id}`}
             />
           ))}

@@ -37,6 +37,7 @@ const GET_TOURS_BY_COUNTRY = gql`
         }
       }
       guide {
+        id
         country {
           name
         }
@@ -56,6 +57,61 @@ const GET_TOURS_BY_COUNTRY = gql`
           _count {
             tourCity
             tourLanguage
+          }
+        }
+      }
+    }
+  }
+`
+
+const GET_HOME_TOURS = gql`
+  query GetHomeTours {
+    getHomeTours {
+      id
+      name
+      format
+      description
+      type
+      image
+      rating
+      price
+      favoriteTour {
+        tourId
+      }
+      tourCity {
+        city {
+          id
+          name
+        }
+      }
+      tourLanguage {
+        language {
+          id
+          name
+        }
+      }
+      tourTourCategory {
+        tourCategory {
+          id
+          name
+        }
+      }
+      guide {
+        id
+        country {
+          name
+        }
+        firstName
+        lastName
+        role
+        image
+        tour {
+          id
+          name
+          price
+          maxCapacity
+          currency {
+            name
           }
         }
       }

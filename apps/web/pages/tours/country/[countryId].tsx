@@ -20,15 +20,15 @@ function ToursPage({ countryId }) {
 
   const toursData = data?.getToursByCountry
   return (
-    <section className="mb-32 text-gray-800">
+    <section className="mb-32 text-gray-800 container mx-auto max-w-7xl">
       {toursData ? (
         <PageHeader>{`Tours In ${toursData[0].tourCity[0].city.country.name}`} </PageHeader>
       ) : (
         ''
       )}
 
+      {fetching && <Loader />}
       <div className="grid lg:grid-cols-3 gap-6">
-        {fetching && <Loader />}
         {toursData?.map((tour) => (
           <TourCardItem key={tour.id} tour={tour} />
         ))}

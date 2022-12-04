@@ -13,4 +13,20 @@ export class CountryService {
   getCountries() {
     return this.database.country.findMany({ where: { status: Status.ACTIVE } })
   }
+
+  getHomeCountries() {
+    return this.database.country.findMany({
+      include: { _count: { select: { City: true } } },
+      where: { status: Status.ACTIVE },
+      take: 3,
+      orderBy: { City: { _count: 'desc' } }
+    })
+  }
+
+  getCities() {
+    return this.database.city.findMany({
+      where: { status: Status.ACTIVE },
+      include: { country: {} }
+    })
+  }
 }

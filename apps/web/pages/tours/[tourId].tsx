@@ -76,7 +76,7 @@ export default function Tour() {
                           </span>
                           <span
                             className={classNames(
-                              selected ? 'ring-indigo-500' : 'ring-transparent',
+                              selected ? 'ring-gw-primary-500' : 'ring-transparent',
                               'absolute inset-0 rounded-md ring-2 ring-offset-2 pointer-events-none'
                             )}
                             aria-hidden="true"
@@ -169,7 +169,7 @@ export default function Tour() {
                 <div className="mt-10 flex sm:flex-col1">
                   <button
                     type="submit"
-                    className="max-w-xs flex-1 bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full"
+                    className="max-w-xs flex-1 bg-gw-primary-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-gw-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-gw-primary-500 sm:w-full"
                   >
                     Add to bag
                   </button>
@@ -197,7 +197,7 @@ export default function Tour() {
                             <Disclosure.Button className="group relative w-full py-6 flex justify-between items-center text-left">
                               <span
                                 className={classNames(
-                                  open ? 'text-indigo-600' : 'text-gray-900',
+                                  open ? 'text-gw-primary-600' : 'text-gray-900',
                                   'text-sm font-medium'
                                 )}
                               >

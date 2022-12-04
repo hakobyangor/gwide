@@ -8,7 +8,12 @@ export type GetToursByCountryQueryVariables = Types.Exact<{
 }>;
 
 
-export type GetToursByCountryQuery = { __typename?: 'Query', getToursByCountry: Array<{ __typename?: 'Tour', id: string, name: string, format: Types.TourFormat, type: Types.TourType, rating?: number | null, price: number, description: string, image: string, currency: { __typename?: 'Currency', name: string }, tourCity?: Array<{ __typename?: 'TourCity', city: { __typename?: 'City', id: string, name: string, country: { __typename?: 'Country', name: string, id: string } } }> | null, tourLanguage?: Array<{ __typename?: 'TourLanguage', language: { __typename?: 'Language', id: string, name: string } }> | null, tourTourCategory?: Array<{ __typename?: 'TourTourCategory', tourCategory: { __typename?: 'TourCategory', id: string, name: string } }> | null, guide: { __typename?: 'User', firstName: string, lastName: string, role: Types.UserRole, image?: string | null, country?: { __typename?: 'Country', name: string } | null, tour?: Array<{ __typename?: 'Tour', id: string, name: string, price: number, maxCapacity: number, currency: { __typename?: 'Currency', name: string }, _count: { __typename?: 'TourCount', tourCity: number, tourLanguage: number } }> | null } }> };
+export type GetToursByCountryQuery = { __typename?: 'Query', getToursByCountry: Array<{ __typename?: 'Tour', id: string, name: string, format: Types.TourFormat, type: Types.TourType, rating?: number | null, price: number, description: string, image: string, currency: { __typename?: 'Currency', name: string }, tourCity?: Array<{ __typename?: 'TourCity', city: { __typename?: 'City', id: string, name: string, country: { __typename?: 'Country', name: string, id: string } } }> | null, tourLanguage?: Array<{ __typename?: 'TourLanguage', language: { __typename?: 'Language', id: string, name: string } }> | null, tourTourCategory?: Array<{ __typename?: 'TourTourCategory', tourCategory: { __typename?: 'TourCategory', id: string, name: string } }> | null, guide: { __typename?: 'User', id: string, firstName: string, lastName: string, role: Types.UserRole, image?: string | null, country?: { __typename?: 'Country', name: string } | null, tour?: Array<{ __typename?: 'Tour', id: string, name: string, price: number, maxCapacity: number, currency: { __typename?: 'Currency', name: string }, _count: { __typename?: 'TourCount', tourCity: number, tourLanguage: number } }> | null } }> };
+
+export type GetHomeToursQueryVariables = Types.Exact<{ [key: string]: never; }>;
+
+
+export type GetHomeToursQuery = { __typename?: 'Query', getHomeTours: Array<{ __typename?: 'Tour', id: string, name: string, format: Types.TourFormat, description: string, type: Types.TourType, image: string, rating?: number | null, price: number, favoriteTour?: Array<{ __typename?: 'FavoriteTour', tourId: number }> | null, tourCity?: Array<{ __typename?: 'TourCity', city: { __typename?: 'City', id: string, name: string } }> | null, tourLanguage?: Array<{ __typename?: 'TourLanguage', language: { __typename?: 'Language', id: string, name: string } }> | null, tourTourCategory?: Array<{ __typename?: 'TourTourCategory', tourCategory: { __typename?: 'TourCategory', id: string, name: string } }> | null, guide: { __typename?: 'User', id: string, firstName: string, lastName: string, role: Types.UserRole, image?: string | null, country?: { __typename?: 'Country', name: string } | null, tour?: Array<{ __typename?: 'Tour', id: string, name: string, price: number, maxCapacity: number, currency: { __typename?: 'Currency', name: string } }> | null } }> };
 
 
 export const GetToursByCountryDocument = gql`
@@ -48,6 +53,7 @@ export const GetToursByCountryDocument = gql`
       }
     }
     guide {
+      id
       country {
         name
       }
@@ -75,4 +81,62 @@ export const GetToursByCountryDocument = gql`
 
 export function useGetToursByCountryQuery(options: Omit<Urql.UseQueryArgs<GetToursByCountryQueryVariables>, 'query'>) {
   return Urql.useQuery<GetToursByCountryQuery>({ query: GetToursByCountryDocument, ...options });
+};
+export const GetHomeToursDocument = gql`
+    query GetHomeTours {
+  getHomeTours {
+    id
+    name
+    format
+    description
+    type
+    image
+    rating
+    price
+    favoriteTour {
+      tourId
+    }
+    tourCity {
+      city {
+        id
+        name
+      }
+    }
+    tourLanguage {
+      language {
+        id
+        name
+      }
+    }
+    tourTourCategory {
+      tourCategory {
+        id
+        name
+      }
+    }
+    guide {
+      id
+      country {
+        name
+      }
+      firstName
+      lastName
+      role
+      image
+      tour {
+        id
+        name
+        price
+        maxCapacity
+        currency {
+          name
+        }
+      }
+    }
+  }
+}
+    `;
+
+export function useGetHomeToursQuery(options?: Omit<Urql.UseQueryArgs<GetHomeToursQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetHomeToursQuery>({ query: GetHomeToursDocument, ...options });
 };

@@ -8,3 +8,26 @@ const GET_COUNTRIES = gql`
     }
   }
 `
+
+const GET_HOME_COUNTRIES = gql`
+  query GetHomeCountries {
+    getHomeCountries {
+      id
+      name
+    }
+  }
+`
+
+const GET_CITIES = gql`
+  query getCities {
+    getCities {
+      id
+      name
+      status
+      country {
+        name
+        id
+      }
+    }
+  }
+`

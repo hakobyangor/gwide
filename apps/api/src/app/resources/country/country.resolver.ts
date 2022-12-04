@@ -7,12 +7,22 @@ export class CountryResolver {
   constructor(private readonly countryService: CountryService) {}
 
   @Query(() => [City])
-  async getCities(@Args('countryId') countryId: number) {
+  async getCitiesByCountry(@Args('countryId') countryId: number) {
     return this.countryService.getCountryCities(countryId)
   }
 
   @Query(() => [Country])
   async getCountries() {
     return this.countryService.getCountries()
+  }
+
+  @Query(() => [Country])
+  async getHomeCountries() {
+    return this.countryService.getHomeCountries()
+  }
+
+  @Query(() => [City])
+  async getCities() {
+    return this.countryService.getCities()
   }
 }
