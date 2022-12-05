@@ -160,7 +160,7 @@ export default function Header() {
                   <div className="hidden  align-middle items-center sm:flex">
                     <Button
                       type="primary"
-                      className="mr-2"
+                      className="mr-2 text-sm"
                       onClick={() => {
                         router.push('/sign-up')
                       }}
@@ -173,6 +173,7 @@ export default function Header() {
                       onClick={() => {
                         router.push('/login')
                       }}
+                      className="text-sm"
                     >
                       Log In
                     </Button>

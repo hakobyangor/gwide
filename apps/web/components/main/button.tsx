@@ -3,11 +3,11 @@ import React from 'react'
 function Button(props) {
   let buttonClass = ''
   buttonClass +=
-    'px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-gw-primary-600 hover:bg-gw-primary-700 '
+    'px-2.5 py-1.5 border border-transparent font-medium rounded shadow-sm text-white bg-gw-primary-600 hover:bg-gw-primary-700 '
 
   if (props.type === 'secondary') {
     buttonClass =
-      'px-2.5 py-1.5 border border-transparent text-xs font-medium rounded  shadow-sm text-gw-primary-700 bg-gw-primary-100 hover:bg-primary-200 '
+      'px-2.5 py-1.5 border border-transparent font-medium rounded  shadow-sm text-gw-primary-700 bg-gw-primary-100 hover:bg-primary-200 '
   }
 
   if (props.disabled === true) {

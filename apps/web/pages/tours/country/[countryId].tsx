@@ -13,7 +13,7 @@ export async function getServerSideProps(context) {
   }
 }
 
-function ToursPage({ countryId }) {
+function ToursByCountryPage({ countryId }) {
   const [{ data, fetching }] = useGetToursByCountryQuery({
     variables: { countryId: Number(countryId) }
   })
@@ -37,4 +37,4 @@ function ToursPage({ countryId }) {
   )
 }
 
-export default withApi(ToursPage)
+export default withApi(ToursByCountryPage)

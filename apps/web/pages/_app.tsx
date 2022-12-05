@@ -15,7 +15,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
         </Head>
         <main className="app ">
           <Header />
-          <div className="px-auto pb-8 ">
+          <div className="px-auto">
             <Component {...pageProps} />
           </div>
           <Footer />

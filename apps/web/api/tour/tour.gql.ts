@@ -118,3 +118,64 @@ const GET_HOME_TOURS = gql`
     }
   }
 `
+const GET_TOURS = gql`
+  query GetTours($getToursInput: GetToursInput!) {
+    getTours(getToursInput: $getToursInput) {
+      id
+      name
+      format
+      image
+      type
+      rating
+      price
+      tourImage {
+        name
+        image
+      }
+      favoriteTour {
+        tourId
+      }
+      tourCity {
+        city {
+          id
+          name
+        }
+      }
+      tourLanguage {
+        language {
+          id
+          name
+        }
+      }
+      tourTourCategory {
+        tourCategory {
+          id
+          name
+        }
+      }
+      guide {
+        country {
+          name
+        }
+        firstName
+        lastName
+        role
+        image
+        tour {
+          id
+          name
+          price
+          maxCapacity
+          currency {
+            name
+          }
+
+          _count {
+            tourCity
+            tourLanguage
+          }
+        }
+      }
+    }
+  }
+`

@@ -25,4 +25,9 @@ export class CountryResolver {
   async getCities() {
     return this.countryService.getCities()
   }
+
+  @Query(() => City)
+  async getCityById(@Args('cityId') cityId: number) {
+    return this.countryService.getCityById(cityId)
+  }
 }

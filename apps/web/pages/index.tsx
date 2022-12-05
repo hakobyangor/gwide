@@ -8,8 +8,10 @@ import HomeCountriesBlock from '../components/home/HomeCountriesBlock'
 import HomeBecomeAGuideBlock from '../components/home/HomeBecomeAGuideBlock'
 import DividerWithTitle from '../components/main/DividerWithTitle'
 import HomeToursBlock from '../components/home/HomeToursBlock'
+import { useAuth } from '../src/context/auth.context'
 
 export function Index() {
+  const { user: authUser } = useAuth()
   const incentives = [
     {
       name: 'Free shipping',
@@ -42,7 +44,7 @@ export function Index() {
         <DividerWithTitle title="Top Visited Countries" />
         <HomeCountriesBlock />
         <IncentiveList incentives={incentives} />
-        <HomeBecomeAGuideBlock />
+        {!authUser && <HomeBecomeAGuideBlock />}
       </section>
     </>
   )

@@ -29,4 +29,11 @@ export class CountryService {
       include: { country: {} }
     })
   }
+
+  getCityById(id) {
+    return this.database.city.findFirst({
+      where: { status: Status.ACTIVE, id },
+      include: { country: {} }
+    })
+  }
 }

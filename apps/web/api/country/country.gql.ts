@@ -31,3 +31,15 @@ const GET_CITIES = gql`
     }
   }
 `
+const GET_CITY_BY_ID = gql`
+  query GetCityById($cityId: Float!) {
+    getCityById(cityId: $cityId) {
+      id
+      name
+      status
+      country {
+        name
+      }
+    }
+  }
+`

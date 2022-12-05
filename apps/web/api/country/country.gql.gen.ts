@@ -18,6 +18,13 @@ export type GetCitiesQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 export type GetCitiesQuery = { __typename?: 'Query', getCities: Array<{ __typename?: 'City', id: string, name: string, status: Types.Status, country: { __typename?: 'Country', name: string, id: string } }> };
 
+export type GetCityByIdQueryVariables = Types.Exact<{
+  cityId: Types.Scalars['Float'];
+}>;
+
+
+export type GetCityByIdQuery = { __typename?: 'Query', getCityById: { __typename?: 'City', id: string, name: string, status: Types.Status, country: { __typename?: 'Country', name: string } } };
+
 
 export const GetCountriesDocument = gql`
     query GetCountries {
@@ -59,4 +66,20 @@ export const GetCitiesDocument = gql`
 
 export function useGetCitiesQuery(options?: Omit<Urql.UseQueryArgs<GetCitiesQueryVariables>, 'query'>) {
   return Urql.useQuery<GetCitiesQuery>({ query: GetCitiesDocument, ...options });
+};
+export const GetCityByIdDocument = gql`
+    query GetCityById($cityId: Float!) {
+  getCityById(cityId: $cityId) {
+    id
+    name
+    status
+    country {
+      name
+    }
+  }
+}
+    `;
+
+export function useGetCityByIdQuery(options: Omit<Urql.UseQueryArgs<GetCityByIdQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetCityByIdQuery>({ query: GetCityByIdDocument, ...options });
 };
