@@ -26,10 +26,7 @@ function CardBgImage({ name, id, link }) {
             </div>
           </div>
           <div className="hover-overlay">
-            <div
-              className="mask absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100"
-              style={{ backgroundColor: 'rgba(253, 253, 253, 0.15)' }}
-            ></div>
+            <div className="mask absolute top-0 right-0 bottom-0 left-0 w-full bg-gw-secondary-600 h-full overflow-hidden bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-30"></div>
           </div>
         </>
       </div>

@@ -10,10 +10,10 @@ import { useFormik } from 'formik'
 import TextInputWithLabel from 'apps/web/components/main/form/TextInputWithLabel'
 import Button from 'apps/web/components/main/Button'
 import Loader from 'apps/web/components/main/Loader'
+import Link from 'next/link'
 
 export const LoginPage = () => {
   const [{ error, fetching: loginFetching, data }, login] = useLoginMutation()
-  const [formIsValid, setFormIsValid] = useState(true)
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -63,9 +63,13 @@ export const LoginPage = () => {
 
     if (error) {
       formik.setFieldError('email', ' ')
-      formik.setFieldError('password', 'Invalid email or password')
+      if (error.message === '[GraphQL] please verify your email to sign in') {
+        formik.setFieldError('password', 'Account does not exist or does not verified')
+      } else {
+        formik.setFieldError('password', 'Invalid credentials')
+      }
     }
-  }, [data])
+  }, [data, error])
 
   return (
     <>
@@ -104,6 +108,7 @@ export const LoginPage = () => {
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.email}
+                      defaultValue={formik.values.email}
                       error={
                         formik.touched.email && formik.errors.email ? formik.errors.email : false
                       }
@@ -117,6 +122,7 @@ export const LoginPage = () => {
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
+                      defaultValue={formik.values.password}
                       error={
                         formik.touched.password && formik.errors.password
                           ? formik.errors.password
@@ -126,12 +132,11 @@ export const LoginPage = () => {
 
                     <div className="flex items-center justify-between">
                       <div className="text-sm">
-                        <a
-                          href="#"
-                          className="font-medium text-gw-primary-600 hover:text-gw-primary-500"
-                        >
-                          Forgot your password?
-                        </a>
+                        <Link href="/reset-password">
+                          <span className="font-medium text-gw-primary-600 hover:text-gw-primary-500 hover:cursor-pointer">
+                            Forgot your password?
+                          </span>
+                        </Link>
                       </div>
                     </div>
 

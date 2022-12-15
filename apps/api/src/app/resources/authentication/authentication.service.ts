@@ -51,7 +51,7 @@ export class AuthenticationService {
         lastName,
         role,
         hash,
-        hashExpiredAt: moment().add(1, 'hour').toDate()
+        hashExpiredAt: moment().add(24, 'hours').toDate()
       }
     })
 
@@ -60,7 +60,7 @@ export class AuthenticationService {
       subject: 'Verify Email',
       from: process.env.SEND_GRID_MAIL_FROM_NO_REPLY,
       text: 'Verify Email',
-      html: `<h1>verify Email</h1> for verify Email use this <a href="${process.env.FRONT_URL}reset-password/${hash}"> link </a>`
+      html: `<h1>verify Email</h1> for verify Email use this <a href="${process.env.FRONT_URL}verify-email?hash=${hash}"> link </a>`
     }
 
     await this.sendgridService.send(mail)
@@ -78,7 +78,7 @@ export class AuthenticationService {
         subject: 'Reset Password',
         from: process.env.SEND_GRID_MAIL_FROM_NO_REPLY,
         text: 'Reset Password',
-        html: `<h1>Reset Password</h1> for reset password use this <a href="${process.env.FRONT_URL}reset-password/${hash}"> link </a>`
+        html: `<h1>Reset Password</h1> for reset password use this <a href="${process.env.FRONT_URL}confirm-password?hash=${hash}"> link </a>`
       }
 
       await this.sendgridService.send(mail)
@@ -102,7 +102,7 @@ export class AuthenticationService {
     const user = await this.userService.findByHash(hash)
 
     if (!user) {
-      throw new Error('Reset Password Hash expired!!!')
+      throw new Error('Reset Password Hash expired. Please try to reset again.')
     }
 
     const encryptedPassword = await bcrypt.hash(password, 10)
@@ -113,6 +113,16 @@ export class AuthenticationService {
     })
 
     return user
+  }
+
+  async checkResetPasswordHash(hash: string) {
+    const user = await this.userService.findByHash(hash)
+
+    if (user) {
+      return true
+    }
+
+    return false
   }
 
   async verifyEmail(hash: string) {

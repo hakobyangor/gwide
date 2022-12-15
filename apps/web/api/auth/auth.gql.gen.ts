@@ -22,6 +22,34 @@ export type LogoutMutationVariables = Types.Exact<{ [key: string]: never; }>;
 
 export type LogoutMutation = { __typename?: 'Mutation', logout: { __typename?: 'User', id: string, firstName: string, lastName: string, email: string, image?: string | null } };
 
+export type VerifyEmailMutationVariables = Types.Exact<{
+  args: Types.VerifyEmail;
+}>;
+
+
+export type VerifyEmailMutation = { __typename?: 'Mutation', verifyEmail: { __typename?: 'User', id: string, firstName: string, email: string, lastName: string } };
+
+export type ResetPasswordEmailMutationVariables = Types.Exact<{
+  args: Types.UserWhereUniqueInput;
+}>;
+
+
+export type ResetPasswordEmailMutation = { __typename?: 'Mutation', resetPasswordEmail: { __typename?: 'User', id: string, firstName: string, email: string, lastName: string } };
+
+export type ResetPasswordMutationVariables = Types.Exact<{
+  args: Types.ResetPassword;
+}>;
+
+
+export type ResetPasswordMutation = { __typename?: 'Mutation', resetPassword: { __typename?: 'User', id: string, firstName: string, email: string, lastName: string } };
+
+export type CheckResetPasswordHashQueryVariables = Types.Exact<{
+  args: Types.VerifyEmail;
+}>;
+
+
+export type CheckResetPasswordHashQuery = { __typename?: 'Query', checkResetPasswordHash: boolean };
+
 
 export const SignUpDocument = gql`
     mutation SignUp($args: RegisterInput!) {
@@ -66,4 +94,55 @@ export const LogoutDocument = gql`
 
 export function useLogoutMutation() {
   return Urql.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument);
+};
+export const VerifyEmailDocument = gql`
+    mutation VerifyEmail($args: verifyEmail!) {
+  verifyEmail(verifyEmail: $args) {
+    id
+    firstName
+    email
+    lastName
+  }
+}
+    `;
+
+export function useVerifyEmailMutation() {
+  return Urql.useMutation<VerifyEmailMutation, VerifyEmailMutationVariables>(VerifyEmailDocument);
+};
+export const ResetPasswordEmailDocument = gql`
+    mutation ResetPasswordEmail($args: UserWhereUniqueInput!) {
+  resetPasswordEmail(where: $args) {
+    id
+    firstName
+    email
+    lastName
+  }
+}
+    `;
+
+export function useResetPasswordEmailMutation() {
+  return Urql.useMutation<ResetPasswordEmailMutation, ResetPasswordEmailMutationVariables>(ResetPasswordEmailDocument);
+};
+export const ResetPasswordDocument = gql`
+    mutation ResetPassword($args: resetPassword!) {
+  resetPassword(resetPassword: $args) {
+    id
+    firstName
+    email
+    lastName
+  }
+}
+    `;
+
+export function useResetPasswordMutation() {
+  return Urql.useMutation<ResetPasswordMutation, ResetPasswordMutationVariables>(ResetPasswordDocument);
+};
+export const CheckResetPasswordHashDocument = gql`
+    query checkResetPasswordHash($args: verifyEmail!) {
+  checkResetPasswordHash(checkResetPasswordHash: $args)
+}
+    `;
+
+export function useCheckResetPasswordHashQuery(options: Omit<Urql.UseQueryArgs<CheckResetPasswordHashQueryVariables>, 'query'>) {
+  return Urql.useQuery<CheckResetPasswordHashQuery>({ query: CheckResetPasswordHashDocument, ...options });
 };

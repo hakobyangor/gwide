@@ -47,9 +47,14 @@ export class AuthenticationResolver {
     return this.authenticationService.verifyEmail(verifyEmail.hash)
   }
 
-  @Query(() => User)
+  @Mutation(() => User)
   resetPasswordEmail(@Args() findUserArguments: FindUniqueUserArgs) {
     return this.authenticationService.resetPasswordEmail(findUserArguments)
+  }
+
+  @Query(() => Boolean)
+  checkResetPasswordHash(@Args('checkResetPasswordHash') checkResetPasswordHash: verifyEmail) {
+    return this.authenticationService.checkResetPasswordHash(checkResetPasswordHash.hash)
   }
 
   @Mutation(() => User)

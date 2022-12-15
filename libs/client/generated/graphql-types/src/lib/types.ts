@@ -1639,6 +1639,7 @@ export type Mutation = {
   removeTour: Tour;
   removeUser: User;
   resetPassword: User;
+  resetPasswordEmail: User;
   signUp: User;
   updatePendingBooking: Booking;
   updateTour: Tour;
@@ -1712,6 +1713,11 @@ export type MutationResetPasswordArgs = {
 };
 
 
+export type MutationResetPasswordEmailArgs = {
+  where: UserWhereUniqueInput;
+};
+
+
 export type MutationSignUpArgs = {
   signUpInput: RegisterInput;
 };
@@ -1739,6 +1745,7 @@ export type MutationVerifyEmailArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  checkResetPasswordHash: Scalars['Boolean'];
   currentUser: User;
   getCities: Array<City>;
   getCitiesByCountry: Array<City>;
@@ -1753,9 +1760,13 @@ export type Query = {
   getTours: Array<Tour>;
   getToursByCountry: Array<Tour>;
   getUserBookings: Array<Booking>;
-  resetPasswordEmail: User;
   user: User;
   users: Array<User>;
+};
+
+
+export type QueryCheckResetPasswordHashArgs = {
+  checkResetPasswordHash: VerifyEmail;
 };
 
 
@@ -1791,11 +1802,6 @@ export type QueryGetToursArgs = {
 
 export type QueryGetToursByCountryArgs = {
   countryId: Scalars['Float'];
-};
-
-
-export type QueryResetPasswordEmailArgs = {
-  where: UserWhereUniqueInput;
 };
 
 

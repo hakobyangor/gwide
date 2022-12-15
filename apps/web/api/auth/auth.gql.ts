@@ -34,3 +34,42 @@ const LOGOUT = gql`
     }
   }
 `
+
+const VERIFY_EMAIL = gql`
+  mutation VerifyEmail($args: verifyEmail!) {
+    verifyEmail(verifyEmail: $args) {
+      id
+      firstName
+      email
+      lastName
+    }
+  }
+`
+
+const RESET_PASSWORD_EMAIL = gql`
+  mutation ResetPasswordEmail($args: UserWhereUniqueInput!) {
+    resetPasswordEmail(where: $args) {
+      id
+      firstName
+      email
+      lastName
+    }
+  }
+`
+
+const RESET_PASSWORD = gql`
+  mutation ResetPassword($args: resetPassword!) {
+    resetPassword(resetPassword: $args) {
+      id
+      firstName
+      email
+      lastName
+    }
+  }
+`
+
+const CHECK_RESET_PASSWORD_HASH = gql`
+  query checkResetPasswordHash($args: verifyEmail!) {
+    checkResetPasswordHash(checkResetPasswordHash: $args)
+  }
+`

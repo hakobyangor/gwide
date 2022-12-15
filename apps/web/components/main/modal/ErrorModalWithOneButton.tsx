@@ -1,17 +1,8 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { CheckIcon } from '@heroicons/react/24/outline'
 import React, { Fragment } from 'react'
 import Button from '../Button'
 
-function SuccessModalWithOneButton({
-  title,
-  text,
-  buttonText,
-  onButtonClick,
-  onClose,
-  show,
-  icon
-}) {
+function ErrorModalWithOneButton({ title, text, buttonText, onButtonClick, onClose, show, icon }) {
   return (
     <Transition.Root show={show} as={Fragment}>
       <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={onClose}>
@@ -43,7 +34,7 @@ function SuccessModalWithOneButton({
           >
             <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
               <div>
-                <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-gw-error-100">
                   {icon}
                 </div>
                 <div className="mt-3 text-center sm:mt-5">
@@ -68,4 +59,4 @@ function SuccessModalWithOneButton({
   )
 }
 
-export default SuccessModalWithOneButton
+export default ErrorModalWithOneButton

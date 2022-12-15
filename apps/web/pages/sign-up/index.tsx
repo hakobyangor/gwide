@@ -14,6 +14,7 @@ import { useRouter } from 'next/router'
 import RadioWithLabel from 'apps/web/components/main/form/RadioWithLabel'
 import SuccessModalWithOneButton from 'apps/web/components/main/modal/SuccessModalWithOneButton'
 import Loader from 'apps/web/components/main/Loader'
+import { CheckIcon } from '@heroicons/react/24/outline'
 
 const userRoles = [
   { id: 'USER', title: 'User' },
@@ -83,9 +84,9 @@ export const SignUp = () => {
         <meta property="og:title" content="Login | Gwide" key="title" />
       </Head>
       <SuccessModalWithOneButton
-        title={'Successfully signed up'}
+        title={'Go To Home Page'}
         text="Thank you for sign up, You will receive verification email. Please verify yor Email address"
-        buttonText={'Ok, I understand'}
+        buttonText={'Go To Home Page'}
         onClose={() => {
           setShowSuccessModal(false)
           formik.resetForm()
@@ -93,8 +94,10 @@ export const SignUp = () => {
         onButtonClick={() => {
           formik.resetForm()
           setShowSuccessModal(false)
+          router.push('/')
         }}
         show={showSuccessModal}
+        icon={<CheckIcon className="h-6 w-6 text-green-600" aria-hidden="true" />}
       />
       <div className="flex items-center justify-center">
         <img
@@ -116,6 +119,7 @@ export const SignUp = () => {
                   Sign in to your account
                 </h2>
               </div>
+
               {signUpFetching && <Loader />}
               {!signUpFetching && (
                 <>
@@ -213,6 +217,12 @@ export const SignUp = () => {
                       </Button>
                     </div>
                   </form>
+
+                  {error && (
+                    <div className="text-gw-error-600 text-sm py-2">
+                      {error.message.replace('[GraphQL] ', '')}
+                    </div>
+                  )}
                   <div className="mt-6">
                     <div className="relative">
                       <div className="absolute inset-0 flex items-center">
